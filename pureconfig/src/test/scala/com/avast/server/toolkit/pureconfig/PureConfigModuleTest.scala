@@ -26,9 +26,9 @@ class PureConfigModuleTest extends FunSuite {
   }
 
   test("Configuration loading with exceptions") {
-    assert(PureConfigModule.makeOrThrow[SyncIO, TestConfig](source).unsafeRunSync() === TestConfig(123, "test"))
+    assert(PureConfigModule.makeOrRaise[SyncIO, TestConfig](source).unsafeRunSync() === TestConfig(123, "test"))
     assertThrows[ConfigReaderException[TestConfig]] {
-      PureConfigModule.makeOrThrow[SyncIO, TestConfig](ConfigSource.empty).unsafeRunSync()
+      PureConfigModule.makeOrRaise[SyncIO, TestConfig](ConfigSource.empty).unsafeRunSync()
     }
   }
 

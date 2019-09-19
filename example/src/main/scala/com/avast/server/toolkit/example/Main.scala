@@ -10,7 +10,7 @@ object Main extends CatsApp {
 
   def program: Resource[Task, Unit] = {
     for {
-      configuration <- Resource.liftF(PureConfigModule.makeOrThrow[Task, Configuration])
+      configuration <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
     } yield ()
   }
 
