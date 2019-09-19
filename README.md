@@ -1,8 +1,15 @@
 # Scala Server Toolkit
 
+[![Build Status](https://travis-ci.org/avast/scala-server-toolkit.svg?branch=master)](https://travis-ci.org/avast/scala-server-toolkit)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/avast/scala-server-toolkit?color=white&label=version&sort=semver)
+
 This project is a culmination of years of Scala development at Avast and tries to represent the best practices of Scala server development 
 we have gained together with tools that allow us to be effective. It is a set of small, flexible and cohesive building blocks that fit 
 together well and allow you to build reliable server applications.
+
+## [Documentation](./docs/index.md)
+
+Or you can [deep dive into example code](example/src/main/scala/com/avast/server/toolkit/example/Main.scala) if you like that more.
 
 ## Design
 

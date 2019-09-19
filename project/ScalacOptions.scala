@@ -10,9 +10,7 @@ object ScalacOptions {
     "-Xlint",
     "-Xfatal-warnings",
     "-Xcheckinit",
-    "-Ywarn-dead-code",
     "-Ywarn-value-discard",
-    "-Ypartial-unification",
     "-Ywarn-macros:after",
     "-Ybackend-parallelism",
     "4"
