@@ -1,4 +1,4 @@
-ThisBuild / organization := "com.avast.server"
+ThisBuild / organization := "com.avast"
 ThisBuild / homepage := Some(url("https://github.com/avast/scala-server-toolkit"))
 ThisBuild / description := "Functional programming toolkit for building server applications in Scala."
 ThisBuild / licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE"))
