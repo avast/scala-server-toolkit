@@ -14,9 +14,9 @@ ThisBuild / turbo := true
 
 lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
-    compilerPlugin("org.typelevel" %% "kind-projector" % "0.10.3"),
-    "org.typelevel" %% "cats-effect" % "2.0.0",
-    "org.scalatest" %% "scalatest" % "3.0.8" % Test
+    compilerPlugin(Dependencies.kindProjector),
+    Dependencies.catsEffect,
+    Dependencies.scalaTest
   ),
   Test / publishArtifact := false
 )
@@ -40,8 +40,8 @@ lazy val example = project
     mdocIn := baseDirectory.value / "src" / "main" / "mdoc",
     mdocOut := baseDirectory.value / ".." / "docs",
     libraryDependencies ++= Seq(
-      "dev.zio" %% "zio" % "1.0.0-RC12-1",
-      "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC3"
+      Dependencies.zio,
+      Dependencies.zioInteropCats
     )
   )
 
@@ -49,5 +49,5 @@ lazy val pureconfig = project
   .settings(
     commonSettings,
     name := "scala-server-toolkit-pureconfig",
-    libraryDependencies += "com.github.pureconfig" %% "pureconfig" % "0.12.0"
+    libraryDependencies += Dependencies.pureConfig
   )
