@@ -7,19 +7,47 @@ ThisBuild / scmInfo := Some(
   ScmInfo(url("https://github.com/avast/scala-server-toolkit"), "scm:git:git@github.com:avast/scala-server-toolkit.git")
 )
 
-ThisBuild / scalaVersion := "2.13.1"
+ThisBuild / scalaVersion := "2.13.0"
 ThisBuild / scalacOptions := ScalacOptions.default
+
+ThisBuild / turbo := true
 
 lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
-    compilerPlugin("org.typelevel" %% "kind-projector" % "0.10.3")
+    compilerPlugin(Dependencies.kindProjector),
+    Dependencies.catsEffect,
+    Dependencies.scalaTest
   ),
   Test / publishArtifact := false
 )
 
 lazy val root = (project in file("."))
+  .aggregate(example, pureconfig)
   .settings(
-    commonSettings,
     name := "scala-server-toolkit",
     publish / skip := true
+  )
+
+lazy val example = project
+  .dependsOn(pureconfig)
+  .enablePlugins(MdocPlugin)
+  .settings(
+    commonSettings,
+    name := "scala-server-toolkit-example",
+    publish / skip := true,
+    run / fork := true,
+    Global / cancelable := true,
+    mdocIn := baseDirectory.value / "src" / "main" / "mdoc",
+    mdocOut := baseDirectory.value / ".." / "docs",
+    libraryDependencies ++= Seq(
+      Dependencies.zio,
+      Dependencies.zioInteropCats
+    )
+  )
+
+lazy val pureconfig = project
+  .settings(
+    commonSettings,
+    name := "scala-server-toolkit-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
   )
