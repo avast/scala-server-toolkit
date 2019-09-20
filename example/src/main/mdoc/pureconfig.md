@@ -8,6 +8,7 @@ This module allows you to load your application's configuration file according t
 [PureConfig](https://pureconfig.github.io) library to do so which uses [Lightbend Config](https://github.com/lightbend/config) which means
 that your application's configuration will be in [HOCON](https://github.com/lightbend/config/blob/master/HOCON.md) format.
 
+Loading of configuration is side-effectful so it is wrapped in `F` which is `Sync`. This module also tweaks the error messages a little.
 
 ```scala mdoc
 import com.avast.server.toolkit.pureconfig._
