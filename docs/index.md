@@ -9,6 +9,6 @@ Creating a simple HTTP server is as easy as this:
 
 #### build.sbt
 
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/avast/scala-server-toolkit?label=version&sort=semver)
+![Maven Central](https://img.shields.io/maven-central/v/com.avast/scala-server-toolkit-pureconfig_2.13)
 
-`libraryDependencies += "com.avast.server.toolkit" %% "scala-server-toolkit-pureconfig" % "<VERSION>"`
+`libraryDependencies += "com.avast" %% "scala-server-toolkit-pureconfig" % "<VERSION>"`
