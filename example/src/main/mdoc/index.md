@@ -1,6 +1,7 @@
 # Scala Server Toolkit Documentation
 
 * [Getting Started](#getting-started)
+* [Rationale](rationale.md)
 * [Module PureConfig](pureconfig.md)
 
 ## Getting Started
