@@ -7,7 +7,7 @@ import cats.effect.{Resource, Sync}
 import cats.syntax.flatMap._
 import cats.syntax.functor._
 import cats.syntax.show._
-import javax.net.ssl.{KeyManager, KeyManagerFactory, SSLContext, TrustManager, TrustManagerFactory, X509KeyManager, X509TrustManager}
+import javax.net.ssl.{KeyManager, KeyManagerFactory, SSLContext, TrustManager, TrustManagerFactory}
 
 import scala.language.higherKinds
 
@@ -64,8 +64,6 @@ object SslContextModule {
     factory
       .getKeyManagers
       .toList
-      .filter(_.isInstanceOf[X509KeyManager])
-      .map(_.asInstanceOf[X509KeyManager])
   }
 
   private def getTrustManagers(keystore: KeyStore): List[TrustManager] = {
@@ -75,8 +73,6 @@ object SslContextModule {
     factory
       .getTrustManagers
       .toList
-      .filter(_.isInstanceOf[X509TrustManager])
-      .map(_.asInstanceOf[X509TrustManager])
   }
 
 }

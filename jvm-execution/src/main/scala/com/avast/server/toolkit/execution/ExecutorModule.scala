@@ -21,69 +21,77 @@ import scala.language.higherKinds
 /** Provides necessary executors - the default one for execution of your business logic and callbacks and special one designated for
   * blocking operations. Also allows you to create more executors if you need them.
   */
-class ExecutorModule[F[_]: Sync](val numOfCpus: Int, val executor: ExecutionContext, blockingExecutor: ExecutionContextExecutorService) {
+class ExecutorModule[F[_]: Sync](val numOfCpus: Int,
+                                 val executionContext: ExecutionContext,
+                                 blockingExecutor: ExecutionContextExecutorService) {
   module =>
 
   /** Executor designated for blocking operations. */
   val blocker: Blocker = Blocker.liftExecutionContext(blockingExecutor)
 
   /** [[java.util.concurrent.ExecutorService]] that can be used for blocking operations in Java-interop code. */
-  lazy val blockingExecutorService: ExecutorService = blockingExecutor
+  val blockingExecutorService: ExecutorService = blockingExecutor
 
   /** Provides implicit reference to the default callback executor for easier use. */
   object Implicits {
 
-    implicit val executor: ExecutionContext = module.executor
+    implicit val executionContext: ExecutionContext = module.executionContext
 
   }
 
   /** Makes [[java.util.concurrent.ThreadPoolExecutor]] according to the given config and with [[java.util.concurrent.ThreadFactory]]. */
-  def makeThreadPoolExecutor(config: ThreadPoolExecutorConfig,
-                             threadFactory: ThreadFactory): Resource[F, ExecutionContextExecutorService] = {
-    ExecutorModule.makeThreadPoolExecutor(config, threadFactory, new LinkedBlockingQueue).map(ExecutionContext.fromExecutorService)
+  def makeThreadPoolExecutor(config: ThreadPoolExecutorConfig, threadFactory: ThreadFactory): Resource[F, ThreadPoolExecutor] = {
+    ExecutorModule.makeThreadPoolExecutor(config, threadFactory, new LinkedBlockingQueue)
   }
 
   /** Makes [[java.util.concurrent.ForkJoinPool]] according to the given config and with [[java.util.concurrent.ThreadFactory]]. */
-  def makeForkJoinExecutor(config: ForkJoinPoolConfig,
-                           threadFactory: ForkJoinWorkerThreadFactory): Resource[F, ExecutionContextExecutorService] = {
-    ExecutorModule.makeForkJoinPool(config, numOfCpus, threadFactory).map(ExecutionContext.fromExecutorService)
+  def makeForkJoinPool(config: ForkJoinPoolConfig, threadFactory: ForkJoinWorkerThreadFactory): Resource[F, ForkJoinPool] = {
+    ExecutorModule.makeForkJoinPool(config, numOfCpus, threadFactory)
   }
 
 }
 
 object ExecutorModule {
 
-  /** Makes [[ExecutorModule]] with default callback executor and extra [[cats.effect.Blocker]] executor for blocking operations. */
-  def make[F[_]: Sync]: Resource[F, ExecutorModule[F]] = {
+  /** Makes [[com.avast.server.toolkit.execution.ExecutorModule]] with default callback executor and extra [[cats.effect.Blocker]] executor
+    * for blocking operations.
+    */
+  def makeDefault[F[_]: Sync]: Resource[F, ExecutorModule[F]] = {
     for {
       numOfCpus <- Resource.liftF(Sync[F].delay(Runtime.getRuntime.availableProcessors))
       coreSize = numOfCpus * 2
       executor <- makeThreadPoolExecutor(ThreadPoolExecutorConfig(coreSize, coreSize), toolkitThreadFactory, new LinkedBlockingQueue)
                    .map(ExecutionContext.fromExecutorService)
-      be <- makeBlockingExecutor.map(ExecutionContext.fromExecutorService)
-    } yield new ExecutorModule[F](numOfCpus, executor, be)
+      blockingExecutor <- makeBlockingExecutor.map(ExecutionContext.fromExecutorService)
+    } yield new ExecutorModule[F](numOfCpus, executor, blockingExecutor)
   }
 
-  /** Makes [[ExecutorModule]] with the provided callback executor and extra [[cats.effect.Blocker]] executor for blocking operations. */
-  def make[F[_]: Sync](executor: ExecutionContext): Resource[F, ExecutorModule[F]] = {
+  /** Makes [[com.avast.server.toolkit.execution.ExecutorModule]] with the provided callback executor and extra [[cats.effect.Blocker]]
+    * executor for blocking operations.
+    */
+  def makeFromExecutionContext[F[_]: Sync](executor: ExecutionContext): Resource[F, ExecutorModule[F]] = {
     for {
       numOfCpus <- Resource.liftF(Sync[F].delay(Runtime.getRuntime.availableProcessors))
-      be <- makeBlockingExecutor.map(ExecutionContext.fromExecutorService)
-    } yield new ExecutorModule[F](numOfCpus, executor, be)
+      blockingExecutor <- makeBlockingExecutor.map(ExecutionContext.fromExecutorService)
+    } yield new ExecutorModule[F](numOfCpus, executor, blockingExecutor)
   }
 
-  /** Makes [[ExecutorModule]] with executor and extra [[cats.effect.Blocker]] executor for blocking operations. */
-  def make[F[_]: Sync](executorConfig: ThreadPoolExecutorConfig): Resource[F, ExecutorModule[F]] = {
+  /** Makes [[com.avast.server.toolkit.execution.ExecutorModule]] with executor and extra [[cats.effect.Blocker]] executor
+    * for blocking operations.
+    */
+  def makeFromConfig[F[_]: Sync](executorConfig: ThreadPoolExecutorConfig): Resource[F, ExecutorModule[F]] = {
     for {
       numOfCpus <- Resource.liftF(Sync[F].delay(Runtime.getRuntime.availableProcessors))
       executor <- makeThreadPoolExecutor(executorConfig, toolkitThreadFactory, new LinkedBlockingQueue)
                    .map(ExecutionContext.fromExecutorService)
-      be <- makeBlockingExecutor.map(ExecutionContext.fromExecutorService)
-    } yield new ExecutorModule[F](numOfCpus, executor, be)
+      blockingExecutor <- makeBlockingExecutor.map(ExecutionContext.fromExecutorService)
+    } yield new ExecutorModule[F](numOfCpus, executor, blockingExecutor)
   }
 
-  /** Makes [[ExecutorModule]] with fork-join executor and extra [[cats.effect.Blocker]] executor for blocking operations. */
-  def makeWithForkJoin[F[_]: Sync](executorConfig: ForkJoinPoolConfig): Resource[F, ExecutorModule[F]] = {
+  /** Makes [[com.avast.server.toolkit.execution.ExecutorModule]] with fork-join executor and extra [[cats.effect.Blocker]] executor
+    * for blocking operations.
+    */
+  def makeForkJoinFromConfig[F[_]: Sync](executorConfig: ForkJoinPoolConfig): Resource[F, ExecutorModule[F]] = {
     for {
       numOfCpus <- Resource.liftF(Sync[F].delay(Runtime.getRuntime.availableProcessors))
       executor <- makeForkJoinPool(executorConfig, numOfCpus, toolkitThreadFactory)

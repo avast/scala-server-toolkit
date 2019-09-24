@@ -49,7 +49,7 @@ lazy val jvmExecution = (project in file("jvm-execution"))
   .settings(
     commonSettings,
     name := "scala-server-toolkit-jvm-execution",
-    libraryDependencies += Dependencies.scalaLogging
+    libraryDependencies += Dependencies.slf4jApi
   )
 
 lazy val jvmSsl = (project in file("jvm-ssl"))

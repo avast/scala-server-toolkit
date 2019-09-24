@@ -5,9 +5,9 @@ import org.scalatest.FunSuite
 
 class ExecutorModuleTest extends FunSuite {
 
-  test("ExecutorModule") {
-    val executorModule = ExecutorModule.make[SyncIO].use(m => SyncIO.pure(m)).unsafeRunSync()
-    assert(executorModule.executor !== executorModule.blocker.blockingContext)
+  test("ExecutorModule initializes properly and blocking executor differs from callback executor") {
+    val executorModule = ExecutorModule.makeDefault[SyncIO].use(m => SyncIO.pure(m)).unsafeRunSync()
+    assert(executorModule.executionContext !== executorModule.blocker.blockingContext)
   }
 
 }

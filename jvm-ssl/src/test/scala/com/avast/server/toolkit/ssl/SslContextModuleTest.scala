@@ -7,7 +7,7 @@ import org.scalatest.FunSuite
 
 class SslContextModuleTest extends FunSuite {
 
-  test("SslContextModule") {
+  test("SslContextModule initializes properly from JKS store") {
     val truststore = getClass.getResource("/truststore.jks").toURI.getPath
     val sslContext = SslContextModule
       .make[SyncIO](
