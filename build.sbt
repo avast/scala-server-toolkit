@@ -19,7 +19,7 @@ lazy val commonSettings = Seq(
     compilerPlugin(scalafixSemanticdb), // for scalafix
     Dependencies.silencerLib,
     Dependencies.catsEffect,
-    Dependencies.scalaTest % Test
+    Dependencies.Test.scalaTest % Test
   ),
   Compile / compile / wartremoverErrors ++= Warts.all filterNot Set(
     Wart.Nothing, // keep, false positives all around
@@ -57,14 +57,14 @@ lazy val commonSettings = Seq(
 
 lazy val root = project
   .in(file("."))
-  .aggregate(example, pureconfig)
+  .aggregate(example, jvmExecution, jvmSsl, jvmSystem, pureconfig)
   .settings(
     name := "scala-server-toolkit",
     publish / skip := true
   )
 
 lazy val example = project
-  .dependsOn(pureconfig)
+  .dependsOn(jvmExecution, jvmSsl, jvmSystem, pureconfig)
   .enablePlugins(MdocPlugin)
   .settings(commonSettings)
   .settings(
@@ -78,6 +78,28 @@ lazy val example = project
       Dependencies.zio,
       Dependencies.zioInteropCats
     )
+  )
+
+lazy val jvmExecution = project
+  .in(file("jvm-execution"))
+  .settings(
+    commonSettings,
+    name := "scala-server-toolkit-jvm-execution",
+    libraryDependencies += Dependencies.slf4jApi
+  )
+
+lazy val jvmSsl = project
+  .in(file("jvm-ssl"))
+  .settings(
+    commonSettings,
+    name := "scala-server-toolkit-jvm-ssl"
+  )
+
+lazy val jvmSystem = project
+  .in(file("jvm-system"))
+  .settings(
+    commonSettings,
+    name := "scala-server-toolkit-jvm-system"
   )
 
 lazy val pureconfig = project
