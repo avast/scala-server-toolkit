@@ -21,7 +21,8 @@ lazy val commonSettings = Seq(
   Test / publishArtifact := false
 )
 
-lazy val root = (project in file("."))
+lazy val root = project
+  .in(file("."))
   .aggregate(example, jvmExecution, jvmSsl, jvmSystem, pureconfig)
   .settings(
     name := "scala-server-toolkit",
@@ -45,20 +46,23 @@ lazy val example = project
     )
   )
 
-lazy val jvmExecution = (project in file("jvm-execution"))
+lazy val jvmExecution = project
+  .in(file("jvm-execution"))
   .settings(
     commonSettings,
     name := "scala-server-toolkit-jvm-execution",
     libraryDependencies += Dependencies.slf4jApi
   )
 
-lazy val jvmSsl = (project in file("jvm-ssl"))
+lazy val jvmSsl = project
+  .in(file("jvm-ssl"))
   .settings(
     commonSettings,
     name := "scala-server-toolkit-jvm-ssl"
   )
 
-lazy val jvmSystem = (project in file("jvm-system"))
+lazy val jvmSystem = project
+  .in(file("jvm-system"))
   .settings(
     commonSettings,
     name := "scala-server-toolkit-jvm-system"
