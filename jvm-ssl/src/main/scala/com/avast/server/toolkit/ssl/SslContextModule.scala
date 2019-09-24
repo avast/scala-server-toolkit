@@ -11,6 +11,7 @@ import javax.net.ssl.{KeyManager, KeyManagerFactory, SSLContext, TrustManager, T
 
 import scala.language.higherKinds
 
+@SuppressWarnings(Array("org.wartremover.warts.Null"))
 object SslContextModule {
 
   /** Loads [[javax.net.ssl.SSLContext]] and fills it with key/trust managers from the provided config. */

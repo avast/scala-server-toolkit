@@ -3,6 +3,7 @@ package com.avast.server.toolkit.execution
 import ForkJoinPoolConfig.TaskPeekingMode
 import ForkJoinPoolConfig.TaskPeekingMode.{FIFO, LIFO}
 
+@SuppressWarnings(Array("org.wartremover.warts.DefaultArguments"))
 final case class ForkJoinPoolConfig(parallelismMin: Int = 8,
                                     parallelismFactor: Double = 1.0,
                                     parallelismMax: Int = 64,

@@ -13,6 +13,7 @@ import zio.{Task, ZIO}
 
 object Main extends CatsApp {
 
+  @SuppressWarnings(Array("org.wartremover.warts.StringPlusAny")) // false positive
   def program: Resource[Task, Unit] = {
     for {
       _ <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
@@ -26,7 +27,7 @@ object Main extends CatsApp {
     } yield ()
   }
 
-  @silent("dead code")
+  @silent("dead code") // false positive
   override def run(args: List[String]): ZIO[Environment, Nothing, Int] = {
     program
       .use(_ => Task.never)
