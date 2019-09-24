@@ -1,11 +1,8 @@
 # Scala Server Toolkit Documentation
 
 * [Getting Started](#getting-started)
-<<<<<<< HEAD
 * [Rationale](rationale.md)
-=======
 * [Modules JVM](jvm.md)
->>>>>>> feat: Add jvm-execution, jvm-ssl and jvm-system modules
 * [Module PureConfig](pureconfig.md)
 
 ## Getting Started

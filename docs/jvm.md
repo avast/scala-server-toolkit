@@ -23,6 +23,6 @@ val program = for {
   randomNumber <- systemModule.random.nextInt
   _ <- systemModule.console.printLine(s"Current Unix epoch time is $currentTime ms. Random number: $randomNumber")
 } yield ()
-// program: zio.ZIO[Any, Throwable, Unit] = zio.ZIO$FlatMap@2d237460
+// program: zio.ZIO[Any, Throwable, Unit] = zio.ZIO$FlatMap@7f42b194
 ```
 

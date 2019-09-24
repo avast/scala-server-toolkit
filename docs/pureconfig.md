@@ -20,16 +20,9 @@ import zio.Task
 final case class ServerConfiguration(listenAddress: String, listenPort: Int)
 
 implicit val serverConfigurationReader: ConfigReader[ServerConfiguration] = deriveReader
-<<<<<<< HEAD
-// serverConfigurationReader: ConfigReader[ServerConfiguration] = pureconfig.generic.DerivedConfigReader1$$anon$3@3c04ddda
+// serverConfigurationReader: ConfigReader[ServerConfiguration] = pureconfig.generic.DerivedConfigReader1$$anon$3@1a9e2c3b
 
 val maybeConfiguration = PureConfigModule.make[Task, ServerConfiguration]
-// maybeConfiguration: Task[Either[cats.data.NonEmptyList[String], ServerConfiguration]] = zio.ZIO$EffectPartial@47b494ce
-=======
-// serverConfigurationReader: ConfigReader[ServerConfiguration] = pureconfig.generic.DerivedConfigReader1$$anon$3@3e7940b3
-
-val maybeConfiguration = PureConfigModule.make[Task, ServerConfiguration]
-// maybeConfiguration: Task[Either[cats.data.NonEmptyList[String], ServerConfiguration]] = zio.ZIO$EffectPartial@1ae37be2
->>>>>>> feat: Add jvm-execution, jvm-ssl and jvm-system modules
+// maybeConfiguration: Task[Either[cats.data.NonEmptyList[String], ServerConfiguration]] = zio.ZIO$EffectPartial@5f92e5eb
 ```
 
