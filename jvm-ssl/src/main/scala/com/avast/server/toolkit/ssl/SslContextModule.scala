@@ -9,8 +9,6 @@ import cats.syntax.functor._
 import cats.syntax.show._
 import javax.net.ssl.{KeyManager, KeyManagerFactory, SSLContext, TrustManager, TrustManagerFactory}
 
-import scala.language.higherKinds
-
 @SuppressWarnings(Array("org.wartremover.warts.Null"))
 object SslContextModule {
 

@@ -16,7 +16,6 @@ import cats.effect.{Blocker, Resource, Sync}
 import com.avast.server.toolkit.execution.ConfigurableThreadFactory.Config
 
 import scala.concurrent.{ExecutionContext, ExecutionContextExecutorService}
-import scala.language.higherKinds
 
 /** Provides necessary executors - the default one for execution of your business logic and callbacks and special one designated for
   * blocking operations. Also allows you to create more executors if you need them.

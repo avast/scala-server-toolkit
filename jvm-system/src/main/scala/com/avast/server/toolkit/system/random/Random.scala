@@ -2,8 +2,6 @@ package com.avast.server.toolkit.system.random
 
 import cats.effect.Sync
 
-import scala.language.higherKinds
-
 /** Pure pseudo-random number generator based on the JVM implementation. */
 trait Random[F[_]] {
 
