@@ -7,6 +7,6 @@ object Dependencies {
   val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.12.0"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.0.8" % Test
   val zio = "dev.zio" %% "zio" % "1.0.0-RC13"
-  val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC3"
+  val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC4"
 
 }
