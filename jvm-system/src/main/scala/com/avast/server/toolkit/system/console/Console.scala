@@ -1,0 +1,35 @@
+package com.avast.server.toolkit.system.console
+
+import java.io.{OutputStream, Reader}
+
+import cats.effect.Sync
+
+import scala.io.StdIn
+import scala.language.higherKinds
+import scala.{Console => SConsole}
+
+/** Pure console allowing to read and print lines. */
+trait Console[F[_]] {
+
+  def printLine(value: String): F[Unit]
+
+  def readLine: F[String]
+
+}
+
+object Console {
+
+  def apply[F[_]: Sync](in: Reader, out: OutputStream): Console[F] = new Console[F] {
+
+    private val F = Sync[F]
+
+    override def printLine(value: String): F[Unit] = F.delay {
+      SConsole.withOut(out)(SConsole.println(value))
+    }
+
+    override def readLine: F[String] = F.delay {
+      SConsole.withIn(in)(StdIn.readLine())
+    }
+  }
+
+}
