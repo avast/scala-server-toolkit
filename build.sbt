@@ -16,20 +16,21 @@ lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
     compilerPlugin(Dependencies.kindProjector),
     Dependencies.catsEffect,
-    Dependencies.scalaTest
+    Dependencies.Test.scalaTest
   ),
   Test / publishArtifact := false
 )
 
-lazy val root = (project in file("."))
-  .aggregate(example, pureconfig)
+lazy val root = project
+  .in(file("."))
+  .aggregate(example, jvmExecution, jvmSsl, jvmSystem, pureconfig)
   .settings(
     name := "scala-server-toolkit",
     publish / skip := true
   )
 
 lazy val example = project
-  .dependsOn(pureconfig)
+  .dependsOn(jvmExecution, jvmSsl, jvmSystem, pureconfig)
   .enablePlugins(MdocPlugin)
   .settings(
     commonSettings,
@@ -43,6 +44,28 @@ lazy val example = project
       Dependencies.zio,
       Dependencies.zioInteropCats
     )
+  )
+
+lazy val jvmExecution = project
+  .in(file("jvm-execution"))
+  .settings(
+    commonSettings,
+    name := "scala-server-toolkit-jvm-execution",
+    libraryDependencies += Dependencies.slf4jApi
+  )
+
+lazy val jvmSsl = project
+  .in(file("jvm-ssl"))
+  .settings(
+    commonSettings,
+    name := "scala-server-toolkit-jvm-ssl"
+  )
+
+lazy val jvmSystem = project
+  .in(file("jvm-system"))
+  .settings(
+    commonSettings,
+    name := "scala-server-toolkit-jvm-system"
   )
 
 lazy val pureconfig = project

@@ -2,6 +2,7 @@
 
 * [Getting Started](#getting-started)
 * [Rationale](rationale.md)
+* [Modules JVM](jvm.md)
 * [Module PureConfig](pureconfig.md)
 
 ## Getting Started
