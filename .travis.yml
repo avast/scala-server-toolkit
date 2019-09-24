@@ -10,7 +10,7 @@ before_install:
 stages:
   - name: test
   - name: release
-    if: ((branch = master AND type = push) OR (tag IS present)) AND NOT fork
+    if: ((branch = master) OR (tag IS present)) AND NOT fork
 
 jobs:
   include:
@@ -19,7 +19,7 @@ jobs:
       script: sbt test
     -
       name: formatting
-      script: sbt scalafmtCheckAll
+      script: sbt check
     # run ci-release only if previous stages passed
     - stage: release
       script: sbt ci-release
