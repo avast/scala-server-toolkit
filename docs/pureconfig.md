@@ -20,9 +20,9 @@ import zio.Task
 final case class ServerConfiguration(listenAddress: String, listenPort: Int)
 
 implicit val serverConfigurationReader: ConfigReader[ServerConfiguration] = deriveReader
-// serverConfigurationReader: ConfigReader[ServerConfiguration] = pureconfig.generic.DerivedConfigReader1$$anon$3@7d4e424e
+// serverConfigurationReader: ConfigReader[ServerConfiguration] = pureconfig.generic.DerivedConfigReader1$$anon$3@3c04ddda
 
 val maybeConfiguration = PureConfigModule.make[Task, ServerConfiguration]
-// maybeConfiguration: Task[Either[cats.data.NonEmptyList[String], ServerConfiguration]] = zio.ZIO$EffectPartial@e2498a3
+// maybeConfiguration: Task[Either[cats.data.NonEmptyList[String], ServerConfiguration]] = zio.ZIO$EffectPartial@47b494ce
 ```
 
