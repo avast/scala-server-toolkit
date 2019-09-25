@@ -16,21 +16,22 @@ lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
     compilerPlugin(Dependencies.kindProjector),
     Dependencies.catsEffect,
-    Dependencies.Test.scalaTest
+    Dependencies.logbackClassic % Test,
+    Dependencies.scalaTest % Test
   ),
   Test / publishArtifact := false
 )
 
 lazy val root = project
   .in(file("."))
-  .aggregate(example, jvmExecution, jvmSsl, jvmSystem, pureconfig)
+  .aggregate(example, http4sClient, http4sServer, jvmExecution, jvmSsl, jvmSystem, pureconfig)
   .settings(
     name := "scala-server-toolkit",
     publish / skip := true
   )
 
 lazy val example = project
-  .dependsOn(jvmExecution, jvmSsl, jvmSystem, pureconfig)
+  .dependsOn(jvmExecution, http4sClient, http4sServer, jvmSsl, jvmSystem, pureconfig)
   .enablePlugins(MdocPlugin)
   .settings(
     commonSettings,
@@ -43,6 +44,28 @@ lazy val example = project
     libraryDependencies ++= Seq(
       Dependencies.zio,
       Dependencies.zioInteropCats
+    )
+  )
+
+lazy val http4sClient = project
+  .in(file("http4s-client"))
+  .dependsOn(jvmSsl)
+  .settings(commonSettings)
+  .settings(
+    name := "scala-server-toolkit-http4s-client",
+    libraryDependencies += Dependencies.http4sBlazeClient
+  )
+
+lazy val http4sServer = project
+  .in(file("http4s-server"))
+  .dependsOn(http4sClient % Test)
+  .settings(commonSettings)
+  .settings(
+    name := "scala-server-toolkit-http4s-server",
+    libraryDependencies ++= Seq(
+      Dependencies.http4sBlazeServer,
+      Dependencies.http4sDsl,
+      Dependencies.slf4jApi
     )
   )
 
