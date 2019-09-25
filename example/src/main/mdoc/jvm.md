@@ -1,6 +1,6 @@
 # Modules JVM
 
-![Maven Central](https://img.shields.io/maven-central/v/com.avast/scala-server-toolkit-jvm-system_2.13)
+![Maven Central](https://img.shields.io/maven-central/v/com.avast/scala-server-toolkit-jvm-system_2.12)
 
 `libraryDependencies += "com.avast" %% "scala-server-toolkit-jvm-system" % "<VERSION>"`
 
