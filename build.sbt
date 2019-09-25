@@ -7,7 +7,7 @@ ThisBuild / scmInfo := Some(
   ScmInfo(url("https://github.com/avast/scala-server-toolkit"), "scm:git:git@github.com:avast/scala-server-toolkit.git")
 )
 
-ThisBuild / scalaVersion := "2.13.0"
+ThisBuild / scalaVersion := "2.12.10"
 ThisBuild / scalacOptions := ScalacOptions.default
 
 ThisBuild / turbo := true
