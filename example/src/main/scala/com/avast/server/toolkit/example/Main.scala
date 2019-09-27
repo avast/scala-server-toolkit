@@ -13,6 +13,7 @@ import zio.{Task, ZIO}
 object Main extends CatsApp {
 
   def program: Resource[Task, Unit] = {
+
     for {
       configuration <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
       executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.Platform.executor.asEC)

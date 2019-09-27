@@ -24,6 +24,6 @@ val program = for {
   _ <- console.printLine(s"Random number: $randomNumber")
 } yield ()
 
-val runtime = new DefaultRuntime {} // this is just in example
+val runtime = new DefaultRuntime {} // this is just needed in example
 runtime.unsafeRun(program)
  ```

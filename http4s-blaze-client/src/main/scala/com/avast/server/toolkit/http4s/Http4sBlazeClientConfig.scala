@@ -15,7 +15,7 @@ final case class Http4sBlazeClientConfig(
   idleTimeout: FiniteDuration = Duration(1, TimeUnit.MINUTES),
   requestTimeout: FiniteDuration = defaults.RequestTimeout,
   connectTimeout: FiniteDuration = defaults.ConnectTimeout,
-  userAgent: `User-Agent` = `User-Agent`(AgentProduct("http4s-client", Some(BuildInfo.version)), List(AgentComment("Server"))),
+  userAgent: `User-Agent` = `User-Agent`(AgentProduct("http4s-blaze-client", Some(BuildInfo.version)), List(AgentComment("Server"))),
   maxTotalConnections: Int = 10,
   maxWaitQueueLimit: Int = 256,
   maxConnectionsPerRequestkey: Int = 256,

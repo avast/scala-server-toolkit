@@ -26,6 +26,8 @@ final case class Http4sBlazeServerConfig(
 
 object Http4sBlazeServerConfig {
 
+  def localhost8080: Http4sBlazeServerConfig = Http4sBlazeServerConfig("127.0.0.1", 8080)
+
   final case class SocketOptions(tcpNoDelay: Boolean = true)
 
 }

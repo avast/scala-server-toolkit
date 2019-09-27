@@ -1,8 +1,8 @@
 package com.avast.server.toolkit.http4s
 
+import cats.Traverse
 import cats.effect.{ConcurrentEffect, Resource, Sync}
 import cats.implicits._
-import cats.{Applicative, Traverse}
 import com.avast.server.toolkit.ssl.{SslContextConfig, SslContextModule}
 import javax.net.ssl.SSLContext
 import org.http4s.client.Client
@@ -13,13 +13,11 @@ import scala.language.higherKinds
 
 object Http4sBlazeClient {
 
-  /** Makes [[org.http4s.client.Client]] (Blaze) initialized with the given config. */
+  /** Makes [[org.http4s.client.Client]] (Blaze) initialized with the given config.
+    *
+    * @param executionContext callback handling [[scala.concurrent.ExecutionContext]]
+    */
   def make[F[_]: ConcurrentEffect](config: Http4sBlazeClientConfig, executionContext: ExecutionContext): Resource[F, Client[F]] = {
-    makeClient(config, executionContext)
-  }
-
-  private def makeClient[F[_]: ConcurrentEffect: Applicative](config: Http4sBlazeClientConfig,
-                                                              executionContext: ExecutionContext): Resource[F, Client[F]] = {
     for {
       maybeSslContext <- Resource.liftF(sslContext(config.sslContext))
       client <- {
