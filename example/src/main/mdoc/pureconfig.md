@@ -10,7 +10,7 @@ that your application's configuration will be in [HOCON](https://github.com/ligh
 
 Loading of configuration is side-effectful so it is wrapped in `F` which is `Sync`. This module also tweaks the error messages a little.
 
-```scala mdoc
+```scala mdoc:silent
 import com.avast.server.toolkit.pureconfig._
 import pureconfig.ConfigReader
 import pureconfig.generic.semiauto.deriveReader

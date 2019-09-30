@@ -23,11 +23,11 @@ val program = for {
   console = ConsoleModule.make[Task]
   _ <- console.printLine(s"Random number: $randomNumber")
 } yield ()
-// program: zio.ZIO[Any, Throwable, Unit] = zio.ZIO$FlatMap@2f1f9515
+// program: zio.ZIO[Any, Throwable, Unit] = zio.ZIO$FlatMap@4cc26df
 
-val runtime = new DefaultRuntime {} // this is just in example
-// runtime: AnyRef with DefaultRuntime = repl.Session$App$$anon$1@33ebe4f0 // this is just in example
+val runtime = new DefaultRuntime {} // this is just needed in example
+// runtime: AnyRef with DefaultRuntime = repl.Session$App$$anon$1@3bab95ca // this is just needed in example
 runtime.unsafeRun(program)
-// Random number: 776310297
+// Random number: 1797916077
 ```
 
