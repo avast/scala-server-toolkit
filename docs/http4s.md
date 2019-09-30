@@ -8,7 +8,6 @@ There are `http4s-*` modules that provide easy initialization of a server and a 
 implementations - for now we provide only implementations based on [Blaze](https://github.com/http4s/blaze).
 
 Both server and client are configured via configuration `case class` which contains default values taken from the underlying implementations.
-Initialization of a server and a client is very simple if defaults are fine for you.
 
 ```scala
 import cats.effect._
