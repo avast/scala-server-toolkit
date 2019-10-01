@@ -13,7 +13,6 @@ import zio.{Task, ZIO}
 
 object Main extends CatsApp {
 
-  @SuppressWarnings(Array("org.wartremover.warts.StringPlusAny")) // false positive
   def program: Resource[Task, Unit] = {
 
     for {
