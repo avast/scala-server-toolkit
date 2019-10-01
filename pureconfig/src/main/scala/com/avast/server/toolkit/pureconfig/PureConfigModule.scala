@@ -6,6 +6,7 @@ import cats.syntax.either._
 import pureconfig.error.{ConfigReaderFailure, ConfigReaderFailures, ConvertFailure}
 import pureconfig.{ConfigReader, ConfigSource}
 
+import scala.language.higherKinds
 import scala.reflect.ClassTag
 
 /** Provides loading of configuration into case class via PureConfig. */

@@ -5,6 +5,7 @@ import java.io.{OutputStream, Reader}
 import cats.effect.Sync
 
 import scala.io.StdIn
+import scala.language.higherKinds
 import scala.{Console => SConsole}
 
 /** Pure console allowing to read and print lines. */
