@@ -18,7 +18,8 @@ object BuildHelper {
       Wart.Equals, // keep, easier that way
       Wart.ToString, // keep, easier that way
       Wart.Product, // keep, false positives all around
-      Wart.Serializable // keep, false positives all around
+      Wart.Serializable, // keep, false positives all around
+      Wart.DefaultArguments // for constructors for PureConfig
     ),
     ThisBuild / scalafixDependencies ++= Seq(
       Dependencies.scalazzi // https://github.com/scalaz/scalazzi

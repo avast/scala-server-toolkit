@@ -35,7 +35,6 @@ object ConfigurableThreadFactory {
   /**
     * @param nameFormat Formatted with long number, e.g. my-thread-%02d
     */
-  @SuppressWarnings(Array("org.wartremover.warts.DefaultArguments"))
   final case class Config(nameFormat: Option[String] = None,
                           daemon: Boolean = false,
                           priority: Int = Thread.NORM_PRIORITY,
