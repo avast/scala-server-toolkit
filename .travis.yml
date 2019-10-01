@@ -2,7 +2,7 @@ sudo: false
 language: scala
 jdk: openjdk8
 scala:
-  - 2.13.1
+  - 2.12.10
 
 before_install:
   - git fetch --tags

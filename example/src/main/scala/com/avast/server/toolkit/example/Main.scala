@@ -15,6 +15,7 @@ object Main extends CatsApp {
 
   @SuppressWarnings(Array("org.wartremover.warts.StringPlusAny")) // false positive
   def program: Resource[Task, Unit] = {
+
     for {
       _ <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
       executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.Platform.executor.asEC)

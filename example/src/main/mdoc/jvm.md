@@ -1,6 +1,6 @@
 # Modules JVM
 
-![Maven Central](https://img.shields.io/maven-central/v/com.avast/scala-server-toolkit-jvm-system_2.13)
+![Maven Central](https://img.shields.io/maven-central/v/com.avast/scala-server-toolkit-jvm-system_2.12)
 
 `libraryDependencies += "com.avast" %% "scala-server-toolkit-jvm-system" % "<VERSION>"`
 
@@ -24,6 +24,6 @@ val program = for {
   _ <- console.printLine(s"Random number: $randomNumber")
 } yield ()
 
-val runtime = new DefaultRuntime {} // this is just in example
+val runtime = new DefaultRuntime {} // this is just needed in example
 runtime.unsafeRun(program)
  ```

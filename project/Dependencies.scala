@@ -2,31 +2,21 @@ import sbt._
 
 object Dependencies {
 
+  val catsEffect = "org.typelevel" %% "cats-effect" % "2.0.0"
+  val http4sBlazeClient = "org.http4s" %% "http4s-blaze-client" % Versions.http4s
+  val http4sBlazeServer = "org.http4s" %% "http4s-blaze-server" % Versions.http4s
+  val http4sDsl = "org.http4s" %% "http4s-dsl" % Versions.http4s
+  val kindProjector = "org.typelevel" %% "kind-projector" % "0.10.3"
+  val logbackClassic = "ch.qos.logback" % "logback-classic" % "1.2.3"
+  val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.12.1"
+  val scalaTest = "org.scalatest" %% "scalatest" % "3.0.8"
+  val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.28"
+  val zio = "dev.zio" %% "zio" % "1.0.0-RC13"
+  val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC4"
+
   object Versions {
-    val catsEffect = "2.0.0"
-    val kindProjector = "0.10.3"
-    val pureConfig = "0.12.0"
-    val scalaTest = "3.0.8"
-    val scalazzi = "0.1.3"
-    val silencer = "1.4.3"
-    val slf4jApi = "1.7.28"
-    val zio = "1.0.0-RC13"
-    val zioInteropCats = "2.0.0.0-RC4"
-  }
 
-  val catsEffect = "org.typelevel" %% "cats-effect" % Versions.catsEffect
-  val kindProjector = "org.typelevel" %% "kind-projector" % Versions.kindProjector
-  val pureConfig = "com.github.pureconfig" %% "pureconfig" % Versions.pureConfig
-  val scalazzi = "com.github.vovapolu" %% "scaluzzi" % Versions.scalazzi
-  val silencer = "com.github.ghik" % "silencer-plugin" % Versions.silencer cross CrossVersion.full
-  val silencerLib = "com.github.ghik" % "silencer-lib" % Versions.silencer cross CrossVersion.full
-  val slf4jApi = "org.slf4j" % "slf4j-api" % Versions.slf4jApi
-  val zio = "dev.zio" %% "zio" % Versions.zio
-  val zioInteropCats = "dev.zio" %% "zio-interop-cats" % Versions.zioInteropCats
-
-  object Test {
-
-    val scalaTest = "org.scalatest" %% "scalatest" % Versions.scalaTest
+    val http4s = "0.20.11"
 
   }
 

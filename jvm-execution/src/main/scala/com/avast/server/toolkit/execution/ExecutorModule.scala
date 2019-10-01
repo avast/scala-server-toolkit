@@ -43,7 +43,7 @@ class ExecutorModule[F[_]: Sync](val numOfCpus: Int,
     ExecutorModule.makeThreadPoolExecutor(config, threadFactory, new LinkedBlockingQueue)
   }
 
-  /** Makes [[java.util.concurrent.ForkJoinPool]] according to the given config and with [[java.util.concurrent.ThreadFactory]]. */
+  /** Makes ForkJoinPool according to the given config and with [[java.util.concurrent.ForkJoinPool.ForkJoinWorkerThreadFactory]]. */
   def makeForkJoinPool(config: ForkJoinPoolConfig, threadFactory: ForkJoinWorkerThreadFactory): Resource[F, ForkJoinPool] = {
     ExecutorModule.makeForkJoinPool(config, numOfCpus, threadFactory)
   }

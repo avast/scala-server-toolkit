@@ -1,6 +1,6 @@
 # Module PureConfig
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.avast/scala-server-toolkit-pureconfig_2.13)](https://repo1.maven.org/maven2/com/avast/scala-server-toolkit-pureconfig_2.13/)
+[![Maven Central](https://img.shields.io/maven-central/v/com.avast/scala-server-toolkit-pureconfig_2.12)](https://repo1.maven.org/maven2/com/avast/scala-server-toolkit-pureconfig_2.12/)
 
 `libraryDependencies += "com.avast" %% "scala-server-toolkit-pureconfig" % "<VERSION>"`
 
@@ -20,9 +20,7 @@ import zio.Task
 final case class ServerConfiguration(listenAddress: String, listenPort: Int)
 
 implicit val serverConfigurationReader: ConfigReader[ServerConfiguration] = deriveReader
-// serverConfigurationReader: ConfigReader[ServerConfiguration] = pureconfig.generic.DerivedConfigReader1$$anon$3@2a8eed58
 
 val maybeConfiguration = PureConfigModule.make[Task, ServerConfiguration]
-// maybeConfiguration: Task[Either[cats.data.NonEmptyList[String], ServerConfiguration]] = zio.ZIO$EffectPartial@352bea0e
 ```
 
