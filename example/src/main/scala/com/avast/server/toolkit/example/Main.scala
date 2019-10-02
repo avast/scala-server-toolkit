@@ -7,6 +7,7 @@ import com.avast.server.toolkit.example.config.Configuration
 import com.avast.server.toolkit.execution.ExecutorModule
 import com.avast.server.toolkit.pureconfig.PureConfigModule
 import com.avast.server.toolkit.system.console.{Console, ConsoleModule}
+import com.github.ghik.silencer.silent
 import zio.interop.catz._
 import zio.{Task, ZIO}
 
@@ -15,7 +16,7 @@ object Main extends CatsApp {
   def program: Resource[Task, Unit] = {
 
     for {
-      configuration <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
+      _ <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
       executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.Platform.executor.asEC)
       clock = Clock.create[Task]
       currentTime <- Resource.liftF(clock.realTime(TimeUnit.MILLISECONDS))
@@ -26,6 +27,7 @@ object Main extends CatsApp {
     } yield ()
   }
 
+  @silent("dead code") // false positive
   override def run(args: List[String]): ZIO[Environment, Nothing, Int] = {
     program
       .use(_ => Task.never)

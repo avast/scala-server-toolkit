@@ -3,18 +3,11 @@ ThisBuild / homepage := Some(url("https://github.com/avast/scala-server-toolkit"
 ThisBuild / description := "Functional programming toolkit for building server applications in Scala."
 ThisBuild / licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE"))
 ThisBuild / developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com")))
-ThisBuild / scmInfo := Some(
-  ScmInfo(url("https://github.com/avast/scala-server-toolkit"), "scm:git:git@github.com:avast/scala-server-toolkit.git")
-)
-
-ThisBuild / scalaVersion := "2.12.10"
-ThisBuild / scalacOptions := ScalacOptions.default
 
 ThisBuild / turbo := true
 
-lazy val commonSettings = Seq(
+lazy val commonSettings = BuildSettings.common ++ Seq(
   libraryDependencies ++= Seq(
-    compilerPlugin(Dependencies.kindProjector),
     Dependencies.catsEffect,
     Dependencies.logbackClassic % Test,
     Dependencies.scalaTest % Test
@@ -33,8 +26,8 @@ lazy val root = project
 lazy val example = project
   .dependsOn(jvmExecution, http4sBlazeClient, http4sBlazeServer, jvmSsl, jvmSystem, pureconfig)
   .enablePlugins(MdocPlugin)
+  .settings(commonSettings)
   .settings(
-    commonSettings,
     name := "scala-server-toolkit-example",
     publish / skip := true,
     run / fork := true,
@@ -92,8 +85,11 @@ lazy val jvmSystem = project
   )
 
 lazy val pureconfig = project
+  .settings(commonSettings)
   .settings(
-    commonSettings,
     name := "scala-server-toolkit-pureconfig",
     libraryDependencies += Dependencies.pureConfig
   )
+
+addCommandAlias("check", "; scalafmtSbtCheck; scalafmtCheckAll; compile:scalafix --check ; test:scalafix --check")
+addCommandAlias("fix", "; scalafmtSbt; scalafmtAll; compile:scalafix ; test:scalafix")

@@ -10,12 +10,16 @@ object Dependencies {
   val logbackClassic = "ch.qos.logback" % "logback-classic" % "1.2.3"
   val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.12.1"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.0.8"
+  val scalazzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.3"
+  val silencer = "com.github.ghik" % "silencer-plugin" % Versions.silencer cross CrossVersion.full
+  val silencerLib = "com.github.ghik" % "silencer-lib" % Versions.silencer cross CrossVersion.full
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.28"
   val zio = "dev.zio" %% "zio" % "1.0.0-RC13"
   val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC4"
 
   object Versions {
 
+    val silencer = "1.4.4"
     val http4s = "0.20.11"
 
   }
