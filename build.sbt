@@ -6,7 +6,7 @@ ThisBuild / developers := List(Developer("jakubjanecek", "Jakub Janecek", "janec
 
 ThisBuild / turbo := true
 
-lazy val commonSettings = BuildHelper.settingsCommon ++ Seq(
+lazy val commonSettings = BuildSettings.common ++ Seq(
   libraryDependencies ++= Seq(
     Dependencies.catsEffect,
     Dependencies.logbackClassic % Test,

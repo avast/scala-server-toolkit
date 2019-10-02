@@ -3,8 +3,8 @@ import sbt._
 import scalafix.sbt.ScalafixPlugin.autoImport._
 import wartremover.WartRemover.autoImport._
 
-object BuildHelper {
-  lazy val settingsCommon = Seq(
+object BuildSettings {
+  lazy val common = Seq(
     ThisBuild / scalaVersion := "2.12.10",
     libraryDependencies ++= Seq(
       compilerPlugin(Dependencies.kindProjector),
@@ -30,14 +30,6 @@ object BuildHelper {
       "-Ywarn-unused", // for scalafix. not present in sbt-tpolecat for 2.13
       "-P:silencer:checkUnused"
     ),
-    scalacOptions --= {
-      if (!sys.env.get("CI").contains("true"))
-        Seq(
-          "-Xfatal-warnings" // for scala-fix https://scalacenter.github.io/scalafix/docs/rules/RemoveUnused.html
-        )
-      else
-        Seq()
-    },
     Test / publishArtifact := false,
     Test / test / wartremoverErrors := (Compile / compile / wartremoverErrors).value filterNot Set(
       Wart.MutableDataStructures,
