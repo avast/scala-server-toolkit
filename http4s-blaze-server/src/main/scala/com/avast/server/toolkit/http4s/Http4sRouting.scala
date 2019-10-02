@@ -13,7 +13,7 @@ object Http4sRouting {
   def make[F[_]: Monad](routes: HttpRoutes[F], more: HttpRoutes[F]*): HttpApp[F] = {
 
     more
-      .foldLeft[HttpRoutes[F]](routes)(_.combineK(_))
+      .foldLeft(routes)(_.combineK(_))
       .orNotFound
   }
 

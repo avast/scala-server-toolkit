@@ -11,7 +11,7 @@ object BuildSettings {
       compilerPlugin(Dependencies.kindProjector),
       compilerPlugin(Dependencies.silencer),
       compilerPlugin(scalafixSemanticdb), // for scalafix
-      Dependencies.silencerLib
+      Dependencies.silencerLib,
     ),
     Compile / compile / wartremoverErrors ++= Warts.all filterNot Set(
       Wart.Nothing, // keep, false positives all around
@@ -21,23 +21,23 @@ object BuildSettings {
       Wart.ToString, // keep, easier that way
       Wart.Product, // keep, false positives all around
       Wart.Serializable, // keep, false positives all around
-      Wart.DefaultArguments // for constructors for PureConfig
+      Wart.DefaultArguments, // for constructors for PureConfig
     ),
     ThisBuild / scalafixDependencies ++= Seq(
-      Dependencies.scalazzi // https://github.com/scalaz/scalazzi
+      Dependencies.scalazzi, // https://github.com/scalaz/scalazzi
     ),
     scalacOptions ++= Seq(
       "-Yrangepos", // for scalafix. required by SemanticDB compiler plugin
       "-Ywarn-unused", // for scalafix. not present in sbt-tpolecat for 2.13
-      "-P:silencer:checkUnused"
+      "-P:silencer:checkUnused",
     ),
     Test / publishArtifact := false,
     Test / test / wartremoverErrors := (Compile / compile / wartremoverErrors).value filterNot Set(
       Wart.MutableDataStructures,
       Wart.OptionPartial,
       Wart.AsInstanceOf,
-      Wart.EitherProjectionPartial
-    )
+      Wart.EitherProjectionPartial,
+    ),
   )
 
 }

@@ -20,8 +20,8 @@ class PureConfigModuleTest extends FunSuite {
     assert(PureConfigModule.make[SyncIO, TestConfig](source).unsafeRunSync() === Right(TestConfig(123, "test")))
     assert(
       PureConfigModule.make[SyncIO, TestConfig](ConfigSource.empty).unsafeRunSync() === Left(
-        NonEmptyList("Invalid configuration : Key not found: 'number'.", List("Invalid configuration : Key not found: 'string'."))
-      )
+        NonEmptyList("Invalid configuration : Key not found: 'number'.", List("Invalid configuration : Key not found: 'string'.")),
+      ),
     )
   }
 

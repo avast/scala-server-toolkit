@@ -9,7 +9,7 @@ import java.util.concurrent.{
   SynchronousQueue,
   ThreadFactory,
   ThreadPoolExecutor,
-  TimeUnit
+  TimeUnit,
 }
 
 import cats.effect.{Blocker, Resource, Sync}
@@ -104,7 +104,7 @@ object ExecutorModule {
     makeThreadPoolExecutor[F](
       ThreadPoolExecutorConfig(0, Int.MaxValue),
       new ConfigurableThreadFactory(Config(nameFormat = Some("default-blocking-%02d"), daemon = true)),
-      new SynchronousQueue
+      new SynchronousQueue,
     )
 
   private def toolkitThreadFactory = new ConfigurableThreadFactory(Config(nameFormat = Some("default-async-%02d"), daemon = true))
@@ -120,7 +120,7 @@ object ExecutorModule {
           config.keepAlive.toMillis,
           TimeUnit.MILLISECONDS,
           queue,
-          threadFactory
+          threadFactory,
         )
         threadPool.allowCoreThreadTimeOut(true)
 

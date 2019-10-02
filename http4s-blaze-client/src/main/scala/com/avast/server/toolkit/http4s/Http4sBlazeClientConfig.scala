@@ -26,5 +26,5 @@ final case class Http4sBlazeClientConfig(
   maxChunkSize: Int = Int.MaxValue,
   chunkBufferMaxSize: Int = 1024 * 1024,
   parserMode: ParserMode = ParserMode.Strict,
-  bufferSize: Int = 8192
+  bufferSize: Int = 8192,
 )

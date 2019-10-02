@@ -11,7 +11,7 @@ class SslContextModuleTest extends FunSuite {
     val truststore = getClass.getResource("/truststore.jks").toURI.getPath
     val sslContext = SslContextModule
       .make[SyncIO](
-        SslContextConfig(truststore = Some(KeyStoreConfig(KeyStoreType.JKS, Paths.get(truststore), "CanNotMakeJKSWithoutPass", None)))
+        SslContextConfig(truststore = Some(KeyStoreConfig(KeyStoreType.JKS, Paths.get(truststore), "CanNotMakeJKSWithoutPass", None))),
       )
       .unsafeRunSync()
     assert(sslContext.getProtocol === "TLS")

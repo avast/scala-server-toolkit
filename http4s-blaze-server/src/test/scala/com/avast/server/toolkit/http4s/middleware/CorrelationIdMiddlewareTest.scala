@@ -6,7 +6,7 @@ import com.avast.server.toolkit.http4s.{
   Http4sBlazeClientConfig,
   Http4sBlazeServerConfig,
   Http4sBlazeServerModule,
-  Http4sRouting
+  Http4sRouting,
 }
 import org.http4s.dsl.Http4sDsl
 import org.http4s.util.CaseInsensitiveString
@@ -42,7 +42,7 @@ class CorrelationIdMiddlewareTest extends AsyncFunSuite with Http4sDsl[IO] {
           client
             .fetch(
               Request[IO](uri = Uri.unsafeFromString(s"http://${server.address.getHostString}:${server.address.getPort}/test"))
-                .withHeaders(Header("Correlation-Id", "test-value"))
+                .withHeaders(Header("Correlation-Id", "test-value")),
             ) { response =>
               IO.delay {
                 assert(response.headers.get(CaseInsensitiveString("Correlation-Id")).get.value === "test-value")

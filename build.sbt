@@ -10,9 +10,9 @@ lazy val commonSettings = BuildSettings.common ++ Seq(
   libraryDependencies ++= Seq(
     Dependencies.catsEffect,
     Dependencies.logbackClassic % Test,
-    Dependencies.scalaTest % Test
+    Dependencies.scalaTest % Test,
   ),
-  Test / publishArtifact := false
+  Test / publishArtifact := false,
 )
 
 lazy val root = project
@@ -20,7 +20,7 @@ lazy val root = project
   .aggregate(example, http4sBlazeClient, http4sBlazeServer, jvmExecution, jvmSsl, jvmSystem, pureconfig)
   .settings(
     name := "scala-server-toolkit",
-    publish / skip := true
+    publish / skip := true,
   )
 
 lazy val example = project
@@ -36,8 +36,8 @@ lazy val example = project
     mdocOut := baseDirectory.value / ".." / "docs",
     libraryDependencies ++= Seq(
       Dependencies.zio,
-      Dependencies.zioInteropCats
-    )
+      Dependencies.zioInteropCats,
+    ),
   )
 
 lazy val http4sBlazeClient = project
@@ -46,7 +46,7 @@ lazy val http4sBlazeClient = project
   .settings(commonSettings)
   .settings(
     name := "scala-server-toolkit-http4s-blaze-client",
-    libraryDependencies += Dependencies.http4sBlazeClient
+    libraryDependencies += Dependencies.http4sBlazeClient,
   )
 
 lazy val http4sBlazeServer = project
@@ -58,8 +58,8 @@ lazy val http4sBlazeServer = project
     libraryDependencies ++= Seq(
       Dependencies.http4sBlazeServer,
       Dependencies.http4sDsl,
-      Dependencies.slf4jApi
-    )
+      Dependencies.slf4jApi,
+    ),
   )
 
 lazy val jvmExecution = project
@@ -67,28 +67,28 @@ lazy val jvmExecution = project
   .settings(
     commonSettings,
     name := "scala-server-toolkit-jvm-execution",
-    libraryDependencies += Dependencies.slf4jApi
+    libraryDependencies += Dependencies.slf4jApi,
   )
 
 lazy val jvmSsl = project
   .in(file("jvm-ssl"))
   .settings(
     commonSettings,
-    name := "scala-server-toolkit-jvm-ssl"
+    name := "scala-server-toolkit-jvm-ssl",
   )
 
 lazy val jvmSystem = project
   .in(file("jvm-system"))
   .settings(
     commonSettings,
-    name := "scala-server-toolkit-jvm-system"
+    name := "scala-server-toolkit-jvm-system",
   )
 
 lazy val pureconfig = project
   .settings(commonSettings)
   .settings(
     name := "scala-server-toolkit-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig,
   )
 
 addCommandAlias("check", "; scalafmtSbtCheck; scalafmtCheckAll; compile:scalafix --check ; test:scalafix --check")

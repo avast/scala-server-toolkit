@@ -21,7 +21,7 @@ final case class Http4sBlazeServerConfig(
   maxHeadersLength: Int = 40 * 1024,
   chunkBufferMaxSize: Int = 1024 * 1024,
   connectorPoolSize: Int = channel.DefaultPoolSize,
-  socketOptions: SocketOptions = SocketOptions()
+  socketOptions: SocketOptions = SocketOptions(),
 )
 
 object Http4sBlazeServerConfig {

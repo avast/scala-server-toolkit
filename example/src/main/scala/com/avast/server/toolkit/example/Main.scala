@@ -22,7 +22,7 @@ object Main extends CatsApp {
       currentTime <- Resource.liftF(clock.realTime(TimeUnit.MILLISECONDS))
       console <- Resource.pure[Task, Console[Task]](ConsoleModule.make[Task])
       _ <- Resource.liftF(
-            console.printLine(s"The current Unix epoch time is $currentTime. This system has ${executorModule.numOfCpus} CPUs.")
+            console.printLine(s"The current Unix epoch time is $currentTime. This system has ${executorModule.numOfCpus} CPUs."),
           )
     } yield ()
   }
@@ -33,7 +33,7 @@ object Main extends CatsApp {
       .use(_ => Task.never)
       .fold(
         _ => 1,
-        _ => 0
+        _ => 0,
       )
   }
 
