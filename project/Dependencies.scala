@@ -19,8 +19,8 @@ object Dependencies {
 
   object Versions {
 
-    val silencer = "1.4.4"
     val http4s = "0.20.11"
+    val silencer = "1.4.4"
 
   }
 

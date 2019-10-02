@@ -4,6 +4,7 @@ import scalafix.sbt.ScalafixPlugin.autoImport._
 import wartremover.WartRemover.autoImport._
 
 object BuildSettings {
+
   lazy val common = Seq(
     ThisBuild / scalaVersion := "2.12.10",
     libraryDependencies ++= Seq(
@@ -38,4 +39,5 @@ object BuildSettings {
       Wart.EitherProjectionPartial
     )
   )
+
 }
