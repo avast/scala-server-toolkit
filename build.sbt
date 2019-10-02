@@ -4,8 +4,6 @@ ThisBuild / description := "Functional programming toolkit for building server a
 ThisBuild / licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE"))
 ThisBuild / developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com")))
 
-ThisBuild / scalaVersion := "2.12.10"
-
 ThisBuild / turbo := true
 
 lazy val commonSettings = BuildHelper.settingsCommon ++ Seq(

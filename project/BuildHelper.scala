@@ -5,6 +5,7 @@ import wartremover.WartRemover.autoImport._
 
 object BuildHelper {
   lazy val settingsCommon = Seq(
+    ThisBuild / scalaVersion := "2.12.10",
     libraryDependencies ++= Seq(
       compilerPlugin(Dependencies.kindProjector),
       compilerPlugin(Dependencies.silencer),
