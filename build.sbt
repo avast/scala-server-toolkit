@@ -24,10 +24,22 @@ lazy val commonSettings = Seq(
 
 lazy val root = project
   .in(file("."))
-  .aggregate(example, http4sBlazeClient, http4sBlazeServer, jvmExecution, jvmSsl, jvmSystem, pureconfig)
+  .aggregate(akkaHttpServer, example, exampleAkka, http4sBlazeClient, http4sBlazeServer, jvmExecution, jvmSsl, jvmSystem, pureconfig)
   .settings(
     name := "scala-server-toolkit",
     publish / skip := true
+  )
+
+lazy val akkaHttpServer = project
+  .in(file("akka-http-server"))
+  .settings(commonSettings)
+  .settings(
+    name := "scala-server-toolkit-akka-http-server",
+    libraryDependencies ++= Seq(
+      Dependencies.akka,
+      Dependencies.akkaHttp,
+      Dependencies.slf4jApi
+    )
   )
 
 lazy val example = project
@@ -44,6 +56,25 @@ lazy val example = project
     libraryDependencies ++= Seq(
       Dependencies.zio,
       Dependencies.zioInteropCats
+    )
+  )
+
+lazy val exampleAkka = project
+  .in(file("example-akka"))
+  .dependsOn(jvmExecution, akkaHttpServer, jvmSsl, jvmSystem, pureconfig)
+  .enablePlugins(MdocPlugin)
+  .settings(
+    commonSettings,
+    name := "scala-server-toolkit-example-akka",
+    publish / skip := true,
+    run / fork := true,
+    Global / cancelable := true,
+    mdocIn := baseDirectory.value / "src" / "main" / "mdoc",
+    mdocOut := baseDirectory.value / ".." / "docs",
+    libraryDependencies ++= Seq(
+      Dependencies.zio,
+      Dependencies.zioInteropCats,
+      Dependencies.slf4jSimple
     )
   )
 
