@@ -30,7 +30,7 @@ object BuildHelper {
       "-P:silencer:checkUnused"
     ),
     scalacOptions --= {
-      if (!sys.env.contains("TRAVIS"))
+      if (!sys.env.get("CI").contains("true"))
         Seq(
           "-Xfatal-warnings" // for scala-fix https://scalacenter.github.io/scalafix/docs/rules/RemoveUnused.html
         )
