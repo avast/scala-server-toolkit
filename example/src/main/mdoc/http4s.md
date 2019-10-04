@@ -1,8 +1,8 @@
 # Module http4s
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.avast/scala-server-toolkit-http4s-blaze-server_2.12)](https://repo1.maven.org/maven2/com/avast/scala-server-toolkit-http4s-blaze-server_2.12/)
+[![Maven Central](https://img.shields.io/maven-central/v/com.avast/sst-http4s-blaze-server_2.12)](https://repo1.maven.org/maven2/com/avast/sst-http4s-blaze-server_2.12/)
 
-`libraryDependencies += "com.avast" %% "scala-server-toolkit-http4s-blaze-server" % "<VERSION>"`
+`libraryDependencies += "com.avast" %% "sst-http4s-blaze-server" % "<VERSION>"`
 
 There are `http4s-*` modules that provide easy initialization of a server and a client. Http4s is an interface with multiple possible 
 implementations - for now we provide only implementations based on [Blaze](https://github.com/http4s/blaze).
@@ -11,9 +11,9 @@ Both server and client are configured via configuration `case class` which conta
 
 ```scala mdoc:silent:reset-class
 import cats.effect._
-import com.avast.server.toolkit.execution.ExecutorModule
-import com.avast.server.toolkit.http4s._
-import com.avast.server.toolkit.system.console.ConsoleModule
+import com.avast.sst.execution.ExecutorModule
+import com.avast.sst.http4s._
+import com.avast.sst.system.console.ConsoleModule
 import org.http4s.dsl.Http4sDsl
 import org.http4s.HttpRoutes
 import zio.DefaultRuntime
@@ -58,9 +58,9 @@ runtime.unsafeRun(program)
 
 ```scala mdoc:silent:reset
 import cats.effect._
-import com.avast.server.toolkit.execution.ExecutorModule
-import com.avast.server.toolkit.http4s._
-import com.avast.server.toolkit.http4s.middleware.CorrelationIdMiddleware
+import com.avast.sst.execution.ExecutorModule
+import com.avast.sst.http4s._
+import com.avast.sst.http4s.middleware.CorrelationIdMiddleware
 import org.http4s.dsl.Http4sDsl
 import org.http4s.HttpRoutes
 import zio.DefaultRuntime
@@ -79,7 +79,7 @@ for {
   routes = Http4sRouting.make {
     middleware.wrap {
       HttpRoutes.of[Task] {
-        case req @ GET -> Root =>
+        case GET -> Root =>
           // val correlationId = middleware.retrieveCorrelationId(req)
           ???
       }

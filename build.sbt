@@ -28,7 +28,7 @@ lazy val example = project
   .enablePlugins(MdocPlugin)
   .settings(commonSettings)
   .settings(
-    name := "scala-server-toolkit-example",
+    name := "sst-example",
     publish / skip := true,
     run / fork := true,
     Global / cancelable := true,
@@ -45,7 +45,7 @@ lazy val http4sBlazeClient = project
   .dependsOn(jvmSsl)
   .settings(commonSettings)
   .settings(
-    name := "scala-server-toolkit-http4s-blaze-client",
+    name := "sst-http4s-blaze-client",
     libraryDependencies += Dependencies.http4sBlazeClient
   )
 
@@ -54,7 +54,7 @@ lazy val http4sBlazeServer = project
   .dependsOn(http4sBlazeClient % Test)
   .settings(commonSettings)
   .settings(
-    name := "scala-server-toolkit-http4s-blaze-server",
+    name := "sst-http4s-blaze-server",
     libraryDependencies ++= Seq(
       Dependencies.http4sBlazeServer,
       Dependencies.http4sDsl,
@@ -66,7 +66,7 @@ lazy val jvmExecution = project
   .in(file("jvm-execution"))
   .settings(
     commonSettings,
-    name := "scala-server-toolkit-jvm-execution",
+    name := "sst-jvm-execution",
     libraryDependencies += Dependencies.slf4jApi
   )
 
@@ -74,22 +74,22 @@ lazy val jvmSsl = project
   .in(file("jvm-ssl"))
   .settings(
     commonSettings,
-    name := "scala-server-toolkit-jvm-ssl"
+    name := "sst-jvm-ssl"
   )
 
 lazy val jvmSystem = project
   .in(file("jvm-system"))
   .settings(
     commonSettings,
-    name := "scala-server-toolkit-jvm-system"
+    name := "sst-jvm-system"
   )
 
 lazy val pureconfig = project
   .settings(commonSettings)
   .settings(
-    name := "scala-server-toolkit-pureconfig",
+    name := "sst-pureconfig",
     libraryDependencies += Dependencies.pureConfig
   )
 
-addCommandAlias("check", "; scalafmtSbtCheck; scalafmtCheckAll; compile:scalafix --check ; test:scalafix --check")
-addCommandAlias("fix", "; scalafmtSbt; scalafmtAll; compile:scalafix ; test:scalafix")
+addCommandAlias("check", "; scalafmtSbtCheck; scalafmtCheckAll; compile:scalafix --check; test:scalafix --check")
+addCommandAlias("fix", "; scalafmtSbt; scalafmtAll; compile:scalafix; test:scalafix; example/mdoc")
