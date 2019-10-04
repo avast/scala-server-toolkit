@@ -1,18 +1,18 @@
 # Modules JVM
 
-![Maven Central](https://img.shields.io/maven-central/v/com.avast/scala-server-toolkit-jvm-system_2.12)
+![Maven Central](https://img.shields.io/maven-central/v/com.avast/sst-jvm-system_2.12)
 
-`libraryDependencies += "com.avast" %% "scala-server-toolkit-jvm-system" % "<VERSION>"`
+`libraryDependencies += "com.avast" %% "sst-jvm-system" % "<VERSION>"`
 
-There is a set of `scala-server-toolkit-jvm-*` modules that provide pure implementations of different JVM-related utilities:
+There is a set of `sst-jvm-*` modules that provide pure implementations of different JVM-related utilities:
 
-* `scala-server-toolkit-jvm-execution` - creation of thread pools,
-* `scala-server-toolkit-jvm-ssl` - initialization of SSL context,
-* `scala-server-toolkit-jvm-system` - standard in/out/err, random number generation.
+* `sst-jvm-execution` - creation of thread pools,
+* `sst-jvm-ssl` - initialization of SSL context,
+* `sst-jvm-system` - standard in/out/err, random number generation.
 
 ```scala
-import com.avast.server.toolkit.system.console.ConsoleModule
-import com.avast.server.toolkit.system.random.RandomModule
+import com.avast.sst.system.console.ConsoleModule
+import com.avast.sst.system.random.RandomModule
 import zio.interop.catz._
 import zio.DefaultRuntime
 import zio.Task
@@ -23,11 +23,11 @@ val program = for {
   console = ConsoleModule.make[Task]
   _ <- console.printLine(s"Random number: $randomNumber")
 } yield ()
-// program: zio.ZIO[Any, Throwable, Unit] = zio.ZIO$FlatMap@4cc26df
+// program: zio.ZIO[Any, Throwable, Unit] = zio.ZIO$FlatMap@2ce47652
 
 val runtime = new DefaultRuntime {} // this is just needed in example
-// runtime: AnyRef with DefaultRuntime = repl.Session$App$$anon$1@3bab95ca // this is just needed in example
+// runtime: AnyRef with DefaultRuntime = repl.Session$App$$anon$1@35becbd4 // this is just needed in example
 runtime.unsafeRun(program)
-// Random number: 1797916077
+// Random number: 1821017404
 ```
 
