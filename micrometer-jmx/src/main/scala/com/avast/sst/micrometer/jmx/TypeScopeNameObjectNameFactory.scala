@@ -24,6 +24,7 @@ class TypeScopeNameObjectNameFactory(separator: String = ".") extends ObjectName
     parsedName.getOrElse(defaultFactory.createName(`type`, domain, name))
   }
 
+  @SuppressWarnings(Array("org.wartremover.warts.NonUnitStatements"))
   private def parseName(domain: String, name: String): Try[ObjectName] = Try {
     val parts = name.split(quotedSeparator, partNames.length)
 

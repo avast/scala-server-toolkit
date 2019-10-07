@@ -12,6 +12,7 @@ import scala.language.higherKinds
 
 object MicrometerJmxModule {
 
+  @SuppressWarnings(Array("org.wartremover.warts.NonUnitStatements"))
   def make[F[_]: Sync](config: MicrometerJmxConfig): Resource[F, JmxMeterRegistry] = {
     Resource
       .make {
@@ -43,6 +44,7 @@ object MicrometerJmxModule {
   }
 
   private class DomainJmxConfig(domain: String) extends JmxConfig {
+    @SuppressWarnings(Array("org.wartremover.warts.Null"))
     override def get(key: String): String = null
     override def domain(): String = domain
   }
