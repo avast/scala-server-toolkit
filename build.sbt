@@ -120,7 +120,10 @@ lazy val micrometer = project
   .settings(commonSettings)
   .settings(
     name := "sst-micrometer",
-    libraryDependencies ++= Seq(Dependencies.micrometerCore, Dependencies.jsr305)
+    libraryDependencies ++= Seq(
+      Dependencies.micrometerCore,
+      Dependencies.jsr305 // required because of Scala compiler
+    )
   )
 
 lazy val micrometerJmx = project
@@ -130,7 +133,7 @@ lazy val micrometerJmx = project
     name := "sst-micrometer-jmx",
     libraryDependencies ++= Seq(
       Dependencies.micrometerJmx,
-      Dependencies.jsr305
+      Dependencies.jsr305 // required because of Scala compiler
     )
   )
 

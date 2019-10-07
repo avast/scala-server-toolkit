@@ -6,8 +6,12 @@ import org.http4s.client.blaze.ParserMode
 import org.http4s.headers.`User-Agent`
 import pureconfig.ConfigReader
 import pureconfig.error.CannotConvert
-import pureconfig.generic.semiauto.deriveReader
+import pureconfig.generic.semiauto.{deriveEnumerationReader, deriveReader}
 
+/** Implicit [[pureconfig.ConfigReader]] instances for `sst-http4s-blaze-client` module.
+  *
+  * ```Do not forget``` to have a dependency on the `sst-http4s-blaze-client` module in your project.
+  */
 object Http4sBlazeClient {
 
   import JvmSsl._
@@ -18,11 +22,7 @@ object Http4sBlazeClient {
     }
   }
 
-  implicit val parserModeReader: ConfigReader[ParserMode] = ConfigReader[String].map(_.toLowerCase).emap {
-    case "strict"  => Right(ParserMode.Strict)
-    case "lenient" => Right(ParserMode.Lenient)
-    case badValue  => Left(CannotConvert(badValue, "ParserMode", "strict|lenient"))
-  }
+  implicit val parserModeReader: ConfigReader[ParserMode] = deriveEnumerationReader
 
   implicit val http4sClientConfigReader: ConfigReader[Http4sBlazeClientConfig] = deriveReader
 

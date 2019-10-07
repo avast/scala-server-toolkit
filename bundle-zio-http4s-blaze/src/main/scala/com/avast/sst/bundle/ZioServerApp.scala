@@ -7,6 +7,11 @@ import org.slf4j.LoggerFactory
 import zio.interop.catz._
 import zio.{Task, UIO, ZIO}
 
+/** Extend this `trait` if you want to implement server application using [[zio.ZIO]] effect data type.
+  *
+  * Implement method `program` with initialization and business logic of your application. It will be automatically run until JVM is shut
+  * down in which case all the resources are cleaned up because the whole `program` is a [[cats.effect.Resource]].
+  */
 trait ZioServerApp extends CatsApp {
 
   private val logger = LoggerFactory.getLogger(this.getClass)

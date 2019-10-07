@@ -32,8 +32,8 @@ object Main extends ZioServerApp {
           )
       meterRegistry <- MicrometerJmxModule.make[Task](configuration.jmx)
       _ <- Resource.liftF(MicrometerJvmModule.make[Task](meterRegistry))
-      serverMetricsModule <- Resource.pure[Task, MicrometerHttp4sServerMetricsModule[Task]](
-                              MicrometerHttp4sServerMetricsModule(meterRegistry, clock)
+      serverMetricsModule <- Resource.liftF[Task, MicrometerHttp4sServerMetricsModule[Task]](
+                              MicrometerHttp4sServerMetricsModule.make(meterRegistry, clock)
                             )
       routingModule = new Http4sRoutingModule(serverMetricsModule)
       server <- Http4sBlazeServerModule.make[Task](configuration.server, routingModule.router, executorModule.executionContext)

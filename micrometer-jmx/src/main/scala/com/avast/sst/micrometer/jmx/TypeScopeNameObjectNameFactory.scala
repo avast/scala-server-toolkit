@@ -3,15 +3,14 @@ package com.avast.sst.micrometer.jmx
 import java.util
 import java.util.regex.Pattern
 
+import cats.syntax.either._
 import com.codahale.metrics.jmx.{DefaultObjectNameFactory, ObjectNameFactory}
-import javax.management.ObjectName
-
-import scala.util.Try;
+import javax.management.ObjectName;
 
 /** This is custom [[com.codahale.metrics.jmx.ObjectNameFactory]] which uses "type-scope-name" hierarchy of resulting
   * [[javax.management.ObjectName]] (levels 3-N are glued together).
   */
-class TypeScopeNameObjectNameFactory(separator: String = ".") extends ObjectNameFactory {
+private[jmx] class TypeScopeNameObjectNameFactory(separator: String = ".") extends ObjectNameFactory {
 
   private val quotedSeparator = Pattern.quote(separator)
 
@@ -25,7 +24,7 @@ class TypeScopeNameObjectNameFactory(separator: String = ".") extends ObjectName
   }
 
   @SuppressWarnings(Array("org.wartremover.warts.NonUnitStatements"))
-  private def parseName(domain: String, name: String): Try[ObjectName] = Try {
+  private def parseName(domain: String, name: String) = Either.catchNonFatal {
     val parts = name.split(quotedSeparator, partNames.length)
 
     /* The following block of code is a little hack. The problem is that ObjectName requires HashTable as parameter but HashTable

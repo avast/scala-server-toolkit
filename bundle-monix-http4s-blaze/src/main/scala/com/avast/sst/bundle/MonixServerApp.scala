@@ -5,6 +5,11 @@ import monix.eval.{Task, TaskApp}
 import org.http4s.server.Server
 import org.slf4j.LoggerFactory
 
+/** Extend this `trait` if you want to implement server application using [[monix.eval.Task]] effect data type.
+  *
+  * Implement method `program` with initialization and business logic of your application. It will be automatically run until JVM is shut
+  * down in which case all the resources are cleaned up because the whole `program` is a [[cats.effect.Resource]].
+  */
 trait MonixServerApp extends TaskApp {
 
   private val logger = LoggerFactory.getLogger(this.getClass)
