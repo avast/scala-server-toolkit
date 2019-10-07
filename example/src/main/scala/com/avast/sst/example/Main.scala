@@ -3,20 +3,26 @@ package com.avast.sst.example
 import java.util.concurrent.TimeUnit
 
 import cats.effect.{Clock, Resource}
+import com.avast.sst.bundle.ZioServerApp
 import com.avast.sst.example.config.Configuration
+import com.avast.sst.example.module.Http4sRoutingModule
 import com.avast.sst.execution.ExecutorModule
+import com.avast.sst.http4s.Http4sBlazeServerModule
+import com.avast.sst.micrometer.MicrometerJvmModule
+import com.avast.sst.micrometer.interop.MicrometerHttp4sServerMetricsModule
+import com.avast.sst.micrometer.jmx.MicrometerJmxModule
 import com.avast.sst.pureconfig.PureConfigModule
 import com.avast.sst.system.console.{Console, ConsoleModule}
-import com.github.ghik.silencer.silent
+import org.http4s.server.Server
+import zio.Task
 import zio.interop.catz._
-import zio.{Task, ZIO}
+import zio.interop.catz.implicits._
 
-object Main extends CatsApp {
+object Main extends ZioServerApp {
 
-  def program: Resource[Task, Unit] = {
-
+  def program: Resource[Task, Server[Task]] = {
     for {
-      _ <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
+      configuration <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
       executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.Platform.executor.asEC)
       clock = Clock.create[Task]
       currentTime <- Resource.liftF(clock.realTime(TimeUnit.MILLISECONDS))
@@ -24,17 +30,14 @@ object Main extends CatsApp {
       _ <- Resource.liftF(
             console.printLine(s"The current Unix epoch time is $currentTime. This system has ${executorModule.numOfCpus} CPUs.")
           )
-    } yield ()
-  }
-
-  @silent("dead code") // false positive
-  override def run(args: List[String]): ZIO[Environment, Nothing, Int] = {
-    program
-      .use(_ => Task.never)
-      .fold(
-        _ => 1,
-        _ => 0
-      )
+      meterRegistry <- MicrometerJmxModule.make[Task](configuration.jmx)
+      _ <- Resource.liftF(MicrometerJvmModule.make[Task](meterRegistry))
+      serverMetricsModule <- Resource.pure[Task, MicrometerHttp4sServerMetricsModule[Task]](
+                              MicrometerHttp4sServerMetricsModule(meterRegistry, clock)
+                            )
+      routingModule = new Http4sRoutingModule(serverMetricsModule)
+      server <- Http4sBlazeServerModule.make[Task](configuration.server, routingModule.router, executorModule.executionContext)
+    } yield server
   }
 
 }

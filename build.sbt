@@ -17,14 +17,47 @@ lazy val commonSettings = BuildSettings.common ++ Seq(
 
 lazy val root = project
   .in(file("."))
-  .aggregate(example, http4sBlazeClient, http4sBlazeServer, jvmExecution, jvmSsl, jvmSystem, pureconfig)
+  .aggregate(
+    bundleMonixHttp4sBlaze,
+    bundleZioHttp4sBlaze,
+    example,
+    http4sBlazeClient,
+    http4sBlazeServer,
+    jvmExecution,
+    jvmSsl,
+    jvmSystem,
+    micrometer,
+    micrometerJmx,
+    pureconfig
+  )
   .settings(
     name := "scala-server-toolkit",
     publish / skip := true
   )
 
+lazy val bundleMonixHttp4sBlaze = project
+  .in(file("bundle-monix-http4s-blaze"))
+  .dependsOn(http4sBlazeClient, http4sBlazeServer, micrometer, micrometerJmx, pureconfig)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-bundle-monix-http4s-blaze",
+    libraryDependencies += Dependencies.monixEval
+  )
+
+lazy val bundleZioHttp4sBlaze = project
+  .in(file("bundle-zio-http4s-blaze"))
+  .dependsOn(http4sBlazeClient, http4sBlazeServer, micrometer, micrometerJmx, pureconfig)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-bundle-zio-http4s-blaze",
+    libraryDependencies ++= Seq(
+      Dependencies.zio,
+      Dependencies.zioInteropCats
+    )
+  )
+
 lazy val example = project
-  .dependsOn(jvmExecution, http4sBlazeClient, http4sBlazeServer, jvmSsl, jvmSystem, pureconfig)
+  .dependsOn(bundleZioHttp4sBlaze, jvmExecution, jvmSystem)
   .enablePlugins(MdocPlugin)
   .settings(commonSettings)
   .settings(
@@ -34,10 +67,7 @@ lazy val example = project
     Global / cancelable := true,
     mdocIn := baseDirectory.value / "src" / "main" / "mdoc",
     mdocOut := baseDirectory.value / ".." / "docs",
-    libraryDependencies ++= Seq(
-      Dependencies.zio,
-      Dependencies.zioInteropCats
-    )
+    libraryDependencies += Dependencies.logbackClassic
   )
 
 lazy val http4sBlazeClient = project
@@ -64,27 +94,52 @@ lazy val http4sBlazeServer = project
 
 lazy val jvmExecution = project
   .in(file("jvm-execution"))
+  .settings(commonSettings)
   .settings(
-    commonSettings,
     name := "sst-jvm-execution",
     libraryDependencies += Dependencies.slf4jApi
   )
 
 lazy val jvmSsl = project
   .in(file("jvm-ssl"))
+  .settings(commonSettings)
   .settings(
-    commonSettings,
     name := "sst-jvm-ssl"
   )
 
 lazy val jvmSystem = project
   .in(file("jvm-system"))
+  .settings(commonSettings)
   .settings(
-    commonSettings,
     name := "sst-jvm-system"
   )
 
+lazy val micrometer = project
+  .in(file("micrometer"))
+  .dependsOn(http4sBlazeServer % Optional)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-micrometer",
+    libraryDependencies ++= Seq(Dependencies.micrometerCore, Dependencies.jsr305)
+  )
+
+lazy val micrometerJmx = project
+  .in(file("micrometer-jmx"))
+  .settings(commonSettings)
+  .settings(
+    name := "sst-micrometer-jmx",
+    libraryDependencies ++= Seq(
+      Dependencies.micrometerJmx,
+      Dependencies.jsr305
+    )
+  )
+
 lazy val pureconfig = project
+  .dependsOn(http4sBlazeClient % Optional,
+             http4sBlazeServer % Optional,
+             jvmExecution % Optional,
+             jvmSsl % Optional,
+             micrometerJmx % Optional)
   .settings(commonSettings)
   .settings(
     name := "sst-pureconfig",
