@@ -61,7 +61,8 @@ lazy val bundleZioHttp4sBlaze = project
   )
 
 lazy val example = project
-  .dependsOn(bundleZioHttp4sBlaze, micrometerJmxPureConfig, pureConfig)
+  .in(file("example"))
+  .dependsOn(bundleZioHttp4sBlaze, micrometerJmxPureConfig)
   .enablePlugins(MdocPlugin)
   .settings(commonSettings)
   .settings(
@@ -171,6 +172,7 @@ lazy val micrometerJmxPureConfig = project
   .settings(name := "sst-micrometer-jmx-pureconfig")
 
 lazy val pureConfig = project
+  .in(file("pureconfig"))
   .settings(commonSettings)
   .settings(
     name := "sst-pureconfig",
