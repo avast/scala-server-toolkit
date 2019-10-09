@@ -60,9 +60,9 @@ runtime.unsafeRun(program)
 
 ```scala
 import cats.effect._
-import com.avast.sst.jvm.execution.ExecutorModule
 import com.avast.sst.http4s.server._
 import com.avast.sst.http4s.server.middleware.CorrelationIdMiddleware
+import com.avast.sst.jvm.execution.ExecutorModule
 import org.http4s.dsl.Http4sDsl
 import org.http4s.HttpRoutes
 import zio.DefaultRuntime

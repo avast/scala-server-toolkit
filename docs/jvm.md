@@ -1,4 +1,4 @@
-# Modules JVM
+# Module JVM
 
 ![Maven Central](https://img.shields.io/maven-central/v/com.avast/sst-jvm_2.12)
 
@@ -14,8 +14,8 @@ Module `sst-jvm` provides pure implementations of different JVM-related utilitie
 ```scala
 import com.avast.sst.jvm.system.console.ConsoleModule
 import com.avast.sst.jvm.system.random.RandomModule
-import zio.interop.catz._
 import zio.DefaultRuntime
+import zio.interop.catz._
 import zio.Task
  
 val program = for {
@@ -24,11 +24,11 @@ val program = for {
   console = ConsoleModule.make[Task]
   _ <- console.printLine(s"Random number: $randomNumber")
 } yield ()
-// program: zio.ZIO[Any, Throwable, Unit] = zio.ZIO$FlatMap@5b0e9e0c
+// program: zio.ZIO[Any, Throwable, Unit] = zio.ZIO$FlatMap@159314ca
 
 val runtime = new DefaultRuntime {} // this is just needed in example
-// runtime: AnyRef with DefaultRuntime = repl.Session$App$$anon$1@69c33ea2 // this is just needed in example
+// runtime: AnyRef with DefaultRuntime = repl.Session$App$$anon$1@bafc754 // this is just needed in example
 runtime.unsafeRun(program)
-// Random number: 948283653
+// Random number: 530700338
 ```
 

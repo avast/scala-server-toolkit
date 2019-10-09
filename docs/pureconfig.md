@@ -11,7 +11,7 @@ will be in [HOCON](https://github.com/lightbend/config/blob/master/HOCON.md) for
 Loading of configuration is side-effectful so it is wrapped in `F` which is `Sync`. This module also tweaks the error messages a little.
 
 ```scala
-import com.avast.sst.pureconfig._
+import com.avast.sst.pureconfig.PureConfigModule
 import pureconfig.ConfigReader
 import pureconfig.generic.semiauto.deriveReader
 import zio.interop.catz._
@@ -22,5 +22,11 @@ final case class ServerConfiguration(listenAddress: String, listenPort: Int)
 implicit val serverConfigurationReader: ConfigReader[ServerConfiguration] = deriveReader
 
 val maybeConfiguration = PureConfigModule.make[Task, ServerConfiguration]
+```
+
+Look for `sst-*-pureconfig` modules to get `implicit` instances of `ConfigReader` for specific libraries, e.g.:
+
+```scala
+import com.avast.sst.http4s.server.pureconfig._
 ```
 

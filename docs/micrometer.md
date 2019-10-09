@@ -4,11 +4,11 @@
 
 `libraryDependencies += "com.avast" %% "sst-micrometer-jmx" % "<VERSION>"`
 
-This module allows you to monitor your applications using [Micrometer](https://micrometer.io). There are many actual implementations of 
+This module allows you to monitor your applications using [Micrometer](https://micrometer.io). There are many actual implementations of
 the Micrometer API one of which is JMX. Module `sst-micrometer-jmx` implements the initialization of Micrometer for JMX. There are also
 interop modules such as `sst-http4s-server-micrometer` which implement monitoring of HTTP server and individual routes using Micrometer.
 
-```scala mdoc
+```scala
 import cats.effect.{Clock, Resource}
 import com.avast.sst.http4s.server._
 import com.avast.sst.http4s.server.micrometer.MicrometerHttp4sServerMetricsModule
@@ -24,8 +24,10 @@ import zio.interop.catz.implicits._
 import zio.Task
 
 implicit val runtime = new DefaultRuntime {} // this is just needed in example
+// runtime: AnyRef with DefaultRuntime = repl.Session$App$$anon$1@1c5cd2ea // this is just needed in example
 
 val dsl = Http4sDsl[Task] // this is just needed in example
+// dsl: Http4sDsl[Task] = org.http4s.dsl.Http4sDsl$$anon$1@1f7fcec2 // this is just needed in example
 import dsl._
 
 for {
@@ -43,4 +45,15 @@ for {
   }
   server <- Http4sBlazeServerModule.make[Task](Http4sBlazeServerConfig("127.0.0.1", 0), routes, executorModule.executionContext)
 } yield server
+// res0: Resource[Task, Server[Task]] = Bind(
+//   Bind(
+//     Bind(
+//       Suspend(zio.ZIO$FlatMap@77e1dacd),
+//       com.avast.sst.jvm.execution.ExecutorModule$$$Lambda$1652/2118457232@34ede267
+//     ),
+//     cats.effect.Resource$$Lambda$1653/622274963@7a522157
+//   ),
+//   <function1>
+// )
 ```
+
