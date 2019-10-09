@@ -1,4 +1,4 @@
-# Modules JVM
+# Module JVM
 
 ![Maven Central](https://img.shields.io/maven-central/v/com.avast/sst-jvm_2.12)
 
