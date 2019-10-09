@@ -61,7 +61,7 @@ lazy val bundleZioHttp4sBlaze = project
   )
 
 lazy val example = project
-  .dependsOn(bundleZioHttp4sBlaze, micrometerJmxPureConfig)
+  .dependsOn(bundleZioHttp4sBlaze, micrometerJmxPureConfig, pureConfig)
   .enablePlugins(MdocPlugin)
   .settings(commonSettings)
   .settings(
