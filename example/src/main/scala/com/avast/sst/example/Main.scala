@@ -12,7 +12,6 @@ import com.avast.sst.jvm.execution.ExecutorModule
 import com.avast.sst.jvm.micrometer.MicrometerJvmModule
 import com.avast.sst.jvm.system.console.{Console, ConsoleModule}
 import com.avast.sst.micrometer.jmx.MicrometerJmxModule
-import com.avast.sst.pureconfig.PureConfigModule
 import org.http4s.server.Server
 import zio.Task
 import zio.interop.catz._
@@ -22,7 +21,7 @@ object Main extends ZioServerApp {
 
   def program: Resource[Task, Server[Task]] = {
     for {
-      configuration <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
+      configuration <- Resource.liftF(com.avast.sst.pureconfig.PureConfigModule.makeOrRaise[Task, Configuration])
       executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.Platform.executor.asEC)
       clock = Clock.create[Task]
       currentTime <- Resource.liftF(clock.realTime(TimeUnit.MILLISECONDS))
