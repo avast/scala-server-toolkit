@@ -6,13 +6,13 @@ import cats.effect.{Clock, Resource}
 import com.avast.sst.bundle.ZioServerApp
 import com.avast.sst.example.config.Configuration
 import com.avast.sst.example.module.Http4sRoutingModule
-import com.avast.sst.execution.ExecutorModule
-import com.avast.sst.http4s.Http4sBlazeServerModule
-import com.avast.sst.micrometer.MicrometerJvmModule
-import com.avast.sst.micrometer.interop.MicrometerHttp4sServerMetricsModule
+import com.avast.sst.http4s.server.Http4sBlazeServerModule
+import com.avast.sst.http4s.server.micrometer.MicrometerHttp4sServerMetricsModule
+import com.avast.sst.jvm.execution.ExecutorModule
+import com.avast.sst.jvm.micrometer.MicrometerJvmModule
+import com.avast.sst.jvm.system.console.{Console, ConsoleModule}
 import com.avast.sst.micrometer.jmx.MicrometerJmxModule
 import com.avast.sst.pureconfig.PureConfigModule
-import com.avast.sst.system.console.{Console, ConsoleModule}
 import org.http4s.server.Server
 import zio.Task
 import zio.interop.catz._
@@ -32,9 +32,7 @@ object Main extends ZioServerApp {
           )
       meterRegistry <- MicrometerJmxModule.make[Task](configuration.jmx)
       _ <- Resource.liftF(MicrometerJvmModule.make[Task](meterRegistry))
-      serverMetricsModule <- Resource.liftF[Task, MicrometerHttp4sServerMetricsModule[Task]](
-                              MicrometerHttp4sServerMetricsModule.make(meterRegistry, clock)
-                            )
+      serverMetricsModule <- Resource.liftF(MicrometerHttp4sServerMetricsModule.make[Task](meterRegistry, clock))
       routingModule = new Http4sRoutingModule(serverMetricsModule)
       server <- Http4sBlazeServerModule.make[Task](configuration.server, routingModule.router, executorModule.executionContext)
     } yield server

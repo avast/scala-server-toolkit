@@ -1,11 +1,11 @@
 package com.avast.sst.example.config
 
-import com.avast.sst.http4s.Http4sBlazeServerConfig
+import com.avast.sst.http4s.server.Http4sBlazeServerConfig
 import com.avast.sst.micrometer.jmx.MicrometerJmxConfig
-import com.avast.sst.pureconfig.implicits.Http4sBlazeServer._
-import com.avast.sst.pureconfig.implicits.MicrometerJmx.jmxConfigReader
+import com.avast.sst.http4s.server.pureconfig._
+import com.avast.sst.micrometer.jmx.pureconfig._
 import pureconfig.ConfigReader
-import pureconfig.generic.semiauto._
+import pureconfig.generic.semiauto.deriveReader
 
 final case class Configuration(server: Http4sBlazeServerConfig, jmx: MicrometerJmxConfig)
 

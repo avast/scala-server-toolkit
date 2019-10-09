@@ -6,6 +6,7 @@ object Dependencies {
   val http4sBlazeClient = "org.http4s" %% "http4s-blaze-client" % Versions.http4s
   val http4sBlazeServer = "org.http4s" %% "http4s-blaze-server" % Versions.http4s
   val http4sDsl = "org.http4s" %% "http4s-dsl" % Versions.http4s
+  val http4sServer = "org.http4s" %% "http4s-server" % Versions.http4s
   val jsr305 = "com.google.code.findbugs" % "jsr305" % "3.0.2"
   val kindProjector = "org.typelevel" %% "kind-projector" % "0.10.3"
   val logbackClassic = "ch.qos.logback" % "logback-classic" % "1.2.3"

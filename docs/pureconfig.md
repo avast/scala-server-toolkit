@@ -4,9 +4,9 @@
 
 `libraryDependencies += "com.avast" %% "sst-pureconfig" % "<VERSION>"`
 
-This module allows you to load your application's configuration file according to a case class provided to it. It uses
-[PureConfig](https://pureconfig.github.io) library to do so which uses [Lightbend Config](https://github.com/lightbend/config) which means
-that your application's configuration will be in [HOCON](https://github.com/lightbend/config/blob/master/HOCON.md) format.
+This module allows you to load your application's configuration file into a case class. It uses [PureConfig](https://pureconfig.github.io)
+library to do so which uses [Lightbend Config](https://github.com/lightbend/config) which means that your application's configuration
+will be in [HOCON](https://github.com/lightbend/config/blob/master/HOCON.md) format.
 
 Loading of configuration is side-effectful so it is wrapped in `F` which is `Sync`. This module also tweaks the error messages a little.
 

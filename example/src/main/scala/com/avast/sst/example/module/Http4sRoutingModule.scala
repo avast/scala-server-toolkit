@@ -1,7 +1,7 @@
 package com.avast.sst.example.module
 
-import com.avast.sst.http4s.Http4sRouting
-import com.avast.sst.micrometer.interop.MicrometerHttp4sServerMetricsModule
+import com.avast.sst.http4s.server.Http4sRouting
+import com.avast.sst.http4s.server.micrometer.MicrometerHttp4sServerMetricsModule
 import org.http4s.dsl.Http4sDsl
 import org.http4s.{HttpApp, HttpRoutes}
 import zio.Task
@@ -18,7 +18,7 @@ class Http4sRoutingModule(serverMetricsModule: MicrometerHttp4sServerMetricsModu
   }
 
   val router: HttpApp[Task] = Http4sRouting.make {
-    globalMetrics {
+    serverMetrics {
       routes
     }
   }

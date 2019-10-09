@@ -1,18 +1,19 @@
 # Modules JVM
 
-![Maven Central](https://img.shields.io/maven-central/v/com.avast/sst-jvm-system_2.12)
+![Maven Central](https://img.shields.io/maven-central/v/com.avast/sst-jvm_2.12)
 
-`libraryDependencies += "com.avast" %% "sst-jvm-system" % "<VERSION>"`
+`libraryDependencies += "com.avast" %% "sst-jvm" % "<VERSION>"`
 
-There is a set of `sst-jvm-*` modules that provide pure implementations of different JVM-related utilities:
+Module `sst-jvm` provides pure implementations of different JVM-related utilities:
  
- * `sst-jvm-execution` - creation of thread pools,
- * `sst-jvm-ssl` - initialization of SSL context,
- * `sst-jvm-system` - standard in/out/err, random number generation.
+ * creation of thread pools,
+ * initialization of SSL context,
+ * standard in/out/err, random number generation,
+ * and more.
   
  ```scala mdoc
-import com.avast.sst.system.console.ConsoleModule
-import com.avast.sst.system.random.RandomModule
+import com.avast.sst.jvm.system.console.ConsoleModule
+import com.avast.sst.jvm.system.random.RandomModule
 import zio.interop.catz._
 import zio.DefaultRuntime
 import zio.Task
