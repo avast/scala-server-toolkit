@@ -19,6 +19,6 @@ trait ConfigReaders {
 
   implicit val parserModeReader: ConfigReader[ParserMode] = deriveEnumerationReader
 
-  implicit val http4sClientConfigReader: ConfigReader[Http4sBlazeClientConfig] = deriveReader
+  implicit val http4sBlazeClientConfigReader: ConfigReader[Http4sBlazeClientConfig] = deriveReader
 
 }

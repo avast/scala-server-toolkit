@@ -11,6 +11,7 @@ import org.http4s.{Method, Status}
 
 object MicrometerHttp4sMetricsOpsModule {
 
+  /** Makes [[org.http4s.metrics.MetricsOps]] to record the usual HTTP server metrics. */
   def make[F[_]: Sync](meterRegistry: MeterRegistry): F[MetricsOps[F]] = {
     val F = Sync[F]
 
@@ -34,7 +35,7 @@ object MicrometerHttp4sMetricsOpsModule {
         override def recordTotalTime(method: Method, status: Status, elapsed: Long, classifier: Option[String]): F[Unit] = {
           for {
             _ <- F.delay(totalTime.record(elapsed, TimeUnit.NANOSECONDS))
-            _ <- F.delay(httpStatusCodes.recordHttpStatus(status.code))
+            _ <- F.delay(httpStatusCodes.recordHttpStatus(status))
           } yield ()
         }
 

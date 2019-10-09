@@ -12,6 +12,7 @@ import scala.language.higherKinds
 
 object MicrometerJmxModule {
 
+  /** Makes configured [[io.micrometer.jmx.JmxMeterRegistry]]. */
   @SuppressWarnings(Array("org.wartremover.warts.NonUnitStatements"))
   def make[F[_]: Sync](config: MicrometerJmxConfig): Resource[F, JmxMeterRegistry] = {
     Resource
@@ -26,7 +27,7 @@ object MicrometerJmxModule {
               dropwizardRegistry,
               makeJmxReporter(dropwizardRegistry, config.domain)
             )
-            registry.config().namingConvention(NamingConvention.dot)
+            registry.config.namingConvention(NamingConvention.dot)
             registry
           } else {
             new JmxMeterRegistry(new DomainJmxConfig(config.domain), Clock.SYSTEM)

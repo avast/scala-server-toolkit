@@ -6,6 +6,6 @@ import pureconfig.generic.semiauto.deriveReader
 
 trait ConfigReaders {
 
-  implicit val jmxConfigReader: ConfigReader[MicrometerJmxConfig] = deriveReader
+  implicit val micrometerJmxConfigReader: ConfigReader[MicrometerJmxConfig] = deriveReader
 
 }

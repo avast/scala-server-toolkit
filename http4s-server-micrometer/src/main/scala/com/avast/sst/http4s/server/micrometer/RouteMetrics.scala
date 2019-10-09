@@ -11,10 +11,15 @@ import org.http4s.Response
 
 import scala.language.higherKinds
 
+/** Provides the usual metrics for single HTTP route. */
 class RouteMetrics[F[_]: Sync](meterRegistry: MeterRegistry, clock: Clock[F]) {
 
   private val F = Sync[F]
 
+  /** Wraps a single route with the usual metrics (requests in-flight, timer, HTTP status counts).
+    *
+    * @param name will be used in metric name
+    */
   def wrap(name: String)(route: => F[Response[F]]): F[Response[F]] = {
     val prefix = s"http.$name"
     val activeRequests = meterRegistry.counter(s"$prefix.active-requests")
@@ -24,7 +29,7 @@ class RouteMetrics[F[_]: Sync](meterRegistry: MeterRegistry, clock: Clock[F]) {
       start <- clock.monotonic(TimeUnit.NANOSECONDS)
       response <- F.delay(activeRequests.increment())
                    .bracket { _ =>
-                     route.flatTap(response => F.delay(httpStatusCodes.recordHttpStatus(response.status.code)))
+                     route.flatTap(response => F.delay(httpStatusCodes.recordHttpStatus(response.status)))
                    } { _ =>
                      for {
                        time <- computeTime(start)

@@ -9,6 +9,6 @@ trait ConfigReaders {
 
   implicit val socketOptionsReader: ConfigReader[SocketOptions] = deriveReader
 
-  implicit val http4sServerConfigReader: ConfigReader[Http4sBlazeServerConfig] = deriveReader
+  implicit val http4sBlazeServerConfigReader: ConfigReader[Http4sBlazeServerConfig] = deriveReader
 
 }
