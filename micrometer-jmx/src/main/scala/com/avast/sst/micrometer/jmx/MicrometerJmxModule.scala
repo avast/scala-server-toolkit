@@ -43,10 +43,12 @@ object MicrometerJmxModule {
       .build
   }
 
-  private class DomainJmxConfig(domain: String) extends JmxConfig {
+  private class DomainJmxConfig(override val domain: String) extends JmxConfig {
+
+    // implements MeterRegistryConfig.get which can return null according to JavaDoc and @Nullable annotation
     @SuppressWarnings(Array("org.wartremover.warts.Null"))
     override def get(key: String): String = null
-    override def domain(): String = domain
+
   }
 
 }
