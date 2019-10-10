@@ -26,7 +26,23 @@ the development of your server applications.
 
 ## Issues
 
-Please report issues to [GitHub](https://github.com/avast/scala-server-toolkit/issues).
+Please report issues to [GitHub](https://github.com/avast/scala-server-toolkit/issues). Pull requests are always welcome.
+
+## Versioning
+
+The project follows the [semantic versioning](https://semver.org) schema which means that just by looking at the version you will know 
+whether to expect compatibility problems or not.
+
+The project values backwards compatibility but it cannot prevent innovation. There will be breaking changes but they will always be properly
+versioned and documented.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Code of Conduct
+
+See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 ## License
 
