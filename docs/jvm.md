@@ -29,6 +29,6 @@ val program = for {
 val runtime = new DefaultRuntime {} // this is just needed in example
 // runtime: AnyRef with DefaultRuntime = repl.Session$App$$anon$1@bafc754 // this is just needed in example
 runtime.unsafeRun(program)
-// Random number: 530700338
+// Random number: 235841973
 ```
 

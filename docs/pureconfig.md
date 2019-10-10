@@ -27,6 +27,6 @@ val maybeConfiguration = PureConfigModule.make[Task, ServerConfiguration]
 Look for `sst-*-pureconfig` modules to get `implicit` instances of `ConfigReader` for specific libraries, e.g.:
 
 ```scala
-import com.avast.sst.http4s.server.pureconfig._
+import com.avast.sst.http4s.server.pureconfig.implicits._
 ```
 
