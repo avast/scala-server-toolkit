@@ -8,9 +8,9 @@ This project is a culmination of years of Scala development at Avast and tries t
 we have gained together with tools that allow us to be effective. It is a set of small, flexible and cohesive building blocks that fit 
 together well and allow you to build reliable server applications.
 
-## [Documentation](./docs/index.md)
+## Documentation
 
-Or you can [deep dive into example code](example/src/main/scala/com/avast/sst/example/Main.scala) if you like that more.
+**[Read it here](./docs/index.md)** or you can [deep dive into example code](example/src/main/scala/com/avast/sst/example/Main.scala).
 
 ## Design
 
