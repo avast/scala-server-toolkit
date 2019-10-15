@@ -1,0 +1,27 @@
+pull_request_rules:
+  - name: assign and label scala-steward's PRs
+    conditions:
+      - author=scala-steward
+    actions:
+      assign:
+        users: [jakubjanecek]
+      label:
+        add: [dependency-update]
+  - name: merge Scala Steward's PRs
+    conditions:
+      - base=master
+      - author=scala-steward
+      - status-success=Travis CI - Pull Request
+    actions:
+      merge:
+        method: merge
+  - name: automatic merge on CI success and review
+    conditions:
+      - base=master
+      - "#approved-reviews-by>=1"
+      - status-success=Travis CI - Pull Request
+    actions:
+      merge:
+        method: squash
+      delete_head_branch:
+        force: true
