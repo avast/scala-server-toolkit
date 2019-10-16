@@ -17,7 +17,7 @@ class Http4SBlazeClientTest extends AsyncFunSuite {
                       |""".stripMargin
 
     val test = for {
-      client <- Http4sBlazeClient.make[IO](
+      client <- Http4sBlazeClientModule.make[IO](
                  Http4sBlazeClientConfig(
                    userAgent = `User-Agent`(AgentProduct("http4s-client", Some("1.2.3")), List(AgentComment("Test")))
                  ),

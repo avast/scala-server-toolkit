@@ -1,7 +1,7 @@
 package com.avast.sst.http4s.server
 
 import cats.effect.{ContextShift, IO, Timer}
-import com.avast.sst.http4s.client.{Http4sBlazeClient, Http4sBlazeClientConfig}
+import com.avast.sst.http4s.client.{Http4sBlazeClientConfig, Http4sBlazeClientModule}
 import org.http4s.HttpRoutes
 import org.http4s.dsl.Http4sDsl
 import org.scalatest.AsyncFunSuite
@@ -19,7 +19,7 @@ class Http4sBlazeServerModuleTest extends AsyncFunSuite with Http4sDsl[IO] {
     })
     val test = for {
       server <- Http4sBlazeServerModule.make[IO](Http4sBlazeServerConfig("127.0.0.1", 0), routes, ExecutionContext.global)
-      client <- Http4sBlazeClient.make[IO](Http4sBlazeClientConfig(), ExecutionContext.global)
+      client <- Http4sBlazeClientModule.make[IO](Http4sBlazeClientConfig(), ExecutionContext.global)
     } yield (server, client)
 
     test
