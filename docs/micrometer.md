@@ -24,10 +24,10 @@ import zio.interop.catz.implicits._
 import zio.Task
 
 implicit val runtime = new DefaultRuntime {} // this is just needed in example
-// runtime: AnyRef with DefaultRuntime = repl.Session$App$$anon$1@1c5cd2ea // this is just needed in example
+// runtime: AnyRef with DefaultRuntime = repl.Session$App$$anon$1@cda144a // this is just needed in example
 
 val dsl = Http4sDsl[Task] // this is just needed in example
-// dsl: Http4sDsl[Task] = org.http4s.dsl.Http4sDsl$$anon$1@1f7fcec2 // this is just needed in example
+// dsl: Http4sDsl[Task] = org.http4s.dsl.Http4sDsl$$anon$1@7a71ebf1 // this is just needed in example
 import dsl._
 
 for {
@@ -48,10 +48,10 @@ for {
 // res0: Resource[Task, Server[Task]] = Bind(
 //   Bind(
 //     Bind(
-//       Suspend(zio.ZIO$FlatMap@77e1dacd),
-//       com.avast.sst.jvm.execution.ExecutorModule$$$Lambda$1652/2118457232@34ede267
+//       Suspend(zio.ZIO$FlatMap@1c5d376c),
+//       com.avast.sst.jvm.execution.ExecutorModule$$$Lambda$1652/1064414847@51c6e775
 //     ),
-//     cats.effect.Resource$$Lambda$1653/622274963@7a522157
+//     cats.effect.Resource$$Lambda$1653/1530060977@5feff876
 //   ),
 //   <function1>
 // )

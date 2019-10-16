@@ -37,7 +37,7 @@ val resource = for {
   executorModule <- ExecutorModule.makeDefault[Task]
   console = ConsoleModule.make[Task]
   server <- Http4sBlazeServerModule.make[Task](Http4sBlazeServerConfig("127.0.0.1", 0), routes, executorModule.executionContext)
-  client <- Http4sBlazeClient.make[Task](Http4sBlazeClientConfig(), executorModule.executionContext)
+  client <- Http4sBlazeClientModule.make[Task](Http4sBlazeClientConfig(), executorModule.executionContext)
 } yield (server, client, console)
 
 val program = resource
