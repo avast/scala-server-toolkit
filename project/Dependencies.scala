@@ -19,7 +19,7 @@ object Dependencies {
   val silencer = "com.github.ghik" % "silencer-plugin" % Versions.silencer cross CrossVersion.full
   val silencerLib = "com.github.ghik" % "silencer-lib" % Versions.silencer cross CrossVersion.full
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.28"
-  val zio = "dev.zio" %% "zio" % "1.0.0-RC14"
+  val zio = "dev.zio" %% "zio" % "1.0.0-RC15"
   val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC5"
 
   object Versions {
