@@ -31,6 +31,17 @@ Some of the reported problems can be automatically fixed by `fix`:
 sbt fix
 ```
 
+## Documentation
+
+The project contains [compiled documentation](https://scalameta.org/mdoc) which is located in [example/src/main/mdoc](example/src/main/mdoc).
+Please do update it with your changes and recompile it to check that everything is fine using the following command:
+
+```bash
+sbt example/mdoc
+```
+
+You should definitely recompile [mdoc] documentation  
+
 ## Conventional Commits
 
 The project uses [Conventional Commits](https://www.conventionalcommits.org) specification to have clear Git history and help with
