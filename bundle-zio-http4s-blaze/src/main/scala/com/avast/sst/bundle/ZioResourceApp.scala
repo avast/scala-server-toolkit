@@ -2,8 +2,8 @@ package com.avast.sst.bundle
 
 import cats.effect.Resource
 import org.slf4j.LoggerFactory
+import zio._
 import zio.interop.catz._
-import zio.{Task, ZIO}
 
 /** Extend this `trait` if you want to implement application using [[zio.ZIO]] effect data type.
   *
@@ -15,9 +15,9 @@ trait ZioResourceApp[A] extends CatsApp {
 
   def program: Resource[Task, A]
 
-  override def run(args: List[String]): ZIO[Environment, Nothing, Int] = {
+  override def run(args: List[String]): ZIO[ZEnv, Nothing, Int] = {
     program
-      .use(_ => Task.unit)
+      .use(x => Task.unit)
       .fold(
         ex => {
           logger.error("Application initialization failed!", ex)
