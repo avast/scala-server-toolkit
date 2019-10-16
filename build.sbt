@@ -32,6 +32,7 @@ lazy val root = project
     jvmPureConfig,
     micrometerJmx,
     micrometerJmxPureConfig,
+    micrometerStatsD,
     pureConfig
   )
   .settings(
@@ -170,6 +171,14 @@ lazy val micrometerJmxPureConfig = project
   .dependsOn(micrometerJmx, pureConfig)
   .settings(commonSettings)
   .settings(name := "sst-micrometer-jmx-pureconfig")
+
+lazy val micrometerStatsD = project
+  .in(file("micrometer-statsd"))
+  .settings(commonSettings)
+  .settings(
+    name := "sst-micrometer-statsd",
+    libraryDependencies += Dependencies.micrometerStatsD
+  )
 
 lazy val pureConfig = project
   .in(file("pureconfig"))
