@@ -33,7 +33,7 @@ sbt fix
 
 ## Documentation
 
-The project contains [compiled documentation](https://scalameta.org/mdoc) which is located in [example/src/main/mdoc](example/src/main/mdoc).
+The project contains [compiled documentation](https://scalameta.org/mdoc) which is located in [example/mdoc](example/mdoc).
 Please do update it with your changes and recompile it to check that everything is fine using the following command:
 
 ```bash

@@ -70,7 +70,7 @@ lazy val example = project
     publish / skip := true,
     run / fork := true,
     Global / cancelable := true,
-    mdocIn := baseDirectory.value / "src" / "main" / "mdoc",
+    mdocIn := baseDirectory.value / "mdoc",
     mdocOut := baseDirectory.value / ".." / "docs",
     libraryDependencies += Dependencies.logbackClassic
   )
