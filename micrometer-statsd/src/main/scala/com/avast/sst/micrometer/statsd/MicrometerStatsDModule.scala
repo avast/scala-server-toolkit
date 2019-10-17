@@ -3,7 +3,6 @@ package com.avast.sst.micrometer.statsd
 import java.time.Duration
 
 import cats.effect.{Resource, Sync}
-import com.avast.sst.micrometer.statsd.MicrometerStatsDConfig.{Flavor, Protocol}
 import io.micrometer.core.instrument.Clock
 import io.micrometer.core.instrument.util.HierarchicalNameMapper
 import io.micrometer.statsd.{StatsdConfig, StatsdFlavor, StatsdMeterRegistry, StatsdProtocol}
@@ -30,12 +29,7 @@ object MicrometerStatsDModule {
 
   private class CustomStatsdConfig(c: MicrometerStatsDConfig) extends StatsdConfig {
 
-    override val flavor: StatsdFlavor = c.flavor match {
-      case Flavor.Etsy     => StatsdFlavor.ETSY
-      case Flavor.Datadog  => StatsdFlavor.DATADOG
-      case Flavor.Telegraf => StatsdFlavor.TELEGRAF
-      case Flavor.Sysdig   => StatsdFlavor.SYSDIG
-    }
+    override val flavor: StatsdFlavor = c.flavor
 
     override val enabled: Boolean = c.enabled
 
@@ -43,10 +37,7 @@ object MicrometerStatsDModule {
 
     override val port: Int = c.port
 
-    override val protocol: StatsdProtocol = c.protocol match {
-      case Protocol.Udp => StatsdProtocol.UDP
-      case Protocol.Tcp => StatsdProtocol.TCP
-    }
+    override val protocol: StatsdProtocol = c.protocol
 
     override val maxPacketLength: Int = c.maxPacketLength
 
