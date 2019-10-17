@@ -17,7 +17,7 @@ trait ZioResourceApp[A] extends CatsApp {
 
   override def run(args: List[String]): ZIO[ZEnv, Nothing, Int] = {
     program
-      .use(x => Task.unit)
+      .use(_ => Task.unit)
       .fold(
         ex => {
           logger.error("Application initialization failed!", ex)
