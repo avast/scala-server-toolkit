@@ -4,8 +4,8 @@ import cats.effect.Resource
 import com.github.ghik.silencer.silent
 import org.http4s.server.Server
 import org.slf4j.LoggerFactory
+import zio._
 import zio.interop.catz._
-import zio.{Task, UIO, ZIO}
 
 /** Extend this `trait` if you want to implement server application using [[zio.ZIO]] effect data type.
   *
@@ -19,7 +19,7 @@ trait ZioServerApp extends CatsApp {
   def program: Resource[Task, Server[Task]]
 
   @silent("dead code")
-  override def run(args: List[String]): ZIO[Environment, Nothing, Int] = {
+  override def run(args: List[String]): ZIO[ZEnv, Nothing, Int] = {
     program
       .use { server =>
         for {
