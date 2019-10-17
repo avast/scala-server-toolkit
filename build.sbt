@@ -177,8 +177,17 @@ lazy val micrometerStatsD = project
   .settings(commonSettings)
   .settings(
     name := "sst-micrometer-statsd",
-    libraryDependencies += Dependencies.micrometerStatsD
+    libraryDependencies ++= Seq(
+      Dependencies.micrometerStatsD,
+      Dependencies.jsr305 // required because of Scala compiler
+    )
   )
+
+lazy val micrometerStatsDPureConfig = project
+  .in(file("micrometer-statsd-pureconfig"))
+  .dependsOn(micrometerStatsD, pureConfig)
+  .settings(commonSettings)
+  .settings(name := "sst-micrometer-statsd-pureconfig")
 
 lazy val pureConfig = project
   .in(file("pureconfig"))

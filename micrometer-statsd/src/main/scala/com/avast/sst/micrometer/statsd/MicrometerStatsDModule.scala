@@ -1,10 +1,10 @@
 package com.avast.sst.micrometer.statsd
 
-import java.time.{Clock, Duration}
+import java.time.Duration
 
 import cats.effect.{Resource, Sync}
 import com.avast.sst.micrometer.statsd.MicrometerStatsDConfig.{Flavor, Protocol}
-import io.micrometer.core.instrument.config.NamingConvention
+import io.micrometer.core.instrument.Clock
 import io.micrometer.core.instrument.util.HierarchicalNameMapper
 import io.micrometer.statsd.{StatsdConfig, StatsdFlavor, StatsdMeterRegistry, StatsdProtocol}
 
@@ -13,14 +13,17 @@ import scala.language.higherKinds
 object MicrometerStatsDModule {
 
   /** Makes configured [[io.micrometer.statsd.StatsdMeterRegistry]]. */
-  def make[F[_]: Sync](config: MicrometerStatsDConfig, clock: Clock): Resource[F, StatsdMeterRegistry] = {
+  def make[F[_]: Sync](config: MicrometerStatsDConfig,
+                       clock: Clock = Clock.SYSTEM,
+                       nameMapper: HierarchicalNameMapper = HierarchicalNameMapper.DEFAULT): Resource[F, StatsdMeterRegistry] = {
     Resource
       .make {
         Sync[F].delay {
           StatsdMeterRegistry
             .builder(new CustomStatsdConfig(config))
-            .
-          new StatsdMeterRegistry(???, ???)
+            .clock(clock)
+            .nameMapper(nameMapper)
+            .build
         }
       }(registry => Sync[F].delay(registry.close()))
   }

@@ -16,7 +16,9 @@ object MicrometerJmxModule {
 
   /** Makes configured [[io.micrometer.jmx.JmxMeterRegistry]]. */
   @SuppressWarnings(Array("org.wartremover.warts.NonUnitStatements"))
-  def make[F[_]: Sync](config: MicrometerJmxConfig): Resource[F, JmxMeterRegistry] = {
+  def make[F[_]: Sync](config: MicrometerJmxConfig,
+                       clock: Clock = Clock.SYSTEM,
+                       nameMapper: HierarchicalNameMapper = HierarchicalNameMapper.DEFAULT): Resource[F, JmxMeterRegistry] = {
     Resource
       .make {
         Sync[F].delay {
@@ -24,15 +26,15 @@ object MicrometerJmxModule {
             val dropwizardRegistry = new MetricRegistry
             val registry = new JmxMeterRegistry(
               new CustomJmxConfig(config),
-              Clock.SYSTEM,
-              HierarchicalNameMapper.DEFAULT,
+              clock,
+              nameMapper,
               dropwizardRegistry,
               makeJmxReporter(dropwizardRegistry, config.domain)
             )
             registry.config.namingConvention(NamingConvention.dot)
             registry
           } else {
-            new JmxMeterRegistry(new CustomJmxConfig(config), Clock.SYSTEM)
+            new JmxMeterRegistry(new CustomJmxConfig(config), clock, nameMapper)
           }
         }
       }(registry => Sync[F].delay(registry.close()))
