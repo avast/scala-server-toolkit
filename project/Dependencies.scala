@@ -12,6 +12,7 @@ object Dependencies {
   val logbackClassic = "ch.qos.logback" % "logback-classic" % "1.2.3"
   val micrometerCore = "io.micrometer" % "micrometer-core" % Versions.micrometer
   val micrometerJmx = "io.micrometer" % "micrometer-registry-jmx" % Versions.micrometer
+  val micrometerStatsD = "io.micrometer" % "micrometer-registry-statsd" % Versions.micrometer
   val monixEval = "io.monix" %% "monix-eval" % "3.0.0"
   val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.12.1"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.0.8"
