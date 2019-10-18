@@ -1,5 +1,7 @@
 package com.avast.sst.micrometer.jmx
 
+import java.time.Duration
+
 import cats.effect.{Resource, Sync}
 import com.codahale.metrics.MetricRegistry
 import com.codahale.metrics.jmx.JmxReporter
@@ -14,23 +16,25 @@ object MicrometerJmxModule {
 
   /** Makes configured [[io.micrometer.jmx.JmxMeterRegistry]]. */
   @SuppressWarnings(Array("org.wartremover.warts.NonUnitStatements"))
-  def make[F[_]: Sync](config: MicrometerJmxConfig): Resource[F, JmxMeterRegistry] = {
+  def make[F[_]: Sync](config: MicrometerJmxConfig,
+                       clock: Clock = Clock.SYSTEM,
+                       nameMapper: HierarchicalNameMapper = HierarchicalNameMapper.DEFAULT): Resource[F, JmxMeterRegistry] = {
     Resource
       .make {
         Sync[F].delay {
           if (config.enableTypeScopeNameHierarchy) {
             val dropwizardRegistry = new MetricRegistry
             val registry = new JmxMeterRegistry(
-              new DomainJmxConfig(config.domain),
-              Clock.SYSTEM,
-              HierarchicalNameMapper.DEFAULT,
+              new CustomJmxConfig(config),
+              clock,
+              nameMapper,
               dropwizardRegistry,
               makeJmxReporter(dropwizardRegistry, config.domain)
             )
             registry.config.namingConvention(NamingConvention.dot)
             registry
           } else {
-            new JmxMeterRegistry(new DomainJmxConfig(config.domain), Clock.SYSTEM)
+            new JmxMeterRegistry(new CustomJmxConfig(config), clock, nameMapper)
           }
         }
       }(registry => Sync[F].delay(registry.close()))
@@ -44,9 +48,12 @@ object MicrometerJmxModule {
       .build
   }
 
-  private class DomainJmxConfig(override val domain: String) extends JmxConfig {
+  private class CustomJmxConfig(c: MicrometerJmxConfig) extends JmxConfig {
 
-    // implements MeterRegistryConfig.get which can return null according to JavaDoc and @Nullable annotation
+    override val domain: String = c.domain
+    override val step: Duration = Duration.ofMillis(c.step.toMillis)
+
+    // the method is @Nullable and we don't need to implement it here
     @SuppressWarnings(Array("org.wartremover.warts.Null"))
     override def get(key: String): String = null
 
