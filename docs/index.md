@@ -8,6 +8,7 @@
 * [Module JVM](jvm.md)
 * [Modules Micrometer](micrometer.md)
 * [Module PureConfig](pureconfig.md)
+* [Module SSL Config](ssl-config.md)
 
 ## Getting Started
 

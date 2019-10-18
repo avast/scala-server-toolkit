@@ -6,10 +6,9 @@
 
 Module `sst-jvm` provides pure implementations of different JVM-related utilities:
  
- * creation of thread pools,
- * initialization of SSL context,
- * standard in/out/err, random number generation,
- * and more.
+* creation of thread pools,
+* standard in/out/err,
+* and random number generation.
   
  ```scala mdoc
 import com.avast.sst.jvm.system.console.ConsoleModule

@@ -7,9 +7,8 @@
 Module `sst-jvm` provides pure implementations of different JVM-related utilities:
 
 * creation of thread pools,
-* initialization of SSL context,
-* standard in/out/err, random number generation,
-* and more.
+* standard in/out/err,
+* and random number generation.
 
 ```scala
 import com.avast.sst.jvm.system.console.ConsoleModule
@@ -24,11 +23,11 @@ val program = for {
   console = ConsoleModule.make[Task]
   _ <- console.printLine(s"Random number: $randomNumber")
 } yield ()
-// program: zio.ZIO[Any, Throwable, Unit] = zio.ZIO$FlatMap@5e8684a3
+// program: zio.ZIO[Any, Throwable, Unit] = zio.ZIO$FlatMap@51e14cb6
 
 val runtime = new DefaultRuntime {} // this is just needed in example
-// runtime: AnyRef with DefaultRuntime = repl.Session$App$$anon$1@590ab84 // this is just needed in example
+// runtime: AnyRef with DefaultRuntime = repl.Session$App$$anon$1@715523b8 // this is just needed in example
 runtime.unsafeRun(program)
-// Random number: -1698562956
+// Random number: 1552919996
 ```
 
