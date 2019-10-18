@@ -20,6 +20,8 @@ lazy val root = project
   .aggregate(
     bundleMonixHttp4sBlaze,
     bundleZioHttp4sBlaze,
+    doobieHikari,
+    doobieHikariPureConfig,
     example,
     http4sClientBlaze,
     http4sClientBlazePureConfig,
@@ -62,9 +64,28 @@ lazy val bundleZioHttp4sBlaze = project
     )
   )
 
+lazy val doobieHikari = project
+  .in(file("doobie-hikari"))
+  .settings(commonSettings)
+  .settings(
+    name := "sst-doobie-hikari",
+    libraryDependencies ++= Seq(
+      Dependencies.doobie,
+      Dependencies.doobieHikari
+    )
+  )
+
+lazy val doobieHikariPureConfig = project
+  .in(file("doobie-hikari-pureconfig"))
+  .dependsOn(doobieHikari, pureConfig)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-doobie-hikari-pureconfig"
+  )
+
 lazy val example = project
   .in(file("example"))
-  .dependsOn(bundleZioHttp4sBlaze, micrometerJmxPureConfig, sslConfig)
+  .dependsOn(bundleZioHttp4sBlaze, doobieHikari, doobieHikariPureConfig, micrometerJmxPureConfig, sslConfig)
   .enablePlugins(MdocPlugin)
   .settings(commonSettings)
   .settings(
@@ -74,7 +95,11 @@ lazy val example = project
     Global / cancelable := true,
     mdocIn := baseDirectory.value / "mdoc",
     mdocOut := baseDirectory.value / ".." / "docs",
-    libraryDependencies += Dependencies.logbackClassic
+    mdocAutoDependency := false,
+    libraryDependencies ++= Seq(
+      Dependencies.logbackClassic,
+      Dependencies.postgresql
+    )
   )
 
 lazy val http4sClientBlaze = project
