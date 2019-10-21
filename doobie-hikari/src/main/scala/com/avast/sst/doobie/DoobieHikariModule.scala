@@ -9,6 +9,10 @@ import scala.concurrent.ExecutionContext
 
 object DoobieHikariModule {
 
+  /** Makes [[doobie.hikari.HikariTransactor]] initialized with the given config.
+    *
+    * @param boundedConnectExecutionContext [[scala.concurrent.ExecutionContext]] used for creating connections (should be bounded!)
+    */
   def make[F[_]: Async](config: DoobieHikariConfig,
                         boundedConnectExecutionContext: ExecutionContext,
                         blocker: Blocker,

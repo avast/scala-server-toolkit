@@ -95,7 +95,6 @@ lazy val example = project
     Global / cancelable := true,
     mdocIn := baseDirectory.value / "mdoc",
     mdocOut := baseDirectory.value / ".." / "docs",
-    mdocAutoDependency := false,
     libraryDependencies ++= Seq(
       Dependencies.logbackClassic,
       Dependencies.postgresql

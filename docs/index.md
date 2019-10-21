@@ -9,6 +9,7 @@
 * [Modules Micrometer](micrometer.md)
 * [Module PureConfig](pureconfig.md)
 * [Module SSL Config](ssl-config.md)
+* [Module doobie](doobie.md)
 
 ## Getting Started
 
