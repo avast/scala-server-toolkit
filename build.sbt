@@ -33,7 +33,8 @@ lazy val root = project
     micrometerJmx,
     micrometerJmxPureConfig,
     micrometerStatsD,
-    pureConfig
+    pureConfig,
+    sslConfig
   )
   .settings(
     name := "scala-server-toolkit",
@@ -63,7 +64,7 @@ lazy val bundleZioHttp4sBlaze = project
 
 lazy val example = project
   .in(file("example"))
-  .dependsOn(bundleZioHttp4sBlaze, micrometerJmxPureConfig)
+  .dependsOn(bundleZioHttp4sBlaze, micrometerJmxPureConfig, sslConfig)
   .enablePlugins(MdocPlugin)
   .settings(commonSettings)
   .settings(
@@ -78,7 +79,6 @@ lazy val example = project
 
 lazy val http4sClientBlaze = project
   .in(file("http4s-client-blaze"))
-  .dependsOn(jvm)
   .settings(commonSettings)
   .settings(
     name := "sst-http4s-client-blaze",
@@ -195,6 +195,17 @@ lazy val pureConfig = project
   .settings(
     name := "sst-pureconfig",
     libraryDependencies += Dependencies.pureConfig
+  )
+
+lazy val sslConfig = project
+  .in(file("ssl-config"))
+  .settings(commonSettings)
+  .settings(
+    name := "sst-ssl-config",
+    libraryDependencies ++= Seq(
+      Dependencies.slf4jApi,
+      Dependencies.sslConfig
+    )
   )
 
 addCommandAlias("check", "; scalafmtSbtCheck; scalafmtCheckAll; compile:scalafix --check; test:scalafix --check")
