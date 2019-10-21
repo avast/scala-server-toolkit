@@ -47,7 +47,10 @@ object Main extends ZioServerApp {
                                          .map(ExecutionContext.fromExecutorService)
       hikariMetricsFactory = new MicrometerMetricsTrackerFactory(meterRegistry)
       doobieTransactor <- DoobieHikariModule
-                           .make[Task](configuration.database, boundedConnectExecutionContext, executorModule.blocker, hikariMetricsFactory)
+                           .make[Task](configuration.database,
+                                       boundedConnectExecutionContext,
+                                       executorModule.blocker,
+                                       Some(hikariMetricsFactory))
       randomService = RandomService(doobieTransactor)
       routingModule = new Http4sRoutingModule(randomService, serverMetricsModule)
       server <- Http4sBlazeServerModule.make[Task](configuration.server, routingModule.router, executorModule.executionContext)
