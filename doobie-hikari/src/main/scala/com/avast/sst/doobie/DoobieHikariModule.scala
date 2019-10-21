@@ -13,10 +13,12 @@ object DoobieHikariModule {
     *
     * @param boundedConnectExecutionContext [[scala.concurrent.ExecutionContext]] used for creating connections (should be bounded!)
     */
-  def make[F[_]: Async](config: DoobieHikariConfig,
-                        boundedConnectExecutionContext: ExecutionContext,
-                        blocker: Blocker,
-                        metricsTrackerFactory: MetricsTrackerFactory)(implicit cs: ContextShift[F]): Resource[F, HikariTransactor[F]] = {
+  def make[F[_]: Async](
+    config: DoobieHikariConfig,
+    boundedConnectExecutionContext: ExecutionContext,
+    blocker: Blocker,
+    metricsTrackerFactory: Option[MetricsTrackerFactory] = None
+  )(implicit cs: ContextShift[F]): Resource[F, HikariTransactor[F]] = {
     for {
       hikariConfig <- Resource.liftF {
                        Sync[F].delay {
@@ -32,8 +34,8 @@ object DoobieHikariModule {
                          c.setMinimumIdle(config.minimumIdle)
                          c.setMaximumPoolSize(config.maximumPoolSize)
                          c.setReadOnly(config.readOnly)
-                         c.setLeakDetectionThreshold(config.leakDetectionThreshold.map(_.toMillis).getOrElse(0))
-                         c.setMetricsTrackerFactory(metricsTrackerFactory)
+                         config.leakDetectionThreshold.map(_.toMillis).foreach(c.setLeakDetectionThreshold)
+                         metricsTrackerFactory.foreach(c.setMetricsTrackerFactory)
                          c
                        }
                      }
