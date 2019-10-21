@@ -1,3 +1,24 @@
 package com.avast.sst.flyway
 
-final case class FlywayConfig(url: String, username: String, password: String, baselineOnMigrate: Boolean = false)
+final case class FlywayConfig(url: String,
+                              username: String,
+                              password: String,
+                              baselineOnMigrate: Boolean = false,
+                              baselineVersion: Option[String] = None,
+                              baselineDescription: Option[String] = None,
+                              batch: Boolean = false,
+                              cleanDisabled: Boolean = false,
+                              cleanOnValidationError: Boolean = false,
+                              connectRetries: Int = 0,
+                              encoding: String = "UTF-8",
+                              group: Boolean = false,
+                              ignoreFutureMigrations: Boolean = true,
+                              ignoreIgnoredMigrations: Boolean = false,
+                              ignoreMissingMigrations: Boolean = false,
+                              ignorePendingMigrations: Boolean = false,
+                              installedBy: Option[String] = None,
+                              mixed: Boolean = false,
+                              locations: List[String] = List.empty,
+                              outOfOrder: Boolean = false,
+                              validateOnMigrate: Boolean = true,
+                              licenseKey: Option[String] = None)
