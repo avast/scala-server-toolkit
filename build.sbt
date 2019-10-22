@@ -87,7 +87,7 @@ lazy val doobieHikariPureConfig = project
 
 lazy val example = project
   .in(file("example"))
-  .dependsOn(bundleZioHttp4sBlaze, doobieHikari, doobieHikariPureConfig, micrometerJmxPureConfig, sslConfig)
+  .dependsOn(bundleZioHttp4sBlaze, doobieHikari, doobieHikariPureConfig, flyway, flywayPureConfig, micrometerJmxPureConfig, sslConfig)
   .enablePlugins(MdocPlugin)
   .settings(commonSettings)
   .settings(
