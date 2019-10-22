@@ -8,7 +8,7 @@ This module allows you to monitor your applications using [Micrometer](https://m
 the Micrometer API one of which is JMX. Module `sst-micrometer-jmx` implements the initialization of Micrometer for JMX. There are also
 interop modules such as `sst-http4s-server-micrometer` which implement monitoring of HTTP server and individual routes using Micrometer.
 
-```scala mdoc
+```scala mdoc:silent
 import cats.effect.{Clock, Resource}
 import com.avast.sst.http4s.server._
 import com.avast.sst.http4s.server.micrometer.MicrometerHttp4sServerMetricsModule
