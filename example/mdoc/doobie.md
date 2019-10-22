@@ -6,7 +6,7 @@
 
 This module initializes a doobie `Transactor`:
 
-```scala
+```scala mdoc:silent
 import cats.effect.Resource
 import com.avast.sst.doobie.DoobieHikariModule
 import com.avast.sst.example.config.Configuration
@@ -18,7 +18,6 @@ import com.zaxxer.hikari.metrics.micrometer.MicrometerMetricsTrackerFactory
 import scala.concurrent.ExecutionContext
 import zio._
 import zio.interop.catz._
-import zio.interop.catz.implicits._
 
 implicit val runtime = new DefaultRuntime {} // this is just needed in example
 
@@ -34,6 +33,6 @@ for {
                                      .map(ExecutionContext.fromExecutorService)
   hikariMetricsFactory = new MicrometerMetricsTrackerFactory(meterRegistry)
   doobieTransactor <- DoobieHikariModule
-                       .make[Task](configuration.database, boundedConnectExecutionContext, executorModule.blocker, hikariMetricsFactory)
+                       .make[Task](configuration.database, boundedConnectExecutionContext, executorModule.blocker, Some(hikariMetricsFactory))
 } yield doobieTransactor
 ```
