@@ -1,16 +1,17 @@
 package com.avast.sst.flyway
 
-final case class FlywayConfig(url: String,
-                              username: String,
-                              password: String,
-                              baselineOnMigrate: Boolean = false,
-                              baselineVersion: Option[String] = None,
+import java.nio.charset.{Charset, StandardCharsets}
+
+import org.flywaydb.core.api.MigrationVersion
+
+final case class FlywayConfig(baselineOnMigrate: Boolean = false,
+                              baselineVersion: Option[MigrationVersion] = None,
                               baselineDescription: Option[String] = None,
                               batch: Boolean = false,
                               cleanDisabled: Boolean = false,
                               cleanOnValidationError: Boolean = false,
                               connectRetries: Int = 0,
-                              encoding: String = "UTF-8",
+                              encoding: Charset = StandardCharsets.UTF_8,
                               group: Boolean = false,
                               ignoreFutureMigrations: Boolean = true,
                               ignoreIgnoredMigrations: Boolean = false,

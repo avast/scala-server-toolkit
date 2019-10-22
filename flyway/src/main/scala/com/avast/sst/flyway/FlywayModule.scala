@@ -1,16 +1,17 @@
 package com.avast.sst.flyway
 
 import cats.effect.Sync
+import javax.sql.DataSource
 import org.flywaydb.core.Flyway
 
 object FlywayModule {
 
   @SuppressWarnings(Array("org.wartremover.warts.NonUnitStatements"))
-  def make[F[_]: Sync](config: FlywayConfig): F[Flyway] = {
+  def make[F[_]: Sync](dataSource: DataSource, config: FlywayConfig): F[Flyway] = {
     Sync[F].delay {
       val builder = Flyway
         .configure
-        .dataSource(config.url, config.username, config.password)
+        .dataSource(dataSource)
         .baselineOnMigrate(config.baselineOnMigrate)
         .batch(config.batch)
         .cleanDisabled(config.cleanDisabled)
