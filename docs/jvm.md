@@ -16,18 +16,19 @@ import com.avast.sst.jvm.system.random.RandomModule
 import zio.DefaultRuntime
 import zio.interop.catz._
 import zio.Task
- 
-val program = for {
-  random <- RandomModule.makeRandom[Task]
-  randomNumber <- random.nextInt
-  console = ConsoleModule.make[Task]
-  _ <- console.printLine(s"Random number: $randomNumber")
-} yield ()
-// program: zio.ZIO[Any, Throwable, Unit] = zio.ZIO$FlatMap@45a9f3d4
 
+val program = for {
+ random <- RandomModule.makeRandom[Task]
+ randomNumber <- random.nextInt
+ console = ConsoleModule.make[Task]
+ _ <- console.printLine(s"Random number: $randomNumber")
+} yield ()
+```
+
+```scala
 val runtime = new DefaultRuntime {} // this is just needed in example
-// runtime: AnyRef with DefaultRuntime = repl.Session$App$$anon$1@7a4efee2 // this is just needed in example
+// runtime: AnyRef with DefaultRuntime = repl.Session$App$$anon$1@16bba8ae // this is just needed in example
 runtime.unsafeRun(program)
-// Random number: -469930714
+// Random number: -738798022
 ```
 
