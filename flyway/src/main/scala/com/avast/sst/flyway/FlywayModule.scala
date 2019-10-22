@@ -5,6 +5,7 @@ import org.flywaydb.core.Flyway
 
 object FlywayModule {
 
+  @SuppressWarnings(Array("org.wartremover.warts.NonUnitStatements"))
   def make[F[_]: Sync](config: FlywayConfig): F[Flyway] = {
     Sync[F].delay {
       val builder = Flyway
