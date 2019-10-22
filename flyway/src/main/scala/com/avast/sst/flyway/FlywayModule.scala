@@ -29,6 +29,7 @@ object FlywayModule {
         .validateOnMigrate(config.validateOnMigrate)
 
       config.baselineVersion.foreach(builder.baselineVersion)
+      config.targetVersion.foreach(builder.target)
       config.baselineDescription.foreach(builder.baselineDescription)
       config.installedBy.foreach(builder.installedBy)
       if (config.locations.nonEmpty) builder.locations(config.locations: _*)

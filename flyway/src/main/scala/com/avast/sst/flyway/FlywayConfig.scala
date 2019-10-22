@@ -6,6 +6,7 @@ import org.flywaydb.core.api.MigrationVersion
 
 final case class FlywayConfig(baselineOnMigrate: Boolean = false,
                               baselineVersion: Option[MigrationVersion] = None,
+                              targetVersion: Option[MigrationVersion] = None,
                               baselineDescription: Option[String] = None,
                               batch: Boolean = false,
                               cleanDisabled: Boolean = false,

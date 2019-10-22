@@ -1,6 +1,6 @@
 package com.avast.sst.flyway.pureconfig
 
-import java.nio.charset.{Charset, IllegalCharsetNameException, UnsupportedCharsetException}
+import java.nio.charset.Charset
 
 import cats.syntax.either._
 import com.avast.sst.flyway.FlywayConfig
@@ -12,12 +12,7 @@ import pureconfig.generic.semiauto.deriveReader
 trait ConfigReaders {
 
   implicit private[pureconfig] val charsetReader: ConfigReader[Charset] = ConfigReader[String].emap { value =>
-    try {
-      Charset.forName(value).asRight
-    } catch {
-      case ex @ (_: IllegalArgumentException | _: IllegalCharsetNameException | _: UnsupportedCharsetException) =>
-        ExceptionThrown(ex).asLeft
-    }
+    Either.catchNonFatal(Charset.forName(value)).leftMap(ExceptionThrown.apply)
   }
 
   implicit val migrationVersionReader: ConfigReader[MigrationVersion] = ConfigReader[String].map(MigrationVersion.fromVersion)
