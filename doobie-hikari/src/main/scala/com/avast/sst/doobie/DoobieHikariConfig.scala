@@ -24,4 +24,4 @@ final case class DoobieHikariConfig(driver: String,
                                     poolName: Option[String] = None,
                                     registerMBeans: Boolean = false,
                                     validationTimeout: Option[FiniteDuration] = None,
-                                    transactionIsolation: Option[TransactionIsolation])
+                                    transactionIsolation: Option[TransactionIsolation] = None)
