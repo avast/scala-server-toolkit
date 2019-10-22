@@ -18,17 +18,17 @@ import zio.interop.catz._
 import zio.Task
 
 val program = for {
- random <- RandomModule.makeRandom[Task]
+ random <- RandomModule.makeRandom[Task](1234L) // do not ever use seed like this!
  randomNumber <- random.nextInt
  console = ConsoleModule.make[Task]
  _ <- console.printLine(s"Random number: $randomNumber")
 } yield ()
+
+val runtime = new DefaultRuntime {} // this is just needed in example
 ```
 
 ```scala
-val runtime = new DefaultRuntime {} // this is just needed in example
-// runtime: AnyRef with DefaultRuntime = repl.Session$App$$anon$1@16bba8ae // this is just needed in example
 runtime.unsafeRun(program)
-// Random number: -738798022
+// Random number: -1517918040
 ```
 
