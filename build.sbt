@@ -23,6 +23,8 @@ lazy val root = project
     doobieHikari,
     doobieHikariPureConfig,
     example,
+    flyway,
+    flywayPureConfig,
     http4sClientBlaze,
     http4sClientBlazePureConfig,
     http4sServer,
@@ -85,7 +87,7 @@ lazy val doobieHikariPureConfig = project
 
 lazy val example = project
   .in(file("example"))
-  .dependsOn(bundleZioHttp4sBlaze, doobieHikari, doobieHikariPureConfig, micrometerJmxPureConfig, sslConfig)
+  .dependsOn(bundleZioHttp4sBlaze, doobieHikari, doobieHikariPureConfig, flyway, flywayPureConfig, micrometerJmxPureConfig, sslConfig)
   .enablePlugins(MdocPlugin)
   .settings(commonSettings)
   .settings(
@@ -99,6 +101,23 @@ lazy val example = project
       Dependencies.logbackClassic,
       Dependencies.postgresql
     )
+  )
+
+lazy val flyway = project
+  .in(file("flyway"))
+  .settings(commonSettings)
+  .settings(
+    name := "sst-flyway",
+    libraryDependencies += Dependencies.flywayCore
+  )
+
+lazy val flywayPureConfig = project
+  .in(file("flyway-pureconfig"))
+  .dependsOn(flyway)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-flyway-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
   )
 
 lazy val http4sClientBlaze = project
