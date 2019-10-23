@@ -11,12 +11,12 @@ import pureconfig.generic.semiauto.deriveReader
 
 trait ConfigReaders {
 
-  implicit private[pureconfig] val charsetReader: ConfigReader[Charset] = ConfigReader[String].emap { value =>
+  implicit private[pureconfig] val flywayCharsetReader: ConfigReader[Charset] = ConfigReader[String].emap { value =>
     Either.catchNonFatal(Charset.forName(value)).leftMap(ExceptionThrown.apply)
   }
 
-  implicit val migrationVersionReader: ConfigReader[MigrationVersion] = ConfigReader[String].map(MigrationVersion.fromVersion)
+  implicit val flywayMigrationVersionReader: ConfigReader[MigrationVersion] = ConfigReader[String].map(MigrationVersion.fromVersion)
 
-  implicit val configReader: ConfigReader[FlywayConfig] = deriveReader
+  implicit val flywayFlywayConfigReader: ConfigReader[FlywayConfig] = deriveReader
 
 }

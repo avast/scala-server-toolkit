@@ -7,8 +7,8 @@ import pureconfig.generic.semiauto.deriveReader
 
 trait ConfigReaders {
 
-  implicit val socketOptionsReader: ConfigReader[SocketOptions] = deriveReader
+  implicit val http4sServerSocketOptionsReader: ConfigReader[SocketOptions] = deriveReader
 
-  implicit val http4sBlazeServerConfigReader: ConfigReader[Http4sBlazeServerConfig] = deriveReader
+  implicit val http4sServerHttp4sBlazeServerConfigReader: ConfigReader[Http4sBlazeServerConfig] = deriveReader
 
 }

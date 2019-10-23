@@ -9,7 +9,7 @@ import pureconfig.generic.semiauto.deriveReader
 
 trait ConfigReaders {
 
-  implicit val transactionIsolationReader: ConfigReader[TransactionIsolation] = ConfigReader[String].emap {
+  implicit val doobieTransactionIsolationReader: ConfigReader[TransactionIsolation] = ConfigReader[String].emap {
     case "TRANSACTION_NONE"             => TransactionIsolation.TransactionNone.asRight
     case "TRANSACTION_READ_UNCOMMITTED" => TransactionIsolation.TransactionReadUncommitted.asRight
     case "TRANSACTION_READ_COMMITTED"   => TransactionIsolation.TransactionReadCommitted.asRight
@@ -18,6 +18,6 @@ trait ConfigReaders {
     case unknown                        => Left(CannotConvert(unknown, "TransactionIsolation", "unknown value"))
   }
 
-  implicit val configReader: ConfigReader[DoobieHikariConfig] = deriveReader
+  implicit val doobieDoobieHikariConfigReader: ConfigReader[DoobieHikariConfig] = deriveReader
 
 }

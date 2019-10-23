@@ -7,10 +7,10 @@ import pureconfig.generic.semiauto.{deriveEnumerationReader, deriveReader}
 
 trait ConfigReaders {
 
-  implicit val threadPoolExecutorConfigReader: ConfigReader[ThreadPoolExecutorConfig] = deriveReader
+  implicit val jvmThreadPoolExecutorConfigReader: ConfigReader[ThreadPoolExecutorConfig] = deriveReader
 
-  implicit val taskPeekingModeReader: ConfigReader[TaskPeekingMode] = deriveEnumerationReader
+  implicit val jvmTaskPeekingModeReader: ConfigReader[TaskPeekingMode] = deriveEnumerationReader
 
-  implicit val forkJoinPoolConfigReader: ConfigReader[ForkJoinPoolConfig] = deriveReader
+  implicit val jvmForkJoinPoolConfigReader: ConfigReader[ForkJoinPoolConfig] = deriveReader
 
 }

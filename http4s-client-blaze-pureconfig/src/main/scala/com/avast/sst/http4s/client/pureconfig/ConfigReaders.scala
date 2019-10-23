@@ -10,14 +10,14 @@ import pureconfig.generic.semiauto.{deriveEnumerationReader, deriveReader}
 
 trait ConfigReaders {
 
-  implicit val userAgentReader: ConfigReader[`User-Agent`] = ConfigReader[String].emap { value =>
+  implicit val http4sClientUserAgentReader: ConfigReader[`User-Agent`] = ConfigReader[String].emap { value =>
     `User-Agent`.parse(value).leftMap { parseFailure =>
       CannotConvert(value, "User-Agent HTTP header", parseFailure.message)
     }
   }
 
-  implicit val parserModeReader: ConfigReader[ParserMode] = deriveEnumerationReader
+  implicit val http4sClientParserModeReader: ConfigReader[ParserMode] = deriveEnumerationReader
 
-  implicit val http4sBlazeClientConfigReader: ConfigReader[Http4sBlazeClientConfig] = deriveReader
+  implicit val http4sClientHttp4sBlazeClientConfigReader: ConfigReader[Http4sBlazeClientConfig] = deriveReader
 
 }
