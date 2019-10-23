@@ -16,7 +16,8 @@ object Dependencies {
   val micrometerCore = "io.micrometer" % "micrometer-core" % Versions.micrometer
   val micrometerJmx = "io.micrometer" % "micrometer-registry-jmx" % Versions.micrometer
   val micrometerStatsD = "io.micrometer" % "micrometer-registry-statsd" % Versions.micrometer
-  val monixEval = "io.monix" %% "monix-eval" % "3.0.0"
+  val monixEval = "io.monix" %% "monix-eval" % Versions.monix
+  val monixCatnap = "io.monix" %% "monix-catnap" % Versions.monix
   val postgresql = "org.postgresql" % "postgresql" % "42.2.8"
   val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.12.1"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.0.8"
@@ -33,6 +34,7 @@ object Dependencies {
     val doobie = "0.7.1"
     val http4s = "0.20.12"
     val micrometer = "1.3.1"
+    val monix = "3.0.0"
     val silencer = "1.4.4"
 
   }

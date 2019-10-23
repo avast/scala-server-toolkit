@@ -37,6 +37,8 @@ lazy val root = project
     micrometerJmx,
     micrometerJmxPureConfig,
     micrometerStatsD,
+    monixCatnap,
+    monixCatnapPureConfig,
     pureConfig,
     sslConfig
   )
@@ -231,6 +233,23 @@ lazy val micrometerStatsDPureConfig = project
   .dependsOn(micrometerStatsD, pureConfig)
   .settings(commonSettings)
   .settings(name := "sst-micrometer-statsd-pureconfig")
+
+lazy val monixCatnap = project
+  .in(file("monix-catnap"))
+  .settings(commonSettings)
+  .settings(
+    name := "sst-monix-catnap",
+    libraryDependencies += Dependencies.monixCatnap
+  )
+
+lazy val monixCatnapPureConfig = project
+  .in(file("monix-catnap-pureconfig"))
+  .dependsOn(monixCatnap)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-monix-catnap-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
+  )
 
 lazy val pureConfig = project
   .in(file("pureconfig"))
