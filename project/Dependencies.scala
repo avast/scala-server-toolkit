@@ -30,7 +30,7 @@ object Dependencies {
 
   object Versions {
 
-    val doobie = "0.7.1"
+    val doobie = "0.8.4"
     val http4s = "0.20.11"
     val micrometer = "1.3.0"
     val silencer = "1.4.4"
