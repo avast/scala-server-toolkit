@@ -26,7 +26,7 @@ object DoobieHikariModule {
   )(implicit cs: ContextShift[F]): Resource[F, HikariTransactor[F]] = {
     for {
       hikariConfig <- Resource.liftF(makeHikariConfig(config, metricsTrackerFactory))
-      transactor <- HikariTransactor.fromHikariConfig(hikariConfig, boundedConnectExecutionContext, blocker)
+      transactor <- HikariTransactor.fromHikariConfig(hikariConfig, boundedConnectExecutionContext, blocker.blockingContext)
     } yield transactor
   }
 
