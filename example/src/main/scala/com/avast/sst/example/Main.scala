@@ -8,6 +8,8 @@ import com.avast.sst.doobie.DoobieHikariModule
 import com.avast.sst.example.config.Configuration
 import com.avast.sst.example.module.Http4sRoutingModule
 import com.avast.sst.example.service.RandomService
+import com.avast.sst.http4s.client.Http4sBlazeClientModule
+import com.avast.sst.http4s.client.monix.catnap.micrometer.Http4sClientCircuitBreakerModule
 import com.avast.sst.http4s.server.Http4sBlazeServerModule
 import com.avast.sst.http4s.server.micrometer.MicrometerHttp4sServerMetricsModule
 import com.avast.sst.jvm.execution.ConfigurableThreadFactory.Config
@@ -52,7 +54,9 @@ object Main extends ZioServerApp {
                                        executorModule.blocker,
                                        Some(hikariMetricsFactory))
       randomService = RandomService(doobieTransactor)
-      routingModule = new Http4sRoutingModule(randomService, serverMetricsModule)
+      httpClient <- Http4sBlazeClientModule.make[Task](configuration.client, executorModule.executionContext)
+      client <- Http4sClientCircuitBreakerModule.make[Task]("client", configuration.circuitBreaker, httpClient, meterRegistry, clock)
+      routingModule = new Http4sRoutingModule(randomService, client, serverMetricsModule)
       server <- Http4sBlazeServerModule.make[Task](configuration.server, routingModule.router, executorModule.executionContext)
     } yield server
   }

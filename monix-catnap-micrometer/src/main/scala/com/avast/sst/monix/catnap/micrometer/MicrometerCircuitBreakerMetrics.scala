@@ -8,7 +8,7 @@ import com.avast.sst.monix.catnap.CircuitBreakerMetrics.State
 import com.avast.sst.monix.catnap.CircuitBreakerMetrics.State._
 import io.micrometer.core.instrument.MeterRegistry
 
-class MicrometerCircuitBreakerMetrics[F[_]: Sync](meterRegistry: MeterRegistry) extends CircuitBreakerMetrics[F] {
+class MicrometerCircuitBreakerMetrics[F[_]: Sync](name: String, meterRegistry: MeterRegistry) extends CircuitBreakerMetrics[F] {
 
   private val F = Sync[F]
 

@@ -27,6 +27,7 @@ lazy val root = project
     flywayPureConfig,
     http4sClientBlaze,
     http4sClientBlazePureConfig,
+    http4sClientMonixCatnapMicrometer,
     http4sServer,
     http4sServerBlaze,
     http4sServerBlazePureConfig,
@@ -38,6 +39,7 @@ lazy val root = project
     micrometerJmxPureConfig,
     micrometerStatsD,
     monixCatnap,
+    monixCatnapMicrometer,
     monixCatnapPureConfig,
     pureConfig,
     sslConfig
@@ -89,7 +91,18 @@ lazy val doobieHikariPureConfig = project
 
 lazy val example = project
   .in(file("example"))
-  .dependsOn(bundleZioHttp4sBlaze, doobieHikari, doobieHikariPureConfig, flyway, flywayPureConfig, micrometerJmxPureConfig, sslConfig)
+  .dependsOn(
+    bundleZioHttp4sBlaze,
+    doobieHikari,
+    doobieHikariPureConfig,
+    flyway,
+    flywayPureConfig,
+    http4sClientBlazePureConfig,
+    http4sClientMonixCatnapMicrometer,
+    monixCatnapPureConfig,
+    micrometerJmxPureConfig,
+    sslConfig
+  )
   .enablePlugins(MdocPlugin)
   .settings(commonSettings)
   .settings(
@@ -99,6 +112,7 @@ lazy val example = project
     Global / cancelable := true,
     mdocIn := baseDirectory.value / "mdoc",
     mdocOut := baseDirectory.value / ".." / "docs",
+    mdocAutoDependency := false,
     libraryDependencies ++= Seq(
       Dependencies.logbackClassic,
       Dependencies.postgresql
