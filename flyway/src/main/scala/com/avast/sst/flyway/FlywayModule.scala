@@ -14,7 +14,6 @@ object FlywayModule {
         .configure
         .dataSource(dataSource)
         .baselineOnMigrate(config.baselineOnMigrate)
-        .batch(config.batch)
         .cleanDisabled(config.cleanDisabled)
         .cleanOnValidationError(config.cleanOnValidationError)
         .connectRetries(config.connectRetries)
@@ -33,8 +32,6 @@ object FlywayModule {
       config.baselineDescription.foreach(builder.baselineDescription)
       config.installedBy.foreach(builder.installedBy)
       if (config.locations.nonEmpty) builder.locations(config.locations: _*)
-
-      config.licenseKey.foreach(builder.licenseKey)
 
       builder.load()
     }
