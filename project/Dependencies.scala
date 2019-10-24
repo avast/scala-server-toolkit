@@ -8,6 +8,7 @@ object Dependencies {
   val flywayCore = "org.flywaydb" % "flyway-core" % "6.0.8"
   val http4sBlazeClient = "org.http4s" %% "http4s-blaze-client" % Versions.http4s
   val http4sBlazeServer = "org.http4s" %% "http4s-blaze-server" % Versions.http4s
+  val http4sClient = "org.http4s" %% "http4s-client" % Versions.http4s
   val http4sDsl = "org.http4s" %% "http4s-dsl" % Versions.http4s
   val http4sServer = "org.http4s" %% "http4s-server" % Versions.http4s
   val jsr305 = "com.google.code.findbugs" % "jsr305" % "3.0.2"

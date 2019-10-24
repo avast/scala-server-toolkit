@@ -136,6 +136,18 @@ lazy val http4sClientBlazePureConfig = project
   .settings(commonSettings)
   .settings(name := "sst-http4s-client-blaze-pureconfig")
 
+lazy val http4sClientMonixCatnapMicrometer = project
+  .in(file("http4s-client-monix-catnap-micrometer"))
+  .dependsOn(monixCatnapMicrometer)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-http4s-client-monix-catnap-micrometer",
+    libraryDependencies ++= Seq(
+      Dependencies.http4sClient,
+      Dependencies.slf4jApi
+    )
+  )
+
 lazy val http4sServer = project
   .in(file("http4s-server"))
   .settings(commonSettings)
@@ -240,6 +252,18 @@ lazy val monixCatnap = project
   .settings(
     name := "sst-monix-catnap",
     libraryDependencies += Dependencies.monixCatnap
+  )
+
+lazy val monixCatnapMicrometer = project
+  .in(file("monix-catnap-micrometer"))
+  .dependsOn(monixCatnap)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-monix-catnap-micrometer",
+    libraryDependencies ++= Seq(
+      Dependencies.micrometerCore,
+      Dependencies.jsr305 // required because of Scala compiler
+    )
   )
 
 lazy val monixCatnapPureConfig = project
