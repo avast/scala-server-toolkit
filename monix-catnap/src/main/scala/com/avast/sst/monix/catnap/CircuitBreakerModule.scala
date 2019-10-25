@@ -26,6 +26,7 @@ class CircuitBreakerModule[F[_]](implicit F: Sync[F]) {
 
 object CircuitBreakerModule {
 
+  /** Creates [[com.avast.sst.monix.catnap.CircuitBreakerModule]] specialed for `F[_]: Sync`. */
   def apply[F[_]: Sync] = new CircuitBreakerModule[F]
 
 }

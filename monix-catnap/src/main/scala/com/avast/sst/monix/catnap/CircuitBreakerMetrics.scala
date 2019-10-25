@@ -3,6 +3,7 @@ package com.avast.sst.monix.catnap
 import cats.Applicative
 import com.avast.sst.monix.catnap.CircuitBreakerMetrics.State
 
+/** Implement this trait for your monitoring system if you want to get insight into your circuit breaker. */
 trait CircuitBreakerMetrics[F[_]] {
 
   def increaseAccepted: F[Unit]

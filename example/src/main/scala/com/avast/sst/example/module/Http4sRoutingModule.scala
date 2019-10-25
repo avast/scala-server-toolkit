@@ -19,9 +19,9 @@ class Http4sRoutingModule(randomService: RandomService,
   private val helloWorldRoute = routeMetrics.wrap("hello")(Ok("Hello World!"))
 
   private val routes = HttpRoutes.of[Task] {
-    case GET -> Root / "hello"  => helloWorldRoute
-    case GET -> Root / "random" => randomService.randomNumber.map(_.toString).flatMap(Ok(_))
-    case GET -> Root / "client" => client.expect[String]("https://httpbin.org/status/500").flatMap(Ok(_))
+    case GET -> Root / "hello"           => helloWorldRoute
+    case GET -> Root / "random"          => randomService.randomNumber.map(_.toString).flatMap(Ok(_))
+    case GET -> Root / "circuit-breaker" => client.expect[String]("https://httpbin.org/status/500").flatMap(Ok(_))
   }
 
   val router: HttpApp[Task] = Http4sRouting.make {

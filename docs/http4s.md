@@ -91,3 +91,7 @@ for {
 } yield server
 ```
 
+## Circuit Breaker
+
+It is a good practice to wrap any communication with external system with circuit breaking mechanism to prevent spreading of errors and
+bad latency. See [monix-catnap](monix-catnap.md) for one of the options.

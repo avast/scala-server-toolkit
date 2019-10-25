@@ -15,11 +15,11 @@ import com.avast.sst.doobie.DoobieHikariModule
 import com.avast.sst.flyway.FlywayModule
 import zio.Task
 import zio.interop.catz._
-import zio.interop.catz.implicits._
 
 for {
   doobieTransactor <- DoobieHikariModule.make[Task](???, ???, ???, ???)
   flyway <- Resource.liftF(FlywayModule.make[Task](doobieTransactor.kernel, ???))
+  _ <- Resource.liftF(Task.effect(flyway.migrate()))
 } yield ()
 ```
 

@@ -8,6 +8,7 @@ import com.avast.sst.monix.catnap.CircuitBreakerMetrics.State
 import com.avast.sst.monix.catnap.CircuitBreakerMetrics.State._
 import io.micrometer.core.instrument.MeterRegistry
 
+/** Implements [[com.avast.sst.monix.catnap.CircuitBreakerMetrics]] for any Micrometer [[io.micrometer.core.instrument.MeterRegistry]]. */
 class MicrometerCircuitBreakerMetrics[F[_]: Sync](name: String, meterRegistry: MeterRegistry) extends CircuitBreakerMetrics[F] {
 
   private val F = Sync[F]
@@ -16,9 +17,9 @@ class MicrometerCircuitBreakerMetrics[F[_]: Sync](name: String, meterRegistry: M
   private[this] val CircuitHalfOpened = 0
   private[this] val CircuitClosed = 1
 
-  private val accepted = meterRegistry.counter("cb.accepted")
-  private val rejected = meterRegistry.counter("cb.rejected")
-  private val circuitState = meterRegistry.gauge[AtomicInteger]("cb.state", new AtomicInteger(CircuitClosed))
+  private val accepted = meterRegistry.counter(s"circuit-breaker.$name.accepted")
+  private val rejected = meterRegistry.counter(s"circuit-breaker.$name.rejected")
+  private val circuitState = meterRegistry.gauge[AtomicInteger](s"circuit-breaker.$name.state", new AtomicInteger(CircuitClosed))
 
   override def increaseAccepted: F[Unit] = F.delay(accepted.increment())
 

@@ -112,11 +112,11 @@ lazy val example = project
     Global / cancelable := true,
     mdocIn := baseDirectory.value / "mdoc",
     mdocOut := baseDirectory.value / ".." / "docs",
-    mdocAutoDependency := false,
     libraryDependencies ++= Seq(
       Dependencies.logbackClassic,
       Dependencies.postgresql
-    )
+    ),
+    scalacOptions := scalacOptions.value.filterNot(_ == "-Xfatal-warnings")
   )
 
 lazy val flyway = project

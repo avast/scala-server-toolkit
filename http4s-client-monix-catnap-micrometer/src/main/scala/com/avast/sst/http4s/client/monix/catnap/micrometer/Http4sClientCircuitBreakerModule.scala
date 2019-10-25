@@ -15,6 +15,7 @@ object Http4sClientCircuitBreakerModule {
 
   private lazy val logger = LoggerFactory.getLogger("Http4sClientCircuitBreakerModule")
 
+  /**  */
   def make[F[_]: Sync](name: String,
                        circuitBreakerConfig: CircuitBreakerConfig,
                        client: Client[F],
@@ -25,7 +26,7 @@ object Http4sClientCircuitBreakerModule {
     class ServerFailure(val response: Response[F], val close: F[Unit]) extends Exception
 
     for {
-      metrics <- Resource.liftF(F.delay(new MicrometerCircuitBreakerMetrics[F](meterRegistry)))
+      metrics <- Resource.liftF(F.delay(new MicrometerCircuitBreakerMetrics[F](name, meterRegistry)))
       onRejected = F.delay(logger.trace(s"Circuit breaker for $name rejected request.")) >> metrics.increaseRejected
       onClosed = F.delay(logger.trace(s"Circuit breaker for $name closed.")) >> metrics.setState(Closed)
       onHalfOpen = F.delay(logger.trace(s"Circuit breaker for $name half-opened.")) >> metrics.setState(HalfOpen)
