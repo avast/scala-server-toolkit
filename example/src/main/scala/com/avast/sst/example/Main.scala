@@ -9,7 +9,7 @@ import com.avast.sst.example.config.Configuration
 import com.avast.sst.example.module.Http4sRoutingModule
 import com.avast.sst.example.service.RandomService
 import com.avast.sst.http4s.client.Http4sBlazeClientModule
-import com.avast.sst.http4s.client.monix.catnap.micrometer.Http4sClientCircuitBreakerModule
+import com.avast.sst.http4s.client.monix.catnap.Http4sClientCircuitBreakerModule
 import com.avast.sst.http4s.server.Http4sBlazeServerModule
 import com.avast.sst.http4s.server.micrometer.MicrometerHttp4sServerMetricsModule
 import com.avast.sst.jvm.execution.ConfigurableThreadFactory.Config
@@ -17,6 +17,7 @@ import com.avast.sst.jvm.execution.{ConfigurableThreadFactory, ExecutorModule}
 import com.avast.sst.jvm.micrometer.MicrometerJvmModule
 import com.avast.sst.jvm.system.console.{Console, ConsoleModule}
 import com.avast.sst.micrometer.jmx.MicrometerJmxModule
+import com.avast.sst.monix.catnap.micrometer.MicrometerCircuitBreakerMetricsModule
 import com.avast.sst.pureconfig.PureConfigModule
 import com.zaxxer.hikari.metrics.micrometer.MicrometerMetricsTrackerFactory
 import org.http4s.server.Server
@@ -55,8 +56,9 @@ object Main extends ZioServerApp {
                                        Some(hikariMetricsFactory))
       randomService = RandomService(doobieTransactor)
       httpClient <- Http4sBlazeClientModule.make[Task](configuration.client, executorModule.executionContext)
+      circuitBreakerMetrics <- Resource.liftF(MicrometerCircuitBreakerMetricsModule.make[Task]("test-http-client", meterRegistry))
       client <- Http4sClientCircuitBreakerModule
-                 .make[Task]("test-http-client", configuration.circuitBreaker, httpClient, meterRegistry, clock)
+                 .make[Task]("test-http-client", configuration.circuitBreaker, httpClient, circuitBreakerMetrics, clock)
       routingModule = new Http4sRoutingModule(randomService, client, serverMetricsModule)
       server <- Http4sBlazeServerModule.make[Task](configuration.server, routingModule.router, executorModule.executionContext)
     } yield server

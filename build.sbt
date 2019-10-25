@@ -27,7 +27,7 @@ lazy val root = project
     flywayPureConfig,
     http4sClientBlaze,
     http4sClientBlazePureConfig,
-    http4sClientMonixCatnapMicrometer,
+    http4sClientMonixCatnap,
     http4sServer,
     http4sServerBlaze,
     http4sServerBlazePureConfig,
@@ -98,7 +98,7 @@ lazy val example = project
     flyway,
     flywayPureConfig,
     http4sClientBlazePureConfig,
-    http4sClientMonixCatnapMicrometer,
+    http4sClientMonixCatnap,
     monixCatnapPureConfig,
     micrometerJmxPureConfig,
     sslConfig
@@ -150,12 +150,12 @@ lazy val http4sClientBlazePureConfig = project
   .settings(commonSettings)
   .settings(name := "sst-http4s-client-blaze-pureconfig")
 
-lazy val http4sClientMonixCatnapMicrometer = project
-  .in(file("http4s-client-monix-catnap-micrometer"))
+lazy val http4sClientMonixCatnap = project
+  .in(file("http4s-client-monix-catnap"))
   .dependsOn(monixCatnapMicrometer)
   .settings(commonSettings)
   .settings(
-    name := "sst-http4s-client-monix-catnap-micrometer",
+    name := "sst-http4s-client-monix-catnap",
     libraryDependencies ++= Seq(
       Dependencies.http4sClient,
       Dependencies.slf4jApi
