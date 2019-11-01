@@ -8,11 +8,9 @@ import com.avast.sst.monix.catnap.CircuitBreakerMetrics.State
 import com.avast.sst.monix.catnap.CircuitBreakerMetrics.State.{Closed, HalfOpen, Open}
 import io.micrometer.core.instrument.MeterRegistry
 
-trait MicrometerCircuitBreakerMetrics[F[_]] extends CircuitBreakerMetrics[F]
-
 object MicrometerCircuitBreakerMetrics {
 
-  private[micrometer] class Impl[F[_]: Sync](name: String, meterRegistry: MeterRegistry) extends MicrometerCircuitBreakerMetrics[F] {
+  private[micrometer] class Impl[F[_]: Sync](name: String, meterRegistry: MeterRegistry) extends CircuitBreakerMetrics[F] {
 
     private val F = Sync[F]
 

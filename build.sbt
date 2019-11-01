@@ -156,10 +156,7 @@ lazy val http4sClientMonixCatnap = project
   .settings(commonSettings)
   .settings(
     name := "sst-http4s-client-monix-catnap",
-    libraryDependencies ++= Seq(
-      Dependencies.http4sClient,
-      Dependencies.slf4jApi
-    )
+    libraryDependencies += Dependencies.http4sClient
   )
 
 lazy val http4sServer = project
@@ -265,7 +262,10 @@ lazy val monixCatnap = project
   .settings(commonSettings)
   .settings(
     name := "sst-monix-catnap",
-    libraryDependencies += Dependencies.monixCatnap
+    libraryDependencies ++= Seq(
+      Dependencies.monixCatnap,
+      Dependencies.slf4jApi
+    )
   )
 
 lazy val monixCatnapMicrometer = project
