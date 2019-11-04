@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory
 
 class CircuitBreakerModule[F[_]](implicit F: Sync[F]) {
 
-  private lazy val logger = LoggerFactory.getLogger("CircuitBreaker")
+  private lazy val logger = LoggerFactory.getLogger(this.getClass)
 
   /** Makes [[monix.catnap.CircuitBreaker]] initialized with the given config and [[cats.effect.Clock]]. */
   def make(config: CircuitBreakerConfig,
@@ -50,6 +50,6 @@ class CircuitBreakerModule[F[_]](implicit F: Sync[F]) {
 object CircuitBreakerModule {
 
   /** Creates [[com.avast.sst.monix.catnap.CircuitBreakerModule]] specialed for `F[_]: Sync`. */
-  def apply[F[_]: Sync] = new CircuitBreakerModule[F]
+  def apply[F[_]: Sync]: CircuitBreakerModule[F] = new CircuitBreakerModule[F]
 
 }

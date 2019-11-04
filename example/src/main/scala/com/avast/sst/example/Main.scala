@@ -57,8 +57,10 @@ object Main extends ZioServerApp {
       randomService = RandomService(doobieTransactor)
       httpClient <- Http4sBlazeClientModule.make[Task](configuration.client, executorModule.executionContext)
       circuitBreakerMetrics <- Resource.liftF(MicrometerCircuitBreakerMetricsModule.make[Task]("test-http-client", meterRegistry))
-      client <- Http4sClientCircuitBreakerModule
-                 .make[Task]("test-http-client", httpClient, configuration.circuitBreaker, circuitBreakerMetrics, clock)
+      client <- Resource.liftF(
+                 Http4sClientCircuitBreakerModule
+                   .make[Task]("test-http-client", httpClient, configuration.circuitBreaker, circuitBreakerMetrics, clock)
+               )
       routingModule = new Http4sRoutingModule(randomService, client, serverMetricsModule)
       server <- Http4sBlazeServerModule.make[Task](configuration.server, routingModule.router, executorModule.executionContext)
     } yield server

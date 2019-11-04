@@ -3,6 +3,7 @@ package com.avast.sst.http4s.client.monix.catnap
 import cats.effect.{Clock, Resource, Sync}
 import cats.syntax.applicativeError._
 import cats.syntax.flatMap._
+import cats.syntax.functor._
 import com.avast.sst.monix.catnap.CircuitBreakerMetrics.State.{Closed, HalfOpen, Open}
 import com.avast.sst.monix.catnap.{CircuitBreakerConfig, CircuitBreakerMetrics, CircuitBreakerModule}
 import org.http4s.Response
@@ -18,21 +19,19 @@ object Http4sClientCircuitBreakerModule {
                        client: Client[F],
                        circuitBreakerConfig: CircuitBreakerConfig,
                        circuitBreakerMetrics: CircuitBreakerMetrics[F],
-                       clock: Clock[F]): Resource[F, Client[F]] = {
+                       clock: Clock[F]): F[Client[F]] = {
     val F = Sync[F]
 
     class ServerFailure(val response: Response[F], val close: F[Unit]) extends Exception
 
-    val cbResource = Resource.liftF(
-      CircuitBreakerModule[F].makeLoggingCircuitBreaker(
-        name,
-        circuitBreakerConfig,
-        clock,
-        circuitBreakerMetrics.increaseRejected,
-        circuitBreakerMetrics.setState(Closed),
-        circuitBreakerMetrics.setState(HalfOpen),
-        circuitBreakerMetrics.setState(Open)
-      )
+    val cbResource = CircuitBreakerModule[F].makeLoggingCircuitBreaker(
+      name,
+      circuitBreakerConfig,
+      clock,
+      circuitBreakerMetrics.increaseRejected,
+      circuitBreakerMetrics.setState(Closed),
+      circuitBreakerMetrics.setState(HalfOpen),
+      circuitBreakerMetrics.setState(Open)
     )
 
     cbResource.map { cb =>

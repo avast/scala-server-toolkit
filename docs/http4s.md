@@ -4,7 +4,7 @@
 
 `libraryDependencies += "com.avast" %% "sst-http4s-server-blaze" % "<VERSION>"`
 
-There are `http4s-*` modules that provide easy initialization of a server and a client. Http4s is an interface with multiple possible
+There are `http4s-*` modules that provide easy initialization of a server and a client. Http4s is an interface with multiple possible 
 implementations - for now we provide only implementations based on [Blaze](https://github.com/http4s/blaze).
 
 Both server and client are configured via configuration `case class` which contains default values taken from the underlying implementations.
