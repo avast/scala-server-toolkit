@@ -23,11 +23,8 @@ object MicrometerCircuitBreakerMetricsModule {
 
     private val F = Sync[F]
 
-    private val accepted = meterRegistry.counter(s"circuit-breaker.$name.accepted")
     private val rejected = meterRegistry.counter(s"circuit-breaker.$name.rejected")
     private val circuitState = meterRegistry.gauge[AtomicInteger](s"circuit-breaker.$name.state", state)
-
-    override def increaseAccepted: F[Unit] = F.delay(accepted.increment())
 
     override def increaseRejected: F[Unit] = F.delay(rejected.increment())
 

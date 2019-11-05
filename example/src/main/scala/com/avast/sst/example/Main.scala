@@ -17,6 +17,8 @@ import com.avast.sst.jvm.execution.{ConfigurableThreadFactory, ExecutorModule}
 import com.avast.sst.jvm.micrometer.MicrometerJvmModule
 import com.avast.sst.jvm.system.console.{Console, ConsoleModule}
 import com.avast.sst.micrometer.jmx.MicrometerJmxModule
+import com.avast.sst.monix.catnap.CircuitBreakerModule
+import com.avast.sst.monix.catnap.CircuitBreakerModule.{withLogging, withMetrics}
 import com.avast.sst.monix.catnap.micrometer.MicrometerCircuitBreakerMetricsModule
 import com.avast.sst.pureconfig.PureConfigModule
 import com.zaxxer.hikari.metrics.micrometer.MicrometerMetricsTrackerFactory
@@ -57,10 +59,9 @@ object Main extends ZioServerApp {
       randomService = RandomService(doobieTransactor)
       httpClient <- Http4sBlazeClientModule.make[Task](configuration.client, executorModule.executionContext)
       circuitBreakerMetrics <- Resource.liftF(MicrometerCircuitBreakerMetricsModule.make[Task]("test-http-client", meterRegistry))
-      client <- Resource.liftF(
-                 Http4sClientCircuitBreakerModule
-                   .make[Task]("test-http-client", httpClient, configuration.circuitBreaker, circuitBreakerMetrics, clock)
-               )
+      circuitBreaker <- Resource.liftF(CircuitBreakerModule[Task].make(configuration.circuitBreaker, clock))
+      enrichedCircuitBreaker = withLogging("test-http-client", withMetrics(circuitBreakerMetrics, circuitBreaker))
+      client = Http4sClientCircuitBreakerModule.make[Task](httpClient, enrichedCircuitBreaker)
       routingModule = new Http4sRoutingModule(randomService, client, serverMetricsModule)
       server <- Http4sBlazeServerModule.make[Task](configuration.server, routingModule.router, executorModule.executionContext)
     } yield server
