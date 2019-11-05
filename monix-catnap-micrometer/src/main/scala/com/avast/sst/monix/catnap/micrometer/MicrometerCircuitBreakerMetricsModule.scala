@@ -11,7 +11,7 @@ import io.micrometer.core.instrument.MeterRegistry
 
 object MicrometerCircuitBreakerMetricsModule {
 
-  /** Makes [[com.avast.sst.monix.catnap.CircuitBreakerMetrics]] from [[io.micrometer.core.instrument.MeterRegistry]]. */
+  /** Makes `CircuitBreakerMetrics` from [[io.micrometer.core.instrument.MeterRegistry]]. */
   def make[F[_]: Sync](name: String, meterRegistry: MeterRegistry): F[CircuitBreakerMetrics[F]] = {
     for {
       circuitBreakerState <- Sync[F].delay(new AtomicInteger(CircuitClosed))
