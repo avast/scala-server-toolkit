@@ -11,6 +11,7 @@
 * [Module SSL Config](ssl-config.md)
 * [Module doobie](doobie.md)
 * [Module Flyway](flyway.md)
+* [Module monix-catnap - CircuitBreaker](monix-catnap.md)
 
 ## Getting Started
 

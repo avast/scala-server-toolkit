@@ -10,7 +10,7 @@ Module `sst-jvm` provides pure implementations of different JVM-related utilitie
 * standard in/out/err,
 * and random number generation.
   
- ```scala mdoc:silent
+```scala mdoc:silent
 import com.avast.sst.jvm.system.console.ConsoleModule
 import com.avast.sst.jvm.system.random.RandomModule
 import zio.DefaultRuntime
@@ -29,4 +29,4 @@ val runtime = new DefaultRuntime {} // this is just needed in example
 
 ```scala mdoc
 runtime.unsafeRun(program)
- ```
+```

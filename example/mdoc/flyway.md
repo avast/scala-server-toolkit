@@ -9,16 +9,16 @@ on how to go about that.
 
 The method `make` requires `javax.sql.DataSource` which you can for example obtain from `doobie-hikari` module:
 
-```scala
+```scala mdoc:compile-only
 import cats.effect.Resource
 import com.avast.sst.doobie.DoobieHikariModule
 import com.avast.sst.flyway.FlywayModule
 import zio.Task
 import zio.interop.catz._
-import zio.interop.catz.implicits._
 
 for {
   doobieTransactor <- DoobieHikariModule.make[Task](???, ???, ???, ???)
   flyway <- Resource.liftF(FlywayModule.make[Task](doobieTransactor.kernel, ???))
+  _ <- Resource.liftF(Task.effect(flyway.migrate()))
 } yield ()
 ```

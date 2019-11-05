@@ -27,6 +27,7 @@ lazy val root = project
     flywayPureConfig,
     http4sClientBlaze,
     http4sClientBlazePureConfig,
+    http4sClientMonixCatnap,
     http4sServer,
     http4sServerBlaze,
     http4sServerBlazePureConfig,
@@ -37,6 +38,9 @@ lazy val root = project
     micrometerJmx,
     micrometerJmxPureConfig,
     micrometerStatsD,
+    monixCatnap,
+    monixCatnapMicrometer,
+    monixCatnapPureConfig,
     pureConfig,
     sslConfig
   )
@@ -87,7 +91,18 @@ lazy val doobieHikariPureConfig = project
 
 lazy val example = project
   .in(file("example"))
-  .dependsOn(bundleZioHttp4sBlaze, doobieHikari, doobieHikariPureConfig, flyway, flywayPureConfig, micrometerJmxPureConfig, sslConfig)
+  .dependsOn(
+    bundleZioHttp4sBlaze,
+    doobieHikari,
+    doobieHikariPureConfig,
+    flyway,
+    flywayPureConfig,
+    http4sClientBlazePureConfig,
+    http4sClientMonixCatnap,
+    monixCatnapPureConfig,
+    micrometerJmxPureConfig,
+    sslConfig
+  )
   .enablePlugins(MdocPlugin)
   .settings(commonSettings)
   .settings(
@@ -100,7 +115,8 @@ lazy val example = project
     libraryDependencies ++= Seq(
       Dependencies.logbackClassic,
       Dependencies.postgresql
-    )
+    ),
+    scalacOptions := scalacOptions.value.filterNot(_ == "-Xfatal-warnings")
   )
 
 lazy val flyway = project
@@ -133,6 +149,15 @@ lazy val http4sClientBlazePureConfig = project
   .dependsOn(http4sClientBlaze, jvmPureConfig)
   .settings(commonSettings)
   .settings(name := "sst-http4s-client-blaze-pureconfig")
+
+lazy val http4sClientMonixCatnap = project
+  .in(file("http4s-client-monix-catnap"))
+  .dependsOn(monixCatnapMicrometer)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-http4s-client-monix-catnap",
+    libraryDependencies += Dependencies.http4sClient
+  )
 
 lazy val http4sServer = project
   .in(file("http4s-server"))
@@ -231,6 +256,38 @@ lazy val micrometerStatsDPureConfig = project
   .dependsOn(micrometerStatsD, pureConfig)
   .settings(commonSettings)
   .settings(name := "sst-micrometer-statsd-pureconfig")
+
+lazy val monixCatnap = project
+  .in(file("monix-catnap"))
+  .settings(commonSettings)
+  .settings(
+    name := "sst-monix-catnap",
+    libraryDependencies ++= Seq(
+      Dependencies.monixCatnap,
+      Dependencies.slf4jApi
+    )
+  )
+
+lazy val monixCatnapMicrometer = project
+  .in(file("monix-catnap-micrometer"))
+  .dependsOn(monixCatnap)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-monix-catnap-micrometer",
+    libraryDependencies ++= Seq(
+      Dependencies.micrometerCore,
+      Dependencies.jsr305 // required because of Scala compiler
+    )
+  )
+
+lazy val monixCatnapPureConfig = project
+  .in(file("monix-catnap-pureconfig"))
+  .dependsOn(monixCatnap)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-monix-catnap-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
+  )
 
 lazy val pureConfig = project
   .in(file("pureconfig"))

@@ -4,7 +4,7 @@
 
 `libraryDependencies += "com.avast" %% "sst-micrometer-jmx" % "<VERSION>"`
 
-This module allows you to monitor your applications using [Micrometer](https://micrometer.io). There are many actual implementations of
+This module allows you to monitor your applications using [Micrometer](https://micrometer.io). There are many actual implementations of 
 the Micrometer API one of which is JMX. Module `sst-micrometer-jmx` implements the initialization of Micrometer for JMX. There are also
 interop modules such as `sst-http4s-server-micrometer` which implement monitoring of HTTP server and individual routes using Micrometer.
 
@@ -44,4 +44,3 @@ for {
   server <- Http4sBlazeServerModule.make[Task](Http4sBlazeServerConfig("127.0.0.1", 0), routes, executorModule.executionContext)
 } yield server
 ```
-

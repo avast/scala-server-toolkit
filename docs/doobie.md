@@ -36,4 +36,3 @@ for {
                        .make[Task](configuration.database, boundedConnectExecutionContext, executorModule.blocker, Some(hikariMetricsFactory))
 } yield doobieTransactor
 ```
-
