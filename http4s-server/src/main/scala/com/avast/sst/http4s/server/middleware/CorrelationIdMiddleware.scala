@@ -22,7 +22,7 @@ class CorrelationIdMiddleware[F[_]: Sync](correlationIdHeaderName: CaseInsensiti
                                           attributeKey: Key[CorrelationId],
                                           generator: () => String) {
 
-  private val logger = LoggerFactory.getLogger("CorrelationIdMiddleware")
+  private val logger = LoggerFactory.getLogger(this.getClass)
 
   private val F = Sync[F]
 
