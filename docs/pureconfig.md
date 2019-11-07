@@ -29,3 +29,8 @@ Look for `sst-*-pureconfig` modules to get `implicit` instances of `ConfigReader
 ```scala
 import com.avast.sst.http4s.server.pureconfig.implicits._
 ```
+
+The default `*.pureconfig.implicits._` import contains the default naming convention for PureConfig which is `kebab-case` 
+for the configuration file and `camelCase` for the case class field names. You can either choose a different naming convention by different
+import (e.g. `*.pureconfig.implicits.CamelCase`) or you can [create your own](https://pureconfig.github.io/docs/overriding-behavior-for-case-classes.html#field-mappings)
+and `extend` the `ConfigReaders` `trait`.
