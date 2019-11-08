@@ -29,6 +29,7 @@ object Dependencies {
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.4.0"
   val zio = "dev.zio" %% "zio" % "1.0.0-RC16"
   val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC7"
+  val datastax = "com.datastax.oss" % "java-driver-core" % Versions.datastax
 
   object Versions {
 
@@ -37,6 +38,7 @@ object Dependencies {
     val micrometer = "1.3.1"
     val monix = "3.0.0"
     val silencer = "1.4.4"
+    val datastax = "4.2.2"
 
   }
 

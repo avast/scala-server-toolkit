@@ -42,7 +42,9 @@ lazy val root = project
     monixCatnapMicrometer,
     monixCatnapPureConfig,
     pureConfig,
-    sslConfig
+    sslConfig,
+    datastax,
+    datastaxPureConfig
   )
   .settings(
     name := "scala-server-toolkit",
@@ -318,6 +320,22 @@ lazy val sslConfig = project
       Dependencies.slf4jApi,
       Dependencies.sslConfig
     )
+  )
+
+lazy val datastax = project
+  .in(file("datastax"))
+  .settings(commonSettings)
+  .settings(
+    name := "sst-datastax",
+    libraryDependencies += Dependencies.datastax
+  )
+
+lazy val datastaxPureConfig = project
+  .in(file("datastax-pureconfig"))
+  .dependsOn(datastax, pureConfig)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-datastax-pureconfig",
   )
 
 addCommandAlias("check", "; scalafmtSbtCheck; scalafmtCheckAll; compile:scalafix --check; test:scalafix --check")
