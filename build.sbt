@@ -335,7 +335,7 @@ lazy val datastaxPureConfig = project
   .dependsOn(datastax, pureConfig)
   .settings(commonSettings)
   .settings(
-    name := "sst-datastax-pureconfig",
+    name := "sst-datastax-pureconfig"
   )
 
 addCommandAlias("check", "; scalafmtSbtCheck; scalafmtCheckAll; compile:scalafix --check; test:scalafix --check")

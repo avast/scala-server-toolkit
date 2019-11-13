@@ -87,9 +87,7 @@ final case class Advanced(connection: Connection = Connection(),
   * @param logWarnings       Whether logging of server warnings generated during query execution should be disabled by the
   *                          driver.
   */
-final case class AdvancedRequest(warnIfSetKeyspace: Boolean,
-                                 trace: Trace,
-                                 logWarnings: Boolean)
+final case class AdvancedRequest(warnIfSetKeyspace: Boolean, trace: Trace, logWarnings: Boolean)
 
 /** Configure query connection properties.
   *
@@ -194,7 +192,6 @@ final case class TimestampGenerator(`class`: String = "AtomicTimestampGenerator"
                                     driftWarning: DriftWarning = DriftWarning(1 second, 10 seconds),
                                     forceJavaClock: Boolean = false)
 
-
 /** Configure warn logging when timestamp drifts.
   *
   * @param threshold How far in the future timestamps are allowed to drift before the warning is logged.
@@ -241,8 +238,7 @@ final case class Logs(successEnabled: Option[Boolean],
   *                   requests will be considered as normal.
   * @param enabled    Whether to log slow requests.
   */
-final case class Slow(threshold: Option[Duration],
-                      enabled: Option[Boolean])
+final case class Slow(threshold: Option[Duration], enabled: Option[Boolean])
 
 /** A session-wide component that controls the rate at which requests are executed.
   *
@@ -300,9 +296,7 @@ final case class AddressTranslator(`class`: String)
   * @param maxFrameLength The maximum length of the frames supported by the driver in megabytes. Beyond that limit, requests will
   *                       fail with an exception.
   */
-final case class Protocol(version: Option[String],
-                          compression: Option[String],
-                          maxFrameLength: Int)
+final case class Protocol(version: Option[String], compression: Option[String], maxFrameLength: Int)
 
 /** Trace configuration
   *
@@ -310,9 +304,7 @@ final case class Protocol(version: Option[String],
   * @param interval     The interval between each attempt.
   * @param consistency  The consistency level to use for trace queries.
   */
-final case class Trace(attempts: Int,
-                       interval: Duration,
-                       consistency: String)
+final case class Trace(attempts: Int, interval: Duration, consistency: String)
 
 /** Metrics configuration
   *
@@ -327,9 +319,7 @@ final case class Metrics(session: Option[Session], node: Option[Node])
   * @param cqlRequests Extra configuration (for the metrics that need it). Required if the 'cql-requests' metric is enabled
   * @param throttling  Configures request throttling metrics..
   */
-final case class Session(enabled: List[Int] = List(),
-                         cqlRequests: Option[CqlRequests],
-                         throttling: Option[Throttling])
+final case class Session(enabled: List[Int] = List(), cqlRequests: Option[CqlRequests], throttling: Option[Throttling])
 
 /** Extra metrics configuration
   *
@@ -341,9 +331,7 @@ final case class Session(enabled: List[Int] = List(),
   *                          warning is logged.
   * @param refreshInterval   The interval at which percentile data is refreshed.
   */
-final case class CqlRequests(highestLatency: Duration = 3 seconds,
-                             significantDigits: Int = 3,
-                             refreshInterval: Duration = 5 minutes)
+final case class CqlRequests(highestLatency: Duration = 3 seconds, significantDigits: Int = 3, refreshInterval: Duration = 5 minutes)
 
 /** How long requests are being throttled
   *
@@ -354,20 +342,16 @@ final case class CqlRequests(highestLatency: Duration = 3 seconds,
 final case class Throttling(delay: Option[Delay])
 
 /** Throttling delay metric. */
-final case class Delay(highestLatency: Duration = 3 seconds,
-                       significantDigits: Int = 3,
-                       refreshInterval: Duration = 5 minutes)
+final case class Delay(highestLatency: Duration = 3 seconds, significantDigits: Int = 3, refreshInterval: Duration = 5 minutes)
+
 /** Node-level metric.
   *
   * @param enabled node-level metrics
   * @param cqlRequests Required: if the 'cql-messages' metric is enabled
   */
-final case class Node(enabled: List[Int],
-                      cqlRequests: Option[CqlMessages])
+final case class Node(enabled: List[Int], cqlRequests: Option[CqlMessages])
 
-final case class CqlMessages(highestLatency: Duration = 3 seconds,
-                             significantDigits: Int = 3,
-                             refreshInterval: Duration = 5 minutes)
+final case class CqlMessages(highestLatency: Duration = 3 seconds, significantDigits: Int = 3, refreshInterval: Duration = 5 minutes)
 
 /** Socket configuration.
   *
@@ -397,8 +381,7 @@ final case class Socket(tcpNoDelay: Boolean,
   * @param timeout  How long the driver waits for the response to a heartbeat. If this timeout fires, the heartbeat is
   *                 considered failed.
   */
-final case class Heartbeat(interval: Duration,
-                           timeout: Duration)
+final case class Heartbeat(interval: Duration, timeout: Duration)
 
 /** Metadata
   *
@@ -410,7 +393,6 @@ final case class Metadata(debouncer: TopologyEventDebouncer = TopologyEventDebou
                           schema: Schema = Schema(),
                           tokenMap: TokenMap = TokenMap(true))
 
-
 /** The debouncer helps smoothen out oscillations if conflicting events are sent out in short bursts.
   *
   * @param window    How long the driver waits to propagate an event. If another event is received within that time, the
@@ -420,8 +402,7 @@ final case class Metadata(debouncer: TopologyEventDebouncer = TopologyEventDebou
   *                  delivered immediately and the time window is reset. This avoids holding events indefinitely
   *                  if the window keeps getting reset.
   */
-final case class TopologyEventDebouncer(window: Duration = 1 second,
-                                        maxEvents: Int = 20)
+final case class TopologyEventDebouncer(window: Duration = 1 second, maxEvents: Int = 20)
 
 /** Options relating to schema metadata (Cluster.getMetadata.getKeyspaces).
   * This metadata is exposed by the driver for informational purposes, and is also necessary for token-aware routing.
@@ -450,8 +431,7 @@ final case class Schema(enabled: Boolean = true,
   * @param maxEvents The maximum number of refreshes that can accumulate. If this count is reached, a refresh
   *                  is done immediately and the window is reset.
   */
-final case class Debouncer(window: Duration = 1 second,
-                           maxEvents: Int = 20)
+final case class Debouncer(window: Duration = 1 second, maxEvents: Int = 20)
 
 /** Whether token metadata (Cluster.getMetadata.getTokenMap) is `enabled`.
   * This metadata is exposed by the driver for informational purposes, and is also necessary for token-aware routing.
@@ -461,8 +441,7 @@ final case class Debouncer(window: Duration = 1 second,
   */
 final case class TokenMap(enabled: Boolean)
 
-final case class ControlConnection(timeout: Duration,
-                                   schemaAgreement: SchemaAgreement)
+final case class ControlConnection(timeout: Duration, schemaAgreement: SchemaAgreement)
 
 /** Due to the distributed nature of Cassandra, schema changes made on one node might not be
   * immediately visible to others. Under certain circumstances, the driver waits until all nodes
@@ -486,16 +465,13 @@ final case class ControlConnection(timeout: Duration,
   * @param warnOnFailure Whether to log a warning if schema agreement fails.
   *                      You might want to change this if you've set the timeout to 0.
   */
-final case class SchemaAgreement(interval: Duration = 200 milliseconds,
-                                 timeout: Duration = 10 seconds,
-                                 warnOnFailure: Boolean = true)
+final case class SchemaAgreement(interval: Duration = 200 milliseconds, timeout: Duration = 10 seconds, warnOnFailure: Boolean = true)
 
 /**
   *
   * @param prepareOnAllNodes Overridable in a profile.
   */
-final case class PreparedStatements(prepareOnAllNodes: Boolean = true,
-                                    reprepareOnUp: ReprepareOnUp = ReprepareOnUp())
+final case class PreparedStatements(prepareOnAllNodes: Boolean = true, reprepareOnUp: ReprepareOnUp = ReprepareOnUp())
 
 /** How the driver replicates prepared statements on a node that just came back up or joined the cluster.
   *
@@ -549,8 +525,8 @@ final case class ReprepareOnUp(enabled: Boolean = true,
   *                   "s0-timer-0".
   */
 final case class Netty(daemon: Boolean = false,
-                       ioGroup: IoGroup = IoGroup(2, Shutdown(2, 15, "SECONDS")),           // TODO this vs
-                       adminGroup: AdminGroup = AdminGroup(2, Shutdown(2, 15, "SECONDS")),  // TODO that
+                       ioGroup: IoGroup = IoGroup(2, Shutdown(2, 15, "SECONDS")), // TODO this vs
+                       adminGroup: AdminGroup = AdminGroup(2, Shutdown(2, 15, "SECONDS")), // TODO that
                        timer: Timer = Timer())
 
 /** The event loop group used for I/O operations (reading and writing to Cassandra nodes).
@@ -561,8 +537,7 @@ final case class Netty(daemon: Boolean = false,
   *                 gets submitted during the quiet period, it is accepted and the quiet period starts over.
   *                 The timeout limits the overall shutdown time.
   */
-final case class IoGroup(size: Int,
-                         shutdown: Shutdown)
+final case class IoGroup(size: Int, shutdown: Shutdown)
 
 /** The event loop group used for admin tasks not related to request I/O (handle cluster events,
   * refresh metadata, schedule reconnections, etc.)
@@ -575,8 +550,7 @@ final case class IoGroup(size: Int,
   *                 gets submitted during the quiet period, it is accepted and the quiet period starts over.
   *                 The timeout limits the overall shutdown time.
   */
-final case class AdminGroup(size: Int,
-                            shutdown: Shutdown)
+final case class AdminGroup(size: Int, shutdown: Shutdown)
 
 /** The options to shut down the event loop group gracefully when the driver closes. If a task
   * gets submitted during the quiet period, it is accepted and the quiet period starts over.
@@ -609,8 +583,7 @@ final case class Shutdown(quietPeriod: Int, timeout: Int, unit: String)
   *                      HashedWheelTimer, which uses hashes to arrange the timeouts. This effectively controls the
   *                      size of the timer wheel.
   */
-final case class Timer(tickDuration: Duration = 100 milliseconds,
-                       ticksPerWheel: Int = 2048)
+final case class Timer(tickDuration: Duration = 100 milliseconds, ticksPerWheel: Int = 2048)
 
 /** The component that coalesces writes on the connections.
   * This is exposed mainly to facilitate tuning during development. You shouldn't have to adjust this.
@@ -618,5 +591,4 @@ final case class Timer(tickDuration: Duration = 100 milliseconds,
   * @param maxRunsWithNoWork  How many times the coalescer is allowed to reschedule itself when it did no work.
   * @param rescheduleInterval The reschedule interval.
   */
-final case class Coalescer(maxRunsWithNoWork: Int = 5,
-                           rescheduleInterval: Duration = 10 microseconds)
+final case class Coalescer(maxRunsWithNoWork: Int = 5, rescheduleInterval: Duration = 10 microseconds)

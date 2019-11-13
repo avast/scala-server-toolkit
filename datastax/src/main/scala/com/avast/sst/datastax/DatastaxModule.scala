@@ -85,16 +85,23 @@ object DatastaxModule {
       stringProperty(REQUEST_TRACE_CONSISTENCY)(cfg.advanced.request.trace.consistency),
       booleanProperty(REQUEST_LOG_WARNINGS)(cfg.advanced.request.logWarnings),
       optional(intListProperty(METRICS_SESSION_ENABLED), cfg.advanced.metrics.session.map(_.enabled)),
-      optional(durationProperty(METRICS_SESSION_CQL_REQUESTS_HIGHEST), cfg.advanced.metrics.session.flatMap(_.cqlRequests.map(_.highestLatency))),
-      optional(durationProperty(METRICS_SESSION_CQL_REQUESTS_INTERVAL), cfg.advanced.metrics.session.flatMap(_.cqlRequests.map(_.refreshInterval))),
-      optional(intProperty(METRICS_SESSION_CQL_REQUESTS_DIGITS), cfg.advanced.metrics.session.flatMap(_.cqlRequests.map(_.significantDigits))),
-      optional(durationProperty(METRICS_SESSION_THROTTLING_HIGHEST), cfg.advanced.metrics.session.flatMap(_.throttling.flatMap(_.delay.map(_.highestLatency)))),
-      optional(durationProperty(METRICS_SESSION_THROTTLING_INTERVAL), cfg.advanced.metrics.session.flatMap(_.throttling.flatMap(_.delay.map(_.refreshInterval)))),
-      optional(intProperty(METRICS_SESSION_THROTTLING_DIGITS), cfg.advanced.metrics.session.flatMap(_.throttling.flatMap(_.delay.map(_.significantDigits)))),
+      optional(durationProperty(METRICS_SESSION_CQL_REQUESTS_HIGHEST),
+               cfg.advanced.metrics.session.flatMap(_.cqlRequests.map(_.highestLatency))),
+      optional(durationProperty(METRICS_SESSION_CQL_REQUESTS_INTERVAL),
+               cfg.advanced.metrics.session.flatMap(_.cqlRequests.map(_.refreshInterval))),
+      optional(intProperty(METRICS_SESSION_CQL_REQUESTS_DIGITS),
+               cfg.advanced.metrics.session.flatMap(_.cqlRequests.map(_.significantDigits))),
+      optional(durationProperty(METRICS_SESSION_THROTTLING_HIGHEST),
+               cfg.advanced.metrics.session.flatMap(_.throttling.flatMap(_.delay.map(_.highestLatency)))),
+      optional(durationProperty(METRICS_SESSION_THROTTLING_INTERVAL),
+               cfg.advanced.metrics.session.flatMap(_.throttling.flatMap(_.delay.map(_.refreshInterval)))),
+      optional(intProperty(METRICS_SESSION_THROTTLING_DIGITS),
+               cfg.advanced.metrics.session.flatMap(_.throttling.flatMap(_.delay.map(_.significantDigits)))),
       optional(intListProperty(METRICS_NODE_ENABLED), cfg.advanced.metrics.node.map(_.enabled)),
       optional(durationProperty(METRICS_NODE_CQL_MESSAGES_HIGHEST), cfg.advanced.metrics.node.flatMap(_.cqlRequests.map(_.highestLatency))),
       optional(intProperty(METRICS_NODE_CQL_MESSAGES_DIGITS), cfg.advanced.metrics.node.flatMap(_.cqlRequests.map(_.significantDigits))),
-      optional(durationProperty(METRICS_NODE_CQL_MESSAGES_INTERVAL), cfg.advanced.metrics.node.flatMap(_.cqlRequests.map(_.refreshInterval))),
+      optional(durationProperty(METRICS_NODE_CQL_MESSAGES_INTERVAL),
+               cfg.advanced.metrics.node.flatMap(_.cqlRequests.map(_.refreshInterval))),
       durationProperty(HEARTBEAT_INTERVAL)(cfg.advanced.heartbeat.interval),
       durationProperty(HEARTBEAT_TIMEOUT)(cfg.advanced.heartbeat.timeout),
       booleanProperty(SOCKET_TCP_NODELAY)(cfg.advanced.socket.tcpNoDelay),
@@ -122,33 +129,41 @@ object DatastaxModule {
       intProperty(REPREPARE_MAX_STATEMENTS)(cfg.advanced.preparedStatements.reprepareOnUp.maxStatements),
       intProperty(REPREPARE_MAX_PARALLELISM)(cfg.advanced.preparedStatements.reprepareOnUp.maxParallelism),
       durationProperty(REPREPARE_TIMEOUT)(cfg.advanced.preparedStatements.reprepareOnUp.timeout),
-      booleanProperty(NETTY_DAEMON)(cfg.advanced.netty.daemon) ,
-      intProperty(NETTY_IO_SIZE)(cfg.advanced.netty.ioGroup.size) ,
-      intProperty(NETTY_IO_SHUTDOWN_TIMEOUT)(cfg.advanced.netty.ioGroup.shutdown.timeout) ,
-      intProperty(NETTY_IO_SHUTDOWN_QUIET_PERIOD)(cfg.advanced.netty.ioGroup.shutdown.quietPeriod) ,
-      stringProperty(NETTY_IO_SHUTDOWN_UNIT)(cfg.advanced.netty.ioGroup.shutdown.unit) ,
-      intProperty(NETTY_ADMIN_SIZE)(cfg.advanced.netty.adminGroup.size) ,
-      intProperty(NETTY_ADMIN_SHUTDOWN_TIMEOUT)(cfg.advanced.netty.adminGroup.shutdown.timeout) ,
-      intProperty(NETTY_ADMIN_SHUTDOWN_QUIET_PERIOD)(cfg.advanced.netty.adminGroup.shutdown.quietPeriod) ,
+      booleanProperty(NETTY_DAEMON)(cfg.advanced.netty.daemon),
+      intProperty(NETTY_IO_SIZE)(cfg.advanced.netty.ioGroup.size),
+      intProperty(NETTY_IO_SHUTDOWN_TIMEOUT)(cfg.advanced.netty.ioGroup.shutdown.timeout),
+      intProperty(NETTY_IO_SHUTDOWN_QUIET_PERIOD)(cfg.advanced.netty.ioGroup.shutdown.quietPeriod),
+      stringProperty(NETTY_IO_SHUTDOWN_UNIT)(cfg.advanced.netty.ioGroup.shutdown.unit),
+      intProperty(NETTY_ADMIN_SIZE)(cfg.advanced.netty.adminGroup.size),
+      intProperty(NETTY_ADMIN_SHUTDOWN_TIMEOUT)(cfg.advanced.netty.adminGroup.shutdown.timeout),
+      intProperty(NETTY_ADMIN_SHUTDOWN_QUIET_PERIOD)(cfg.advanced.netty.adminGroup.shutdown.quietPeriod),
       stringProperty(NETTY_ADMIN_SHUTDOWN_UNIT)(cfg.advanced.netty.adminGroup.shutdown.unit),
       durationProperty(NETTY_TIMER_TICK_DURATION)(cfg.advanced.netty.timer.tickDuration),
       intProperty(NETTY_TIMER_TICKS_PER_WHEEL)(cfg.advanced.netty.timer.ticksPerWheel),
-      intProperty(COALESCER_MAX_RUNS)(cfg.advanced.coalescer.maxRunsWithNoWork),
-    ).foldRight(DriverConfigLoader.programmaticBuilder()) { (w, b) => w(b) }
+      intProperty(COALESCER_MAX_RUNS)(cfg.advanced.coalescer.maxRunsWithNoWork)
+    ).foldRight(DriverConfigLoader.programmaticBuilder()) { (w, b) =>
+      w(b)
+    }
 
-    val loader = cfg.profiles.foldRight(builder) { (p, b) =>
-      List[DriverBuilder => DriverBuilder](
-        optional(durationProperty(REQUEST_TIMEOUT), p.basic.flatMap(_.request.flatMap(_.timeout))),
-        optional(stringProperty(REQUEST_CONSISTENCY), p.basic.flatMap(_.request.flatMap(_.consistency))),
-        optional(intProperty(REQUEST_PAGE_SIZE), p.basic.flatMap(_.request.flatMap(_.pageSize))),
-        optional(stringProperty(REQUEST_SERIAL_CONSISTENCY), p.basic.flatMap(_.request.flatMap(_.serialConsistency))),
-        optional(booleanProperty(REQUEST_DEFAULT_IDEMPOTENCE), p.basic.flatMap(_.request.flatMap(_.defaultIdempotence))),
-        optional(intProperty(REQUEST_TRACE_ATTEMPTS), p.advanced.flatMap(_.request.flatMap(_.trace.flatMap(_.attempts)))),
-        optional(durationProperty(REQUEST_TRACE_INTERVAL), p.advanced.flatMap(_.request.flatMap(_.trace.flatMap(_.interval)))),
-        optional(stringProperty(REQUEST_TRACE_CONSISTENCY), p.advanced.flatMap(_.request.flatMap(_.trace.flatMap(_.consistency)))),
-        optional(booleanProperty(REQUEST_LOG_WARNINGS), p.advanced.flatMap(_.request.flatMap(_.logWarnings)))
-      ).foldRight(b.startProfile(p.name)) { (w, pb) => w(pb) }.endProfile()
-    }.build()
+    val loader = cfg
+      .profiles
+      .foldRight(builder) { (p, b) =>
+        List[DriverBuilder => DriverBuilder](
+          optional(durationProperty(REQUEST_TIMEOUT), p.basic.flatMap(_.request.flatMap(_.timeout))),
+          optional(stringProperty(REQUEST_CONSISTENCY), p.basic.flatMap(_.request.flatMap(_.consistency))),
+          optional(intProperty(REQUEST_PAGE_SIZE), p.basic.flatMap(_.request.flatMap(_.pageSize))),
+          optional(stringProperty(REQUEST_SERIAL_CONSISTENCY), p.basic.flatMap(_.request.flatMap(_.serialConsistency))),
+          optional(booleanProperty(REQUEST_DEFAULT_IDEMPOTENCE), p.basic.flatMap(_.request.flatMap(_.defaultIdempotence))),
+          optional(intProperty(REQUEST_TRACE_ATTEMPTS), p.advanced.flatMap(_.request.flatMap(_.trace.flatMap(_.attempts)))),
+          optional(durationProperty(REQUEST_TRACE_INTERVAL), p.advanced.flatMap(_.request.flatMap(_.trace.flatMap(_.interval)))),
+          optional(stringProperty(REQUEST_TRACE_CONSISTENCY), p.advanced.flatMap(_.request.flatMap(_.trace.flatMap(_.consistency)))),
+          optional(booleanProperty(REQUEST_LOG_WARNINGS), p.advanced.flatMap(_.request.flatMap(_.logWarnings)))
+        ).foldRight(b.startProfile(p.name)) { (w, pb) =>
+            w(pb)
+          }
+          .endProfile()
+      }
+      .build()
 
     // Construct and pass SSL context, because parameter `advanced.ssl-engine-factory` is ignored
     val sslConfig = cfg.advanced.sslEngineFactory.map { cfg =>
@@ -167,7 +182,7 @@ object DatastaxModule {
 
     val acquire = Sync[F].map(sslContext(sslConfig)) {
       case Some(ssl) => CqlSession.builder().withConfigLoader(loader).withSslContext(ssl).build()
-      case None => CqlSession.builder().withConfigLoader(loader).build()
+      case None      => CqlSession.builder().withConfigLoader(loader).build()
     }
 
     val release = { session: CqlSession =>
