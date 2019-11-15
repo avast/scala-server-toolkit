@@ -20,6 +20,8 @@ lazy val root = project
   .aggregate(
     bundleMonixHttp4sBlaze,
     bundleZioHttp4sBlaze,
+    datastaxJavaDriver,
+    datastaxJavaDriverPureConfig,
     doobieHikari,
     doobieHikariPureConfig,
     example,
@@ -42,9 +44,7 @@ lazy val root = project
     monixCatnapMicrometer,
     monixCatnapPureConfig,
     pureConfig,
-    sslConfig,
-    datastax,
-    datastaxPureConfig
+    sslConfig
   )
   .settings(
     name := "scala-server-toolkit",
@@ -82,6 +82,22 @@ lazy val bundleZioHttp4sBlaze = project
       Dependencies.zio,
       Dependencies.zioInteropCats
     )
+  )
+
+lazy val datastaxJavaDriver = project
+  .in(file("datastax-java-driver"))
+  .settings(commonSettings)
+  .settings(
+    name := "sst-datastax-java-driver",
+    libraryDependencies += Dependencies.datastaxJavaDriverCore
+  )
+
+lazy val datastaxJavaDriverPureConfig = project
+  .in(file("datastax-java-driver-pureconfig"))
+  .dependsOn(datastaxJavaDriver, pureConfig)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-datastax-java-driver-pureconfig"
   )
 
 lazy val doobieHikari = project
@@ -320,22 +336,6 @@ lazy val sslConfig = project
       Dependencies.slf4jApi,
       Dependencies.sslConfig
     )
-  )
-
-lazy val datastax = project
-  .in(file("datastax"))
-  .settings(commonSettings)
-  .settings(
-    name := "sst-datastax",
-    libraryDependencies += Dependencies.datastax
-  )
-
-lazy val datastaxPureConfig = project
-  .in(file("datastax-pureconfig"))
-  .dependsOn(datastax, pureConfig)
-  .settings(commonSettings)
-  .settings(
-    name := "sst-datastax-pureconfig"
   )
 
 addCommandAlias("check", "; scalafmtSbtCheck; scalafmtCheckAll; compile:scalafix --check; test:scalafix --check")
