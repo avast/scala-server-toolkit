@@ -34,7 +34,7 @@ object Main extends ZioServerApp {
   def program: Resource[Task, Server[Task]] = {
     for {
       configuration <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
-      executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.Platform.executor.asEC)
+      executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.platform.executor.asEC)
       clock = Clock.create[Task]
       currentTime <- Resource.liftF(clock.realTime(TimeUnit.MILLISECONDS))
       console <- Resource.pure[Task, Console[Task]](ConsoleModule.make[Task])

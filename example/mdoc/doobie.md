@@ -23,7 +23,7 @@ implicit val runtime = new DefaultRuntime {} // this is just needed in example
 
 for {
   configuration <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
-  executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.Platform.executor.asEC)
+  executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.platform.executor.asEC)
   meterRegistry <- MicrometerJmxModule.make[Task](configuration.jmx)
   boundedConnectExecutionContext <- executorModule
                                      .makeThreadPoolExecutor(

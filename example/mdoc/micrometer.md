@@ -29,7 +29,7 @@ val dsl = Http4sDsl[Task] // this is just needed in example
 import dsl._
 
 for {
-  executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.Platform.executor.asEC)
+  executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.platform.executor.asEC)
   clock = Clock.create[Task]
   jmxMeterRegistry <- MicrometerJmxModule.make[Task](MicrometerJmxConfig("com.avast"))
   _ <- Resource.liftF(MicrometerJvmModule.make[Task](jmxMeterRegistry))
