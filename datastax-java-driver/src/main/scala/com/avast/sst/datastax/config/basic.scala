@@ -45,10 +45,10 @@ import scala.concurrent.duration._
   *                            - when the policies assign distances to nodes, the driver uses the closest assigned distance
   *                              for any given node.
   */
-final case class Basic(contactPoints: List[String] = List(),
+final case class Basic(contactPoints: List[String] = List.empty,
                        sessionName: Option[String],
                        sessionKeyspace: Option[String],
-                       configReloadInterval: Duration = 5 minutes,
+                       configReloadInterval: Duration = 5.minutes,
                        request: BasicRequest = BasicRequest(),
                        loadBalancingPolicy: LoadBalancingPolicy = LoadBalancingPolicy())
 
@@ -87,10 +87,10 @@ final case class Basic(contactPoints: List[String] = List(),
   *                           `isIdempotent()` returns null.
   *                           Overridable in a profile.
   */
-final case class BasicRequest(timeout: Duration = REQUEST_TIMEOUT,
-                              consistency: String = CONSISTENCY_LEVEL_LOCAL_ONE,
-                              pageSize: Int = REQUEST_PAGE_SIZE,
-                              serialConsistency: String = SERIAL_CONSISTENCY_LEVEL_SERIAL,
+final case class BasicRequest(timeout: Duration = RequestTimeout,
+                              consistency: ConsistencyLevel = ConsistencyLevel.LocalOne,
+                              pageSize: Int = RequestPageSize,
+                              serialConsistency: ConsistencyLevel = ConsistencyLevel.Serial,
                               defaultIdempotence: Boolean = false)
 
 /** The policy that decides the "query plan" for each query; that is, which nodes to try as coordinators, and in which order.
@@ -114,6 +114,10 @@ final case class LoadBalancingPolicy(`class`: String = "DefaultLoadBalancingPoli
                                      localDatacenter: Option[String] = None,
                                      filter: Option[Filter] = None)
 
+object LoadBalancingPolicy {
+  def default(localDatacenter: String): LoadBalancingPolicy = LoadBalancingPolicy(localDatacenter = Some(localDatacenter))
+}
+
 /** A custom filter to include/exclude nodes.
   *
   * The predicate's `test(Node)` method will be invoked each time the policy processes a
@@ -124,3 +128,41 @@ final case class LoadBalancingPolicy(`class`: String = "DefaultLoadBalancingPoli
   *                and has a public constructor taking a single `DriverContext` argument.
   */
 final case class Filter(`class`: String)
+
+/** The consistency level of a request
+  */
+sealed abstract class ConsistencyLevel {
+
+  import ConsistencyLevel._
+
+  def toStringRepr: String = this match {
+    case Any         => "ANY"
+    case One         => "ONE"
+    case Two         => "TWO"
+    case Three       => "THREE"
+    case Quorum      => "QUORUM"
+    case All         => "ALL"
+    case LocalOne    => "LOCAL_ONE"
+    case LocalQuorum => "LOCAL_QUORUM"
+    case EachQuorum  => "EACH_QUORUM "
+    case Serial      => "SERIAL"
+    case LocalSerial => "LOCAL_SERIAL"
+  }
+
+}
+
+object ConsistencyLevel {
+
+  case object Any extends ConsistencyLevel
+  case object One extends ConsistencyLevel
+  case object Two extends ConsistencyLevel
+  case object Three extends ConsistencyLevel
+  case object Quorum extends ConsistencyLevel
+  case object All extends ConsistencyLevel
+  case object LocalOne extends ConsistencyLevel
+  case object LocalQuorum extends ConsistencyLevel
+  case object EachQuorum extends ConsistencyLevel
+  case object Serial extends ConsistencyLevel
+  case object LocalSerial extends ConsistencyLevel
+
+}

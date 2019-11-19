@@ -6,7 +6,7 @@ import scala.collection.JavaConverters._
 import scala.concurrent.duration.Duration
 
 /** Helper functions to construct Datastax session using Java builder. */
-object DatastaxHelper {
+private[datastax] object DatastaxHelper {
   def stringProperty(opt: DriverOption)(value: String)(b: DriverBuilder): DriverBuilder = b.withString(opt, value)
   def intProperty(opt: DriverOption)(value: Int)(b: DriverBuilder): DriverBuilder = b.withInt(opt, value)
   def booleanProperty(opt: DriverOption)(value: Boolean)(b: DriverBuilder): DriverBuilder = b.withBoolean(opt, value)

@@ -60,8 +60,8 @@ final case class Advanced(connection: Connection = Connection(),
                           reconnectionPolicy: ReconnectionPolicy = ReconnectionPolicy(),
                           retryPolicy: RetryPolicy = RetryPolicy(),
                           speculativeExecutionPolicy: SpeculativeExecutionPolicy = SpeculativeExecutionPolicy(),
-                          authProvider: Option[AuthProvider],
-                          sslEngineFactory: Option[SslEngineFactory],
+                          authProvider: Option[AuthProvider] = None,
+                          sslEngineFactory: Option[SslEngineFactory] = None,
                           timestampGenerator: TimestampGenerator = TimestampGenerator(),
                           requestTracker: RequestTracker = RequestTracker("NoopRequestTracker", None),
                           throttler: Throttler = Throttler("PassThroughRequestThrottler", None, None, None, None),
@@ -69,13 +69,13 @@ final case class Advanced(connection: Connection = Connection(),
                           schemaChangeListener: SchemaChangeListener = SchemaChangeListener("NoopSchemaChangeListener"),
                           addressTranslator: AddressTranslator = AddressTranslator("PassThroughAddressTranslator"),
                           resolveContactPoints: Boolean = true,
-                          protocol: Protocol = Protocol(None, None, `256 MB`),
-                          request: AdvancedRequest = AdvancedRequest(true, Trace(5, 3 milliseconds, CONSISTENCY_LEVEL_ONE), true),
+                          protocol: Protocol = Protocol(None, None, 268435456),
+                          request: AdvancedRequest = AdvancedRequest(true, Trace(5, 3.milliseconds, ConsistencyLevel.LocalOne), true),
                           metrics: Metrics = Metrics(None, None),
-                          heartbeat: Heartbeat = Heartbeat(30 seconds, INIT_QUERY_TIMEOUT),
+                          heartbeat: Heartbeat = Heartbeat(30.seconds, InitQueryTimeout),
                           socket: Socket = Socket(true, None, None, None, None, None),
                           metadata: Metadata = Metadata(),
-                          controlConnection: ControlConnection = ControlConnection(INIT_QUERY_TIMEOUT, SchemaAgreement()),
+                          controlConnection: ControlConnection = ControlConnection(InitQueryTimeout, SchemaAgreement()),
                           preparedStatements: PreparedStatements = PreparedStatements(),
                           netty: Netty = Netty(),
                           coalescer: Coalescer = Coalescer())
@@ -103,8 +103,8 @@ final case class AdvancedRequest(warnIfSetKeyspace: Boolean, trace: Trace, logWa
   * @param maxOrphanRequests        The maximum number of "orphaned" requests before a connection gets closed automatically.
   * @param warnOnInitError          Whether to log non-fatal errors when the driver tries to open a new connection.
   */
-final case class Connection(initQueryTimeout: Duration = INIT_QUERY_TIMEOUT,
-                            setKeyspaceTimeout: Duration = INIT_QUERY_TIMEOUT,
+final case class Connection(initQueryTimeout: Duration = InitQueryTimeout,
+                            setKeyspaceTimeout: Duration = InitQueryTimeout,
                             localPool: Pool = Pool(),
                             remotePool: Pool = Pool(),
                             maxRequestsPerConnection: Int = 1024,
@@ -126,8 +126,8 @@ final case class Pool(size: Int = 1)
   * @param maxDelay   Reconnection policy increases delay up to the max delay.
   */
 final case class ReconnectionPolicy(`class`: String = "ExponentialReconnectionPolicy",
-                                    baseDelay: Duration = 1 second,
-                                    maxDelay: Duration = 60 seconds)
+                                    baseDelay: Duration = 1.second,
+                                    maxDelay: Duration = 60.seconds)
 
 /** The policy that controls if the driver retries requests that have failed on one node
   *
@@ -172,7 +172,7 @@ final case class AuthProvider(`class`: String, username: String, password: Strin
   * @param keystorePassword   The password used to access keystore content.
   */
 final case class SslEngineFactory(`class`: Option[String],
-                                  cipherSuites: List[String] = List(),
+                                  cipherSuites: List[String] = List.empty,
                                   hostnameValidation: Option[Boolean],
                                   truststorePath: Option[String],
                                   truststorePassword: Option[String],
@@ -189,7 +189,7 @@ final case class SslEngineFactory(`class`: Option[String],
   *                       calls (and fallback to the Java one if the native calls fail).
   */
 final case class TimestampGenerator(`class`: String = "AtomicTimestampGenerator",
-                                    driftWarning: DriftWarning = DriftWarning(1 second, 10 seconds),
+                                    driftWarning: DriftWarning = DriftWarning(1.second, 10.seconds),
                                     forceJavaClock: Boolean = false)
 
 /** Configure warn logging when timestamp drifts.
@@ -304,7 +304,7 @@ final case class Protocol(version: Option[String], compression: Option[String], 
   * @param interval     The interval between each attempt.
   * @param consistency  The consistency level to use for trace queries.
   */
-final case class Trace(attempts: Int, interval: Duration, consistency: String)
+final case class Trace(attempts: Int, interval: Duration, consistency: ConsistencyLevel)
 
 /** Metrics configuration
   *
@@ -319,7 +319,7 @@ final case class Metrics(session: Option[Session], node: Option[Node])
   * @param cqlRequests Extra configuration (for the metrics that need it). Required if the 'cql-requests' metric is enabled
   * @param throttling  Configures request throttling metrics..
   */
-final case class Session(enabled: List[Int] = List(), cqlRequests: Option[CqlRequests], throttling: Option[Throttling])
+final case class Session(enabled: List[Int] = List.empty, cqlRequests: Option[CqlRequests], throttling: Option[Throttling])
 
 /** Extra metrics configuration
   *
@@ -331,7 +331,7 @@ final case class Session(enabled: List[Int] = List(), cqlRequests: Option[CqlReq
   *                          warning is logged.
   * @param refreshInterval   The interval at which percentile data is refreshed.
   */
-final case class CqlRequests(highestLatency: Duration = 3 seconds, significantDigits: Int = 3, refreshInterval: Duration = 5 minutes)
+final case class CqlRequests(highestLatency: Duration = 3.seconds, significantDigits: Int = 3, refreshInterval: Duration = 5.minutes)
 
 /** How long requests are being throttled
   *
@@ -342,7 +342,7 @@ final case class CqlRequests(highestLatency: Duration = 3 seconds, significantDi
 final case class Throttling(delay: Option[Delay])
 
 /** Throttling delay metric. */
-final case class Delay(highestLatency: Duration = 3 seconds, significantDigits: Int = 3, refreshInterval: Duration = 5 minutes)
+final case class Delay(highestLatency: Duration = 3.seconds, significantDigits: Int = 3, refreshInterval: Duration = 5.minutes)
 
 /** Node-level metric.
   *
@@ -351,7 +351,7 @@ final case class Delay(highestLatency: Duration = 3 seconds, significantDigits: 
   */
 final case class Node(enabled: List[Int], cqlRequests: Option[CqlMessages])
 
-final case class CqlMessages(highestLatency: Duration = 3 seconds, significantDigits: Int = 3, refreshInterval: Duration = 5 minutes)
+final case class CqlMessages(highestLatency: Duration = 3.seconds, significantDigits: Int = 3, refreshInterval: Duration = 5.minutes)
 
 /** Socket configuration.
   *
@@ -402,7 +402,7 @@ final case class Metadata(debouncer: TopologyEventDebouncer = TopologyEventDebou
   *                  delivered immediately and the time window is reset. This avoids holding events indefinitely
   *                  if the window keeps getting reset.
   */
-final case class TopologyEventDebouncer(window: Duration = 1 second, maxEvents: Int = 20)
+final case class TopologyEventDebouncer(window: Duration = 1.second, maxEvents: Int = 20)
 
 /** Options relating to schema metadata (Cluster.getMetadata.getKeyspaces).
   * This metadata is exposed by the driver for informational purposes, and is also necessary for token-aware routing.
@@ -416,9 +416,9 @@ final case class TopologyEventDebouncer(window: Duration = 1 second, maxEvents: 
   * @param debouncer          Protects against bursts of schema updates.
   */
 final case class Schema(enabled: Boolean = true,
-                        refreshedKeyspaces: List[String] = List(),
-                        requestTimeout: Duration = REQUEST_TIMEOUT,
-                        requestPageSize: Int = REQUEST_PAGE_SIZE,
+                        refreshedKeyspaces: List[String] = List.empty,
+                        requestTimeout: Duration = RequestTimeout,
+                        requestPageSize: Int = RequestPageSize,
                         debouncer: Debouncer = Debouncer())
 
 /** Protects against bursts of schema updates (for example when a client issues a sequence of DDL queries), by
@@ -431,13 +431,13 @@ final case class Schema(enabled: Boolean = true,
   * @param maxEvents The maximum number of refreshes that can accumulate. If this count is reached, a refresh
   *                  is done immediately and the window is reset.
   */
-final case class Debouncer(window: Duration = 1 second, maxEvents: Int = 20)
+final case class Debouncer(window: Duration = 1.second, maxEvents: Int = 20)
 
 /** Whether token metadata (Cluster.getMetadata.getTokenMap) is `enabled`.
   * This metadata is exposed by the driver for informational purposes, and is also necessary for token-aware routing.
   * If this is false, it will remain empty, or to the last known value. Note that its computation
   * requires information about the schema; therefore if schema metadata is disabled or filtered to
-  * a subset of keyspaces, the token map will be incomplete, regardless of the value of thih property.
+  * a subset of keyspaces, the token map will be incomplete, regardless of the value of this property.
   */
 final case class TokenMap(enabled: Boolean)
 
@@ -465,7 +465,7 @@ final case class ControlConnection(timeout: Duration, schemaAgreement: SchemaAgr
   * @param warnOnFailure Whether to log a warning if schema agreement fails.
   *                      You might want to change this if you've set the timeout to 0.
   */
-final case class SchemaAgreement(interval: Duration = 200 milliseconds, timeout: Duration = 10 seconds, warnOnFailure: Boolean = true)
+final case class SchemaAgreement(interval: Duration = 200.milliseconds, timeout: Duration = 10.seconds, warnOnFailure: Boolean = true)
 
 /**
   *
@@ -507,7 +507,7 @@ final case class ReprepareOnUp(enabled: Boolean = true,
                                checkSystemTable: Boolean = false,
                                maxStatements: Int = 0,
                                maxParallelism: Int = 100,
-                               timeout: Duration = INIT_QUERY_TIMEOUT)
+                               timeout: Duration = InitQueryTimeout)
 
 /** Options related to the Netty event loop groups used internally by the driver.
   *
@@ -525,8 +525,8 @@ final case class ReprepareOnUp(enabled: Boolean = true,
   *                   "s0-timer-0".
   */
 final case class Netty(daemon: Boolean = false,
-                       ioGroup: IoGroup = IoGroup(2, Shutdown(2, 15, "SECONDS")), // TODO this vs
-                       adminGroup: AdminGroup = AdminGroup(2, Shutdown(2, 15, "SECONDS")), // TODO that
+                       ioGroup: IoGroup = IoGroup(2, Shutdown(2, 15, "SECONDS")),
+                       adminGroup: AdminGroup = AdminGroup(2, Shutdown(2, 15, "SECONDS")),
                        timer: Timer = Timer())
 
 /** The event loop group used for I/O operations (reading and writing to Cassandra nodes).
@@ -583,7 +583,7 @@ final case class Shutdown(quietPeriod: Int, timeout: Int, unit: String)
   *                      HashedWheelTimer, which uses hashes to arrange the timeouts. This effectively controls the
   *                      size of the timer wheel.
   */
-final case class Timer(tickDuration: Duration = 100 milliseconds, ticksPerWheel: Int = 2048)
+final case class Timer(tickDuration: Duration = 100.milliseconds, ticksPerWheel: Int = 2048)
 
 /** The component that coalesces writes on the connections.
   * This is exposed mainly to facilitate tuning during development. You shouldn't have to adjust this.
@@ -591,4 +591,4 @@ final case class Timer(tickDuration: Duration = 100 milliseconds, ticksPerWheel:
   * @param maxRunsWithNoWork  How many times the coalescer is allowed to reschedule itself when it did no work.
   * @param rescheduleInterval The reschedule interval.
   */
-final case class Coalescer(maxRunsWithNoWork: Int = 5, rescheduleInterval: Duration = 10 microseconds)
+final case class Coalescer(maxRunsWithNoWork: Int = 5, rescheduleInterval: Duration = 10.microseconds)

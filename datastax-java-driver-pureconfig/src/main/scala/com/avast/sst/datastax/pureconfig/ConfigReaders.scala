@@ -1,8 +1,8 @@
 package com.avast.sst.datastax.pureconfig
 
 import com.avast.sst.datastax.config._
-import pureconfig.ConfigReader
-import pureconfig.generic.semiauto.deriveReader
+import pureconfig.{ConfigFieldMapping, ConfigReader, PascalCase}
+import pureconfig.generic.semiauto.{deriveEnumerationReader, deriveReader}
 
 trait ConfigReaders {
 
@@ -10,9 +10,11 @@ trait ConfigReaders {
 
   // Basic driver config
   implicit val datastaxJavaDriverBasicConfigReader: ConfigReader[Basic] = deriveReader
+  implicit val datastaxJavaDriverConsistencyLevelReader: ConfigReader[ConsistencyLevel] =
+    deriveEnumerationReader[ConsistencyLevel](ConfigFieldMapping(PascalCase, PascalCase))
   implicit val datastaxJavaDriverBasicRequestConfigReader: ConfigReader[BasicRequest] = deriveReader
   implicit val datastaxJavaDriverLoadBalancingConfigReader: ConfigReader[LoadBalancingPolicy] = deriveReader
-  implicit val datastaxJavaDriverfilterConfigReader: ConfigReader[Filter] = deriveReader
+  implicit val datastaxJavaDriverFilterConfigReader: ConfigReader[Filter] = deriveReader
 
   // Advanced driver config
   implicit val datastaxJavaDriverAdvancedConfigReader: ConfigReader[Advanced] = deriveReader
