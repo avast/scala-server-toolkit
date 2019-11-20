@@ -65,9 +65,7 @@ trait ConfigReaders {
   // Profile overridable config
   implicit val datastaxJavaDriverProfileConfigReader: ConfigReader[Profile] = deriveReader
   implicit val datastaxJavaDriverProfileBasicConfigReader: ConfigReader[ProfileBasic] = deriveReader
-  implicit val datastaxJavaDriverProfileProfileBasicRequestConfigReader: ConfigReader[ProfileBasicRequest] = deriveReader
   implicit val datastaxJavaDriverProfileAdvancedConfigReader: ConfigReader[ProfileAdvanced] = deriveReader
   implicit val datastaxJavaDriverProfilePreparedStatementsConfigReader: ConfigReader[ProfilePreparedStatements] = deriveReader
-  implicit val datastaxJavaDriverProfileProfileTraceConfigReader: ConfigReader[ProfileTrace] = deriveReader
   implicit val datastaxJavaDriverProfileProfileAdvancedRequestConfigReader: ConfigReader[ProfileAdvancedRequest] = deriveReader
 }

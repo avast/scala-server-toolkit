@@ -149,15 +149,15 @@ object DatastaxModule {
       .profiles
       .foldRight(builder) { (p, b) =>
         List[DriverBuilder => DriverBuilder](
-          optional(durationProperty(REQUEST_TIMEOUT), p.basic.flatMap(_.request.flatMap(_.timeout))),
-          optional(stringProperty(REQUEST_CONSISTENCY), p.basic.flatMap(_.request.flatMap(_.consistency))),
-          optional(intProperty(REQUEST_PAGE_SIZE), p.basic.flatMap(_.request.flatMap(_.pageSize))),
-          optional(stringProperty(REQUEST_SERIAL_CONSISTENCY), p.basic.flatMap(_.request.flatMap(_.serialConsistency))),
-          optional(booleanProperty(REQUEST_DEFAULT_IDEMPOTENCE), p.basic.flatMap(_.request.flatMap(_.defaultIdempotence))),
-          optional(intProperty(REQUEST_TRACE_ATTEMPTS), p.advanced.flatMap(_.request.flatMap(_.trace.flatMap(_.attempts)))),
-          optional(durationProperty(REQUEST_TRACE_INTERVAL), p.advanced.flatMap(_.request.flatMap(_.trace.flatMap(_.interval)))),
-          optional(stringProperty(REQUEST_TRACE_CONSISTENCY), p.advanced.flatMap(_.request.flatMap(_.trace.flatMap(_.consistency)))),
-          optional(booleanProperty(REQUEST_LOG_WARNINGS), p.advanced.flatMap(_.request.flatMap(_.logWarnings)))
+          durationProperty(REQUEST_TIMEOUT)(p.basic.request.timeout),
+          stringProperty(REQUEST_CONSISTENCY)(p.basic.request.consistency.toStringRepr),
+          intProperty(REQUEST_PAGE_SIZE)(p.basic.request.pageSize),
+          stringProperty(REQUEST_SERIAL_CONSISTENCY)(p.basic.request.serialConsistency.toStringRepr),
+          booleanProperty(REQUEST_DEFAULT_IDEMPOTENCE)(p.basic.request.defaultIdempotence),
+          intProperty(REQUEST_TRACE_ATTEMPTS)(p.advanced.request.trace.attempts),
+          durationProperty(REQUEST_TRACE_INTERVAL)(p.advanced.request.trace.interval),
+          stringProperty(REQUEST_TRACE_CONSISTENCY)(p.advanced.request.trace.consistency.toStringRepr),
+          booleanProperty(REQUEST_LOG_WARNINGS)(p.advanced.request.logWarnings)
         ).foldRight(b.startProfile(p.name)) { (w, pb) =>
             w(pb)
           }
