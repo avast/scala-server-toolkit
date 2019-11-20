@@ -6,3 +6,7 @@ postgres:
     - POSTGRES_USER=user
     - POSTGRES_PASSWORD=pass
     - POSTGRES_DB=database
+cassandra:
+  build: docker/cassandra
+  ports:
+    - "9042:9042/tcp"

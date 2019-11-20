@@ -2,7 +2,9 @@
 
 This module initializes Datastax driver's `Session`.
 
-```scala
+`libraryDependencies += "com.avast" %% "sst-datastax-java-driver" % "<VERSION>"`
+
+```scala mdoc:silent
 import cats.effect.Resource
 import com.avast.sst.datastax.DatastaxModule
 import com.avast.sst.example.config.Configuration
@@ -21,12 +23,10 @@ db <- DatastaxModule.make[Task](configuration.datastaxDriver)
 ```
 datastax-driver {
   basic {
-    session-keyspace = "some_keyspace"
     contact-points = [
-      "localhost:9045"
+      "localhost:9042"
     ]
     load-balancing-policy {
-      class = "DefaultLoadBalancingPolicy"
       local-datacenter = "datacenter1"
     }
   }

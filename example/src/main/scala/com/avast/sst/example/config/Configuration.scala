@@ -1,5 +1,7 @@
 package com.avast.sst.example.config
 
+import com.avast.sst.datastax.config.DatastaxDriverConfig
+import com.avast.sst.datastax.pureconfig.implicits._
 import com.avast.sst.doobie.DoobieHikariConfig
 import com.avast.sst.doobie.pureconfig.implicits._
 import com.avast.sst.http4s.client.Http4sBlazeClientConfig
@@ -20,7 +22,8 @@ final case class Configuration(server: Http4sBlazeServerConfig,
                                boundedConnectExecutor: ThreadPoolExecutorConfig,
                                client: Http4sBlazeClientConfig,
                                circuitBreaker: CircuitBreakerConfig,
-                               jmx: MicrometerJmxConfig)
+                               jmx: MicrometerJmxConfig,
+                               datastaxDriver: DatastaxDriverConfig)
 
 object Configuration {
 

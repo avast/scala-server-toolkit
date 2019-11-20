@@ -123,6 +123,8 @@ lazy val example = project
   .in(file("example"))
   .dependsOn(
     bundleZioHttp4sBlaze,
+    datastaxJavaDriver,
+    datastaxJavaDriverPureConfig,
     doobieHikari,
     doobieHikariPureConfig,
     flyway,
