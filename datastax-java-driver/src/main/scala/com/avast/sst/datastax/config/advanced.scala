@@ -356,6 +356,7 @@ final case class Throttler(`class`: String,
                            drainInterval: Option[Duration])
 
 object Throttler {
+
   /** A request throttler that limits the number of concurrent requests. */
   val Concurrency: Throttler = Throttler("com.datastax.oss.driver.internal.core.session.throttling.ConcurrencyLimitingRequestThrottler",
                                          Some(10000),
