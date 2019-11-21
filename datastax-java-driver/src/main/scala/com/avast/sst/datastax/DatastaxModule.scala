@@ -38,7 +38,7 @@ object DatastaxModule {
       booleanProperty(RECONNECT_ON_INIT)(cfg.advanced.reconnectOnInit),
       stringProperty(RECONNECTION_POLICY_CLASS)(cfg.advanced.reconnectionPolicy.`class`),
       durationProperty(RECONNECTION_BASE_DELAY)(cfg.advanced.reconnectionPolicy.baseDelay),
-      durationProperty(RECONNECTION_MAX_DELAY)(cfg.advanced.reconnectionPolicy.maxDelay),
+      optional(durationProperty(RECONNECTION_MAX_DELAY), cfg.advanced.reconnectionPolicy.maxDelay),
       stringProperty(RETRY_POLICY_CLASS)(cfg.advanced.retryPolicy.`class`),
       stringProperty(SPECULATIVE_EXECUTION_POLICY_CLASS)(cfg.advanced.speculativeExecutionPolicy.`class`),
       optional(intProperty(SPECULATIVE_EXECUTION_MAX), cfg.advanced.speculativeExecutionPolicy.maxExecutions),

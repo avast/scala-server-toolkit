@@ -55,30 +55,59 @@ import scala.concurrent.duration._
   * @param netty                      Netty configuration which is used internally by driver.
   * @param coalescer                  The component that coalesces writes on the connections.
   */
-final case class Advanced(connection: Connection = Connection(),
-                          reconnectOnInit: Boolean = false,
-                          reconnectionPolicy: ReconnectionPolicy = ReconnectionPolicy(),
-                          retryPolicy: RetryPolicy = RetryPolicy(),
-                          speculativeExecutionPolicy: SpeculativeExecutionPolicy = SpeculativeExecutionPolicy(),
-                          authProvider: Option[AuthProvider] = None,
-                          sslEngineFactory: Option[SslEngineFactory] = None,
-                          timestampGenerator: TimestampGenerator = TimestampGenerator(),
-                          requestTracker: RequestTracker = RequestTracker("NoopRequestTracker", None),
-                          throttler: Throttler = Throttler("PassThroughRequestThrottler", None, None, None, None),
-                          nodeStateListener: NodeStateListener = NodeStateListener("NoopNodeStateListener"),
-                          schemaChangeListener: SchemaChangeListener = SchemaChangeListener("NoopSchemaChangeListener"),
-                          addressTranslator: AddressTranslator = AddressTranslator("PassThroughAddressTranslator"),
-                          resolveContactPoints: Boolean = true,
-                          protocol: Protocol = Protocol(None, None, 268435456),
-                          request: AdvancedRequest = AdvancedRequest(true, Trace(5, 3.milliseconds, ConsistencyLevel.LocalOne), true),
-                          metrics: Metrics = Metrics(None, None),
-                          heartbeat: Heartbeat = Heartbeat(30.seconds, InitQueryTimeout),
-                          socket: Socket = Socket(true, None, None, None, None, None),
-                          metadata: Metadata = Metadata(),
-                          controlConnection: ControlConnection = ControlConnection(InitQueryTimeout, SchemaAgreement()),
-                          preparedStatements: PreparedStatements = PreparedStatements(),
-                          netty: Netty = Netty(),
-                          coalescer: Coalescer = Coalescer())
+final case class Advanced(connection: Connection = Advanced.Default.connection,
+                          reconnectOnInit: Boolean = Advanced.Default.reconnectOnInit,
+                          reconnectionPolicy: ReconnectionPolicy = Advanced.Default.reconnectionPolicy,
+                          retryPolicy: RetryPolicy = Advanced.Default.retryPolicy,
+                          speculativeExecutionPolicy: SpeculativeExecutionPolicy = Advanced.Default.speculativeExecutionPolicy,
+                          authProvider: Option[AuthProvider] = Advanced.Default.authProvider,
+                          sslEngineFactory: Option[SslEngineFactory] = Advanced.Default.sslEngineFactory,
+                          timestampGenerator: TimestampGenerator = Advanced.Default.timestampGenerator,
+                          requestTracker: RequestTracker = Advanced.Default.requestTracker,
+                          throttler: Throttler = Advanced.Default.throttler,
+                          nodeStateListener: NodeStateListener = Advanced.Default.nodeStateListener,
+                          schemaChangeListener: SchemaChangeListener = Advanced.Default.schemaChangeListener,
+                          addressTranslator: AddressTranslator = Advanced.Default.addressTranslator,
+                          resolveContactPoints: Boolean = Advanced.Default.resolveContactPoints,
+                          protocol: Protocol = Advanced.Default.protocol,
+                          request: AdvancedRequest = Advanced.Default.request,
+                          metrics: Metrics = Advanced.Default.metrics,
+                          heartbeat: Heartbeat = Advanced.Default.heartbeat,
+                          socket: Socket = Advanced.Default.socket,
+                          metadata: Metadata = Advanced.Default.metadata,
+                          controlConnection: ControlConnection = Advanced.Default.controlConnection,
+                          preparedStatements: PreparedStatements = Advanced.Default.preparedStatements,
+                          netty: Netty = Advanced.Default.netty,
+                          coalescer: Coalescer = Advanced.Default.coalescer)
+
+object Advanced {
+  val Default: Advanced = Advanced(
+    Connection.Default,
+    false,
+    ReconnectionPolicy.Default,
+    RetryPolicy.Default,
+    SpeculativeExecutionPolicy.Default,
+    None,
+    None,
+    TimestampGenerator.Default,
+    RequestTracker.Default,
+    Throttler.Default,
+    NodeStateListener.Default,
+    SchemaChangeListener.Default,
+    AddressTranslator.Default,
+    true,
+    Protocol.Default,
+    AdvancedRequest.Default,
+    Metrics.Default,
+    Heartbeat.Default,
+    Socket.Default,
+    Metadata.Default,
+    ControlConnection.Default,
+    PreparedStatements.Default,
+    Netty.Default,
+    Coalescer.Default
+  )
+}
 
 /**
   *
@@ -88,6 +117,10 @@ final case class Advanced(connection: Connection = Connection(),
   *                          driver.
   */
 final case class AdvancedRequest(warnIfSetKeyspace: Boolean, trace: Trace, logWarnings: Boolean)
+
+object AdvancedRequest {
+  val Default: AdvancedRequest = AdvancedRequest(true, Trace.Default, true)
+}
 
 /** Configure query connection properties.
   *
@@ -103,20 +136,28 @@ final case class AdvancedRequest(warnIfSetKeyspace: Boolean, trace: Trace, logWa
   * @param maxOrphanRequests        The maximum number of "orphaned" requests before a connection gets closed automatically.
   * @param warnOnInitError          Whether to log non-fatal errors when the driver tries to open a new connection.
   */
-final case class Connection(initQueryTimeout: Duration = InitQueryTimeout,
-                            setKeyspaceTimeout: Duration = InitQueryTimeout,
-                            localPool: Pool = Pool(),
-                            remotePool: Pool = Pool(),
-                            maxRequestsPerConnection: Int = 1024,
-                            maxOrphanRequests: Int = 24576,
-                            warnOnInitError: Boolean = true)
+final case class Connection(initQueryTimeout: Duration = Connection.Default.initQueryTimeout,
+                            setKeyspaceTimeout: Duration = Connection.Default.setKeyspaceTimeout,
+                            localPool: Pool = Connection.Default.localPool,
+                            remotePool: Pool = Connection.Default.remotePool,
+                            maxRequestsPerConnection: Int = Connection.Default.maxRequestsPerConnection,
+                            maxOrphanRequests: Int = Connection.Default.maxOrphanRequests,
+                            warnOnInitError: Boolean = Connection.Default.warnOnInitError)
+
+object Connection {
+  val Default: Connection = Connection(InitQueryTimeout, InitQueryTimeout, Pool.Default, Pool.Default, 1024, 24576, true)
+}
 
 /** The driver maintains a connection pool to each node, according to the distance assigned to it
   * by the load balancing policy
   *
   * @param size The number of connections in the pool
   */
-final case class Pool(size: Int = 1)
+final case class Pool(size: Int)
+
+object Pool {
+  val Default: Pool = Pool(1)
+}
 
 /** The policy that controls how often the driver tries to re-establish connections to down nodes.
   *
@@ -125,16 +166,32 @@ final case class Pool(size: Int = 1)
   * @param baseDelay  Reconnection policy starts with the base delay.
   * @param maxDelay   Reconnection policy increases delay up to the max delay.
   */
-final case class ReconnectionPolicy(`class`: String = "ExponentialReconnectionPolicy",
-                                    baseDelay: Duration = 1.second,
-                                    maxDelay: Duration = 60.seconds)
+final case class ReconnectionPolicy(`class`: String = ReconnectionPolicy.Default.`class`,
+                                    baseDelay: Duration = ReconnectionPolicy.Default.baseDelay,
+                                    maxDelay: Option[Duration] = ReconnectionPolicy.Default.maxDelay)
+object ReconnectionPolicy {
+
+  /** A reconnection policy that waits a constant time between each reconnection attempt. */
+  val Constant: ReconnectionPolicy =
+    ReconnectionPolicy("com.datastax.oss.driver.internal.core.connection.ConstantReconnectionPolicy", 1.second, None)
+
+  /** A reconnection policy that waits exponentially longer between each reconnection attempt (but keeps a constant delay once a maximum delay is reached). */
+  val Exponential: ReconnectionPolicy =
+    ReconnectionPolicy("com.datastax.oss.driver.internal.core.connection.ExponentialReconnectionPolicy", 1.second, Some(60.seconds))
+
+  val Default: ReconnectionPolicy = Exponential
+}
 
 /** The policy that controls if the driver retries requests that have failed on one node
   *
   * @param class The class of the policy. If it is not qualified, the driver assumes that it resides in the
   *              package `com.datastax.oss.driver.internal.core.retry`.
   */
-final case class RetryPolicy(`class`: String = "DefaultRetryPolicy")
+final case class RetryPolicy(`class`: String)
+
+object RetryPolicy {
+  val Default: RetryPolicy = RetryPolicy("com.datastax.oss.driver.internal.core.retry.DefaultRetryPolicy")
+}
 
 /** The policy that controls if the driver preemptively tries other nodes if a node takes too long to respond.
   *
@@ -145,9 +202,23 @@ final case class RetryPolicy(`class`: String = "DefaultRetryPolicy")
   * @param delay          The delay between each execution. 0 is allowed, and will result in all executions being sent
   *                       simultaneously when the request starts.
   */
-final case class SpeculativeExecutionPolicy(`class`: String = "NoSpeculativeExecutionPolicy",
-                                            maxExecutions: Option[Int] = None,
-                                            delay: Option[Duration] = None)
+final case class SpeculativeExecutionPolicy(`class`: String, maxExecutions: Option[Int], delay: Option[Duration])
+
+object SpeculativeExecutionPolicy {
+
+  /**  A policy that schedules a configurable number of speculative executions, separated by a fixed delay.*/
+  val ConstantSpeculative: SpeculativeExecutionPolicy = SpeculativeExecutionPolicy(
+    "com.datastax.oss.driver.internal.core.specex.ConstantSpeculativeExecutionPolicy",
+    Some(3),
+    Some(3.milliseconds)
+  )
+
+  /** A policy that never triggers speculative executions. */
+  val NonSpeculative: SpeculativeExecutionPolicy =
+    SpeculativeExecutionPolicy("com.datastax.oss.driver.internal.core.specex.NoSpeculativeExecutionPolicy", None, None)
+
+  val Default: SpeculativeExecutionPolicy = NonSpeculative
+}
 
 /** The component that handles authentication on each new connection.
   *
@@ -188,9 +259,26 @@ final case class SslEngineFactory(`class`: Option[String],
   *                       If this is false, the driver will try to access the microsecond-precision OS clock via native
   *                       calls (and fallback to the Java one if the native calls fail).
   */
-final case class TimestampGenerator(`class`: String = "AtomicTimestampGenerator",
-                                    driftWarning: DriftWarning = DriftWarning(1.second, 10.seconds),
-                                    forceJavaClock: Boolean = false)
+final case class TimestampGenerator(`class`: String = TimestampGenerator.Default.`class`,
+                                    driftWarning: DriftWarning = TimestampGenerator.Default.driftWarning,
+                                    forceJavaClock: Boolean = TimestampGenerator.Default.forceJavaClock)
+
+object TimestampGenerator {
+
+  /** Timestamps are guaranteed to be unique across all client threads. */
+  val Atomic: TimestampGenerator =
+    TimestampGenerator("com.datastax.oss.driver.internal.core.time.AtomicTimestampGenerator", DriftWarning.Default, false)
+
+  /** Timestamps are assigned by server. */
+  val ServerSide: TimestampGenerator =
+    TimestampGenerator("com.datastax.oss.driver.internal.core.time.ServerSideTimestampGenerator", DriftWarning.Default, false)
+
+  /** Timestamps that are guaranteed to be unique within each thread only. */
+  val ThreadLocal: TimestampGenerator =
+    TimestampGenerator("com.datastax.oss.driver.internal.core.time.ThreadLocalTimestampGenerator", DriftWarning.Default, false)
+
+  val Default: TimestampGenerator = Atomic
+}
 
 /** Configure warn logging when timestamp drifts.
   *
@@ -200,13 +288,21 @@ final case class TimestampGenerator(`class`: String = "AtomicTimestampGenerator"
   */
 final case class DriftWarning(threshold: Duration, interval: Duration)
 
+object DriftWarning {
+  val Default: DriftWarning = DriftWarning(1.second, 10.seconds)
+}
+
 /** A session-wide component that tracks the outcome of requests.
   *
   * @param class The class of the tracker. If it is not qualified, the driver assumes that it resides in the
   *              package `com.datastax.oss.driver.internal.core.tracker`.
   * @param logs  Parameters for RequestLogger
   */
-final case class RequestTracker(`class`: String = "NoopRequestTracker", logs: Option[Logs])
+final case class RequestTracker(`class`: String = "com.datastax.oss.driver.internal.core.tracker.NoopRequestTracker", logs: Option[Logs])
+
+object RequestTracker {
+  val Default: RequestTracker = RequestTracker("com.datastax.oss.driver.internal.core.tracker.NoopRequestTracker", None)
+}
 
 /** Parameters for RequestLogger.
   *
@@ -259,6 +355,28 @@ final case class Throttler(`class`: String,
                            maxRequestsPerSecond: Option[Int],
                            drainInterval: Option[Duration])
 
+object Throttler {
+  /** A request throttler that limits the number of concurrent requests. */
+  val Concurrency: Throttler = Throttler("com.datastax.oss.driver.internal.core.session.throttling.ConcurrencyLimitingRequestThrottler",
+                                         Some(10000),
+                                         Some(10000),
+                                         None,
+                                         None)
+
+  /** A request throttler that does not enforce any kind of limitation: requests are always executed immediately. */
+  val PassThrough: Throttler =
+    Throttler("com.datastax.oss.driver.internal.core.session.throttling.PassThroughRequestThrottler", None, None, None, None)
+
+  /** A request throttler that limits the rate of requests per second. */
+  val RateLimiting: Throttler = Throttler("com.datastax.oss.driver.internal.core.session.throttling.RateLimitingRequestThrottler",
+                                          Some(10000),
+                                          None,
+                                          Some(10000),
+                                          Some(10.milliseconds))
+
+  val Default: Throttler = PassThrough
+}
+
 /** A session-wide component that listens for node state changes. If it is not qualified, the driver
   * assumes that it resides in the package `com.datastax.oss.driver.internal.core.metadata`.
   *
@@ -267,6 +385,14 @@ final case class Throttler(`class`: String,
   * constructor with a DriverContext argument.
   */
 final case class NodeStateListener(`class`: String)
+
+object NodeStateListener {
+
+  /** Node state listener implementation with empty methods. */
+  val Noop: NodeStateListener = NodeStateListener("com.datastax.oss.driver.internal.core.metadata.NoopNodeStateListener")
+
+  val Default: NodeStateListener = Noop
+}
 
 /** A session-wide component that listens for node state changes. If it is not qualified, the driver
   * assumes that it resides in the package `com.datastax.oss.driver.internal.core.metadata.schema`.
@@ -278,6 +404,14 @@ final case class NodeStateListener(`class`: String)
   */
 final case class SchemaChangeListener(`class`: String)
 
+object SchemaChangeListener {
+
+  /** Schema change listener implementation with empty methods. */
+  val Noop: SchemaChangeListener = SchemaChangeListener("com.datastax.oss.driver.internal.core.metadata.schema.NoopSchemaChangeListener")
+
+  val Default: SchemaChangeListener = Noop
+}
+
 /** The address translator to use to convert the addresses sent by Cassandra nodes into ones that
   * the driver uses to connect.
   *
@@ -286,6 +420,10 @@ final case class SchemaChangeListener(`class`: String)
   * proxy).
   */
 final case class AddressTranslator(`class`: String)
+
+object AddressTranslator {
+  val Default: AddressTranslator = AddressTranslator("PassThroughAddressTranslator")
+}
 
 /** Protocol for query connection.
   *
@@ -298,6 +436,10 @@ final case class AddressTranslator(`class`: String)
   */
 final case class Protocol(version: Option[String], compression: Option[String], maxFrameLength: Int)
 
+object Protocol {
+  val Default: Protocol = Protocol(None, None, 268435456)
+}
+
 /** Trace configuration
   *
   * @param attempts     How many times the driver will attempt to fetch the query if it is not ready yet.
@@ -306,12 +448,20 @@ final case class Protocol(version: Option[String], compression: Option[String], 
   */
 final case class Trace(attempts: Int, interval: Duration, consistency: ConsistencyLevel)
 
+object Trace {
+  val Default: Trace = Trace(5, 3.milliseconds, ConsistencyLevel.LocalOne)
+}
+
 /** Metrics configuration
   *
   * @param session  The session-level metrics (all disabled by default).
   * @param node     The node-level metrics (all disabled by default).
   */
 final case class Metrics(session: Option[Session], node: Option[Node])
+
+object Metrics {
+  val Default: Metrics = Metrics(None, None)
+}
 
 /** The session-level metrics (all disabled by default).
   *
@@ -374,6 +524,10 @@ final case class Socket(tcpNoDelay: Boolean,
                         receiveBufferSize: Option[Int],
                         sendBufferSize: Option[Int])
 
+object Socket {
+  val Default: Socket = Socket(true, None, None, None, None, None)
+}
+
 /** If a connection stays idle for that duration (no reads), the driver sends a dummy message on it to make sure
   * it's still alive. If not, the connection is trashed and replaced.
   *
@@ -383,15 +537,23 @@ final case class Socket(tcpNoDelay: Boolean,
   */
 final case class Heartbeat(interval: Duration, timeout: Duration)
 
+object Heartbeat {
+  val Default: Heartbeat = Heartbeat(30.seconds, InitQueryTimeout)
+}
+
 /** Metadata
   *
   * @param debouncer Debouncing to smoothen out oscillations if conflicting events are sent out in short bursts.
   * @param schema    Options relating to schema metadata.
   * @param tokenMap  Whether token metadata (Cluster.getMetadata.getTokenMap) is enabled.
   */
-final case class Metadata(debouncer: TopologyEventDebouncer = TopologyEventDebouncer(),
-                          schema: Schema = Schema(),
-                          tokenMap: TokenMap = TokenMap(true))
+final case class Metadata(debouncer: TopologyEventDebouncer = Metadata.Default.debouncer,
+                          schema: Schema = Metadata.Default.schema,
+                          tokenMap: TokenMap = Metadata.Default.tokenMap)
+
+object Metadata {
+  val Default: Metadata = Metadata(TopologyEventDebouncer.Default, Schema.Default, TokenMap(true))
+}
 
 /** The debouncer helps smoothen out oscillations if conflicting events are sent out in short bursts.
   *
@@ -402,7 +564,12 @@ final case class Metadata(debouncer: TopologyEventDebouncer = TopologyEventDebou
   *                  delivered immediately and the time window is reset. This avoids holding events indefinitely
   *                  if the window keeps getting reset.
   */
-final case class TopologyEventDebouncer(window: Duration = 1.second, maxEvents: Int = 20)
+final case class TopologyEventDebouncer(window: Duration = TopologyEventDebouncer.Default.window,
+                                        maxEvents: Int = TopologyEventDebouncer.Default.maxEvents)
+
+object TopologyEventDebouncer {
+  val Default: TopologyEventDebouncer = TopologyEventDebouncer(1.second, 20)
+}
 
 /** Options relating to schema metadata (Cluster.getMetadata.getKeyspaces).
   * This metadata is exposed by the driver for informational purposes, and is also necessary for token-aware routing.
@@ -415,11 +582,15 @@ final case class TopologyEventDebouncer(window: Duration = 1.second, maxEvents: 
   * @param requestPageSize    The page size for the requests to the schema tables.
   * @param debouncer          Protects against bursts of schema updates.
   */
-final case class Schema(enabled: Boolean = true,
-                        refreshedKeyspaces: List[String] = List.empty,
-                        requestTimeout: Duration = RequestTimeout,
-                        requestPageSize: Int = RequestPageSize,
-                        debouncer: Debouncer = Debouncer())
+final case class Schema(enabled: Boolean = Schema.Default.enabled,
+                        refreshedKeyspaces: List[String] = Schema.Default.refreshedKeyspaces,
+                        requestTimeout: Duration = Schema.Default.requestTimeout,
+                        requestPageSize: Int = Schema.Default.requestPageSize,
+                        debouncer: Debouncer = Schema.Default.debouncer)
+
+object Schema {
+  val Default: Schema = Schema(true, List.empty, RequestTimeout, RequestPageSize, Debouncer.Default)
+}
 
 /** Protects against bursts of schema updates (for example when a client issues a sequence of DDL queries), by
   * coalescing them into a single update.
@@ -431,7 +602,11 @@ final case class Schema(enabled: Boolean = true,
   * @param maxEvents The maximum number of refreshes that can accumulate. If this count is reached, a refresh
   *                  is done immediately and the window is reset.
   */
-final case class Debouncer(window: Duration = 1.second, maxEvents: Int = 20)
+final case class Debouncer(window: Duration = Debouncer.Default.window, maxEvents: Int = Debouncer.Default.maxEvents)
+
+object Debouncer {
+  val Default: Debouncer = Debouncer(1.second, 20)
+}
 
 /** Whether token metadata (Cluster.getMetadata.getTokenMap) is `enabled`.
   * This metadata is exposed by the driver for informational purposes, and is also necessary for token-aware routing.
@@ -442,6 +617,10 @@ final case class Debouncer(window: Duration = 1.second, maxEvents: Int = 20)
 final case class TokenMap(enabled: Boolean)
 
 final case class ControlConnection(timeout: Duration, schemaAgreement: SchemaAgreement)
+
+object ControlConnection {
+  val Default: ControlConnection = ControlConnection(InitQueryTimeout, SchemaAgreement.Default)
+}
 
 /** Due to the distributed nature of Cassandra, schema changes made on one node might not be
   * immediately visible to others. Under certain circumstances, the driver waits until all nodes
@@ -465,13 +644,24 @@ final case class ControlConnection(timeout: Duration, schemaAgreement: SchemaAgr
   * @param warnOnFailure Whether to log a warning if schema agreement fails.
   *                      You might want to change this if you've set the timeout to 0.
   */
-final case class SchemaAgreement(interval: Duration = 200.milliseconds, timeout: Duration = 10.seconds, warnOnFailure: Boolean = true)
+final case class SchemaAgreement(interval: Duration = SchemaAgreement.Default.interval,
+                                 timeout: Duration = SchemaAgreement.Default.timeout,
+                                 warnOnFailure: Boolean = SchemaAgreement.Default.warnOnFailure)
+
+object SchemaAgreement {
+  val Default: SchemaAgreement = SchemaAgreement(200.milliseconds, 10.seconds, true)
+}
 
 /**
   *
   * @param prepareOnAllNodes Overridable in a profile.
   */
-final case class PreparedStatements(prepareOnAllNodes: Boolean = true, reprepareOnUp: ReprepareOnUp = ReprepareOnUp())
+final case class PreparedStatements(prepareOnAllNodes: Boolean = PreparedStatements.Default.prepareOnAllNodes,
+                                    reprepareOnUp: ReprepareOnUp = PreparedStatements.Default.reprepareOnUp)
+
+object PreparedStatements {
+  val Default: PreparedStatements = PreparedStatements(true, ReprepareOnUp.Default)
+}
 
 /** How the driver replicates prepared statements on a node that just came back up or joined the cluster.
   *
@@ -503,11 +693,15 @@ final case class PreparedStatements(prepareOnAllNodes: Boolean = true, reprepare
   * @param timeout          The request timeout. This applies both to querying the system.prepared_statements table (if
   *                         relevant), and the prepare requests themselves.
   */
-final case class ReprepareOnUp(enabled: Boolean = true,
-                               checkSystemTable: Boolean = false,
-                               maxStatements: Int = 0,
-                               maxParallelism: Int = 100,
-                               timeout: Duration = InitQueryTimeout)
+final case class ReprepareOnUp(enabled: Boolean = ReprepareOnUp.Default.enabled,
+                               checkSystemTable: Boolean = ReprepareOnUp.Default.checkSystemTable,
+                               maxStatements: Int = ReprepareOnUp.Default.maxStatements,
+                               maxParallelism: Int = ReprepareOnUp.Default.maxParallelism,
+                               timeout: Duration = ReprepareOnUp.Default.timeout)
+
+object ReprepareOnUp {
+  val Default: ReprepareOnUp = ReprepareOnUp(true, false, 0, 100, InitQueryTimeout)
+}
 
 /** Options related to the Netty event loop groups used internally by the driver.
   *
@@ -524,10 +718,14 @@ final case class ReprepareOnUp(enabled: Boolean = true,
   *                   By default, this thread is named after the session name and "-timer-0", for example
   *                   "s0-timer-0".
   */
-final case class Netty(daemon: Boolean = false,
-                       ioGroup: IoGroup = IoGroup(2, Shutdown(2, 15, "SECONDS")),
-                       adminGroup: AdminGroup = AdminGroup(2, Shutdown(2, 15, "SECONDS")),
-                       timer: Timer = Timer())
+final case class Netty(daemon: Boolean = Netty.Default.daemon,
+                       ioGroup: Group = Netty.Default.ioGroup,
+                       adminGroup: Group = Netty.Default.adminGroup,
+                       timer: Timer = Netty.Default.timer)
+
+object Netty {
+  val Default: Netty = Netty(false, Group.Default, Group.Default, Timer.Default)
+}
 
 /** The event loop group used for I/O operations (reading and writing to Cassandra nodes).
   *
@@ -537,20 +735,11 @@ final case class Netty(daemon: Boolean = false,
   *                 gets submitted during the quiet period, it is accepted and the quiet period starts over.
   *                 The timeout limits the overall shutdown time.
   */
-final case class IoGroup(size: Int, shutdown: Shutdown)
+final case class Group(size: Int, shutdown: Shutdown)
 
-/** The event loop group used for admin tasks not related to request I/O (handle cluster events,
-  * refresh metadata, schedule reconnections, etc.)
-  *
-  * By default, threads in this group are named after the session name, "-admin-" and an
-  * incrementing counter, for example "s0-admin-0".
-  *
-  * @param size     The number of threads.
-  * @param shutdown The options to shut down the event loop group gracefully when the driver closes. If a task
-  *                 gets submitted during the quiet period, it is accepted and the quiet period starts over.
-  *                 The timeout limits the overall shutdown time.
-  */
-final case class AdminGroup(size: Int, shutdown: Shutdown)
+object Group {
+  val Default: Group = Group(2, Shutdown.Default)
+}
 
 /** The options to shut down the event loop group gracefully when the driver closes. If a task
   * gets submitted during the quiet period, it is accepted and the quiet period starts over.
@@ -558,6 +747,10 @@ final case class AdminGroup(size: Int, shutdown: Shutdown)
   * The timeout limits the overall shutdown time.
   */
 final case class Shutdown(quietPeriod: Int, timeout: Int, unit: String)
+
+object Shutdown {
+  val Default: Shutdown = Shutdown(2, 15, "SECONDS")
+}
 
 /** The timer used for scheduling request timeouts and speculative executions.
   *
@@ -583,7 +776,11 @@ final case class Shutdown(quietPeriod: Int, timeout: Int, unit: String)
   *                      HashedWheelTimer, which uses hashes to arrange the timeouts. This effectively controls the
   *                      size of the timer wheel.
   */
-final case class Timer(tickDuration: Duration = 100.milliseconds, ticksPerWheel: Int = 2048)
+final case class Timer(tickDuration: Duration = Timer.Default.tickDuration, ticksPerWheel: Int = Timer.Default.ticksPerWheel)
+
+object Timer {
+  val Default: Timer = Timer(100.milliseconds, 2048)
+}
 
 /** The component that coalesces writes on the connections.
   * This is exposed mainly to facilitate tuning during development. You shouldn't have to adjust this.
@@ -591,4 +788,9 @@ final case class Timer(tickDuration: Duration = 100.milliseconds, ticksPerWheel:
   * @param maxRunsWithNoWork  How many times the coalescer is allowed to reschedule itself when it did no work.
   * @param rescheduleInterval The reschedule interval.
   */
-final case class Coalescer(maxRunsWithNoWork: Int = 5, rescheduleInterval: Duration = 10.microseconds)
+final case class Coalescer(maxRunsWithNoWork: Int = Coalescer.Default.maxRunsWithNoWork,
+                           rescheduleInterval: Duration = Coalescer.Default.rescheduleInterval)
+
+object Coalescer {
+  val Default: Coalescer = Coalescer(5, 10.microseconds)
+}

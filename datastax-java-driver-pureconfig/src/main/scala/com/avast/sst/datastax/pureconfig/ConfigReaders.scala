@@ -55,8 +55,7 @@ trait ConfigReaders {
   implicit val datastaxJavaDriverPreparedStatementsConfigReader: ConfigReader[PreparedStatements] = deriveReader
   implicit val datastaxJavaDriverReprepareOnUpConfigReader: ConfigReader[ReprepareOnUp] = deriveReader
   implicit val datastaxJavaDriverNettyConfigReader: ConfigReader[Netty] = deriveReader
-  implicit val datastaxJavaDriverIoGroupConfigReader: ConfigReader[IoGroup] = deriveReader
-  implicit val datastaxJavaDriverAdminGroupConfigReader: ConfigReader[AdminGroup] = deriveReader
+  implicit val datastaxJavaDriverGroupConfigReader: ConfigReader[Group] = deriveReader
   implicit val datastaxJavaDriverShutdownConfigReader: ConfigReader[Shutdown] = deriveReader
   implicit val datastaxJavaDriverTimerConfigReader: ConfigReader[Timer] = deriveReader
   implicit val datastaxJavaDriverCoalescerConfigReader: ConfigReader[Coalescer] = deriveReader
