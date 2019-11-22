@@ -27,7 +27,6 @@ trait ConfigReaders {
   implicit val datastaxJavaDriverPoolConfigReader: ConfigReader[Pool] = deriveReader
   implicit val datastaxJavaDriverReconnectionPolicyConfigReader: ConfigReader[ReconnectionPolicy] = deriveReader
   implicit val datastaxJavaDriverAuthProviderConfigReader: ConfigReader[AuthProvider] = deriveReader
-  implicit val datastaxJavaDriverSslEngineFactoryConfigReader: ConfigReader[SslEngineFactory] = deriveReader
   implicit val datastaxJavaDriverRequestTrackerConfigReader: ConfigReader[RequestTracker] = deriveReader
   implicit val datastaxJavaDriverLogsConfigReader: ConfigReader[Logs] = deriveReader
   implicit val datastaxJavaDriverSlowConfigReader: ConfigReader[Slow] = deriveReader

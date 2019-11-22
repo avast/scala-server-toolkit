@@ -18,7 +18,6 @@ import scala.concurrent.duration._
   * @param speculativeExecutionPolicy The policy that controls if the driver pre-emptively tries other nodes if a node takes too long
   *                                   to respond.
   * @param authProvider               if `None` no authentication will occur.
-  * @param sslEngineFactory           if `None` SSL won't be activated.
   * @param timestampGenerator         The generator that assigns a microsecond timestamp to each request.
   * @param requestTracker             A session-wide component that tracks the outcome of requests.
   *                                   By default `com.datastax.oss.driver.internal.core.trackerNoopRequestTracker` is used.
@@ -61,7 +60,6 @@ final case class Advanced(connection: Connection = Advanced.Default.connection,
                           retryPolicy: RetryPolicy = Advanced.Default.retryPolicy,
                           speculativeExecutionPolicy: SpeculativeExecutionPolicy = Advanced.Default.speculativeExecutionPolicy,
                           authProvider: Option[AuthProvider] = Advanced.Default.authProvider,
-                          sslEngineFactory: Option[SslEngineFactory] = Advanced.Default.sslEngineFactory,
                           timestampGenerator: TimestampGenerator = Advanced.Default.timestampGenerator,
                           requestTracker: RequestTracker = Advanced.Default.requestTracker,
                           throttler: Throttler = Advanced.Default.throttler,
@@ -87,7 +85,6 @@ object Advanced {
     ReconnectionPolicy.Default,
     RetryPolicy.Default,
     SpeculativeExecutionPolicy.Default,
-    None,
     None,
     TimestampGenerator.Default,
     RequestTracker.Default,
@@ -225,30 +222,6 @@ object SpeculativeExecutionPolicy {
   * @param `class` custom class that implements AuthProvider and has a public constructor with a DriverContext argument
   */
 final case class AuthProvider(`class`: String, username: String, password: String)
-
-/** The SSL engine factory that will initialize an SSL engine for each new connection to a server.
-  *
-  * @param class              The class of the factory. If it is not qualified, the driver assumes that it resides in the
-  *                           package `com.datastax.oss.driver.internal.core.ssl`.
-  *                           If it is absent, SSL won't be activated.
-  * @param cipherSuites       The cipher suites to enable when creating an SSLEngine for a connection.
-  *                           This property is optional. If it is not present, the driver won't explicitly enable cipher
-  *                           suites on the engine, which according to the JDK documentations results in "a minimum quality
-  *                           of service".
-  * @param hostnameValidation Whether or not to require validation that the hostname of the server certificate's common
-  *                           name matches the hostname of the server being connected to.
-  * @param truststorePath     The location used to access truststore content.
-  * @param truststorePassword The password used to access truststore content.
-  * @param keystorePath       The location used to access keystore content.
-  * @param keystorePassword   The password used to access keystore content.
-  */
-final case class SslEngineFactory(`class`: Option[String],
-                                  cipherSuites: List[String] = List.empty,
-                                  hostnameValidation: Option[Boolean],
-                                  truststorePath: Option[String],
-                                  truststorePassword: Option[String],
-                                  keystorePath: Option[String],
-                                  keystorePassword: Option[String])
 
 /** The generator that assigns a microsecond timestamp to each request.
   *
