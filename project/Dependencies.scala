@@ -33,7 +33,7 @@ object Dependencies {
   object Versions {
 
     val doobie = "0.7.1"
-    val http4s = "0.20.13"
+    val http4s = "0.20.14"
     val micrometer = "1.3.1"
     val monix = "3.1.0"
     val silencer = "1.4.4"
