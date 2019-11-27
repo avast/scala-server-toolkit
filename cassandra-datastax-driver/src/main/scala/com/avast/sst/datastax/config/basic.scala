@@ -45,15 +45,15 @@ import scala.concurrent.duration._
   *                            - when the policies assign distances to nodes, the driver uses the closest assigned distance
   *                              for any given node.
   */
-final case class Basic(contactPoints: List[String] = Basic.Default.contactPoints,
-                       sessionName: Option[String] = Basic.Default.sessionName,
-                       sessionKeyspace: Option[String] = Basic.Default.sessionKeyspace,
-                       configReloadInterval: Duration = Basic.Default.configReloadInterval,
-                       request: BasicRequest = Basic.Default.request,
-                       loadBalancingPolicy: LoadBalancingPolicy = Basic.Default.loadBalancingPolicy)
+final case class BasicConfig(contactPoints: List[String] = BasicConfig.Default.contactPoints,
+                             sessionName: Option[String] = BasicConfig.Default.sessionName,
+                             sessionKeyspace: Option[String] = BasicConfig.Default.sessionKeyspace,
+                             configReloadInterval: Duration = BasicConfig.Default.configReloadInterval,
+                             request: BasicRequestConfig = BasicConfig.Default.request,
+                             loadBalancingPolicy: LoadBalancingPolicyConfig = BasicConfig.Default.loadBalancingPolicy)
 
-object Basic {
-  val Default: Basic = Basic(List.empty, None, None, 5.minutes, BasicRequest.Default, LoadBalancingPolicy.Default)
+object BasicConfig {
+  val Default: BasicConfig = BasicConfig(List.empty, None, None, 5.minutes, BasicRequestConfig.Default, LoadBalancingPolicyConfig.Default)
 }
 
 /** Request configuration.
@@ -91,14 +91,15 @@ object Basic {
   *                           `isIdempotent()` returns null.
   *                           Overridable in a profile.
   */
-final case class BasicRequest(timeout: Duration = BasicRequest.Default.timeout,
-                              consistency: ConsistencyLevel = BasicRequest.Default.consistency,
-                              pageSize: Int = BasicRequest.Default.pageSize,
-                              serialConsistency: ConsistencyLevel = BasicRequest.Default.serialConsistency,
-                              defaultIdempotence: Boolean = BasicRequest.Default.defaultIdempotence)
+final case class BasicRequestConfig(timeout: Duration = BasicRequestConfig.Default.timeout,
+                                    consistency: ConsistencyLevel = BasicRequestConfig.Default.consistency,
+                                    pageSize: Int = BasicRequestConfig.Default.pageSize,
+                                    serialConsistency: ConsistencyLevel = BasicRequestConfig.Default.serialConsistency,
+                                    defaultIdempotence: Boolean = BasicRequestConfig.Default.defaultIdempotence)
 
-object BasicRequest {
-  val Default: BasicRequest = BasicRequest(RequestTimeout, ConsistencyLevel.LocalOne, RequestPageSize, ConsistencyLevel.Serial, false)
+object BasicRequestConfig {
+  val Default: BasicRequestConfig =
+    BasicRequestConfig(RequestTimeout, ConsistencyLevel.LocalOne, RequestPageSize, ConsistencyLevel.Serial, false)
 }
 
 /** The policy that decides the "query plan" for each query; that is, which nodes to try as coordinators, and in which order.
@@ -118,12 +119,12 @@ object BasicRequest {
   *
   * @param filter          A custom filter to include/exclude nodes.
   */
-final case class LoadBalancingPolicy(`class`: String = LoadBalancingPolicy.Default.`class`,
-                                     localDatacenter: Option[String] = LoadBalancingPolicy.Default.localDatacenter,
-                                     filter: Option[Filter] = LoadBalancingPolicy.Default.filter)
+final case class LoadBalancingPolicyConfig(`class`: String = LoadBalancingPolicyConfig.Default.`class`,
+                                           localDatacenter: Option[String] = LoadBalancingPolicyConfig.Default.localDatacenter,
+                                           filter: Option[FilterConfig] = LoadBalancingPolicyConfig.Default.filter)
 
-object LoadBalancingPolicy {
-  val Default: LoadBalancingPolicy = LoadBalancingPolicy("DefaultLoadBalancingPolicy", None, None)
+object LoadBalancingPolicyConfig {
+  val Default: LoadBalancingPolicyConfig = LoadBalancingPolicyConfig("DefaultLoadBalancingPolicy", None, None)
 }
 
 /** A custom filter to include/exclude nodes.
@@ -135,7 +136,7 @@ object LoadBalancingPolicy {
   * @param `class` it must be the fully-qualified name of a class that implements `java.util.function.Predicate<Node>`,
   *                and has a public constructor taking a single `DriverContext` argument.
   */
-final case class Filter(`class`: String)
+final case class FilterConfig(`class`: String)
 
 /** The consistency level of a request
   */

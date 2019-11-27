@@ -2,40 +2,44 @@ package com.avast.sst.datastax.config
 
 /** Profile configuration holding overridable properties.
   */
-final case class Profile(name: String, basic: ProfileBasic = ProfileBasic.Default, advanced: ProfileAdvanced = ProfileAdvanced.Default)
+final case class ProfileConfig(name: String,
+                               basic: ProfileBasicConfig = ProfileBasicConfig.Default,
+                               advanced: ProfileAdvancedConfig = ProfileAdvancedConfig.Default)
 
-final case class ProfileBasic(request: BasicRequest = ProfileBasic.Default.request,
-                              loadBalancingPolicy: LoadBalancingPolicy = ProfileBasic.Default.loadBalancingPolicy)
+final case class ProfileBasicConfig(request: BasicRequestConfig = ProfileBasicConfig.Default.request,
+                                    loadBalancingPolicy: LoadBalancingPolicyConfig = ProfileBasicConfig.Default.loadBalancingPolicy)
 
-object ProfileBasic {
-  val Default: ProfileBasic = ProfileBasic(BasicRequest.Default, LoadBalancingPolicy.Default)
+object ProfileBasicConfig {
+  val Default: ProfileBasicConfig = ProfileBasicConfig(BasicRequestConfig.Default, LoadBalancingPolicyConfig.Default)
 }
 
-final case class ProfileAdvanced(
-  request: ProfileAdvancedRequest = ProfileAdvanced.Default.request,
-  retryPolicy: RetryPolicy = ProfileAdvanced.Default.retryPolicy,
-  speculativeExecutionPolicy: SpeculativeExecutionPolicy = ProfileAdvanced.Default.speculativeExecutionPolicy,
-  timestampGenerator: TimestampGenerator = ProfileAdvanced.Default.timestampGenerator,
-  preparedStatements: ProfilePreparedStatements = ProfileAdvanced.Default.preparedStatements
+final case class ProfileAdvancedConfig(
+  request: ProfileAdvancedRequestConfig = ProfileAdvancedConfig.Default.request,
+  retryPolicy: RetryPolicyConfig = ProfileAdvancedConfig.Default.retryPolicy,
+  speculativeExecutionPolicy: SpeculativeExecutionPolicyConfig = ProfileAdvancedConfig.Default.speculativeExecutionPolicy,
+  timestampGenerator: TimestampGeneratorConfig = ProfileAdvancedConfig.Default.timestampGenerator,
+  preparedStatements: ProfilePreparedStatementsConfig = ProfileAdvancedConfig.Default.preparedStatements
 )
 
-object ProfileAdvanced {
-  val Default: ProfileAdvanced = ProfileAdvanced(ProfileAdvancedRequest.Default,
-                                                 RetryPolicy.Default,
-                                                 SpeculativeExecutionPolicy.Default,
-                                                 TimestampGenerator.Default,
-                                                 ProfilePreparedStatements.Default)
+object ProfileAdvancedConfig {
+  val Default: ProfileAdvancedConfig = ProfileAdvancedConfig(
+    ProfileAdvancedRequestConfig.Default,
+    RetryPolicyConfig.Default,
+    SpeculativeExecutionPolicyConfig.Default,
+    TimestampGeneratorConfig.Default,
+    ProfilePreparedStatementsConfig.Default
+  )
 }
 
-final case class ProfileAdvancedRequest(trace: Trace = ProfileAdvancedRequest.Default.trace,
-                                        logWarnings: Boolean = ProfileAdvancedRequest.Default.logWarnings)
+final case class ProfileAdvancedRequestConfig(trace: TraceConfig = ProfileAdvancedRequestConfig.Default.trace,
+                                              logWarnings: Boolean = ProfileAdvancedRequestConfig.Default.logWarnings)
 
-object ProfileAdvancedRequest {
-  val Default: ProfileAdvancedRequest = ProfileAdvancedRequest(Trace.Default, true)
+object ProfileAdvancedRequestConfig {
+  val Default: ProfileAdvancedRequestConfig = ProfileAdvancedRequestConfig(TraceConfig.Default, true)
 }
 
-final case class ProfilePreparedStatements(prepareOnAllNodes: Boolean)
+final case class ProfilePreparedStatementsConfig(prepareOnAllNodes: Boolean)
 
-object ProfilePreparedStatements {
-  val Default: ProfilePreparedStatements = ProfilePreparedStatements(true)
+object ProfilePreparedStatementsConfig {
+  val Default: ProfilePreparedStatementsConfig = ProfilePreparedStatementsConfig(true)
 }
