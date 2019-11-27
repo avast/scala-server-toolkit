@@ -6,7 +6,7 @@ import pureconfig.generic.semiauto.{deriveEnumerationReader, deriveReader}
 
 trait ConfigReaders {
 
-  implicit val datastaxJavaDriverDatastaxConfigReader: ConfigReader[DatastaxDriverConfig] = deriveReader
+  implicit val datastaxJavaDriverDatastaxConfigReader: ConfigReader[CassandraDatastaxDriverConfig] = deriveReader
 
   // Basic driver config
   implicit val datastaxJavaDriverBasicConfigReader: ConfigReader[Basic] = deriveReader

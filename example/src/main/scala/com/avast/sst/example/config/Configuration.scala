@@ -1,6 +1,6 @@
 package com.avast.sst.example.config
 
-import com.avast.sst.datastax.config.DatastaxDriverConfig
+import com.avast.sst.datastax.config.CassandraDatastaxDriverConfig
 import com.avast.sst.datastax.pureconfig.implicits._
 import com.avast.sst.doobie.DoobieHikariConfig
 import com.avast.sst.doobie.pureconfig.implicits._
@@ -23,7 +23,7 @@ final case class Configuration(server: Http4sBlazeServerConfig,
                                client: Http4sBlazeClientConfig,
                                circuitBreaker: CircuitBreakerConfig,
                                jmx: MicrometerJmxConfig,
-                               datastaxDriver: DatastaxDriverConfig)
+                               datastaxDriver: CassandraDatastaxDriverConfig)
 
 object Configuration {
 

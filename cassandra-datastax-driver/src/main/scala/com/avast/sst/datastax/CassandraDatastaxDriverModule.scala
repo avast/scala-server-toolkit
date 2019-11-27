@@ -1,18 +1,17 @@
 package com.avast.sst.datastax
 
 import cats.effect.{Resource, Sync}
-import com.avast.sst.datastax.config.DatastaxDriverConfig
+import com.avast.sst.datastax.config.CassandraDatastaxDriverConfig
 import com.avast.sst.datastax.DatastaxHelper._
 import com.datastax.oss.driver.api.core.CqlSession
 import com.datastax.oss.driver.api.core.config.DefaultDriverOption._
 import com.datastax.oss.driver.api.core.config.{DriverConfigLoader, ProgrammaticDriverConfigLoaderBuilder => DriverBuilder}
 import javax.net.ssl.SSLContext
 
-object DatastaxModule {
+object CassandraDatastaxDriverModule {
 
-  /** Makes [[com.datastax.oss.driver.api.core.CqlSession]] initialized with the given config.
-    */
-  def make[F[_]: Sync](cfg: DatastaxDriverConfig, ssl: Option[SSLContext] = None): Resource[F, CqlSession] = {
+  /** Makes [[com.datastax.oss.driver.api.core.CqlSession]] initialized with the given config. */
+  def make[F[_]: Sync](cfg: CassandraDatastaxDriverConfig, ssl: Option[SSLContext] = None): Resource[F, CqlSession] = {
 
     val acquire = Sync[F].delay {
 

@@ -20,8 +20,8 @@ lazy val root = project
   .aggregate(
     bundleMonixHttp4sBlaze,
     bundleZioHttp4sBlaze,
-    datastaxJavaDriver,
-    datastaxJavaDriverPureConfig,
+    cassandraDatastaxDriver,
+    cassandraDatastaxDriverPureConfig,
     doobieHikari,
     doobieHikariPureConfig,
     example,
@@ -84,20 +84,20 @@ lazy val bundleZioHttp4sBlaze = project
     )
   )
 
-lazy val datastaxJavaDriver = project
-  .in(file("datastax-java-driver"))
+lazy val cassandraDatastaxDriver = project
+  .in(file("cassandra-datastax-driver"))
   .settings(commonSettings)
   .settings(
-    name := "sst-datastax-java-driver",
+    name := "sst-cassandra-datastax-driver",
     libraryDependencies += Dependencies.datastaxJavaDriverCore
   )
 
-lazy val datastaxJavaDriverPureConfig = project
-  .in(file("datastax-java-driver-pureconfig"))
-  .dependsOn(datastaxJavaDriver, pureConfig)
+lazy val cassandraDatastaxDriverPureConfig = project
+  .in(file("cassandra-datastax-driver-pureconfig"))
+  .dependsOn(cassandraDatastaxDriver, pureConfig)
   .settings(commonSettings)
   .settings(
-    name := "sst-datastax-java-driver-pureconfig"
+    name := "sst-cassandra-datastax-driver-pureconfig"
   )
 
 lazy val doobieHikari = project
@@ -123,8 +123,8 @@ lazy val example = project
   .in(file("example"))
   .dependsOn(
     bundleZioHttp4sBlaze,
-    datastaxJavaDriver,
-    datastaxJavaDriverPureConfig,
+    cassandraDatastaxDriver,
+    cassandraDatastaxDriverPureConfig,
     doobieHikari,
     doobieHikariPureConfig,
     flyway,

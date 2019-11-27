@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit
 
 import cats.effect.{Clock, Resource}
 import com.avast.sst.bundle.ZioServerApp
-import com.avast.sst.datastax.DatastaxModule
+import com.avast.sst.datastax.CassandraDatastaxDriverModule
 import com.avast.sst.doobie.DoobieHikariModule
 import com.avast.sst.example.config.Configuration
 import com.avast.sst.example.module.Http4sRoutingModule
@@ -65,7 +65,7 @@ object Main extends ZioServerApp {
       client = Http4sClientCircuitBreakerModule.make[Task](httpClient, enrichedCircuitBreaker)
       routingModule = new Http4sRoutingModule(randomService, client, serverMetricsModule)
       server <- Http4sBlazeServerModule.make[Task](configuration.server, routingModule.router, executorModule.executionContext)
-      datastaxDriver <- DatastaxModule.make[Task](configuration.datastaxDriver)
+      datastaxDriver <- CassandraDatastaxDriverModule.make[Task](configuration.datastaxDriver, None)
     } yield server
   }
 
