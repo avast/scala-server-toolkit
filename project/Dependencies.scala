@@ -3,6 +3,7 @@ import sbt._
 object Dependencies {
 
   val catsEffect = "org.typelevel" %% "cats-effect" % "2.0.0"
+  val datastaxJavaDriverCore = "com.datastax.oss" % "java-driver-core" % Versions.datastaxJavaDriverCore
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
   val flywayCore = "org.flywaydb" % "flyway-core" % "6.1.0"
@@ -32,6 +33,7 @@ object Dependencies {
 
   object Versions {
 
+    val datastaxJavaDriverCore = "4.2.2"
     val doobie = "0.7.1"
     val http4s = "0.20.14"
     val micrometer = "1.3.1"
