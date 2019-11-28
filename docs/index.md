@@ -8,6 +8,7 @@
 * [Module JVM](jvm.md)
 * [Modules Micrometer](micrometer.md)
 * [Module PureConfig](pureconfig.md)
+* [Module Datastax Cassandra Driver](cassandra-datastax-driver.md)
 * [Module SSL Config](ssl-config.md)
 * [Module doobie](doobie.md)
 * [Module Flyway](flyway.md)
