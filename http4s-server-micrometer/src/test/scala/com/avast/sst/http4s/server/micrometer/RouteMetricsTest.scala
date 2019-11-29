@@ -5,9 +5,9 @@ import java.util.concurrent.TimeUnit
 import cats.effect.{Clock, SyncIO}
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import org.http4s.Response
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class RouteMetricsTest extends FunSuite {
+class RouteMetricsTest extends AnyFunSuite {
 
   test("Single route metrics") {
     val registry = new SimpleMeterRegistry()

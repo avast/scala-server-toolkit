@@ -3,11 +3,11 @@ package com.avast.sst.jvm.system.console
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 
 import cats.effect.SyncIO
-import org.scalatest.FunSuite
 
 import scala.{Console => SConsole}
+import org.scalatest.funsuite.AnyFunSuite
 
-class ConsoleModuleTest extends FunSuite {
+class ConsoleModuleTest extends AnyFunSuite {
 
   test("Console input") {
     SConsole.withIn(new ByteArrayInputStream("test input\n".getBytes("UTF-8"))) {
