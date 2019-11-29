@@ -2,12 +2,12 @@ package com.avast.sst.pureconfig
 
 import cats.data.NonEmptyList
 import cats.effect.SyncIO
-import org.scalatest.FunSuite
 import pureconfig.error.ConfigReaderException
 import pureconfig.generic.semiauto.deriveReader
 import pureconfig.{ConfigReader, ConfigSource}
+import org.scalatest.funsuite.AnyFunSuite
 
-class PureConfigModuleTest extends FunSuite {
+class PureConfigModuleTest extends AnyFunSuite {
 
   private val source = ConfigSource.string("""|number = 123
                                               |string = "test"""".stripMargin)

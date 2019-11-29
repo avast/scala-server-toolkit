@@ -5,9 +5,9 @@ import java.util.concurrent.TimeUnit
 import cats.effect.SyncIO
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import org.http4s.{Method, Status}
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class MicrometerHttp4sMetricsOpsModuleTest extends FunSuite {
+class MicrometerHttp4sMetricsOpsModuleTest extends AnyFunSuite {
 
   test("http4s MetricsOps for Micrometer") {
     val registry = new SimpleMeterRegistry()

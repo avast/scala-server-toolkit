@@ -2,9 +2,9 @@ package com.avast.sst.http4s.server.micrometer
 
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import org.http4s.Status
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class HttpStatusMetricsTest extends FunSuite {
+class HttpStatusMetricsTest extends AnyFunSuite {
 
   test("HTTP status monitoring") {
     val simpleMeterRegistry = new SimpleMeterRegistry()
