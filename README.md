@@ -13,6 +13,10 @@ together well and allow you to build reliable server applications.
 
 **[Read it here](./docs/index.md)** or you can [deep dive into example code](example/src/main/scala/com/avast/sst/example/Main.scala).
 
+### Articles
+
+* [Introducing Scala Server Toolkit](https://engineering.avast.io/introducing-scala-server-toolkit/) (Avast Engineering)
+
 ## Design
 
 There are certain design decisions and constraints that are put in place to guide the development of the toolkit and recommended for 
