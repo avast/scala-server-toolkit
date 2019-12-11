@@ -27,6 +27,8 @@ lazy val root = project
     example,
     flyway,
     flywayPureConfig,
+    grpcServer,
+    grpcServerPureConfig,
     http4sClientBlaze,
     http4sClientBlazePureConfig,
     http4sClientMonixCatnap,
@@ -165,6 +167,27 @@ lazy val flywayPureConfig = project
   .settings(commonSettings)
   .settings(
     name := "sst-flyway-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
+  )
+
+lazy val grpcServer = project
+  .in(file("grpc-server"))
+  .settings(commonSettings)
+  .settings(
+    name := "sst-grpc-server",
+    libraryDependencies ++= Seq(
+      Dependencies.grpcNettyShaded,
+      Dependencies.grpcProtobuf,
+      Dependencies.grpcStub
+    )
+  )
+
+lazy val grpcServerPureConfig = project
+  .in(file("grpc-server-pureconfig"))
+  .dependsOn(grpcServer)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-grpc-server-pureconfig",
     libraryDependencies += Dependencies.pureConfig
   )
 
