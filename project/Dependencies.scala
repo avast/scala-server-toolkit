@@ -6,7 +6,7 @@ object Dependencies {
   val datastaxJavaDriverCore = "com.datastax.oss" % "java-driver-core" % Versions.datastaxJavaDriverCore
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
-  val flywayCore = "org.flywaydb" % "flyway-core" % "6.1.1"
+  val flywayCore = "org.flywaydb" % "flyway-core" % "6.1.2"
   val http4sBlazeClient = "org.http4s" %% "http4s-blaze-client" % Versions.http4s
   val http4sBlazeServer = "org.http4s" %% "http4s-blaze-server" % Versions.http4s
   val http4sClient = "org.http4s" %% "http4s-client" % Versions.http4s
