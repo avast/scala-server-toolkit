@@ -13,13 +13,13 @@ object GrpcServerModule {
     *
     * @param services service implementations to be added to the handler registry
     * @param executionContext executor to be used for the server
-    * @param globalInterceptors that are run for all the services
+    * @param interceptors that are run for all the services
     */
   @SuppressWarnings(Array("org.wartremover.warts.NonUnitStatements"))
   def make[F[_]: Sync](config: GrpcServerConfig,
                        services: Seq[ServerServiceDefinition],
                        executionContext: ExecutionContext,
-                       globalInterceptors: Seq[ServerInterceptor] = List.empty): Resource[F, Server] =
+                       interceptors: Seq[ServerInterceptor] = List.empty): Resource[F, Server] =
     Resource.make {
       Sync[F].delay {
         val builder = ServerBuilder
@@ -30,7 +30,7 @@ object GrpcServerModule {
           .executor(executionContext.execute)
 
         services.foreach(builder.addService)
-        globalInterceptors.foreach(builder.intercept)
+        interceptors.foreach(builder.intercept)
 
         builder.build.start()
       }
