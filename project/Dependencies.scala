@@ -7,6 +7,9 @@ object Dependencies {
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
   val flywayCore = "org.flywaydb" % "flyway-core" % "6.1.2"
+  val grpcNettyShaded = "io.grpc" % "grpc-netty-shaded" % Versions.grpc
+  val grpcProtobuf = "io.grpc" % "grpc-protobuf" % Versions.grpc
+  val grpcStub = "io.grpc" % "grpc-stub" % Versions.grpc
   val http4sBlazeClient = "org.http4s" %% "http4s-blaze-client" % Versions.http4s
   val http4sBlazeServer = "org.http4s" %% "http4s-blaze-server" % Versions.http4s
   val http4sClient = "org.http4s" %% "http4s-client" % Versions.http4s
@@ -35,6 +38,7 @@ object Dependencies {
 
     val datastaxJavaDriverCore = "4.3.1"
     val doobie = "0.7.1"
+    val grpc = "1.25.0"
     val http4s = "0.20.15"
     val micrometerCore = "1.3.2"
     val micrometerJmx = "1.3.2"
