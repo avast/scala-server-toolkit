@@ -6,9 +6,12 @@ import org.http4s.client.blaze.ParserMode
 import org.http4s.headers.`User-Agent`
 import pureconfig.ConfigReader
 import pureconfig.error.CannotConvert
+import pureconfig.generic.ProductHint
 import pureconfig.generic.semiauto.{deriveEnumerationReader, deriveReader}
 
 trait ConfigReaders {
+
+  implicit protected def hint[T]: ProductHint[T] = ProductHint.default
 
   implicit val http4sClientUserAgentReader: ConfigReader[`User-Agent`] = ConfigReader[String].emap { value =>
     `User-Agent`.parse(value).leftMap { parseFailure =>

@@ -4,9 +4,9 @@ import cats.effect.{ContextShift, IO, Timer}
 import com.avast.sst.http4s.client.{Http4sBlazeClientConfig, Http4sBlazeClientModule}
 import org.http4s.HttpRoutes
 import org.http4s.dsl.Http4sDsl
+import org.scalatest.funsuite.AsyncFunSuite
 
 import scala.concurrent.ExecutionContext
-import org.scalatest.funsuite.AsyncFunSuite
 
 class Http4sBlazeServerModuleTest extends AsyncFunSuite with Http4sDsl[IO] {
 
