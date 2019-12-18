@@ -7,9 +7,12 @@ import com.avast.sst.flyway.FlywayConfig
 import org.flywaydb.core.api.MigrationVersion
 import pureconfig.ConfigReader
 import pureconfig.error.ExceptionThrown
+import pureconfig.generic.ProductHint
 import pureconfig.generic.semiauto.deriveReader
 
 trait ConfigReaders {
+
+  implicit protected def hint[T]: ProductHint[T] = ProductHint.default
 
   implicit private[pureconfig] val flywayCharsetReader: ConfigReader[Charset] = ConfigReader[String].emap { value =>
     Either.catchNonFatal(Charset.forName(value)).leftMap(ExceptionThrown.apply)

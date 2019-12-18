@@ -14,7 +14,7 @@ object implicits extends ConfigReaders {
 
   /** Contains [[pureconfig.ConfigReader]] instances with "camelCase" naming convention. */
   object CamelCase extends ConfigReaders {
-    implicit def hint[T]: ProductHint[T] = ProductHint(ConfigFieldMapping(pureconfig.CamelCase, pureconfig.CamelCase))
+    implicit override protected def hint[T]: ProductHint[T] = ProductHint(ConfigFieldMapping(pureconfig.CamelCase, pureconfig.CamelCase))
   }
 
 }

@@ -5,9 +5,12 @@ import com.avast.sst.doobie.DoobieHikariConfig
 import doobie.enum.TransactionIsolation
 import pureconfig.ConfigReader
 import pureconfig.error.CannotConvert
+import pureconfig.generic.ProductHint
 import pureconfig.generic.semiauto.deriveReader
 
 trait ConfigReaders {
+
+  implicit protected def hint[T]: ProductHint[T] = ProductHint.default
 
   implicit val doobieTransactionIsolationReader: ConfigReader[TransactionIsolation] = ConfigReader[String].emap {
     case "TRANSACTION_NONE"             => TransactionIsolation.TransactionNone.asRight
