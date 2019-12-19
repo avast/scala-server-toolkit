@@ -14,16 +14,19 @@ import scala.language.higherKinds
 
 object SslContextModule {
 
-  private[this] val referenceConfig = ConfigFactory.defaultReference().getConfig("ssl-config")
-
-  /** Initializes [[javax.net.ssl.SSLContext]] from the provided config. */
+  /**
+    * Initializes [[javax.net.ssl.SSLContext]] from the provided config.
+    * @param withReference Whether we should use reference config of "ssl-config" library as well.
+    */
   def make[F[_]: Sync](config: Config, withReference: Boolean = true): F[SSLContext] = Sync[F].delay {
     val loggerFactory = Slf4jLogger.factory
-    val finalConfig = if (withReference) config.withFallback(referenceConfig) else config
+    val finalConfig = if (withReference) config.withFallback(referenceConfigUnsafe()) else config
     new ConfigSSLContextBuilder(loggerFactory,
                                 SSLConfigFactory.parse(finalConfig, loggerFactory),
                                 new DefaultKeyManagerFactoryWrapper(KeyManagerFactory.getDefaultAlgorithm),
                                 new DefaultTrustManagerFactoryWrapper(TrustManagerFactory.getDefaultAlgorithm)).build
   }
+
+  private def referenceConfigUnsafe(): Config = ConfigFactory.defaultReference().getConfig("ssl-config")
 
 }
