@@ -14,8 +14,8 @@ import scala.language.higherKinds
 
 object SslContextModule {
 
-  /**
-    * Initializes [[javax.net.ssl.SSLContext]] from the provided config.
+  /** Initializes [[javax.net.ssl.SSLContext]] from the provided config.
+    *
     * @param withReference Whether we should use reference config of "ssl-config" library as well.
     */
   def make[F[_]: Sync](config: Config, withReference: Boolean = true): F[SSLContext] = Sync[F].delay {
