@@ -29,15 +29,16 @@ object AkkaHttpServerModule {
         _ <- Sync[F].delay(logger.info(s"Starting Akka HTTP server..."))
         connectionContext <- createConnectionContext(config, sslConfig)
         binding <- Sync[F].delay {
-          implicit val ec: ExecutionContext = executionContext
-          implicit val as: ActorSystem = actorSystem
-          val _ = akka.http.scaladsl.settings.ServerSettings.default
-          val bindingFuture = Http().bindAndHandle(routes, config.listenHostname, config.listenPort, connectionContext)
-          val binding = Await.result(bindingFuture, config.startupTimeout)
-          logger.info(
-            s"Akka HTTP server successfully started, listening on ${binding.localAddress.getHostName}:${binding.localAddress.getPort}")
-          binding
-        }
+                    implicit val ec: ExecutionContext = executionContext
+                    implicit val as: ActorSystem = actorSystem
+                    val _ = akka.http.scaladsl.settings.ServerSettings.default
+                    val bindingFuture = Http().bindAndHandle(routes, config.listenHostname, config.listenPort, connectionContext)
+                    val binding = Await.result(bindingFuture, config.startupTimeout)
+                    logger.info(
+                      s"Akka HTTP server successfully started, listening on ${binding.localAddress.getHostName}:${binding.localAddress.getPort}"
+                    )
+                    binding
+                  }
       } yield binding
     } { binding =>
       Sync[F].delay {
@@ -48,17 +49,20 @@ object AkkaHttpServerModule {
     }
   }
 
-  private def createConnectionContext[F[_]: Sync](config: AkkaHttpServerConfig, sslConfig: Option[AkkaHttpServerSslConfig]): F[ConnectionContext] = {
+  private def createConnectionContext[F[_]: Sync](config: AkkaHttpServerConfig,
+                                                  sslConfig: Option[AkkaHttpServerSslConfig]): F[ConnectionContext] = {
     (config.connectionContext, sslConfig) match {
       case (AkkaHttpServerConnectionContextConfig.NoEncryption, _) =>
         Sync[F].pure(ConnectionContext.noEncryption())
       case (AkkaHttpServerConnectionContextConfig.Https(cipherSuites, protocols, clientAuth, _, _), Some(ssl)) =>
-        Sync[F].pure(ConnectionContext.https(ssl.sslContext,
-                                None,
-                                cipherSuites.map(_.to[collection.immutable.Seq]),
-                                protocols.map(_.to[collection.immutable.Seq]),
-                                clientAuth,
-                                ssl.sslParameters))
+        Sync[F].pure(
+          ConnectionContext.https(ssl.sslContext,
+                                  None,
+                                  cipherSuites.map(_.to[collection.immutable.Seq]),
+                                  protocols.map(_.to[collection.immutable.Seq]),
+                                  clientAuth,
+                                  ssl.sslParameters)
+        )
       case (_: AkkaHttpServerConnectionContextConfig.Https, None) =>
         Sync[F].raiseError(new IllegalArgumentException("Missing sslConfig for Https connection context."))
     }

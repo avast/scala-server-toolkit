@@ -36,9 +36,10 @@ object AkkaHttpActorSystemModule {
   @SuppressWarnings(Array("org.wartremover.warts.Recursion")) // This can not reasonably run out of stack space, only in case of cycle which would mean all sorts of problems for akka
   private def accumulatePhaseTimeoutChain(defaultTimeoutMillis: Long, phasesConfig: Config)(phase: String): Long = {
     val currentTimeout = Try(phasesConfig.getDuration(s"$phase.timeout")).fold(_ => defaultTimeoutMillis, d => d.toMillis)
-    Try(phasesConfig.getStringList(s"$phase.depends-on")).toOption  match {
+    Try(phasesConfig.getStringList(s"$phase.depends-on")).toOption match {
       case None => currentTimeout
-      case Some(parentPhases) => currentTimeout + parentPhases.asScala.map(accumulatePhaseTimeoutChain(defaultTimeoutMillis, phasesConfig)).sum
+      case Some(parentPhases) =>
+        currentTimeout + parentPhases.asScala.map(accumulatePhaseTimeoutChain(defaultTimeoutMillis, phasesConfig)).sum
     }
   }
 
