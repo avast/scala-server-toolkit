@@ -64,7 +64,7 @@ lazy val akkaHttpServer = project
     libraryDependencies ++= Seq(
       Dependencies.akka,
       Dependencies.akkaHttp,
-      Dependencies.slf4jApi,
+      Dependencies.slf4jApi
     )
   )
 

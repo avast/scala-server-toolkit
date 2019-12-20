@@ -27,9 +27,12 @@ class ConfigReaderTest extends AsyncFunSuite {
       shutdownTimeout = 10.seconds
     )
 
-    PureConfigModule.make[IO, RootConfig](configSource).map { config =>
-      assert(config === Right(RootConfig(expectedConfig)))
-    }.unsafeToFuture()
+    PureConfigModule
+      .make[IO, RootConfig](configSource)
+      .map { config =>
+        assert(config === Right(RootConfig(expectedConfig)))
+      }
+      .unsafeToFuture()
   }
 
   test("HTTPS configuration") {
@@ -43,9 +46,12 @@ class ConfigReaderTest extends AsyncFunSuite {
       )
     )
 
-    PureConfigModule.make[IO, RootConfig](configSource).map { config =>
-      assert(config === Right(RootConfig(expectedConfig)))
-    }.unsafeToFuture()
+    PureConfigModule
+      .make[IO, RootConfig](configSource)
+      .map { config =>
+        assert(config === Right(RootConfig(expectedConfig)))
+      }
+      .unsafeToFuture()
   }
 
 }

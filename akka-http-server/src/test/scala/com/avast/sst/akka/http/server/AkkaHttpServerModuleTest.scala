@@ -25,7 +25,8 @@ class AkkaHttpServerModuleTest extends AsyncFunSuite with Directives {
 
     val test = for {
       actorSystem <- AkkaHttpActorSystemModule.make[IO](ConfigFactory.empty())
-      server <- AkkaHttpServerModule.makeOrRaise[IO](AkkaHttpServerConfig("127.0.0.1", 0), None, routes, ExecutionContext.global, actorSystem)
+      server <- AkkaHttpServerModule
+                 .makeOrRaise[IO](AkkaHttpServerConfig("127.0.0.1", 0), None, routes, ExecutionContext.global, actorSystem)
       client <- Http4sBlazeClientModule.make[IO](Http4sBlazeClientConfig(), ExecutionContext.global)
     } yield (server, client)
 
