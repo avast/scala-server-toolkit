@@ -2,6 +2,8 @@ import sbt._
 
 object Dependencies {
 
+  val akka = "com.typesafe.akka" %% "akka-stream" % "2.6.1"
+  val akkaHttp = "com.typesafe.akka" %% "akka-http" % "10.1.11"
   val catsEffect = "org.typelevel" %% "cats-effect" % "2.0.0"
   val datastaxJavaDriverCore = "com.datastax.oss" % "java-driver-core" % Versions.datastaxJavaDriverCore
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie

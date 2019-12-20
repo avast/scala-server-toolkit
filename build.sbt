@@ -18,6 +18,8 @@ lazy val commonSettings = BuildSettings.common ++ Seq(
 lazy val root = project
   .in(file("."))
   .aggregate(
+    akkaHttpServer,
+    akkaHttpServerPureConfig,
     bundleMonixHttp4sBlaze,
     bundleZioHttp4sBlaze,
     cassandraDatastaxDriver,
@@ -51,6 +53,27 @@ lazy val root = project
   .settings(
     name := "scala-server-toolkit",
     publish / skip := true
+  )
+
+lazy val akkaHttpServer = project
+  .in(file("akka-http-server"))
+  .dependsOn(http4sClientBlaze % Test)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-akka-http-server",
+    libraryDependencies ++= Seq(
+      Dependencies.akka,
+      Dependencies.akkaHttp,
+      Dependencies.slf4jApi,
+    )
+  )
+
+lazy val akkaHttpServerPureConfig = project
+  .in(file("akka-http-server-pureconfig"))
+  .dependsOn(akkaHttpServer, pureConfig)
+  .settings(commonSettings)
+  .settings(
+    name := "sst-akka-http-server-pureconfig"
   )
 
 lazy val bundleMonixHttp4sBlaze = project
