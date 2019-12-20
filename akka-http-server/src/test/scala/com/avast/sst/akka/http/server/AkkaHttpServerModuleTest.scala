@@ -1,8 +1,8 @@
-package com.avast.sst.akkahttp
+package com.avast.sst.akka.http.server
 
 import akka.http.scaladsl.server.{Directives, Route}
 import cats.effect.{ContextShift, IO}
-import com.avast.sst.akkahttp.config.AkkaHttpServerConfig
+import com.avast.sst.akka.http.server.config.AkkaHttpServerConfig
 import com.avast.sst.http4s.client.{Http4sBlazeClientConfig, Http4sBlazeClientModule}
 import com.typesafe.config.ConfigFactory
 import org.scalatest.funsuite.AsyncFunSuite

@@ -1,4 +1,4 @@
-package com.avast.sst.akkahttp.config
+package com.avast.sst.akka.http.server.config
 
 import akka.stream.TLSClientAuth
 import com.typesafe.config.{Config, ConfigFactory}

@@ -1,8 +1,8 @@
-package com.avast.sst.akkahttp.pureconfig
+package com.avast.sst.akka.http.server.pureconfig
 
 import akka.stream.TLSClientAuth
 import cats.effect.IO
-import com.avast.sst.akkahttp.config.{AkkaHttpServerConfig, AkkaHttpServerConnectionContextConfig}
+import com.avast.sst.akka.http.server.config.{AkkaHttpServerConfig, AkkaHttpServerConnectionContextConfig}
 import com.avast.sst.pureconfig.PureConfigModule
 import org.scalatest.funsuite.AsyncFunSuite
 import pureconfig.generic.semiauto.deriveReader
@@ -14,7 +14,7 @@ final case class RootConfig(akkaHttpServer: AkkaHttpServerConfig)
 
 class ConfigReaderTest extends AsyncFunSuite {
 
-  import com.avast.sst.akkahttp.pureconfig.implicits._ // import on this line is incorrectly reported as unused
+  import com.avast.sst.akka.http.server.pureconfig.implicits._ // import on this line is incorrectly reported as unused
   implicit val rootConfigReader: ConfigReader[RootConfig] = deriveReader
 
   test("Basic configuration") {

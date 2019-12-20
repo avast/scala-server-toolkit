@@ -1,7 +1,7 @@
-package com.avast.sst.akkahttp.pureconfig
+package com.avast.sst.akka.http.server.pureconfig
 
 import akka.stream.TLSClientAuth
-import com.avast.sst.akkahttp.config.{AkkaHttpServerConfig, AkkaHttpServerConnectionContextConfig}
+import com.avast.sst.akka.http.server.config.{AkkaHttpServerConfig, AkkaHttpServerConnectionContextConfig}
 import pureconfig.error.CannotConvert
 import pureconfig.generic.ProductHint
 import pureconfig.generic.semiauto._

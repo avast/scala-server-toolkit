@@ -1,4 +1,4 @@
-package com.avast.sst.akkahttp
+package com.avast.sst.akka.http.server
 
 import akka.actor.ActorSystem
 import cats.effect.{Resource, Sync}

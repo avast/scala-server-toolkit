@@ -1,4 +1,4 @@
-package com.avast.sst.akkahttp.pureconfig
+package com.avast.sst.akka.http.server.pureconfig
 
 import pureconfig.ConfigFieldMapping
 import pureconfig.generic.ProductHint

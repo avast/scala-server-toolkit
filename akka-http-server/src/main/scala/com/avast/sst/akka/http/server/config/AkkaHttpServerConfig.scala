@@ -1,4 +1,4 @@
-package com.avast.sst.akkahttp.config
+package com.avast.sst.akka.http.server.config
 
 import com.typesafe.config.{Config, ConfigFactory}
 

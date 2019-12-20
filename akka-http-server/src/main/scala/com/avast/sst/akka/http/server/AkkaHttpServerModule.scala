@@ -1,10 +1,10 @@
-package com.avast.sst.akkahttp
+package com.avast.sst.akka.http.server
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.{ConnectionContext, Http}
 import cats.effect.{Resource, Sync}
-import com.avast.sst.akkahttp.config.{AkkaHttpServerConfig, AkkaHttpServerConnectionContextConfig, AkkaHttpServerSslConfig}
+import com.avast.sst.akka.http.server.config.{AkkaHttpServerConfig, AkkaHttpServerConnectionContextConfig, AkkaHttpServerSslConfig}
 import org.slf4j.LoggerFactory
 
 import scala.concurrent.duration._
