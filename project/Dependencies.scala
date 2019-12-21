@@ -24,7 +24,7 @@ object Dependencies {
   val monixEval = "io.monix" %% "monix-eval" % Versions.monix
   val monixCatnap = "io.monix" %% "monix-catnap" % Versions.monix
   val postgresql = "org.postgresql" % "postgresql" % "42.2.9"
-  val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.12.1"
+  val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.12.2"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.1.0"
   val scalazzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.3"
   val silencer = "com.github.ghik" % "silencer-plugin" % Versions.silencer cross CrossVersion.full
