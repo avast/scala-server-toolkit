@@ -96,10 +96,11 @@ lazy val cassandraDatastaxDriver = project
 
 lazy val cassandraDatastaxDriverPureConfig = project
   .in(file("cassandra-datastax-driver-pureconfig"))
-  .dependsOn(cassandraDatastaxDriver, pureConfig)
+  .dependsOn(cassandraDatastaxDriver)
   .settings(commonSettings)
   .settings(
-    name := "sst-cassandra-datastax-driver-pureconfig"
+    name := "sst-cassandra-datastax-driver-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
   )
 
 lazy val doobieHikari = project
@@ -115,10 +116,11 @@ lazy val doobieHikari = project
 
 lazy val doobieHikariPureConfig = project
   .in(file("doobie-hikari-pureconfig"))
-  .dependsOn(doobieHikari, pureConfig)
+  .dependsOn(doobieHikari)
   .settings(commonSettings)
   .settings(
-    name := "sst-doobie-hikari-pureconfig"
+    name := "sst-doobie-hikari-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
   )
 
 lazy val example = project
@@ -135,6 +137,7 @@ lazy val example = project
     http4sClientMonixCatnap,
     monixCatnapPureConfig,
     micrometerJmxPureConfig,
+    pureConfig,
     sslConfig
   )
   .enablePlugins(MdocPlugin)
@@ -242,9 +245,12 @@ lazy val http4sServerBlaze = project
 
 lazy val http4sServerBlazePureConfig = project
   .in(file("http4s-server-blaze-pureconfig"))
-  .dependsOn(http4sServerBlaze, pureConfig)
+  .dependsOn(http4sServerBlaze)
   .settings(commonSettings)
-  .settings(name := "sst-http4s-server-blaze-pureconfig")
+  .settings(
+    name := "sst-http4s-server-blaze-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
+  )
 
 lazy val http4sServerMicrometer = project
   .in(file("http4s-server-micrometer"))
@@ -274,9 +280,12 @@ lazy val jvmMicrometer = project
 
 lazy val jvmPureConfig = project
   .in(file("jvm-pureconfig"))
-  .dependsOn(jvm, pureConfig)
+  .dependsOn(jvm)
   .settings(commonSettings)
-  .settings(name := "sst-jvm-pureconfig")
+  .settings(
+    name := "sst-jvm-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
+  )
 
 lazy val micrometerJmx = project
   .in(file("micrometer-jmx"))
@@ -291,9 +300,12 @@ lazy val micrometerJmx = project
 
 lazy val micrometerJmxPureConfig = project
   .in(file("micrometer-jmx-pureconfig"))
-  .dependsOn(micrometerJmx, pureConfig)
+  .dependsOn(micrometerJmx)
   .settings(commonSettings)
-  .settings(name := "sst-micrometer-jmx-pureconfig")
+  .settings(
+    name := "sst-micrometer-jmx-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
+  )
 
 lazy val micrometerStatsD = project
   .in(file("micrometer-statsd"))
@@ -308,9 +320,12 @@ lazy val micrometerStatsD = project
 
 lazy val micrometerStatsDPureConfig = project
   .in(file("micrometer-statsd-pureconfig"))
-  .dependsOn(micrometerStatsD, pureConfig)
+  .dependsOn(micrometerStatsD)
   .settings(commonSettings)
-  .settings(name := "sst-micrometer-statsd-pureconfig")
+  .settings(
+    name := "sst-micrometer-statsd-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
+  )
 
 lazy val monixCatnap = project
   .in(file("monix-catnap"))
