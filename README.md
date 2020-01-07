@@ -15,7 +15,8 @@ together well and allow you to build reliable server applications.
 
 ### Articles
 
-* [Introducing Scala Server Toolkit](https://engineering.avast.io/introducing-scala-server-toolkit/) (Avast Engineering)
+* [Introducing Scala Server Toolkit](https://engineering.avast.io/introducing-scala-server-toolkit) (Avast Engineering)
+* [SST - Creating HTTP Server](https://engineering.avast.io/scala-server-toolkit-creating-http-server) (Avast Engineering)
 
 ## Design
 
