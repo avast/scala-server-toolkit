@@ -1,12 +1,12 @@
 package com.avast.sst.datastax
 
 import cats.effect.{Resource, Sync}
-import com.avast.sst.datastax.DatastaxHelper._
-import com.avast.sst.datastax.config.CassandraDatastaxDriverConfig
-import com.datastax.oss.driver.api.core.CqlSession
-import com.datastax.oss.driver.api.core.config.DefaultDriverOption._
-import com.datastax.oss.driver.api.core.config.{DriverConfigLoader, ProgrammaticDriverConfigLoaderBuilder => DriverBuilder}
-import javax.net.ssl.SSLContext
+import com.avast.sst.datastax.DatastaxHelper._
+import com.avast.sst.datastax.config.CassandraDatastaxDriverConfig
+import com.datastax.oss.driver.api.core.CqlSession
+import com.datastax.oss.driver.api.core.config.DefaultDriverOption._
+import com.datastax.oss.driver.api.core.config.{DriverConfigLoader, ProgrammaticDriverConfigLoaderBuilder => DriverBuilder}
+import javax.net.ssl.SSLContext
 
 object CassandraDatastaxDriverModule {
 

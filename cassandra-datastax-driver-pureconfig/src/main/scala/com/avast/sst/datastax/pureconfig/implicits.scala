@@ -1,7 +1,7 @@
 package com.avast.sst.datastax.pureconfig
 
 import pureconfig.ConfigFieldMapping
-import pureconfig.generic.ProductHint
+import pureconfig.generic.ProductHint
 
 /** Contains [[pureconfig.ConfigReader]] instances with default "kebab-case" naming convention. */
 object implicits extends ConfigReaders {
