@@ -1,9 +1,9 @@
 package com.avast.sst.datastax.pureconfig
 
 import com.avast.sst.datastax.config._
-import pureconfig.generic.ProductHint
-import pureconfig.generic.semiauto.{deriveEnumerationReader, deriveReader}
-import pureconfig.{ConfigFieldMapping, ConfigReader, PascalCase}
+import pureconfig.generic.ProductHint
+import pureconfig.generic.semiauto.{deriveEnumerationReader, deriveReader}
+import pureconfig.{ConfigFieldMapping, ConfigReader, PascalCase}
 
 trait ConfigReaders {
 

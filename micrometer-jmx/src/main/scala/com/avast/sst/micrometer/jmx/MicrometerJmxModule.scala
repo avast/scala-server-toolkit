@@ -54,7 +54,7 @@ object MicrometerJmxModule {
     override val step: Duration = Duration.ofMillis(c.step.toMillis)
 
     // the method is @Nullable and we don't need to implement it here
-    @SuppressWarnings(Array("org.wartremover.warts.Null"))
+    @SuppressWarnings(Array("org.wartremover.warts.Null", "scalafix:DisableSyntax.null"))
     override def get(key: String): String = null
 
   }

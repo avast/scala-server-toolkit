@@ -3,10 +3,16 @@ package com.avast.sst.jvm.system.console
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 
 import cats.effect.SyncIO
-
-import scala.{Console => SConsole}
 import org.scalatest.funsuite.AnyFunSuite
 
+import scala.{Console => SConsole}
+
+@SuppressWarnings(
+  Array("scalafix:Disable.toString",
+        "scalafix:Disable.ByteArrayInputStream",
+        "scalafix:Disable.ByteArrayOutputStream",
+        "scalafix:DisableSyntax.==")
+)
 class ConsoleModuleTest extends AnyFunSuite {
 
   test("Console input") {

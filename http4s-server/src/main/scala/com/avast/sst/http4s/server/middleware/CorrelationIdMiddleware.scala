@@ -58,6 +58,7 @@ object CorrelationIdMiddleware {
 
   final case class CorrelationId(value: String) extends AnyVal
 
+  @SuppressWarnings(Array("scalafix:Disable.toString"))
   def default[F[_]: Sync]: F[CorrelationIdMiddleware[F]] = {
     Key.newKey[F, CorrelationId].map { attributeKey =>
       new CorrelationIdMiddleware(CaseInsensitiveString("Correlation-ID"), attributeKey, () => UUID.randomUUID().toString)

@@ -18,6 +18,7 @@ class Http4sRoutingModule(randomService: RandomService,
 
   private val helloWorldRoute = routeMetrics.wrap("hello")(Ok("Hello World!"))
 
+  @SuppressWarnings(Array("scalafix:Disable.toString"))
   private val routes = HttpRoutes.of[Task] {
     case GET -> Root / "hello"           => helloWorldRoute
     case GET -> Root / "random"          => randomService.randomNumber.map(_.toString).flatMap(Ok(_))
