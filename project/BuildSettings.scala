@@ -24,8 +24,8 @@ object BuildSettings {
       Wart.DefaultArguments // for constructors for PureConfig
     ),
     ThisBuild / scalafixDependencies ++= Seq(
-      Dependencies.scalazzi, // https://github.com/scalaz/scalazzi
-      Dependencies.sortImports // https://github.com/NeQuissimus/sort-imports
+      Dependencies.scalazzi,
+      Dependencies.sortImports
     ),
     scalacOptions ++= Seq(
       "-Yrangepos", // for scalafix. required by SemanticDB compiler plugin
