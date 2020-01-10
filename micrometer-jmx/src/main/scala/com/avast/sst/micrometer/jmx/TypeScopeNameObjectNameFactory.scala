@@ -5,7 +5,7 @@ import java.util.regex.Pattern
 
 import cats.syntax.either._
 import com.codahale.metrics.jmx.{DefaultObjectNameFactory, ObjectNameFactory}
-import javax.management.ObjectName;
+import javax.management.ObjectName
 
 /** This is custom [[com.codahale.metrics.jmx.ObjectNameFactory]] which uses "type-scope-name" hierarchy of resulting
   * [[javax.management.ObjectName]] (levels 3-N are glued together).

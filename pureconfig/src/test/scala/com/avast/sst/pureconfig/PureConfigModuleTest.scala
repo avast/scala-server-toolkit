@@ -2,10 +2,10 @@ package com.avast.sst.pureconfig
 
 import cats.data.NonEmptyList
 import cats.effect.SyncIO
+import org.scalatest.funsuite.AnyFunSuite
 import pureconfig.error.ConfigReaderException
 import pureconfig.generic.semiauto.deriveReader
 import pureconfig.{ConfigReader, ConfigSource}
-import org.scalatest.funsuite.AnyFunSuite
 
 class PureConfigModuleTest extends AnyFunSuite {
 
