@@ -13,7 +13,7 @@ class ConsoleModuleTest extends AnyFunSuite {
     SConsole.withIn(new ByteArrayInputStream("test input\n".getBytes("UTF-8"))) {
       val test = for {
         line <- ConsoleModule.make[SyncIO].readLine
-      } yield assert(line == "test input")
+      } yield assert(line === "test input")
 
       test.unsafeRunSync()
     }
