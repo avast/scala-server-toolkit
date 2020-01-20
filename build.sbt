@@ -379,4 +379,4 @@ lazy val sslConfig = project
   )
 
 addCommandAlias("check", "; scalafmtSbtCheck; scalafmtCheckAll; compile:scalafix --check; test:scalafix --check")
-addCommandAlias("fix", "; compile:scalafix ; test:scalafix; scalafmtSbt; scalafmtAll; example/mdoc")
+addCommandAlias("fix", "; compile:scalafix; test:scalafix; scalafmtSbt; scalafmtAll; example/mdoc")
