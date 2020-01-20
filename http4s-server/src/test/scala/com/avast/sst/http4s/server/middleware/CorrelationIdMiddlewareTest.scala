@@ -9,9 +9,9 @@ import org.http4s.dsl.Http4sDsl
 import org.http4s.server.blaze.BlazeServerBuilder
 import org.http4s.util.CaseInsensitiveString
 import org.http4s.{Header, HttpRoutes, Request, Uri}
+import org.scalatest.funsuite.AsyncFunSuite
 
 import scala.concurrent.ExecutionContext
-import org.scalatest.funsuite.AsyncFunSuite
 
 class CorrelationIdMiddlewareTest extends AsyncFunSuite with Http4sDsl[IO] {
 

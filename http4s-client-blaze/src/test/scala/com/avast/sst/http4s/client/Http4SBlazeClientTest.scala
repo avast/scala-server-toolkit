@@ -2,9 +2,9 @@ package com.avast.sst.http4s.client
 
 import cats.effect._
 import org.http4s.headers.{`User-Agent`, AgentComment, AgentProduct}
+import org.scalatest.funsuite.AsyncFunSuite
 
 import scala.concurrent.ExecutionContext
-import org.scalatest.funsuite.AsyncFunSuite
 
 class Http4SBlazeClientTest extends AsyncFunSuite {
 
