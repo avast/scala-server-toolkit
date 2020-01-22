@@ -55,13 +55,16 @@ lazy val root = project
 
 lazy val bundleMonixHttp4sBlaze = project
   .in(file("bundle-monix-http4s-blaze"))
-  .dependsOn(http4sClientBlaze,
-             http4sClientBlazePureConfig,
-             http4sServerBlaze,
-             http4sServerBlazePureConfig,
-             http4sServerMicrometer,
-             jvmMicrometer,
-             jvmPureConfig)
+  .dependsOn(
+    http4sClientBlaze,
+    http4sClientBlazePureConfig,
+    http4sServerBlaze,
+    http4sServerBlazePureConfig,
+    http4sServerMicrometer,
+    jvmMicrometer,
+    jvmPureConfig,
+    pureConfig
+  )
   .settings(commonSettings)
   .settings(
     name := "sst-bundle-monix-http4s-blaze",
@@ -70,13 +73,16 @@ lazy val bundleMonixHttp4sBlaze = project
 
 lazy val bundleZioHttp4sBlaze = project
   .in(file("bundle-zio-http4s-blaze"))
-  .dependsOn(http4sClientBlaze,
-             http4sClientBlazePureConfig,
-             http4sServerBlaze,
-             http4sServerBlazePureConfig,
-             http4sServerMicrometer,
-             jvmMicrometer,
-             jvmPureConfig)
+  .dependsOn(
+    http4sClientBlaze,
+    http4sClientBlazePureConfig,
+    http4sServerBlaze,
+    http4sServerBlazePureConfig,
+    http4sServerMicrometer,
+    jvmMicrometer,
+    jvmPureConfig,
+    pureConfig
+  )
   .settings(commonSettings)
   .settings(
     name := "sst-bundle-zio-http4s-blaze",
@@ -137,7 +143,6 @@ lazy val example = project
     http4sClientMonixCatnap,
     monixCatnapPureConfig,
     micrometerJmxPureConfig,
-    pureConfig,
     sslConfig
   )
   .enablePlugins(MdocPlugin)
