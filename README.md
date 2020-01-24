@@ -18,6 +18,10 @@ together well and allow you to build reliable server applications.
 * [Introducing Scala Server Toolkit](https://engineering.avast.io/introducing-scala-server-toolkit) (Avast Engineering)
 * [SST - Creating HTTP Server](https://engineering.avast.io/scala-server-toolkit-creating-http-server) (Avast Engineering)
 
+### Talks
+* [Intro to Scala Server Toolkit](https://www.youtube.com/watch?v=T4xKu2bFUv0) (Functional JVM Meetup, Prague, January 23, 2020)
+  * [slides](https://speakerdeck.com/jakubjanecek/intro-to-scala-server-toolkit)
+
 ## Design
 
 There are certain design decisions and constraints that are put in place to guide the development of the toolkit and recommended for 

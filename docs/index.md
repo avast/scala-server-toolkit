@@ -1,18 +1,18 @@
-# Scala Server Toolkit Documentation
+\# Scala Server Toolkit Documentation
 
 * [Getting Started](#getting-started)
 * [Rationale](rationale.md)
-* [Module Structure](#module-structure)
+* [Subproject Structure](#subproject-structure)
 * [Bundles](#bundles)
-* [Modules http4s](http4s.md)
-* [Module JVM](jvm.md)
-* [Modules Micrometer](micrometer.md)
-* [Module PureConfig](pureconfig.md)
-* [Module Datastax Cassandra Driver](cassandra-datastax-driver.md)
-* [Module SSL Config](ssl-config.md)
-* [Module doobie](doobie.md)
-* [Module Flyway](flyway.md)
-* [Module monix-catnap - CircuitBreaker](monix-catnap.md)
+* [http4s](http4s.md)
+* [JVM](jvm.md)
+* [Micrometer](micrometer.md)
+* [PureConfig](pureconfig.md)
+* [Datastax Cassandra Driver](cassandra-datastax-driver.md)
+* [SSL Config](ssl-config.md)
+* [doobie](doobie.md)
+* [Flyway](flyway.md)
+* [monix-catnap - CircuitBreaker](monix-catnap.md)
 
 ## Getting Started
 
@@ -71,21 +71,21 @@ runtime.unsafeRun(program)
 // Hello World!
 ```
 
-## Module Structure
+## Subproject Structure
 
-The project is split into many small modules based on dependencies. For example code related to loading of configuration files via
-[PureConfig](https://pureconfig.github.io) lives in module named `sst-pureconfig` and code related to http4s server implemented using
-[Blaze](https://github.com/http4s/blaze) lives in module named `sst-http4s-server-blaze`.
+The project is split into many small subprojects based on dependencies. For example code related to loading of configuration files via
+[PureConfig](https://pureconfig.github.io) lives in a subproject named `sst-pureconfig` and code related to http4s server implemented using
+[Blaze](https://github.com/http4s/blaze) lives in a subproject named `sst-http4s-server-blaze`.
 
-There are also modules that implement interoperability between usually two dependencies. For example we want to configure our HTTP server
-using PureConfig so definition of `implicit` `ConfigReader` instances lives in module named `sst-http4s-server-blaze-pureconfig`. Or to give
-another example, monitoring of HTTP server using [Micrometer](https://micrometer.io) lives in module named `sst-http4s-server-micrometer`.
-Note that such module depends on APIs of both http4s server and Micrometer but it does not depend on concrete implementation which allows
+There are also subprojects that implement interoperability between usually two dependencies. For example we want to configure our HTTP server
+using PureConfig so definition of `implicit` `ConfigReader` instances live in subproject named `sst-http4s-server-blaze-pureconfig`. Or to give
+another example, monitoring of HTTP server using [Micrometer](https://micrometer.io) lives in subproject named `sst-http4s-server-micrometer`.
+Note that such subproject depends on APIs of both http4s server and Micrometer but it does not depend on concrete implementation which allows
 you to choose any http4s implementation (Blaze, ...) and any Micrometer implementation (JMX, StatsD, ...).
 
 ## Bundles
 
-Having many small and independent modules is great but in practice everyone wants to use certain combination of dependencies and does not
+Having many small and independent subprojects is great but in practice everyone wants to use certain combination of dependencies and does not
 want to worry about many small dependencies. There are "bundles" for such use case - either the ones provided by this project or custom
 ones created by the user.
 

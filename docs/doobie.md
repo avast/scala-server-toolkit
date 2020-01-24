@@ -4,7 +4,7 @@
 
 `libraryDependencies += "com.avast" %% "sst-doobie-hikari" % "<VERSION>"`
 
-This module initializes a doobie `Transactor`:
+This subproject initializes a doobie `Transactor`:
 
 ```scala
 import cats.effect.Resource

@@ -23,8 +23,8 @@ unified way.
 There are certain design decisions and constraints that we put in place to guide the development of this library.
 
 * Modular design: small, cohesive, orthogonal and composable components.
-  * The project is split into completely separate modules mostly based on dependencies. Every module provides some functionality, usually
-  something small. The idea is to compose multiple modules together to get a working application but be able to replace any module
+  * The project is split into completely separate subprojects mostly based on dependencies. Every subproject provides some functionality, usually
+  something small. The idea is to compose multiple subprojects together to get a working application but be able to replace any subproject
   with different implementation in case it is needed.
 * Keep the number of dependencies as low as possible.
   * Adding a dependency seems like a great idea to avoid having to implement some piece of existing logic however every dependency is also

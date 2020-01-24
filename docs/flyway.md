@@ -4,10 +4,10 @@
 
 `libraryDependencies += "com.avast" %% "sst-flyway" % "<VERSION>"`
 
-This module initializes `Flyway` which can be used to do automated SQL DB migrations. See the [documentation of Flyway](https://flywaydb.org/documentation/) 
+This subproject initializes `Flyway` which can be used to do automated SQL DB migrations. See the [documentation of Flyway](https://flywaydb.org/documentation/) 
 on how to go about that.
 
-The method `make` requires `javax.sql.DataSource` which you can for example obtain from `doobie-hikari` module:
+The method `make` requires `javax.sql.DataSource` which you can for example obtain from `doobie-hikari` subproject:
 
 ```scala
 import cats.effect.Resource
