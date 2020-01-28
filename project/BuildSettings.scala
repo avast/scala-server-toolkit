@@ -14,6 +14,7 @@ object BuildSettings {
       Dependencies.silencerLib
     ),
     Compile / compile / wartremoverErrors ++= Warts.all filterNot Set(
+      Wart.Null, // checked by scalafix
       Wart.Nothing, // keep, false positives all around
       Wart.Overloading,
       Wart.Any, // keep, false positives all around

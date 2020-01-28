@@ -50,7 +50,7 @@ object MicrometerStatsDModule {
     override val buffered: Boolean = c.buffered
 
     // the method is @Nullable and we don't need to implement it here
-    @SuppressWarnings(Array("org.wartremover.warts.Null"))
+    @SuppressWarnings(Array("scalafix:DisableSyntax.null"))
     override def get(key: String): String = null
 
   }
