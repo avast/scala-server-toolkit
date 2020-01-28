@@ -7,6 +7,7 @@ import org.scalatest.funsuite.AnyFunSuite
 
 import scala.{Console => SConsole}
 
+@SuppressWarnings(Array("scalafix:Disable.*"))
 class ConsoleModuleTest extends AnyFunSuite {
 
   test("Console input") {
