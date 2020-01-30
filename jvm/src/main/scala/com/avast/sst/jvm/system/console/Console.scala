@@ -21,7 +21,6 @@ trait Console[F[_]] {
 
 object Console {
 
-  @SuppressWarnings(Array("scalafix:Disable.Reader", "scalafix:Disable.OutputStream", "scalafix:Disable.println"))
   def apply[F[_]: Sync](in: Reader, out: OutputStream, err: OutputStream): Console[F] = new Console[F] {
 
     private val F = Sync[F]
