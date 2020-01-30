@@ -18,10 +18,10 @@ object BuildSettings {
       Wart.Nothing, // keep, false positives all around
       Wart.Overloading,
       Wart.Any, // keep, false positives all around
-      Wart.Equals, // keep, easier that way
-      Wart.ToString, // keep, easier that way
-      Wart.Product, // keep, false positives all around
-      Wart.Serializable, // keep, false positives all around
+      Wart.Equals, // checked by scalafix
+      Wart.ToString, // checked by scalafix
+      Wart.Product, // checked by scalafix
+      Wart.Serializable, // checked by scalafix
       Wart.DefaultArguments // for constructors for PureConfig
     ),
     ThisBuild / scalafixDependencies ++= Seq(

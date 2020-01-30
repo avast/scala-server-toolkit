@@ -13,6 +13,7 @@ import org.scalatest.funsuite.AsyncFunSuite
 
 import scala.concurrent.ExecutionContext
 
+@SuppressWarnings(Array("scalafix:Disable.get", "scalafix:Disable.toString"))
 class CorrelationIdMiddlewareTest extends AsyncFunSuite with Http4sDsl[IO] {
 
   implicit private val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)

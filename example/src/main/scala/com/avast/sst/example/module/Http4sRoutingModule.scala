@@ -1,5 +1,6 @@
 package com.avast.sst.example.module
 
+import cats.implicits._
 import com.avast.sst.example.service.RandomService
 import com.avast.sst.http4s.server.Http4sRouting
 import com.avast.sst.http4s.server.micrometer.MicrometerHttp4sServerMetricsModule
@@ -20,7 +21,7 @@ class Http4sRoutingModule(randomService: RandomService,
 
   private val routes = HttpRoutes.of[Task] {
     case GET -> Root / "hello"           => helloWorldRoute
-    case GET -> Root / "random"          => randomService.randomNumber.map(_.toString).flatMap(Ok(_))
+    case GET -> Root / "random"          => randomService.randomNumber.map(_.show).flatMap(Ok(_))
     case GET -> Root / "circuit-breaker" => client.expect[String]("https://httpbin.org/status/500").flatMap(Ok(_))
   }
 
