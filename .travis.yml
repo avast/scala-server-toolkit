@@ -15,11 +15,8 @@ stages:
 jobs:
   include:
     -
-      name: test
-      script: sbt test
-    -
-      name: formatting
-      script: sbt check
+      name: checkAll
+      script: sbt checkAll
     # run ci-release only if previous stages passed
     - stage: release
       script: sbt ci-release
