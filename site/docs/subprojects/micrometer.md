@@ -1,12 +1,15 @@
-# Modules Micrometer
+---
+layout: docs
+title: "Micrometer"
+---
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.avast/sst-micrometer-jmx_2.12)](https://repo1.maven.org/maven2/com/avast/sst-micrometer-jmx_2.12/)
+# Micrometer
 
-`libraryDependencies += "com.avast" %% "sst-micrometer-jmx" % "<VERSION>"`
+`libraryDependencies += "com.avast" %% "sst-micrometer-jmx" % "@VERSION@"`
 
-This module allows you to monitor your applications using [Micrometer](https://micrometer.io). There are many actual implementations of 
-the Micrometer API one of which is JMX. Module `sst-micrometer-jmx` implements the initialization of Micrometer for JMX. There are also
-interop modules such as `sst-http4s-server-micrometer` which implement monitoring of HTTP server and individual routes using Micrometer.
+This subproject allows you to monitor your applications using [Micrometer](https://micrometer.io). There are many actual implementations of 
+the Micrometer API one of which is JMX. Subproject `sst-micrometer-jmx` implements the initialization of Micrometer for JMX. There are also
+interop subprojects such as `sst-http4s-server-micrometer` which implement monitoring of HTTP server and individual routes using Micrometer.
 
 ```scala mdoc:silent
 import cats.effect.{Clock, Resource}

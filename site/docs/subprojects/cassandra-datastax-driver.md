@@ -1,10 +1,13 @@
+---
+layout: docs
+title: "Datastax Cassandra Driver"
+---
+
 # Datastax Cassandra Driver
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.avast/sst-cassandra-datastax-driver_2.12)](https://repo1.maven.org/maven2/com/avast/sst-cassandra-datastax-driver_2.12/)
+This subproject initializes Datastax Cassandra driver's `Session`.
 
-This module initializes Datastax Cassandra driver's `Session`.
-
-`libraryDependencies += "com.avast" %% "sst-cassandra-datastax-driver" % "<VERSION>"`
+`libraryDependencies += "com.avast" %% "sst-cassandra-datastax-driver" % "@VERSION@"`
 
 ```scala mdoc:silent
 import cats.effect.Resource

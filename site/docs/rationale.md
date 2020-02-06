@@ -1,3 +1,9 @@
+---
+layout: docs
+title: "Rationale"
+position: 1
+---
+
 # Rationale
 
 Avast backend developers have been using Scala since 2011. Over the years they have went through the usual stages of a Scala developer:
@@ -23,7 +29,7 @@ unified way.
 There are certain design decisions and constraints that we put in place to guide the development of this library.
 
 * Modular design: small, cohesive, orthogonal and composable components.
-  * The project is split into completely separate modules mostly based on dependencies. Every module provides some functionality, usually
+  * The project is split into completely separate subprojects mostly based on dependencies. Every subproject provides some functionality, usually
   something small. The idea is to compose multiple modules together to get a working application but be able to replace any module
   with different implementation in case it is needed.
 * Keep the number of dependencies as low as possible.

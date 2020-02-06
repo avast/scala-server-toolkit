@@ -1,5 +1,6 @@
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import mdoc.MdocPlugin.autoImport._
+import microsites.CdnDirectives
 import microsites.MicrositesPlugin.autoImport._
 import sbt.Keys._
 import sbt.{Def, _}
@@ -54,7 +55,7 @@ object BuildSettings {
     micrositeCompilingDocsTool := WithMdoc,
     micrositeName := "scala-server-toolkit",
     micrositeDescription := "Functional programming toolkit for building server applications in Scala.",
-    micrositeAuthor := "Jakub Janecek",
+    micrositeAuthor := "Avast",
     micrositeOrganizationHomepage := "https://avast.com",
     micrositeGithubOwner := "avast",
     micrositeGithubRepo := "scala-server-toolkit",
@@ -62,11 +63,18 @@ object BuildSettings {
     micrositeDocumentationUrl := "api/latest",
     micrositeDocumentationLabelDescription := "API ScalaDoc",
     micrositeBaseUrl := "/scala-server-toolkit",
-    micrositeFooterText := None,
-    micrositeGitterChannel := false,
     micrositeTwitter := "@avast_devs",
+    micrositeGitterChannel := false,
+    micrositeTheme := "pattern",
+    micrositeHighlightTheme := "github",
+    micrositeCDNDirectives := CdnDirectives(
+      cssList = List(
+        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css"
+      )
+    ),
+    micrositeShareOnSocial := false,
     mdoc / fork := true,
-    mdocIn := file("site") / "docs",
+    mdocIn := file("docs"),
     mdocVariables := Map("VERSION" -> version.value),
     mdocAutoDependency := true,
     micrositeDataDirectory := file("site"),

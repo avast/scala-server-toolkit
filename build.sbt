@@ -373,6 +373,7 @@ lazy val site = project
     cassandraDatastaxDriverPureConfig,
     doobieHikari,
     doobieHikariPureConfig,
+    example,
     flyway,
     flywayPureConfig,
     http4sClientBlazePureConfig,
@@ -383,7 +384,10 @@ lazy val site = project
   )
   .settings(BuildSettings.common)
   .settings(BuildSettings.microsite)
-  .settings(publish / skip := true)
+  .settings(
+    publish / skip := true,
+    scalacOptions := scalacOptions.value.filterNot(_ == "-Xfatal-warnings")
+  )
 
 lazy val sslConfig = project
   .in(file("ssl-config"))

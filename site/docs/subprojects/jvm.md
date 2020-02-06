@@ -1,10 +1,13 @@
-# Module JVM
+---
+layout: docs
+title: "JVM"
+---
 
-![Maven Central](https://img.shields.io/maven-central/v/com.avast/sst-jvm_2.12)
+# JVM
 
-`libraryDependencies += "com.avast" %% "sst-jvm" % "<VERSION>"`
+`libraryDependencies += "com.avast" %% "sst-jvm" % "@VERSION@"`
 
-Module `sst-jvm` provides pure implementations of different JVM-related utilities:
+Subproject `sst-jvm` provides pure implementations of different JVM-related utilities:
  
 * creation of thread pools,
 * standard in/out/err,
