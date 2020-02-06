@@ -10,18 +10,18 @@ object BuildSettings {
     libraryDependencies ++= Seq(
       compilerPlugin(Dependencies.kindProjector),
       compilerPlugin(Dependencies.silencer),
-      compilerPlugin(scalafixSemanticdb), // for scalafix
+      compilerPlugin(scalafixSemanticdb), // for Scalafix
       Dependencies.silencerLib
     ),
     Compile / compile / wartremoverErrors ++= Warts.all filterNot Set(
-      Wart.Null, // checked by scalafix
+      Wart.Null, // checked by Scalafix
       Wart.Nothing, // keep, false positives all around
       Wart.Overloading,
       Wart.Any, // keep, false positives all around
-      Wart.Equals, // checked by scalafix
-      Wart.ToString, // checked by scalafix
-      Wart.Product, // checked by scalafix
-      Wart.Serializable, // checked by scalafix
+      Wart.Equals, // checked by Scalafix
+      Wart.ToString, // checked by Scalafix
+      Wart.Product, // checked by Scalafix
+      Wart.Serializable, // checked by Scalafix
       Wart.DefaultArguments // for constructors for PureConfig
     ),
     ThisBuild / scalafixDependencies ++= Seq(
@@ -29,8 +29,8 @@ object BuildSettings {
       Dependencies.sortImports
     ),
     scalacOptions ++= Seq(
-      "-Yrangepos", // for scalafix. required by SemanticDB compiler plugin
-      "-Ywarn-unused", // for scalafix. not present in sbt-tpolecat for 2.13
+      "-Yrangepos", // for Scalafix. required by SemanticDB compiler plugin
+      "-Ywarn-unused", // for Scalafix. not present in sbt-tpolecat for 2.13
       "-P:silencer:checkUnused"
     ),
     Test / publishArtifact := false,
