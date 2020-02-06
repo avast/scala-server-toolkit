@@ -7,6 +7,10 @@ scala:
 before_install:
   - git fetch --tags
 
+install:
+  - rvm use 2.6.5 --install --fuzzy
+  - gem install jekyll -v 4
+
 stages:
   - name: test
   - name: release

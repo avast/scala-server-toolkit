@@ -1,18 +1,18 @@
 # Scala Server Toolkit Documentation
 
 * [Getting Started](#getting-started)
-* [Rationale](rationale.md)
+* [Rationale](../../site/docs/rationale.md)
 * [Module Structure](#module-structure)
 * [Bundles](#bundles)
-* [Modules http4s](http4s.md)
-* [Module JVM](jvm.md)
-* [Modules Micrometer](micrometer.md)
-* [Module PureConfig](pureconfig.md)
-* [Module Datastax Cassandra Driver](cassandra-datastax-driver.md)
-* [Module SSL Config](ssl-config.md)
-* [Module doobie](doobie.md)
-* [Module Flyway](flyway.md)
-* [Module monix-catnap - CircuitBreaker](monix-catnap.md)
+* [Modules http4s](../../site/docs/http4s.md)
+* [Module JVM](../../site/docs/jvm.md)
+* [Modules Micrometer](../../site/docs/micrometer.md)
+* [Module PureConfig](../../site/docs/pureconfig.md)
+* [Module Datastax Cassandra Driver](../../site/docs/cassandra-datastax-driver.md)
+* [Module SSL Config](../../site/docs/ssl-config.md)
+* [Module doobie](../../site/docs/doobie.md)
+* [Module Flyway](../../site/docs/flyway.md)
+* [Module monix-catnap - CircuitBreaker](../../site/docs/monix-catnap.md)
 
 ## Getting Started
 

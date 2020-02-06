@@ -1,17 +1,25 @@
+import com.typesafe.sbt.site.SitePlugin.autoImport._
+import mdoc.MdocPlugin.autoImport._
+import microsites.MicrositesPlugin.autoImport._
 import sbt.Keys._
-import sbt._
+import sbt.{Def, _}
+import sbtunidoc.ScalaUnidocPlugin.autoImport._
 import scalafix.sbt.ScalafixPlugin.autoImport._
+import wartremover.Wart
 import wartremover.WartRemover.autoImport._
 
 object BuildSettings {
 
-  lazy val common = Seq(
-    ThisBuild / scalaVersion := "2.12.10",
+  lazy val common: Seq[Def.Setting[_]] = Seq(
+    fork := true,
     libraryDependencies ++= Seq(
       compilerPlugin(Dependencies.kindProjector),
       compilerPlugin(Dependencies.silencer),
       compilerPlugin(scalafixSemanticdb), // for Scalafix
-      Dependencies.silencerLib
+      Dependencies.silencerLib,
+      Dependencies.catsEffect,
+      Dependencies.logbackClassic % Test,
+      Dependencies.scalaTest % Test
     ),
     Compile / compile / wartremoverErrors ++= Warts.all filterNot Set(
       Wart.Null, // checked by Scalafix
@@ -39,6 +47,33 @@ object BuildSettings {
       Wart.OptionPartial,
       Wart.AsInstanceOf,
       Wart.EitherProjectionPartial
+    )
+  )
+
+  lazy val microsite: Seq[Def.Setting[_]] = Seq(
+    micrositeCompilingDocsTool := WithMdoc,
+    micrositeName := "scala-server-toolkit",
+    micrositeDescription := "Functional programming toolkit for building server applications in Scala.",
+    micrositeAuthor := "Jakub Janecek",
+    micrositeOrganizationHomepage := "https://avast.com",
+    micrositeGithubOwner := "avast",
+    micrositeGithubRepo := "scala-server-toolkit",
+    micrositeUrl := "https://avast.github.io",
+    micrositeDocumentationUrl := "api/latest",
+    micrositeDocumentationLabelDescription := "API ScalaDoc",
+    micrositeBaseUrl := "/scala-server-toolkit",
+    micrositeFooterText := None,
+    micrositeGitterChannel := false,
+    micrositeTwitter := "@avast_devs",
+    mdoc / fork := true,
+    mdocIn := file("site") / "docs",
+    mdocVariables := Map("VERSION" -> version.value),
+    mdocAutoDependency := true,
+    micrositeDataDirectory := file("site"),
+    ScalaUnidoc / siteSubdirName := "api/latest",
+    addMappingsToSiteDir(
+      ScalaUnidoc / packageDoc / mappings,
+      ScalaUnidoc / siteSubdirName
     )
   )
 
