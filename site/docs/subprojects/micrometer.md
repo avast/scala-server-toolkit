@@ -1,14 +1,17 @@
+---
+layout: docs
+title: "Micrometer"
+---
+
 # Micrometer
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.avast/sst-micrometer-jmx_2.12)](https://repo1.maven.org/maven2/com/avast/sst-micrometer-jmx_2.12/)
-
-`libraryDependencies += "com.avast" %% "sst-micrometer-jmx" % "<VERSION>"`
+`libraryDependencies += "com.avast" %% "sst-micrometer-jmx" % "@VERSION@"`
 
 This subproject allows you to monitor your applications using [Micrometer](https://micrometer.io). There are many actual implementations of 
 the Micrometer API one of which is JMX. Subproject `sst-micrometer-jmx` implements the initialization of Micrometer for JMX. There are also
 interop subprojects such as `sst-http4s-server-micrometer` which implement monitoring of HTTP server and individual routes using Micrometer.
 
-```scala
+```scala mdoc:silent
 import cats.effect.{Clock, Resource}
 import com.avast.sst.http4s.server._
 import com.avast.sst.http4s.server.micrometer.MicrometerHttp4sServerMetricsModule

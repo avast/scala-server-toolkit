@@ -1,0 +1,30 @@
+options:
+  - title: Getting Started
+    url: getting-started
+  - title: Rationale
+    url: rationale
+  - title: Structure
+    url: structure
+  - title: Bundles
+    url: bundles
+  - title: Subprojects
+    url: subprojects
+    nested_options:
+      - title: http4s
+        url: subprojects/http4s
+      - title: JVM
+        url: subprojects/jvm
+      - title: Micrometer
+        url: subprojects/micrometer
+      - title: PureConfig
+        url: subprojects/pureconfig
+      - title: Datastax Cassandra Driver
+        url: subprojects/cassandra-datastax-driver
+      - title: SSL Config
+        url: subprojects/ssl-config
+      - title: doobie
+        url: subprojects/doobie
+      - title: Flyway
+        url: subprojects/flyway
+      - title: monix-catnap - Circuit Breaker
+        url: subprojects/monix-catnap

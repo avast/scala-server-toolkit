@@ -1,8 +1,11 @@
+---
+layout: docs
+title: "monix-catnap"
+---
+
 # monix-catnap
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.avast/sst-monix-catnap_2.12)](https://repo1.maven.org/maven2/com/avast/sst-monix-catnap_2.12/)
-
-`libraryDependencies += "com.avast" %% "sst-monix-catnap" % "<VERSION>"`
+`libraryDependencies += "com.avast" %% "sst-monix-catnap" % "@VERSION@"`
 
 This subproject provides interop between Scala Server Toolkit and [monix-catnap](https://monix.io/docs/3x/#monix-catnap) library.
 

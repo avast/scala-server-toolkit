@@ -1,15 +1,18 @@
+---
+layout: docs
+title: "Flyway"
+---
+
 # Flyway
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.avast/sst-flyway_2.12)](https://repo1.maven.org/maven2/com/avast/sst-flyway_2.12/)
-
-`libraryDependencies += "com.avast" %% "sst-flyway" % "<VERSION>"`
+`libraryDependencies += "com.avast" %% "sst-flyway" % "@VERSION@"`
 
 This subproject initializes `Flyway` which can be used to do automated SQL DB migrations. See the [documentation of Flyway](https://flywaydb.org/documentation/) 
 on how to go about that.
 
 The method `make` requires `javax.sql.DataSource` which you can for example obtain from `doobie-hikari` subproject:
 
-```scala
+```scala mdoc:compile-only
 import cats.effect.Resource
 import com.avast.sst.doobie.DoobieHikariModule
 import com.avast.sst.flyway.FlywayModule

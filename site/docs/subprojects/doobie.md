@@ -1,10 +1,13 @@
+---
+layout: docs
+title: "Doobie"
+---
+
 # Doobie
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.avast/sst-doobie-hikari_2.12)](https://repo1.maven.org/maven2/com/avast/sst-doobie-hikari_2.12/)
+`libraryDependencies += "com.avast" %% "sst-doobie-hikari" % "@VERSION@"`
 
-`libraryDependencies += "com.avast" %% "sst-doobie-hikari" % "<VERSION>"`
-
-This module initializes a doobie `Transactor`:
+This subproject initializes a doobie `Transactor`:
 
 ```scala mdoc:silent
 import cats.effect.Resource
