@@ -9,6 +9,14 @@ This project is a culmination of years of Scala development at Avast and tries t
 we have gained together with tools that allow us to be effective. It is a set of small, flexible and cohesive building blocks that fit 
 together well and allow you to build reliable server applications.
 
+## Jump Right In
+
+You can use the [official Giter8 template](https://github.com/avast/sst-seed.g8) to get started:
+
+```bash
+sbt new avast/sst-seed.g8
+```
+
 ## Documentation
 
 **[Read it here](./docs/index.md)** or you can [deep dive into example code](example/src/main/scala/com/avast/sst/example/Main.scala).

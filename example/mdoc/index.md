@@ -70,6 +70,12 @@ val program = resource
 runtime.unsafeRun(program)
 ```
 
+Or you can use the [official Giter8 template](https://github.com/avast/sst-seed.g8):
+
+```bash
+sbt new avast/sst-seed.g8
+```
+
 ## Module Structure
 
 The project is split into many small modules based on dependencies. For example code related to loading of configuration files via
