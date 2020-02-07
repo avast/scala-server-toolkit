@@ -15,7 +15,7 @@ You can use the [official Giter8 template](https://github.com/avast/sst-seed.g8)
 sbt new avast/sst-seed.g8
 ```
 
-Or **[read documentation](getting-started.md)** or [deep dive into example code](https://github.com/avast/scala-server-toolkit/tree/master/example).
+Or **[read documentation](getting-started)** or [deep dive into example code](https://github.com/avast/scala-server-toolkit/tree/master/example).
 
 # SBT Dependency
 
