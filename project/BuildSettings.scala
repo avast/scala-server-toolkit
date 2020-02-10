@@ -12,6 +12,7 @@ import wartremover.WartRemover.autoImport._
 object BuildSettings {
 
   lazy val common: Seq[Def.Setting[_]] = Seq(
+    crossScalaVersions := List(scalaVersion.value, "2.12.10"),
     fork := true,
     libraryDependencies ++= Seq(
       compilerPlugin(Dependencies.kindProjector),

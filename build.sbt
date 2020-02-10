@@ -6,7 +6,7 @@ ThisBuild / description := "Functional programming toolkit for building server a
 ThisBuild / licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE"))
 ThisBuild / developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com")))
 
-ThisBuild / scalaVersion := "2.12.10"
+ThisBuild / scalaVersion := "2.13.1"
 ThisBuild / turbo := true
 Global / onChangedBuildSource := ReloadOnSourceChanges
 Global / cancelable := true
@@ -400,5 +400,5 @@ lazy val sslConfig = project
     )
   )
 
-addCommandAlias("checkAll", "; scalafmtSbtCheck; scalafmtCheckAll; compile:scalafix --check; test:scalafix --check; test")
+addCommandAlias("checkAll", "; scalafmtSbtCheck; scalafmtCheckAll; compile:scalafix --check; test:scalafix --check; +test")
 addCommandAlias("fixAll", "; compile:scalafix; test:scalafix; scalafmtSbt; scalafmtAll")
