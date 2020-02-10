@@ -43,6 +43,8 @@ object BuildSettings {
       "-Ywarn-unused", // for Scalafix. not present in sbt-tpolecat for 2.13
       "-P:silencer:checkUnused"
     ),
+    Compile / doc / sources := Seq.empty,
+    Compile / packageDoc / publishArtifact := false,
     Test / publishArtifact := false,
     Test / test / wartremoverErrors := (Compile / compile / wartremoverErrors).value filterNot Set(
       Wart.MutableDataStructures,
