@@ -9,8 +9,10 @@ categories:
       - 'bug'
   - title: '🧰 Maintenance'
     labels:
-      - 'dependency-update'
       - 'build'
+  - title: 'Dependency Updates'
+    labels:
+      - 'dependency-update'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 template: |
   ## Changes
