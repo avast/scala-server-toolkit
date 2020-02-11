@@ -7,8 +7,6 @@ import io.micrometer.core.instrument.Clock
 import io.micrometer.core.instrument.util.HierarchicalNameMapper
 import io.micrometer.statsd.{StatsdConfig, StatsdFlavor, StatsdMeterRegistry, StatsdProtocol}
 
-import scala.language.higherKinds
-
 object MicrometerStatsDModule {
 
   /** Makes configured [[io.micrometer.statsd.StatsdMeterRegistry]]. */

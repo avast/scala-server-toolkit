@@ -6,8 +6,6 @@ import org.http4s.client.Client
 import org.http4s.client.blaze.BlazeClientBuilder
 
 import scala.concurrent.ExecutionContext
-import scala.language.higherKinds
-
 object Http4sBlazeClientModule {
 
   /** Makes [[org.http4s.client.Client]] (Blaze) initialized with the given config.

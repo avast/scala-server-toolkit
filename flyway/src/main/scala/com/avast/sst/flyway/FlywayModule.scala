@@ -7,7 +7,6 @@ import org.flywaydb.core.Flyway
 object FlywayModule {
 
   /** Makes [[org.flywaydb.core.Flyway]] from the given [[javax.sql.DataSource]] and config. */
-  @SuppressWarnings(Array("org.wartremover.warts.NonUnitStatements"))
   def make[F[_]: Sync](dataSource: DataSource, config: FlywayConfig): F[Flyway] = {
     Sync[F].delay {
       val builder = Flyway

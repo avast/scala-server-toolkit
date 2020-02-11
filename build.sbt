@@ -349,7 +349,10 @@ lazy val monixCatnapPureConfig = project
   .in(file("monix-catnap-pureconfig"))
   .dependsOn(monixCatnap)
   .settings(BuildSettings.common)
-  .settings(run / fork := true, name := "sst-monix-catnap-pureconfig", libraryDependencies += Dependencies.pureConfig)
+  .settings(
+    name := "sst-monix-catnap-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
+  )
 
 lazy val pureConfig = project
   .in(file("pureconfig"))
