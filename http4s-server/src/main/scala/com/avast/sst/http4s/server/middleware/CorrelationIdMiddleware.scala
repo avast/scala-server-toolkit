@@ -16,9 +16,11 @@ import org.slf4j.LoggerFactory
   *
   * Use method `retrieveCorrelationId` to get the value from request attributes.
   */
-class CorrelationIdMiddleware[F[_]: Sync](correlationIdHeaderName: CaseInsensitiveString,
-                                          attributeKey: Key[CorrelationId],
-                                          generator: () => String) {
+class CorrelationIdMiddleware[F[_]: Sync](
+    correlationIdHeaderName: CaseInsensitiveString,
+    attributeKey: Key[CorrelationId],
+    generator: () => String
+) {
 
   private val logger = LoggerFactory.getLogger(this.getClass)
 

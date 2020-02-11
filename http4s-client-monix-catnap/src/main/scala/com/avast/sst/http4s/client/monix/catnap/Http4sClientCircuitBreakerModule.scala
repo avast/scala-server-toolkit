@@ -14,9 +14,11 @@ object Http4sClientCircuitBreakerModule {
     * The circuit breaker is special in that it also catches any HTTP responses considered as server failures
     * according to the [[com.avast.sst.http4s.client.monix.catnap.HttpStatusClassifier]].
     */
-  def make[F[_]: Sync](client: Client[F],
-                       circuitBreaker: CircuitBreaker[F],
-                       httpStatusClassifier: HttpStatusClassifier = HttpStatusClassifier.default): Client[F] = {
+  def make[F[_]: Sync](
+      client: Client[F],
+      circuitBreaker: CircuitBreaker[F],
+      httpStatusClassifier: HttpStatusClassifier = HttpStatusClassifier.default
+  ): Client[F] = {
     val F = Sync[F]
 
     class ServerFailure(val response: Response[F], val close: F[Unit]) extends Exception

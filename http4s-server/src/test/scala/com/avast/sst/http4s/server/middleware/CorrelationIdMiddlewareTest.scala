@@ -32,10 +32,10 @@ class CorrelationIdMiddlewareTest extends AsyncFunSuite with Http4sDsl[IO] {
         }
       }
       server <- BlazeServerBuilder[IO]
-                 .bindSocketAddress(InetSocketAddress.createUnresolved("127.0.0.1", 0))
-                 .withExecutionContext(ExecutionContext.global)
-                 .withHttpApp(routes)
-                 .resource
+        .bindSocketAddress(InetSocketAddress.createUnresolved("127.0.0.1", 0))
+        .withExecutionContext(ExecutionContext.global)
+        .withHttpApp(routes)
+        .resource
       client <- BlazeClientBuilder[IO](ExecutionContext.global).resource
     } yield (server, client)
 

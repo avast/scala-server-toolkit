@@ -10,9 +10,11 @@ import io.micrometer.statsd.{StatsdConfig, StatsdFlavor, StatsdMeterRegistry, St
 object MicrometerStatsDModule {
 
   /** Makes configured [[io.micrometer.statsd.StatsdMeterRegistry]]. */
-  def make[F[_]: Sync](config: MicrometerStatsDConfig,
-                       clock: Clock = Clock.SYSTEM,
-                       nameMapper: HierarchicalNameMapper = HierarchicalNameMapper.DEFAULT): Resource[F, StatsdMeterRegistry] = {
+  def make[F[_]: Sync](
+      config: MicrometerStatsDConfig,
+      clock: Clock = Clock.SYSTEM,
+      nameMapper: HierarchicalNameMapper = HierarchicalNameMapper.DEFAULT
+  ): Resource[F, StatsdMeterRegistry] = {
     Resource
       .make {
         Sync[F].delay {

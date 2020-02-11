@@ -39,23 +39,20 @@ object Main extends ZioServerApp {
       currentTime <- Resource.liftF(clock.realTime(TimeUnit.MILLISECONDS))
       console <- Resource.pure[Task, Console[Task]](ConsoleModule.make[Task])
       _ <- Resource.liftF(
-            console.printLine(s"The current Unix epoch time is $currentTime. This system has ${executorModule.numOfCpus} CPUs.")
-          )
+        console.printLine(s"The current Unix epoch time is $currentTime. This system has ${executorModule.numOfCpus} CPUs.")
+      )
       meterRegistry <- MicrometerJmxModule.make[Task](configuration.jmx)
       _ <- Resource.liftF(MicrometerJvmModule.make[Task](meterRegistry))
       serverMetricsModule <- Resource.liftF(MicrometerHttp4sServerMetricsModule.make[Task](meterRegistry, clock))
       boundedConnectExecutionContext <- executorModule
-                                         .makeThreadPoolExecutor(
-                                           configuration.boundedConnectExecutor,
-                                           new ConfigurableThreadFactory(Config(Some("hikari-connect-%02d")))
-                                         )
-                                         .map(ExecutionContext.fromExecutorService)
+        .makeThreadPoolExecutor(
+          configuration.boundedConnectExecutor,
+          new ConfigurableThreadFactory(Config(Some("hikari-connect-%02d")))
+        )
+        .map(ExecutionContext.fromExecutorService)
       hikariMetricsFactory = new MicrometerMetricsTrackerFactory(meterRegistry)
       doobieTransactor <- DoobieHikariModule
-                           .make[Task](configuration.database,
-                                       boundedConnectExecutionContext,
-                                       executorModule.blocker,
-                                       Some(hikariMetricsFactory))
+        .make[Task](configuration.database, boundedConnectExecutionContext, executorModule.blocker, Some(hikariMetricsFactory))
       randomService = RandomService(doobieTransactor)
       httpClient <- Http4sBlazeClientModule.make[Task](configuration.client, executorModule.executionContext)
       circuitBreakerMetrics <- Resource.liftF(MicrometerCircuitBreakerMetricsModule.make[Task]("test-http-client", meterRegistry))

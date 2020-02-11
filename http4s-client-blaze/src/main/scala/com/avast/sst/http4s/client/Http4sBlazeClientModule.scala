@@ -12,9 +12,11 @@ object Http4sBlazeClientModule {
     *
     * @param executionContext callback handling [[scala.concurrent.ExecutionContext]]
     */
-  def make[F[_]: ConcurrentEffect](config: Http4sBlazeClientConfig,
-                                   executionContext: ExecutionContext,
-                                   sslContext: Option[SSLContext] = None): Resource[F, Client[F]] = {
+  def make[F[_]: ConcurrentEffect](
+      config: Http4sBlazeClientConfig,
+      executionContext: ExecutionContext,
+      sslContext: Option[SSLContext] = None
+  ): Resource[F, Client[F]] = {
     val builder = BlazeClientBuilder[F](executionContext)
       .withResponseHeaderTimeout(config.responseHeaderTimeout)
       .withIdleTimeout(config.idleTimeout)

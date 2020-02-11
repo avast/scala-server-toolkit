@@ -18,11 +18,11 @@ class Http4SBlazeClientTest extends AsyncFunSuite {
 
     val test = for {
       client <- Http4sBlazeClientModule.make[IO](
-                 Http4sBlazeClientConfig(
-                   userAgent = `User-Agent`(AgentProduct("http4s-client", Some("1.2.3")), List(AgentComment("Test")))
-                 ),
-                 ExecutionContext.global
-               )
+        Http4sBlazeClientConfig(
+          userAgent = `User-Agent`(AgentProduct("http4s-client", Some("1.2.3")), List(AgentComment("Test")))
+        ),
+        ExecutionContext.global
+      )
       response <- Resource.liftF(client.expect[String]("https://httpbin.org/user-agent"))
     } yield assert(response === expected)
 

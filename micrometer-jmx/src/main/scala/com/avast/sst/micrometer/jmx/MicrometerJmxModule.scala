@@ -13,9 +13,11 @@ import io.micrometer.jmx.{JmxConfig, JmxMeterRegistry}
 object MicrometerJmxModule {
 
   /** Makes configured [[io.micrometer.jmx.JmxMeterRegistry]]. */
-  def make[F[_]: Sync](config: MicrometerJmxConfig,
-                       clock: Clock = Clock.SYSTEM,
-                       nameMapper: HierarchicalNameMapper = HierarchicalNameMapper.DEFAULT): Resource[F, JmxMeterRegistry] = {
+  def make[F[_]: Sync](
+      config: MicrometerJmxConfig,
+      clock: Clock = Clock.SYSTEM,
+      nameMapper: HierarchicalNameMapper = HierarchicalNameMapper.DEFAULT
+  ): Resource[F, JmxMeterRegistry] = {
     Resource
       .make {
         Sync[F].delay {

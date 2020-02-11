@@ -45,12 +45,14 @@ import scala.concurrent.duration._
   *                            - when the policies assign distances to nodes, the driver uses the closest assigned distance
   *                              for any given node.
   */
-final case class BasicConfig(contactPoints: List[String] = BasicConfig.Default.contactPoints,
-                             sessionName: Option[String] = BasicConfig.Default.sessionName,
-                             sessionKeyspace: Option[String] = BasicConfig.Default.sessionKeyspace,
-                             configReloadInterval: Duration = BasicConfig.Default.configReloadInterval,
-                             request: BasicRequestConfig = BasicConfig.Default.request,
-                             loadBalancingPolicy: LoadBalancingPolicyConfig = BasicConfig.Default.loadBalancingPolicy)
+final case class BasicConfig(
+    contactPoints: List[String] = BasicConfig.Default.contactPoints,
+    sessionName: Option[String] = BasicConfig.Default.sessionName,
+    sessionKeyspace: Option[String] = BasicConfig.Default.sessionKeyspace,
+    configReloadInterval: Duration = BasicConfig.Default.configReloadInterval,
+    request: BasicRequestConfig = BasicConfig.Default.request,
+    loadBalancingPolicy: LoadBalancingPolicyConfig = BasicConfig.Default.loadBalancingPolicy
+)
 
 object BasicConfig {
   val Default: BasicConfig = BasicConfig(List.empty, None, None, 5.minutes, BasicRequestConfig.Default, LoadBalancingPolicyConfig.Default)
@@ -91,11 +93,13 @@ object BasicConfig {
   *                           `isIdempotent()` returns null.
   *                           Overridable in a profile.
   */
-final case class BasicRequestConfig(timeout: Duration = BasicRequestConfig.Default.timeout,
-                                    consistency: ConsistencyLevel = BasicRequestConfig.Default.consistency,
-                                    pageSize: Int = BasicRequestConfig.Default.pageSize,
-                                    serialConsistency: ConsistencyLevel = BasicRequestConfig.Default.serialConsistency,
-                                    defaultIdempotence: Boolean = BasicRequestConfig.Default.defaultIdempotence)
+final case class BasicRequestConfig(
+    timeout: Duration = BasicRequestConfig.Default.timeout,
+    consistency: ConsistencyLevel = BasicRequestConfig.Default.consistency,
+    pageSize: Int = BasicRequestConfig.Default.pageSize,
+    serialConsistency: ConsistencyLevel = BasicRequestConfig.Default.serialConsistency,
+    defaultIdempotence: Boolean = BasicRequestConfig.Default.defaultIdempotence
+)
 
 object BasicRequestConfig {
   val Default: BasicRequestConfig =
@@ -119,9 +123,11 @@ object BasicRequestConfig {
   *
   * @param filter          A custom filter to include/exclude nodes.
   */
-final case class LoadBalancingPolicyConfig(`class`: String = LoadBalancingPolicyConfig.Default.`class`,
-                                           localDatacenter: Option[String] = LoadBalancingPolicyConfig.Default.localDatacenter,
-                                           filter: Option[FilterConfig] = LoadBalancingPolicyConfig.Default.filter)
+final case class LoadBalancingPolicyConfig(
+    `class`: String = LoadBalancingPolicyConfig.Default.`class`,
+    localDatacenter: Option[String] = LoadBalancingPolicyConfig.Default.localDatacenter,
+    filter: Option[FilterConfig] = LoadBalancingPolicyConfig.Default.filter
+)
 
 object LoadBalancingPolicyConfig {
   val Default: LoadBalancingPolicyConfig = LoadBalancingPolicyConfig("DefaultLoadBalancingPolicy", None, None)
