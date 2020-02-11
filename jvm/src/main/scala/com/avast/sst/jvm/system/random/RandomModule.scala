@@ -4,8 +4,6 @@ import java.security.SecureRandom
 
 import cats.effect.Sync
 
-import scala.language.higherKinds
-
 /** Provides random number generators. */
 object RandomModule {
 

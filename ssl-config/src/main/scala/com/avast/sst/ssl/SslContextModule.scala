@@ -10,8 +10,6 @@ import com.typesafe.sslconfig.ssl.{
 }
 import javax.net.ssl.{KeyManagerFactory, SSLContext, TrustManagerFactory}
 
-import scala.language.higherKinds
-
 object SslContextModule {
 
   /** Initializes [[javax.net.ssl.SSLContext]] from the provided config.

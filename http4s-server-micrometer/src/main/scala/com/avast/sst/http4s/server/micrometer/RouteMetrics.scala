@@ -9,8 +9,6 @@ import cats.syntax.functor._
 import io.micrometer.core.instrument.MeterRegistry
 import org.http4s.Response
 
-import scala.language.higherKinds
-
 /** Provides the usual metrics for single HTTP route. */
 class RouteMetrics[F[_]: Sync](meterRegistry: MeterRegistry, clock: Clock[F]) {
 

@@ -23,7 +23,6 @@ private[jmx] class TypeScopeNameObjectNameFactory(separator: String = ".") exten
     parsedName.getOrElse(defaultFactory.createName(`type`, domain, name))
   }
 
-  @SuppressWarnings(Array("org.wartremover.warts.NonUnitStatements"))
   private def parseName(domain: String, name: String) = Either.catchNonFatal {
     val parts = name.split(quotedSeparator, partNames.length)
 

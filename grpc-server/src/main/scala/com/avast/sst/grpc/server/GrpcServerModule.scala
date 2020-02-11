@@ -15,7 +15,6 @@ object GrpcServerModule {
     * @param executionContext executor to be used for the server
     * @param interceptors that are run for all the services
     */
-  @SuppressWarnings(Array("org.wartremover.warts.NonUnitStatements"))
   def make[F[_]: Sync](config: GrpcServerConfig,
                        services: Seq[ServerServiceDefinition],
                        executionContext: ExecutionContext,

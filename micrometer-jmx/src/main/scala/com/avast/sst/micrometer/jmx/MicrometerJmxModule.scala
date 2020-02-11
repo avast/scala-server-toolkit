@@ -10,12 +10,9 @@ import io.micrometer.core.instrument.config.NamingConvention
 import io.micrometer.core.instrument.util.HierarchicalNameMapper
 import io.micrometer.jmx.{JmxConfig, JmxMeterRegistry}
 
-import scala.language.higherKinds
-
 object MicrometerJmxModule {
 
   /** Makes configured [[io.micrometer.jmx.JmxMeterRegistry]]. */
-  @SuppressWarnings(Array("org.wartremover.warts.NonUnitStatements"))
   def make[F[_]: Sync](config: MicrometerJmxConfig,
                        clock: Clock = Clock.SYSTEM,
                        nameMapper: HierarchicalNameMapper = HierarchicalNameMapper.DEFAULT): Resource[F, JmxMeterRegistry] = {
