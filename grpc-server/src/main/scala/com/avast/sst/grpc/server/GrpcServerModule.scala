@@ -15,10 +15,12 @@ object GrpcServerModule {
     * @param executionContext executor to be used for the server
     * @param interceptors that are run for all the services
     */
-  def make[F[_]: Sync](config: GrpcServerConfig,
-                       services: Seq[ServerServiceDefinition],
-                       executionContext: ExecutionContext,
-                       interceptors: Seq[ServerInterceptor] = List.empty): Resource[F, Server] =
+  def make[F[_]: Sync](
+      config: GrpcServerConfig,
+      services: Seq[ServerServiceDefinition],
+      executionContext: ExecutionContext,
+      interceptors: Seq[ServerInterceptor] = List.empty
+  ): Resource[F, Server] =
     Resource.make {
       Sync[F].delay {
         val builder = ServerBuilder

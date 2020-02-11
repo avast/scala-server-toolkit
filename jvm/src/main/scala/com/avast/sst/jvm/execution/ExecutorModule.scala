@@ -20,9 +20,11 @@ import scala.concurrent.{ExecutionContext, ExecutionContextExecutorService}
 /** Provides necessary executors - the default one for execution of your business logic and callbacks and special one designated for
   * blocking operations. Also allows you to create more executors if you need them.
   */
-class ExecutorModule[F[_]: Sync](val numOfCpus: Int,
-                                 val executionContext: ExecutionContext,
-                                 blockingExecutor: ExecutionContextExecutorService) {
+class ExecutorModule[F[_]: Sync](
+    val numOfCpus: Int,
+    val executionContext: ExecutionContext,
+    blockingExecutor: ExecutionContextExecutorService
+) {
   module =>
 
   /** Executor designated for blocking operations. */
@@ -60,7 +62,7 @@ object ExecutorModule {
       numOfCpus <- Resource.liftF(Sync[F].delay(Runtime.getRuntime.availableProcessors))
       coreSize = numOfCpus * 2
       executor <- makeThreadPoolExecutor(ThreadPoolExecutorConfig(coreSize, coreSize), toolkitThreadFactory, new LinkedBlockingQueue)
-                   .map(ExecutionContext.fromExecutorService)
+        .map(ExecutionContext.fromExecutorService)
       blockingExecutor <- makeBlockingExecutor.map(ExecutionContext.fromExecutorService)
     } yield new ExecutorModule[F](numOfCpus, executor, blockingExecutor)
   }
@@ -82,7 +84,7 @@ object ExecutorModule {
     for {
       numOfCpus <- Resource.liftF(Sync[F].delay(Runtime.getRuntime.availableProcessors))
       executor <- makeThreadPoolExecutor(executorConfig, toolkitThreadFactory, new LinkedBlockingQueue)
-                   .map(ExecutionContext.fromExecutorService)
+        .map(ExecutionContext.fromExecutorService)
       blockingExecutor <- makeBlockingExecutor.map(ExecutionContext.fromExecutorService)
     } yield new ExecutorModule[F](numOfCpus, executor, blockingExecutor)
   }
@@ -94,7 +96,7 @@ object ExecutorModule {
     for {
       numOfCpus <- Resource.liftF(Sync[F].delay(Runtime.getRuntime.availableProcessors))
       executor <- makeForkJoinPool(executorConfig, numOfCpus, toolkitThreadFactory)
-                   .map(ExecutionContext.fromExecutorService)
+        .map(ExecutionContext.fromExecutorService)
       blockingExecutor <- makeBlockingExecutor.map(ExecutionContext.fromExecutorService)
     } yield new ExecutorModule[F](numOfCpus, executor, blockingExecutor)
   }
@@ -108,9 +110,11 @@ object ExecutorModule {
 
   private def toolkitThreadFactory = new ConfigurableThreadFactory(Config(nameFormat = Some("default-async-%02d"), daemon = true))
 
-  private def makeThreadPoolExecutor[F[_]: Sync](config: ThreadPoolExecutorConfig,
-                                                 threadFactory: ThreadFactory,
-                                                 queue: BlockingQueue[Runnable]): Resource[F, ThreadPoolExecutor] = {
+  private def makeThreadPoolExecutor[F[_]: Sync](
+      config: ThreadPoolExecutorConfig,
+      threadFactory: ThreadFactory,
+      queue: BlockingQueue[Runnable]
+  ): Resource[F, ThreadPoolExecutor] = {
     Resource.make {
       Sync[F].delay {
         val threadPool = new ThreadPoolExecutor(
@@ -128,9 +132,11 @@ object ExecutorModule {
     }(pool => Sync[F].delay(pool.shutdown()))
   }
 
-  private def makeForkJoinPool[F[_]: Sync](config: ForkJoinPoolConfig,
-                                           numOfCpus: Int,
-                                           threadFactory: ForkJoinWorkerThreadFactory): Resource[F, ForkJoinPool] = {
+  private def makeForkJoinPool[F[_]: Sync](
+      config: ForkJoinPoolConfig,
+      numOfCpus: Int,
+      threadFactory: ForkJoinWorkerThreadFactory
+  ): Resource[F, ForkJoinPool] = {
     Resource.make {
       Sync[F].delay {
         new ForkJoinPool(config.computeParallelism(numOfCpus), threadFactory, LoggingUncaughtExceptionHandler, config.computeAsyncMode)

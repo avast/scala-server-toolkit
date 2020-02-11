@@ -19,10 +19,10 @@ object DoobieHikariModule {
     * @param boundedConnectExecutionContext [[scala.concurrent.ExecutionContext]] used for creating connections (should be bounded!)
     */
   def make[F[_]: Async](
-    config: DoobieHikariConfig,
-    boundedConnectExecutionContext: ExecutionContext,
-    blocker: Blocker,
-    metricsTrackerFactory: Option[MetricsTrackerFactory] = None
+      config: DoobieHikariConfig,
+      boundedConnectExecutionContext: ExecutionContext,
+      blocker: Blocker,
+      metricsTrackerFactory: Option[MetricsTrackerFactory] = None
   )(implicit cs: ContextShift[F]): Resource[F, HikariTransactor[F]] = {
     for {
       hikariConfig <- Resource.liftF(makeHikariConfig(config, metricsTrackerFactory))
@@ -38,10 +38,12 @@ object DoobieHikariModule {
     case TransactionIsolation.TransactionSerializable    => "TRANSACTION_SERIALIZABLE"
   }
 
-  private def makeHikariConfig[F[_]: Sync](config: DoobieHikariConfig,
-                                           metricsTrackerFactory: Option[MetricsTrackerFactory],
-                                           scheduledExecutorService: Option[ScheduledExecutorService] = None,
-                                           threadFactory: Option[ThreadFactory] = None): F[HikariConfig] = {
+  private def makeHikariConfig[F[_]: Sync](
+      config: DoobieHikariConfig,
+      metricsTrackerFactory: Option[MetricsTrackerFactory],
+      scheduledExecutorService: Option[ScheduledExecutorService] = None,
+      threadFactory: Option[ThreadFactory] = None
+  ): F[HikariConfig] = {
     Sync[F].delay {
       val c = new HikariConfig()
       c.setDriverClassName(config.driver)

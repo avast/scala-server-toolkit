@@ -19,10 +19,12 @@ object SslContextModule {
   def make[F[_]: Sync](config: Config, withReference: Boolean = true): F[SSLContext] = Sync[F].delay {
     val loggerFactory = Slf4jLogger.factory
     val finalConfig = if (withReference) config.withFallback(referenceConfigUnsafe()) else config
-    new ConfigSSLContextBuilder(loggerFactory,
-                                SSLConfigFactory.parse(finalConfig, loggerFactory),
-                                new DefaultKeyManagerFactoryWrapper(KeyManagerFactory.getDefaultAlgorithm),
-                                new DefaultTrustManagerFactoryWrapper(TrustManagerFactory.getDefaultAlgorithm)).build
+    new ConfigSSLContextBuilder(
+      loggerFactory,
+      SSLConfigFactory.parse(finalConfig, loggerFactory),
+      new DefaultKeyManagerFactoryWrapper(KeyManagerFactory.getDefaultAlgorithm),
+      new DefaultTrustManagerFactoryWrapper(TrustManagerFactory.getDefaultAlgorithm)
+    ).build
   }
 
   private def referenceConfigUnsafe(): Config = ConfigFactory.defaultReference().getConfig("ssl-config")

@@ -35,9 +35,11 @@ object ConfigurableThreadFactory {
   /**
     * @param nameFormat Formatted with long number, e.g. my-thread-%02d
     */
-  final case class Config(nameFormat: Option[String] = None,
-                          daemon: Boolean = false,
-                          priority: Int = Thread.NORM_PRIORITY,
-                          uncaughtExceptionHandler: UncaughtExceptionHandler = LoggingUncaughtExceptionHandler)
+  final case class Config(
+      nameFormat: Option[String] = None,
+      daemon: Boolean = false,
+      priority: Int = Thread.NORM_PRIORITY,
+      uncaughtExceptionHandler: UncaughtExceptionHandler = LoggingUncaughtExceptionHandler
+  )
 
 }

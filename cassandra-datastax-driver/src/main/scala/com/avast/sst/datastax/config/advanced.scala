@@ -54,30 +54,31 @@ import scala.concurrent.duration._
   * @param netty                      Netty configuration which is used internally by driver.
   * @param coalescer                  The component that coalesces writes on the connections.
   */
-final case class AdvancedConfig(connection: ConnectionConfig = AdvancedConfig.Default.connection,
-                                reconnectOnInit: Boolean = AdvancedConfig.Default.reconnectOnInit,
-                                reconnectionPolicy: ReconnectionPolicyConfig = AdvancedConfig.Default.reconnectionPolicy,
-                                retryPolicy: RetryPolicyConfig = AdvancedConfig.Default.retryPolicy,
-                                speculativeExecutionPolicy: SpeculativeExecutionPolicyConfig =
-                                  AdvancedConfig.Default.speculativeExecutionPolicy,
-                                authProvider: Option[AuthProviderConfig] = AdvancedConfig.Default.authProvider,
-                                timestampGenerator: TimestampGeneratorConfig = AdvancedConfig.Default.timestampGenerator,
-                                requestTracker: RequestTrackerConfig = AdvancedConfig.Default.requestTracker,
-                                throttler: ThrottlerConfig = AdvancedConfig.Default.throttler,
-                                nodeStateListener: NodeStateListenerConfig = AdvancedConfig.Default.nodeStateListener,
-                                schemaChangeListener: SchemaChangeListenerConfig = AdvancedConfig.Default.schemaChangeListener,
-                                addressTranslator: AddressTranslatorConfig = AdvancedConfig.Default.addressTranslator,
-                                resolveContactPoints: Boolean = AdvancedConfig.Default.resolveContactPoints,
-                                protocol: ProtocolConfig = AdvancedConfig.Default.protocol,
-                                request: AdvancedRequestConfig = AdvancedConfig.Default.request,
-                                metrics: MetricsConfig = AdvancedConfig.Default.metrics,
-                                heartbeat: HeartbeatConfig = AdvancedConfig.Default.heartbeat,
-                                socket: SocketConfig = AdvancedConfig.Default.socket,
-                                metadata: MetadataConfig = AdvancedConfig.Default.metadata,
-                                controlConnection: ControlConnectionConfig = AdvancedConfig.Default.controlConnection,
-                                preparedStatements: PreparedStatementsConfig = AdvancedConfig.Default.preparedStatements,
-                                netty: NettyConfig = AdvancedConfig.Default.netty,
-                                coalescer: CoalescerConfig = AdvancedConfig.Default.coalescer)
+final case class AdvancedConfig(
+    connection: ConnectionConfig = AdvancedConfig.Default.connection,
+    reconnectOnInit: Boolean = AdvancedConfig.Default.reconnectOnInit,
+    reconnectionPolicy: ReconnectionPolicyConfig = AdvancedConfig.Default.reconnectionPolicy,
+    retryPolicy: RetryPolicyConfig = AdvancedConfig.Default.retryPolicy,
+    speculativeExecutionPolicy: SpeculativeExecutionPolicyConfig = AdvancedConfig.Default.speculativeExecutionPolicy,
+    authProvider: Option[AuthProviderConfig] = AdvancedConfig.Default.authProvider,
+    timestampGenerator: TimestampGeneratorConfig = AdvancedConfig.Default.timestampGenerator,
+    requestTracker: RequestTrackerConfig = AdvancedConfig.Default.requestTracker,
+    throttler: ThrottlerConfig = AdvancedConfig.Default.throttler,
+    nodeStateListener: NodeStateListenerConfig = AdvancedConfig.Default.nodeStateListener,
+    schemaChangeListener: SchemaChangeListenerConfig = AdvancedConfig.Default.schemaChangeListener,
+    addressTranslator: AddressTranslatorConfig = AdvancedConfig.Default.addressTranslator,
+    resolveContactPoints: Boolean = AdvancedConfig.Default.resolveContactPoints,
+    protocol: ProtocolConfig = AdvancedConfig.Default.protocol,
+    request: AdvancedRequestConfig = AdvancedConfig.Default.request,
+    metrics: MetricsConfig = AdvancedConfig.Default.metrics,
+    heartbeat: HeartbeatConfig = AdvancedConfig.Default.heartbeat,
+    socket: SocketConfig = AdvancedConfig.Default.socket,
+    metadata: MetadataConfig = AdvancedConfig.Default.metadata,
+    controlConnection: ControlConnectionConfig = AdvancedConfig.Default.controlConnection,
+    preparedStatements: PreparedStatementsConfig = AdvancedConfig.Default.preparedStatements,
+    netty: NettyConfig = AdvancedConfig.Default.netty,
+    coalescer: CoalescerConfig = AdvancedConfig.Default.coalescer
+)
 
 object AdvancedConfig {
   val Default: AdvancedConfig = AdvancedConfig(
@@ -134,13 +135,15 @@ object AdvancedRequestConfig {
   * @param maxOrphanRequests        The maximum number of "orphaned" requests before a connection gets closed automatically.
   * @param warnOnInitError          Whether to log non-fatal errors when the driver tries to open a new connection.
   */
-final case class ConnectionConfig(initQueryTimeout: Duration = ConnectionConfig.Default.initQueryTimeout,
-                                  setKeyspaceTimeout: Duration = ConnectionConfig.Default.setKeyspaceTimeout,
-                                  localPool: PoolConfig = ConnectionConfig.Default.localPool,
-                                  remotePool: PoolConfig = ConnectionConfig.Default.remotePool,
-                                  maxRequestsPerConnection: Int = ConnectionConfig.Default.maxRequestsPerConnection,
-                                  maxOrphanRequests: Int = ConnectionConfig.Default.maxOrphanRequests,
-                                  warnOnInitError: Boolean = ConnectionConfig.Default.warnOnInitError)
+final case class ConnectionConfig(
+    initQueryTimeout: Duration = ConnectionConfig.Default.initQueryTimeout,
+    setKeyspaceTimeout: Duration = ConnectionConfig.Default.setKeyspaceTimeout,
+    localPool: PoolConfig = ConnectionConfig.Default.localPool,
+    remotePool: PoolConfig = ConnectionConfig.Default.remotePool,
+    maxRequestsPerConnection: Int = ConnectionConfig.Default.maxRequestsPerConnection,
+    maxOrphanRequests: Int = ConnectionConfig.Default.maxOrphanRequests,
+    warnOnInitError: Boolean = ConnectionConfig.Default.warnOnInitError
+)
 
 object ConnectionConfig {
   val Default: ConnectionConfig =
@@ -165,9 +168,11 @@ object PoolConfig {
   * @param baseDelay  Reconnection policy starts with the base delay.
   * @param maxDelay   Reconnection policy increases delay up to the max delay.
   */
-final case class ReconnectionPolicyConfig(`class`: String = ReconnectionPolicyConfig.Default.`class`,
-                                          baseDelay: Duration = ReconnectionPolicyConfig.Default.baseDelay,
-                                          maxDelay: Option[Duration] = ReconnectionPolicyConfig.Default.maxDelay)
+final case class ReconnectionPolicyConfig(
+    `class`: String = ReconnectionPolicyConfig.Default.`class`,
+    baseDelay: Duration = ReconnectionPolicyConfig.Default.baseDelay,
+    maxDelay: Option[Duration] = ReconnectionPolicyConfig.Default.maxDelay
+)
 object ReconnectionPolicyConfig {
 
   /** A reconnection policy that waits a constant time between each reconnection attempt. */
@@ -234,9 +239,11 @@ final case class AuthProviderConfig(`class`: String, username: String, password:
   *                       If this is false, the driver will try to access the microsecond-precision OS clock via native
   *                       calls (and fallback to the Java one if the native calls fail).
   */
-final case class TimestampGeneratorConfig(`class`: String = TimestampGeneratorConfig.Default.`class`,
-                                          driftWarning: DriftWarningConfig = TimestampGeneratorConfig.Default.driftWarning,
-                                          forceJavaClock: Boolean = TimestampGeneratorConfig.Default.forceJavaClock)
+final case class TimestampGeneratorConfig(
+    `class`: String = TimestampGeneratorConfig.Default.`class`,
+    driftWarning: DriftWarningConfig = TimestampGeneratorConfig.Default.driftWarning,
+    forceJavaClock: Boolean = TimestampGeneratorConfig.Default.forceJavaClock
+)
 
 object TimestampGeneratorConfig {
 
@@ -273,8 +280,10 @@ object DriftWarningConfig {
   *              package `com.datastax.oss.driver.internal.core.tracker`.
   * @param logs  Parameters for RequestLogger
   */
-final case class RequestTrackerConfig(`class`: String = "com.datastax.oss.driver.internal.core.tracker.NoopRequestTracker",
-                                      logs: Option[LogsConfig])
+final case class RequestTrackerConfig(
+    `class`: String = "com.datastax.oss.driver.internal.core.tracker.NoopRequestTracker",
+    logs: Option[LogsConfig]
+)
 
 object RequestTrackerConfig {
   val Default: RequestTrackerConfig = RequestTrackerConfig("com.datastax.oss.driver.internal.core.tracker.NoopRequestTracker", None)
@@ -295,14 +304,16 @@ object RequestTrackerConfig {
   * @param showStackTraces Whether to log stack traces for failed queries. If this is disabled, the log will just
   *                        include the exception's string representation (generally the class name and message).
   */
-final case class LogsConfig(successEnabled: Option[Boolean],
-                            errorEnabled: Option[Boolean],
-                            slow: Option[SlowConfig],
-                            maxQueryLength: Option[Int],
-                            showValues: Option[Boolean],
-                            maxValueLength: Option[Int],
-                            maxValues: Option[Int],
-                            showStackTraces: Option[Boolean])
+final case class LogsConfig(
+    successEnabled: Option[Boolean],
+    errorEnabled: Option[Boolean],
+    slow: Option[SlowConfig],
+    maxQueryLength: Option[Int],
+    showValues: Option[Boolean],
+    maxValueLength: Option[Int],
+    maxValues: Option[Int],
+    showStackTraces: Option[Boolean]
+)
 
 /** Strategy to classify request as "slow".
   *
@@ -325,11 +336,13 @@ final case class SlowConfig(threshold: Option[Duration], enabled: Option[Boolean
   * @param drainInterval         How often the throttler attempts to dequeue requests.
   *                              Only used by RateLimitingRequestThrottler.
   */
-final case class ThrottlerConfig(`class`: String,
-                                 maxQueueSize: Option[Int],
-                                 maxConcurrentRequests: Option[Int],
-                                 maxRequestsPerSecond: Option[Int],
-                                 drainInterval: Option[Duration])
+final case class ThrottlerConfig(
+    `class`: String,
+    maxQueueSize: Option[Int],
+    maxConcurrentRequests: Option[Int],
+    maxRequestsPerSecond: Option[Int],
+    drainInterval: Option[Duration]
+)
 
 object ThrottlerConfig {
 
@@ -452,9 +465,11 @@ object MetricsConfig {
   * @param cqlRequests Extra configuration (for the metrics that need it). Required if the 'cql-requests' metric is enabled
   * @param throttling  Configures request throttling metrics..
   */
-final case class SessionConfig(enabled: List[Int] = List.empty,
-                               cqlRequests: Option[CqlRequestsConfig],
-                               throttling: Option[ThrottlingConfig])
+final case class SessionConfig(
+    enabled: List[Int] = List.empty,
+    cqlRequests: Option[CqlRequestsConfig],
+    throttling: Option[ThrottlingConfig]
+)
 
 /** Extra metrics configuration
   *
@@ -502,12 +517,14 @@ final case class CqlMessagesConfig(highestLatency: Duration = 3.seconds, signifi
   * @param receiveBufferSize  Sets a hint to the size of the underlying buffers for incoming network I/O.
   * @param sendBufferSize     Sets a hint to the size of the underlying buffers for outgoing network I/O.
   */
-final case class SocketConfig(tcpNoDelay: Boolean,
-                              keepAlive: Option[Boolean],
-                              reuseAddress: Option[Boolean],
-                              lingerInterval: Option[Int],
-                              receiveBufferSize: Option[Int],
-                              sendBufferSize: Option[Int])
+final case class SocketConfig(
+    tcpNoDelay: Boolean,
+    keepAlive: Option[Boolean],
+    reuseAddress: Option[Boolean],
+    lingerInterval: Option[Int],
+    receiveBufferSize: Option[Int],
+    sendBufferSize: Option[Int]
+)
 
 object SocketConfig {
   val Default: SocketConfig = SocketConfig(true, None, None, None, None, None)
@@ -532,9 +549,11 @@ object HeartbeatConfig {
   * @param schema    Options relating to schema metadata.
   * @param tokenMap  Whether token metadata (Cluster.getMetadata.getTokenMap) is enabled.
   */
-final case class MetadataConfig(debouncer: TopologyEventDebouncerConfig = MetadataConfig.Default.debouncer,
-                                schema: SchemaConfig = MetadataConfig.Default.schema,
-                                tokenMap: TokenMapConfig = MetadataConfig.Default.tokenMap)
+final case class MetadataConfig(
+    debouncer: TopologyEventDebouncerConfig = MetadataConfig.Default.debouncer,
+    schema: SchemaConfig = MetadataConfig.Default.schema,
+    tokenMap: TokenMapConfig = MetadataConfig.Default.tokenMap
+)
 
 object MetadataConfig {
   val Default: MetadataConfig = MetadataConfig(TopologyEventDebouncerConfig.Default, SchemaConfig.Default, TokenMapConfig(true))
@@ -549,8 +568,10 @@ object MetadataConfig {
   *                  delivered immediately and the time window is reset. This avoids holding events indefinitely
   *                  if the window keeps getting reset.
   */
-final case class TopologyEventDebouncerConfig(window: Duration = TopologyEventDebouncerConfig.Default.window,
-                                              maxEvents: Int = TopologyEventDebouncerConfig.Default.maxEvents)
+final case class TopologyEventDebouncerConfig(
+    window: Duration = TopologyEventDebouncerConfig.Default.window,
+    maxEvents: Int = TopologyEventDebouncerConfig.Default.maxEvents
+)
 
 object TopologyEventDebouncerConfig {
   val Default: TopologyEventDebouncerConfig = TopologyEventDebouncerConfig(1.second, 20)
@@ -567,11 +588,13 @@ object TopologyEventDebouncerConfig {
   * @param requestPageSize    The page size for the requests to the schema tables.
   * @param debouncer          Protects against bursts of schema updates.
   */
-final case class SchemaConfig(enabled: Boolean = SchemaConfig.Default.enabled,
-                              refreshedKeyspaces: List[String] = SchemaConfig.Default.refreshedKeyspaces,
-                              requestTimeout: Duration = SchemaConfig.Default.requestTimeout,
-                              requestPageSize: Int = SchemaConfig.Default.requestPageSize,
-                              debouncer: DebouncerConfig = SchemaConfig.Default.debouncer)
+final case class SchemaConfig(
+    enabled: Boolean = SchemaConfig.Default.enabled,
+    refreshedKeyspaces: List[String] = SchemaConfig.Default.refreshedKeyspaces,
+    requestTimeout: Duration = SchemaConfig.Default.requestTimeout,
+    requestPageSize: Int = SchemaConfig.Default.requestPageSize,
+    debouncer: DebouncerConfig = SchemaConfig.Default.debouncer
+)
 
 object SchemaConfig {
   val Default: SchemaConfig = SchemaConfig(true, List.empty, RequestTimeout, RequestPageSize, DebouncerConfig.Default)
@@ -629,9 +652,11 @@ object ControlConnectionConfig {
   * @param warnOnFailure Whether to log a warning if schema agreement fails.
   *                      You might want to change this if you've set the timeout to 0.
   */
-final case class SchemaAgreementConfig(interval: Duration = SchemaAgreementConfig.Default.interval,
-                                       timeout: Duration = SchemaAgreementConfig.Default.timeout,
-                                       warnOnFailure: Boolean = SchemaAgreementConfig.Default.warnOnFailure)
+final case class SchemaAgreementConfig(
+    interval: Duration = SchemaAgreementConfig.Default.interval,
+    timeout: Duration = SchemaAgreementConfig.Default.timeout,
+    warnOnFailure: Boolean = SchemaAgreementConfig.Default.warnOnFailure
+)
 
 object SchemaAgreementConfig {
   val Default: SchemaAgreementConfig = SchemaAgreementConfig(200.milliseconds, 10.seconds, true)
@@ -641,8 +666,10 @@ object SchemaAgreementConfig {
   *
   * @param prepareOnAllNodes Overridable in a profile.
   */
-final case class PreparedStatementsConfig(prepareOnAllNodes: Boolean = PreparedStatementsConfig.Default.prepareOnAllNodes,
-                                          reprepareOnUp: ReprepareOnUpConfig = PreparedStatementsConfig.Default.reprepareOnUp)
+final case class PreparedStatementsConfig(
+    prepareOnAllNodes: Boolean = PreparedStatementsConfig.Default.prepareOnAllNodes,
+    reprepareOnUp: ReprepareOnUpConfig = PreparedStatementsConfig.Default.reprepareOnUp
+)
 
 object PreparedStatementsConfig {
   val Default: PreparedStatementsConfig = PreparedStatementsConfig(true, ReprepareOnUpConfig.Default)
@@ -678,11 +705,13 @@ object PreparedStatementsConfig {
   * @param timeout          The request timeout. This applies both to querying the system.prepared_statements table (if
   *                         relevant), and the prepare requests themselves.
   */
-final case class ReprepareOnUpConfig(enabled: Boolean = ReprepareOnUpConfig.Default.enabled,
-                                     checkSystemTable: Boolean = ReprepareOnUpConfig.Default.checkSystemTable,
-                                     maxStatements: Int = ReprepareOnUpConfig.Default.maxStatements,
-                                     maxParallelism: Int = ReprepareOnUpConfig.Default.maxParallelism,
-                                     timeout: Duration = ReprepareOnUpConfig.Default.timeout)
+final case class ReprepareOnUpConfig(
+    enabled: Boolean = ReprepareOnUpConfig.Default.enabled,
+    checkSystemTable: Boolean = ReprepareOnUpConfig.Default.checkSystemTable,
+    maxStatements: Int = ReprepareOnUpConfig.Default.maxStatements,
+    maxParallelism: Int = ReprepareOnUpConfig.Default.maxParallelism,
+    timeout: Duration = ReprepareOnUpConfig.Default.timeout
+)
 
 object ReprepareOnUpConfig {
   val Default: ReprepareOnUpConfig = ReprepareOnUpConfig(true, false, 0, 100, InitQueryTimeout)
@@ -703,10 +732,12 @@ object ReprepareOnUpConfig {
   *                   By default, this thread is named after the session name and "-timer-0", for example
   *                   "s0-timer-0".
   */
-final case class NettyConfig(daemon: Boolean = NettyConfig.Default.daemon,
-                             ioGroup: GroupConfig = NettyConfig.Default.ioGroup,
-                             adminGroup: GroupConfig = NettyConfig.Default.adminGroup,
-                             timer: TimerConfig = NettyConfig.Default.timer)
+final case class NettyConfig(
+    daemon: Boolean = NettyConfig.Default.daemon,
+    ioGroup: GroupConfig = NettyConfig.Default.ioGroup,
+    adminGroup: GroupConfig = NettyConfig.Default.adminGroup,
+    timer: TimerConfig = NettyConfig.Default.timer
+)
 
 object NettyConfig {
   val Default: NettyConfig = NettyConfig(false, GroupConfig.Default, GroupConfig.Default, TimerConfig.Default)
@@ -761,8 +792,10 @@ object ShutdownConfig {
   *                      HashedWheelTimer, which uses hashes to arrange the timeouts. This effectively controls the
   *                      size of the timer wheel.
   */
-final case class TimerConfig(tickDuration: Duration = TimerConfig.Default.tickDuration,
-                             ticksPerWheel: Int = TimerConfig.Default.ticksPerWheel)
+final case class TimerConfig(
+    tickDuration: Duration = TimerConfig.Default.tickDuration,
+    ticksPerWheel: Int = TimerConfig.Default.ticksPerWheel
+)
 
 object TimerConfig {
   val Default: TimerConfig = TimerConfig(100.milliseconds, 2048)
@@ -774,8 +807,10 @@ object TimerConfig {
   * @param maxRunsWithNoWork  How many times the coalescer is allowed to reschedule itself when it did no work.
   * @param rescheduleInterval The reschedule interval.
   */
-final case class CoalescerConfig(maxRunsWithNoWork: Int = CoalescerConfig.Default.maxRunsWithNoWork,
-                                 rescheduleInterval: Duration = CoalescerConfig.Default.rescheduleInterval)
+final case class CoalescerConfig(
+    maxRunsWithNoWork: Int = CoalescerConfig.Default.maxRunsWithNoWork,
+    rescheduleInterval: Duration = CoalescerConfig.Default.rescheduleInterval
+)
 
 object CoalescerConfig {
   val Default: CoalescerConfig = CoalescerConfig(5, 10.microseconds)

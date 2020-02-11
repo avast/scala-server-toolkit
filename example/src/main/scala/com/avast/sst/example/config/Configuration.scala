@@ -15,12 +15,14 @@ import com.avast.sst.monix.catnap.pureconfig.implicits._
 import pureconfig.ConfigReader
 import pureconfig.generic.semiauto.deriveReader
 
-final case class Configuration(server: Http4sBlazeServerConfig,
-                               database: DoobieHikariConfig,
-                               boundedConnectExecutor: ThreadPoolExecutorConfig,
-                               client: Http4sBlazeClientConfig,
-                               circuitBreaker: CircuitBreakerConfig,
-                               jmx: MicrometerJmxConfig)
+final case class Configuration(
+    server: Http4sBlazeServerConfig,
+    database: DoobieHikariConfig,
+    boundedConnectExecutor: ThreadPoolExecutorConfig,
+    client: Http4sBlazeClientConfig,
+    circuitBreaker: CircuitBreakerConfig,
+    jmx: MicrometerJmxConfig
+)
 
 object Configuration {
 

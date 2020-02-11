@@ -10,10 +10,11 @@ import org.http4s.{HttpApp, HttpRoutes}
 import zio.Task
 import zio.interop.catz._
 
-class Http4sRoutingModule(randomService: RandomService,
-                          client: Client[Task],
-                          serverMetricsModule: MicrometerHttp4sServerMetricsModule[Task])
-    extends Http4sDsl[Task] {
+class Http4sRoutingModule(
+    randomService: RandomService,
+    client: Client[Task],
+    serverMetricsModule: MicrometerHttp4sServerMetricsModule[Task]
+) extends Http4sDsl[Task] {
 
   import serverMetricsModule._
 

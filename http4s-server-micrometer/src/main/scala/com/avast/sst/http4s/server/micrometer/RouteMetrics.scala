@@ -25,16 +25,17 @@ class RouteMetrics[F[_]: Sync](meterRegistry: MeterRegistry, clock: Clock[F]) {
     val httpStatusCodes = new HttpStatusMetrics(prefix, meterRegistry)
     for {
       start <- clock.monotonic(TimeUnit.NANOSECONDS)
-      response <- F.delay(activeRequests.increment())
-                   .bracket { _ =>
-                     route.flatTap(response => F.delay(httpStatusCodes.recordHttpStatus(response.status)))
-                   } { _ =>
-                     for {
-                       time <- computeTime(start)
-                       _ <- F.delay(activeRequests.increment(-1))
-                       _ <- F.delay(timer.record(time, TimeUnit.NANOSECONDS))
-                     } yield ()
-                   }
+      response <- F
+        .delay(activeRequests.increment())
+        .bracket { _ =>
+          route.flatTap(response => F.delay(httpStatusCodes.recordHttpStatus(response.status)))
+        } { _ =>
+          for {
+            time <- computeTime(start)
+            _ <- F.delay(activeRequests.increment(-1))
+            _ <- F.delay(timer.record(time, TimeUnit.NANOSECONDS))
+          } yield ()
+        }
     } yield response
   }
 
