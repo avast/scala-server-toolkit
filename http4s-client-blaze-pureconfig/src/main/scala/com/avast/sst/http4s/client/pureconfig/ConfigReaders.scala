@@ -14,9 +14,7 @@ trait ConfigReaders {
   implicit protected def hint[T]: ProductHint[T] = ProductHint.default
 
   implicit val http4sClientUserAgentReader: ConfigReader[`User-Agent`] = ConfigReader[String].emap { value =>
-    `User-Agent`.parse(value).leftMap { parseFailure =>
-      CannotConvert(value, "User-Agent HTTP header", parseFailure.message)
-    }
+    `User-Agent`.parse(value).leftMap { parseFailure => CannotConvert(value, "User-Agent HTTP header", parseFailure.message) }
   }
 
   implicit val http4sClientParserModeReader: ConfigReader[ParserMode] = deriveEnumerationReader

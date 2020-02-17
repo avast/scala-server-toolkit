@@ -27,9 +27,7 @@ class RouteMetrics[F[_]: Sync](meterRegistry: MeterRegistry, clock: Clock[F]) {
       start <- clock.monotonic(TimeUnit.NANOSECONDS)
       response <- F
         .delay(activeRequests.increment())
-        .bracket { _ =>
-          route.flatTap(response => F.delay(httpStatusCodes.recordHttpStatus(response.status)))
-        } { _ =>
+        .bracket { _ => route.flatTap(response => F.delay(httpStatusCodes.recordHttpStatus(response.status))) } { _ =>
           for {
             time <- computeTime(start)
             _ <- F.delay(activeRequests.increment(-1))

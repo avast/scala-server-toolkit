@@ -150,9 +150,7 @@ object CassandraDatastaxDriverModule {
         durationProperty(NETTY_TIMER_TICK_DURATION)(cfg.advanced.netty.timer.tickDuration),
         intProperty(NETTY_TIMER_TICKS_PER_WHEEL)(cfg.advanced.netty.timer.ticksPerWheel),
         intProperty(COALESCER_MAX_RUNS)(cfg.advanced.coalescer.maxRunsWithNoWork)
-      ).foldRight(DriverConfigLoader.programmaticBuilder()) { (w, b) =>
-        w(b)
-      }
+      ).foldRight(DriverConfigLoader.programmaticBuilder()) { (w, b) => w(b) }
 
       val loader = cfg.profiles
         .foldRight(builder) { (p, b) =>
@@ -166,9 +164,7 @@ object CassandraDatastaxDriverModule {
             durationProperty(REQUEST_TRACE_INTERVAL)(p.advanced.request.trace.interval),
             stringProperty(REQUEST_TRACE_CONSISTENCY)(p.advanced.request.trace.consistency.toStringRepr),
             booleanProperty(REQUEST_LOG_WARNINGS)(p.advanced.request.logWarnings)
-          ).foldRight(b.startProfile(p.name)) { (w, pb) =>
-              w(pb)
-            }
+          ).foldRight(b.startProfile(p.name)) { (w, pb) => w(pb) }
             .endProfile()
         }
         .build()
