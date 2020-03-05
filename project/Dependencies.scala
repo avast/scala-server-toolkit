@@ -6,7 +6,7 @@ object Dependencies {
   val datastaxJavaDriverCore = "com.datastax.oss" % "java-driver-core" % Versions.datastaxJavaDriverCore
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
-  val flywayCore = "org.flywaydb" % "flyway-core" % "6.2.4"
+  val flywayCore = "org.flywaydb" % "flyway-core" % "6.3.0"
   val grpcNettyShaded = "io.grpc" % "grpc-netty-shaded" % Versions.grpc
   val grpcProtobuf = "io.grpc" % "grpc-protobuf" % Versions.grpc
   val grpcStub = "io.grpc" % "grpc-stub" % Versions.grpc
@@ -32,8 +32,8 @@ object Dependencies {
   val silencerLib = "com.github.ghik" % "silencer-lib" % Versions.silencer cross CrossVersion.full
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.30"
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.4.2"
-  val zio = "dev.zio" %% "zio" % "1.0.0-RC18-1"
-  val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC10"
+  val zio = "dev.zio" %% "zio" % "1.0.0-RC17"
+  val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC11"
 
   object Versions {
 
