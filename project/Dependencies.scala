@@ -32,7 +32,7 @@ object Dependencies {
   val silencerLib = "com.github.ghik" % "silencer-lib" % Versions.silencer cross CrossVersion.full
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.30"
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.4.2"
-  val zio = "dev.zio" %% "zio" % "1.0.0-RC18-1"
+  val zio = "dev.zio" %% "zio" % "1.0.0-RC18-2"
   val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC11"
 
   object Versions {
