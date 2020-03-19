@@ -4,7 +4,7 @@
 
 <h3 id="buildsbt">build.sbt</h3>
 
-<p><code class="highlighter-rouge">libraryDependencies += "com.avast" %% "sst-bundle-zio-http4s-blaze" % "0.1.23"</code></p>
+<p><code class="highlighter-rouge">libraryDependencies += "com.avast" %% "sst-bundle-zio-http4s-blaze" % "0.1.25+1-d1a4b057-SNAPSHOT"</code></p>
 
 <h3 id="main">Main</h3>
 
@@ -15,12 +15,11 @@
 <span class="k">import</span> <span class="nn">com.avast.sst.jvm.system.console.ConsoleModule</span>
 <span class="k">import</span> <span class="nn">org.http4s.dsl.Http4sDsl</span>
 <span class="k">import</span> <span class="nn">org.http4s.HttpRoutes</span>
-<span class="k">import</span> <span class="nn">zio.DefaultRuntime</span>
 <span class="k">import</span> <span class="nn">zio.interop.catz._</span>
 <span class="k">import</span> <span class="nn">zio.interop.catz.implicits._</span>
 <span class="k">import</span> <span class="nn">zio.Task</span>
 
-<span class="k">implicit</span> <span class="k">val</span> <span class="nv">runtime</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">DefaultRuntime</span> <span class="o">{}</span> <span class="c1">// this is just needed in example</span>
+<span class="k">implicit</span> <span class="k">val</span> <span class="nv">runtime</span> <span class="k">=</span> <span class="nv">zio</span><span class="o">.</span><span class="py">Runtime</span><span class="o">.</span><span class="py">default</span> <span class="c1">// this is just needed in example</span>
 
 <span class="k">val</span> <span class="nv">dsl</span> <span class="k">=</span> <span class="nc">Http4sDsl</span><span class="o">[</span><span class="kt">Task</span><span class="o">]</span> <span class="c1">// this is just needed in example</span>
 <span class="k">import</span> <span class="nn">dsl._</span>
