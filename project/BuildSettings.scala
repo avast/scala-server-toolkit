@@ -18,6 +18,7 @@ object BuildSettings {
       compilerPlugin(scalafixSemanticdb), // necessary for Scalafix
       Dependencies.silencerLib,
       Dependencies.catsEffect,
+      Dependencies.scalaCollectionCompat,
       Dependencies.logbackClassic % Test,
       Dependencies.scalaTest % Test
     ),
