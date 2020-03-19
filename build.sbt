@@ -389,7 +389,7 @@ lazy val site = project
   .settings(BuildSettings.microsite)
   .settings(
     publish / skip := true,
-    scalacOptions := scalacOptions.value.filterNot(_ == "-Xfatal-warnings")
+    scalacOptions := scalacOptions.value.filterNot(_ == "-Xfatal-warnings").filterNot(_ == "-Xlint:infer-any")
   )
 
 lazy val sslConfig = project

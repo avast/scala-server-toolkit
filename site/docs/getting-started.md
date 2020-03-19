@@ -22,12 +22,11 @@ import com.avast.sst.jvm.execution.ExecutorModule
 import com.avast.sst.jvm.system.console.ConsoleModule
 import org.http4s.dsl.Http4sDsl
 import org.http4s.HttpRoutes
-import zio.DefaultRuntime
 import zio.interop.catz._
 import zio.interop.catz.implicits._
 import zio.Task
 
-implicit val runtime = new DefaultRuntime {} // this is just needed in example
+implicit val runtime = zio.Runtime.default // this is just needed in example
 
 val dsl = Http4sDsl[Task] // this is just needed in example
 import dsl._

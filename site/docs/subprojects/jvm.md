@@ -16,7 +16,6 @@ Subproject `sst-jvm` provides pure implementations of different JVM-related util
 ```scala mdoc:silent
 import com.avast.sst.jvm.system.console.ConsoleModule
 import com.avast.sst.jvm.system.random.RandomModule
-import zio.DefaultRuntime
 import zio.interop.catz._
 import zio.Task
  
@@ -27,7 +26,7 @@ val program = for {
   _ <- console.printLine(s"Random number: $randomNumber")
 } yield ()
 
-val runtime = new DefaultRuntime {} // this is just needed in example
+val runtime = zio.Runtime.default // this is just needed in example
 ```
 
 ```scala mdoc

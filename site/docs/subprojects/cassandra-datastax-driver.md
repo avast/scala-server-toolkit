@@ -18,7 +18,7 @@ import com.avast.sst.pureconfig.PureConfigModule
 import zio._
 import zio.interop.catz._
 
-implicit val runtime = new DefaultRuntime {} // this is just needed in example
+implicit val runtime = zio.Runtime.default // this is just needed in example
 
 for {
     configuration <- Resource.liftF(PureConfigModule.makeOrRaise[Task, CassandraDatastaxDriverConfig])
