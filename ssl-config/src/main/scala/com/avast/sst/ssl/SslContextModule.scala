@@ -37,7 +37,7 @@ object SslContextModule {
     *
     * @param withReference Whether we should use reference config of "ssl-config" library as well.
     */
-  def makeMaybe[F[_]: Sync](config: Config, withReference: Boolean = true): F[Option[SSLContext]] = {
+  def makeIfEnabled[F[_]: Sync](config: Config, withReference: Boolean = true): F[Option[SSLContext]] = {
     if (config.hasPath(SslContextEnabledKey) && config.getBoolean(SslContextEnabledKey)) {
       make(config, withReference).map(Some(_))
     } else {
