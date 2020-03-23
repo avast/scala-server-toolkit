@@ -38,6 +38,7 @@ lazy val root = project
     micrometerJmx,
     micrometerJmxPureConfig,
     micrometerStatsD,
+    micrometerStatsDPureConfig,
     monixCatnap,
     monixCatnapMicrometer,
     monixCatnapPureConfig,
