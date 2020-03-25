@@ -10,9 +10,9 @@ import io.micrometer.core.instrument.{MeterRegistry, Timer}
 /** Records important gRPC call metrics in [[io.micrometer.core.instrument.MeterRegistry]].
   *
   * Metrics:
-  *   - grpc.<method>.current-calls
-  *   - grpc.<method>.successes
-  *   - grpc.<method>.failures
+  *   - grpc.`full-method-name`.current-calls
+  *   - grpc.`full-method-name`.successes
+  *   - grpc.`full-method-name`.failures
   */
 class MonitoringServerInterceptor(meterRegistry: MeterRegistry) extends ServerInterceptor {
 
@@ -24,7 +24,7 @@ class MonitoringServerInterceptor(meterRegistry: MeterRegistry) extends ServerIn
       headers: Metadata,
       next: ServerCallHandler[ReqT, RespT]
   ): ServerCall.Listener[ReqT] = {
-    val prefix = s"grpc.${call.getMethodDescriptor.getFullMethodName}"
+    val prefix = s"grpc.${call.getMethodDescriptor.getFullMethodName.replace('/', '-')}"
     val currentCallsCounter = makeGauge(s"$prefix.current-calls")
     currentCallsCounter.incrementAndGet()
     val start = System.nanoTime
@@ -35,13 +35,13 @@ class MonitoringServerInterceptor(meterRegistry: MeterRegistry) extends ServerIn
   private class CloseServerCall[A, B](prefix: String, start: Long, currentCallsCounter: AtomicLong, delegate: ServerCall[A, B])
       extends SimpleForwardingServerCall[A, B](delegate) {
     override def close(status: Status, trailers: Metadata): Unit = {
+      currentCallsCounter.decrementAndGet()
       val durationNs = System.nanoTime - start
       if (status.isOk) {
         makeTimer(s"$prefix.successes").record(durationNs, TimeUnit.NANOSECONDS)
       } else {
         makeTimer(s"$prefix.failures").record(durationNs, TimeUnit.NANOSECONDS)
       }
-      currentCallsCounter.decrementAndGet()
       super.close(status, trailers)
     }
   }

@@ -20,8 +20,19 @@ class LoggingServerInterceptor(logger: Logger) extends ServerInterceptor {
 
   private class CloseServerCall[A, B](methodName: String, delegate: ServerCall[A, B]) extends SimpleForwardingServerCall[A, B](delegate) {
     override def close(status: Status, trailers: Metadata): Unit = {
-      if (!status.isOk) {
+      import io.grpc.Status
+      if ((status.getCode eq Status.Code.UNKNOWN) || (status.getCode eq Status.Code.INTERNAL)) {
         logger.error(
+          String.format(
+            "Error response from method %s: %s %s",
+            methodName,
+            status.getCode,
+            status.getDescription
+          ),
+          status.getCause
+        )
+      } else if (!status.isOk) {
+        logger.warn(
           String.format(
             "Error response from method %s: %s %s",
             methodName,
