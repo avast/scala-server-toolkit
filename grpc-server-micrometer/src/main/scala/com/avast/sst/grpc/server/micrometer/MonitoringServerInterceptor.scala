@@ -24,7 +24,7 @@ class MonitoringServerInterceptor(meterRegistry: MeterRegistry) extends ServerIn
       headers: Metadata,
       next: ServerCallHandler[ReqT, RespT]
   ): ServerCall.Listener[ReqT] = {
-    val prefix = s"grpc.${call.getMethodDescriptor.getFullMethodName.replace('/', '-')}"
+    val prefix = s"grpc.${call.getMethodDescriptor.getFullMethodName.replace('/', '.')}"
     val currentCallsCounter = makeGauge(s"$prefix.current-calls")
     currentCallsCounter.incrementAndGet()
     val start = System.nanoTime
