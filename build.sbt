@@ -24,6 +24,7 @@ lazy val root = project
     flyway,
     flywayPureConfig,
     grpcServer,
+    grpcServerMicrometer,
     grpcServerPureConfig,
     http4sClientBlaze,
     http4sClientBlazePureConfig,
@@ -177,8 +178,18 @@ lazy val grpcServer = project
     libraryDependencies ++= Seq(
       Dependencies.grpcNettyShaded,
       Dependencies.grpcProtobuf,
-      Dependencies.grpcStub
+      Dependencies.grpcStub,
+      Dependencies.slf4jApi
     )
+  )
+
+lazy val grpcServerMicrometer = project
+  .in(file("grpc-server-micrometer"))
+  .dependsOn(grpcServer)
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-grpc-server-micrometer",
+    libraryDependencies += Dependencies.micrometerCore
   )
 
 lazy val grpcServerPureConfig = project
