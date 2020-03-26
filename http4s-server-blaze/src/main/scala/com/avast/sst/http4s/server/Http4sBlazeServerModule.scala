@@ -9,6 +9,7 @@ import org.http4s.server.blaze.BlazeServerBuilder
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.Duration
+
 object Http4sBlazeServerModule {
 
   /** Makes [[org.http4s.server.Server]] (Blaze) initialized with the given config and [[org.http4s.HttpApp]].

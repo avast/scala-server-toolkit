@@ -44,6 +44,8 @@ lazy val root = project
     monixCatnapMicrometer,
     monixCatnapPureConfig,
     pureConfig,
+    sentry,
+    sentryPureConfig,
     sslConfig
   )
   .settings(
@@ -374,6 +376,23 @@ lazy val pureConfig = project
     libraryDependencies += Dependencies.pureConfig
   )
 
+lazy val sentry = project
+  .in(file("sentry"))
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-sentry",
+    libraryDependencies += Dependencies.sentry
+  )
+
+lazy val sentryPureConfig = project
+  .in(file("sentry-pureconfig"))
+  .dependsOn(sentry)
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-sentry-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
+  )
+
 lazy val site = project
   .in(file("site"))
   .enablePlugins(
@@ -395,6 +414,7 @@ lazy val site = project
     http4sClientMonixCatnap,
     monixCatnapPureConfig,
     micrometerJmxPureConfig,
+    sentry,
     sslConfig
   )
   .settings(BuildSettings.common)
