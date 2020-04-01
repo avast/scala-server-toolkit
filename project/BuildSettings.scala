@@ -1,9 +1,10 @@
+import ch.epfl.scala.sbtmissinglink.MissingLinkPlugin.autoImport._
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import mdoc.MdocPlugin.autoImport._
 import microsites.CdnDirectives
 import microsites.MicrositesPlugin.autoImport._
 import sbt.Keys._
-import sbt.{Def, _}
+import sbt._
 import sbtunidoc.ScalaUnidocPlugin.autoImport._
 import scalafix.sbt.ScalafixPlugin.autoImport._
 
@@ -30,6 +31,18 @@ object BuildSettings {
       "-Yrangepos", // necessary for Scalafix (required by SemanticDB compiler plugin)
       "-Ywarn-unused", // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
       "-P:silencer:checkUnused"
+    ),
+    missinglinkExcludedDependencies ++= List(
+      moduleFilter(organization = "ch.qos.logback", name = "logback-core"),
+      moduleFilter(organization = "com.datastax.oss", name = "java-driver-core"),
+      moduleFilter(organization = "com.zaxxer", name = "HikariCP"),
+      moduleFilter(organization = "io.micrometer", name = "micrometer-core"),
+      moduleFilter(organization = "io.micrometer", name = "micrometer-registry-statsd"),
+      moduleFilter(organization = "io.netty", name = "netty-common"),
+      moduleFilter(organization = "io.sentry", name = "sentry"),
+      moduleFilter(organization = "org.codehaus.groovy", name = "groovy"),
+      moduleFilter(organization = "org.flywaydb", name = "flyway-core"),
+      moduleFilter(organization = "org.slf4j", name = "slf4j-api")
     ),
     Test / publishArtifact := false
   )
