@@ -16,5 +16,6 @@ final case class MicrometerStatsDConfig(
     pollingFrequency: Duration = Duration(10, TimeUnit.SECONDS),
     step: Duration = Duration(1, TimeUnit.MINUTES),
     publishUnchangedMeters: Boolean = true,
-    buffered: Boolean = true
+    buffered: Boolean = true,
+    prefix: String = "statsd"
 )

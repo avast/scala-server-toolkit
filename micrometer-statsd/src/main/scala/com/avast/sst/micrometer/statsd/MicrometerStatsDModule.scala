@@ -29,6 +29,8 @@ object MicrometerStatsDModule {
 
   private class CustomStatsdConfig(c: MicrometerStatsDConfig) extends StatsdConfig {
 
+    override val prefix: String = c.prefix
+
     override val flavor: StatsdFlavor = c.flavor
 
     override val enabled: Boolean = c.enabled
