@@ -15,19 +15,19 @@ object BuildSettings {
     libraryDependencies ++= Seq(
       compilerPlugin(Dependencies.kindProjector),
       compilerPlugin(Dependencies.silencer),
-      compilerPlugin(scalafixSemanticdb), // necessary for Scalafix
       Dependencies.silencerLib,
       Dependencies.catsEffect,
       Dependencies.scalaCollectionCompat,
       Dependencies.logbackClassic % Test,
       Dependencies.scalaTest % Test
     ),
+    semanticdbEnabled := true,
+    semanticdbVersion := scalafixSemanticdb.revision,
     ThisBuild / scalafixDependencies ++= Seq(
       Dependencies.scalafixScaluzzi,
       Dependencies.scalafixSortImports
     ),
     scalacOptions ++= Seq(
-      "-Yrangepos", // necessary for Scalafix (required by SemanticDB compiler plugin)
       "-Ywarn-unused", // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
       "-P:silencer:checkUnused"
     ),
