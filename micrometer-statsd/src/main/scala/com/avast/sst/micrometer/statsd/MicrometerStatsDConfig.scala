@@ -17,5 +17,6 @@ final case class MicrometerStatsDConfig(
     step: Duration = Duration(1, TimeUnit.MINUTES),
     publishUnchangedMeters: Boolean = true,
     buffered: Boolean = true,
-    prefix: String = "statsd"
+    prefix: String = "",
+    commonTags: Map[String, String] = Map.empty
 )

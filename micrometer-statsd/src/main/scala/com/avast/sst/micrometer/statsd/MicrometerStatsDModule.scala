@@ -3,7 +3,9 @@ package com.avast.sst.micrometer.statsd
 import java.time.Duration
 
 import cats.effect.{Resource, Sync}
+import com.avast.sst.micrometer.PrefixMeterFilter
 import io.micrometer.core.instrument.Clock
+import io.micrometer.core.instrument.config.{MeterFilter, NamingConvention}
 import io.micrometer.core.instrument.util.HierarchicalNameMapper
 import io.micrometer.statsd.{StatsdConfig, StatsdFlavor, StatsdMeterRegistry, StatsdProtocol}
 
@@ -13,23 +15,39 @@ object MicrometerStatsDModule {
   def make[F[_]: Sync](
       config: MicrometerStatsDConfig,
       clock: Clock = Clock.SYSTEM,
-      nameMapper: HierarchicalNameMapper = HierarchicalNameMapper.DEFAULT
+      nameMapper: HierarchicalNameMapper = HierarchicalNameMapper.DEFAULT,
+      namingConvention: Option[NamingConvention] = None,
+      meterFilter: Option[MeterFilter] = None
   ): Resource[F, StatsdMeterRegistry] = {
     Resource
       .make {
         Sync[F].delay {
-          StatsdMeterRegistry
+          val registry = StatsdMeterRegistry
             .builder(new CustomStatsdConfig(config))
             .clock(clock)
             .nameMapper(nameMapper)
             .build
+
+          namingConvention.foreach(registry.config().namingConvention)
+
+          if (config.prefix.nonEmpty) {
+            registry.config().meterFilter(new PrefixMeterFilter(config.prefix))
+          }
+
+          meterFilter.foreach(registry.config().meterFilter)
+
+          val preprocessedTags = config.commonTags.foldRight(List.empty[String]) {
+            case (tag, acc) =>
+              tag._1 :: tag._2 :: acc
+          }
+          registry.config().commonTags(preprocessedTags: _*)
+
+          registry
         }
       }(registry => Sync[F].delay(registry.close()))
   }
 
   private class CustomStatsdConfig(c: MicrometerStatsDConfig) extends StatsdConfig {
-
-    override val prefix: String = c.prefix
 
     override val flavor: StatsdFlavor = c.flavor
 
