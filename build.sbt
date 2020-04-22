@@ -303,7 +303,8 @@ lazy val micrometer = project
   .settings(
     name := "sst-micrometer",
     libraryDependencies ++= Seq(
-      Dependencies.micrometerCore
+      Dependencies.micrometerCore,
+      Dependencies.jsr305 // required because of Scala compiler
     )
   )
 
