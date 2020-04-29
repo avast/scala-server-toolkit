@@ -1,5 +1,6 @@
 package com.avast.sst.doobie
 
+import java.util.Properties
 import java.util.concurrent.{ScheduledExecutorService, ThreadFactory}
 
 import cats.Show
@@ -11,6 +12,7 @@ import doobie.enum.TransactionIsolation
 import doobie.hikari.HikariTransactor
 
 import scala.concurrent.ExecutionContext
+import scala.jdk.CollectionConverters._
 
 object DoobieHikariModule {
 
@@ -60,6 +62,9 @@ object DoobieHikariModule {
       c.setAllowPoolSuspension(config.allowPoolSuspension)
       c.setIsolateInternalQueries(config.isolateInternalQueries)
       c.setRegisterMbeans(config.registerMBeans)
+      val dataSourceProperties = new Properties()
+      dataSourceProperties.putAll(config.dataSourceProperties.asJava)
+      c.setDataSourceProperties(dataSourceProperties)
 
       config.leakDetectionThreshold.map(_.toMillis).foreach(c.setLeakDetectionThreshold)
       config.initializationFailTimeout.map(_.toMillis).foreach(c.setInitializationFailTimeout)

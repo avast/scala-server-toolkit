@@ -25,5 +25,6 @@ final case class DoobieHikariConfig(
     poolName: Option[String] = None,
     registerMBeans: Boolean = false,
     validationTimeout: Option[FiniteDuration] = None,
-    transactionIsolation: Option[TransactionIsolation] = None
+    transactionIsolation: Option[TransactionIsolation] = None,
+    dataSourceProperties: Map[String, String] = Map.empty
 )
