@@ -27,10 +27,9 @@ object Http4sBlazeServerModule {
           InetSocketAddress.createUnresolved(config.listenAddress, config.listenPort)
         )
       )
-      server <- BlazeServerBuilder[F]
+      server <- BlazeServerBuilder[F](executionContext)
         .bindSocketAddress(inetSocketAddress)
         .withHttpApp(httpApp)
-        .withExecutionContext(executionContext)
         .withoutBanner
         .withNio2(config.nio2Enabled)
         .withWebSockets(config.webSocketsEnabled)
