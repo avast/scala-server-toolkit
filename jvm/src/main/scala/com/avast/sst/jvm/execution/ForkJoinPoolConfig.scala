@@ -14,10 +14,11 @@ final case class ForkJoinPoolConfig(
     math.min(math.max(math.ceil(numOfCpus * parallelismFactor).toInt, parallelismMin), parallelismMax)
   }
 
-  private[sst] def computeAsyncMode: Boolean = taskPeekingMode match {
-    case FIFO => true
-    case LIFO => false
-  }
+  private[sst] def computeAsyncMode: Boolean =
+    taskPeekingMode match {
+      case FIFO => true
+      case LIFO => false
+    }
 
 }
 

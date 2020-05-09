@@ -19,16 +19,17 @@ object SslContextModule {
     *
     * @param withReference Whether we should use reference config of "ssl-config" library as well.
     */
-  def make[F[_]: Sync](config: Config, withReference: Boolean = true): F[SSLContext] = Sync[F].delay {
-    val loggerFactory = Slf4jLogger.factory
-    val finalConfig = if (withReference) config.withFallback(referenceConfigUnsafe()) else config
-    new ConfigSSLContextBuilder(
-      loggerFactory,
-      SSLConfigFactory.parse(finalConfig, loggerFactory),
-      new DefaultKeyManagerFactoryWrapper(KeyManagerFactory.getDefaultAlgorithm),
-      new DefaultTrustManagerFactoryWrapper(TrustManagerFactory.getDefaultAlgorithm)
-    ).build
-  }
+  def make[F[_]: Sync](config: Config, withReference: Boolean = true): F[SSLContext] =
+    Sync[F].delay {
+      val loggerFactory = Slf4jLogger.factory
+      val finalConfig = if (withReference) config.withFallback(referenceConfigUnsafe()) else config
+      new ConfigSSLContextBuilder(
+        loggerFactory,
+        SSLConfigFactory.parse(finalConfig, loggerFactory),
+        new DefaultKeyManagerFactoryWrapper(KeyManagerFactory.getDefaultAlgorithm),
+        new DefaultTrustManagerFactoryWrapper(TrustManagerFactory.getDefaultAlgorithm)
+      ).build
+    }
 
   /** Initializes [[javax.net.ssl.SSLContext]] from the provided config if it is enabled.
     *

@@ -24,9 +24,10 @@ object CircuitBreakerMetrics {
 
   }
 
-  def noop[F[_]](implicit F: Applicative[F]): CircuitBreakerMetrics[F] = new CircuitBreakerMetrics[F] {
-    override def increaseRejected: F[Unit] = F.unit
-    override def setState(state: State): F[Unit] = F.unit
-  }
+  def noop[F[_]](implicit F: Applicative[F]): CircuitBreakerMetrics[F] =
+    new CircuitBreakerMetrics[F] {
+      override def increaseRejected: F[Unit] = F.unit
+      override def setState(state: State): F[Unit] = F.unit
+    }
 
 }

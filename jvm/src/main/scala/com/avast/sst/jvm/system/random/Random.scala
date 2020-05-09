@@ -18,25 +18,26 @@ trait Random[F[_]] {
 
 object Random {
 
-  def apply[F[_]: Sync](rnd: scala.util.Random): Random[F] = new Random[F] {
+  def apply[F[_]: Sync](rnd: scala.util.Random): Random[F] =
+    new Random[F] {
 
-    private val F = Sync[F]
+      private val F = Sync[F]
 
-    override def nextDouble: F[Double] = F.delay(rnd.nextDouble())
+      override def nextDouble: F[Double] = F.delay(rnd.nextDouble())
 
-    override def nextBoolean: F[Boolean] = F.delay(rnd.nextBoolean())
+      override def nextBoolean: F[Boolean] = F.delay(rnd.nextBoolean())
 
-    override def nextFloat: F[Float] = F.delay(rnd.nextFloat())
+      override def nextFloat: F[Float] = F.delay(rnd.nextFloat())
 
-    override def nextInt: F[Int] = F.delay(rnd.nextInt())
+      override def nextInt: F[Int] = F.delay(rnd.nextInt())
 
-    override def nextInt(n: Int): F[Int] = F.delay(rnd.nextInt(n))
+      override def nextInt(n: Int): F[Int] = F.delay(rnd.nextInt(n))
 
-    override def nextLong: F[Long] = F.delay(rnd.nextLong())
+      override def nextLong: F[Long] = F.delay(rnd.nextLong())
 
-    override def nextPrintableChar: F[Char] = F.delay(rnd.nextPrintableChar())
+      override def nextPrintableChar: F[Char] = F.delay(rnd.nextPrintableChar())
 
-    override def nextString(length: Int): F[String] = F.delay(rnd.nextString(length))
-  }
+      override def nextString(length: Int): F[String] = F.delay(rnd.nextString(length))
+    }
 
 }
