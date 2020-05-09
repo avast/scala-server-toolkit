@@ -47,11 +47,14 @@ class MonitoringServerInterceptor(meterRegistry: MeterRegistry) extends ServerIn
   }
 
   private def makeGauge(name: String): AtomicLong = {
-    gaugeCache.computeIfAbsent(name, n => {
-      val counter = new AtomicLong()
-      meterRegistry.gauge(n, counter)
-      counter
-    })
+    gaugeCache.computeIfAbsent(
+      name,
+      n => {
+        val counter = new AtomicLong()
+        meterRegistry.gauge(n, counter)
+        counter
+      }
+    )
   }
 
   private def makeTimer(name: String): Timer = timerCache.computeIfAbsent(name, meterRegistry.timer(_))

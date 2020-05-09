@@ -26,20 +26,21 @@ class CorrelationIdMiddleware[F[_]: Sync](
 
   private val F = Sync[F]
 
-  def wrap(routes: HttpRoutes[F]): HttpRoutes[F] = Kleisli[OptionT[F, *], Request[F], Response[F]] { request =>
-    request.headers.get(correlationIdHeaderName) match {
-      case Some(header) =>
-        val requestWithAttribute = request.withAttribute(attributeKey, CorrelationId(header.value))
-        routes(requestWithAttribute).map(r => r.withHeaders(r.headers.put(header)))
-      case None =>
-        for {
-          newCorrelationId <- OptionT.liftF(F.delay(generator()))
-          _ <- log(newCorrelationId)
-          requestWithAttribute = request.withAttribute(attributeKey, CorrelationId(newCorrelationId))
-          response <- routes(requestWithAttribute)
-        } yield response.withHeaders(response.headers.put(Header(correlationIdHeaderName.value, newCorrelationId)))
+  def wrap(routes: HttpRoutes[F]): HttpRoutes[F] =
+    Kleisli[OptionT[F, *], Request[F], Response[F]] { request =>
+      request.headers.get(correlationIdHeaderName) match {
+        case Some(header) =>
+          val requestWithAttribute = request.withAttribute(attributeKey, CorrelationId(header.value))
+          routes(requestWithAttribute).map(r => r.withHeaders(r.headers.put(header)))
+        case None =>
+          for {
+            newCorrelationId <- OptionT.liftF(F.delay(generator()))
+            _ <- log(newCorrelationId)
+            requestWithAttribute = request.withAttribute(attributeKey, CorrelationId(newCorrelationId))
+            response <- routes(requestWithAttribute)
+          } yield response.withHeaders(response.headers.put(Header(correlationIdHeaderName.value, newCorrelationId)))
+      }
     }
-  }
 
   def retrieveCorrelationId(request: Request[F]): Option[CorrelationId] = request.attributes.lookup(attributeKey)
 

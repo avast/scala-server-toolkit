@@ -27,22 +27,23 @@ object Http4sBlazeServerModule {
           InetSocketAddress.createUnresolved(config.listenAddress, config.listenPort)
         )
       )
-      server <- BlazeServerBuilder[F](executionContext)
-        .bindSocketAddress(inetSocketAddress)
-        .withHttpApp(httpApp)
-        .withoutBanner
-        .withNio2(config.nio2Enabled)
-        .withWebSockets(config.webSocketsEnabled)
-        .enableHttp2(config.http2Enabled)
-        .withResponseHeaderTimeout(Duration.fromNanos(config.responseHeaderTimeout.toNanos))
-        .withIdleTimeout(Duration.fromNanos(config.idleTimeout.toNanos))
-        .withBufferSize(config.bufferSize)
-        .withMaxRequestLineLength(config.maxRequestLineLength)
-        .withMaxHeadersLength(config.maxHeadersLength)
-        .withChunkBufferMaxSize(config.chunkBufferMaxSize)
-        .withConnectorPoolSize(config.connectorPoolSize)
-        .withChannelOption[java.lang.Boolean](StandardSocketOptions.TCP_NODELAY, config.socketOptions.tcpNoDelay)
-        .resource
+      server <-
+        BlazeServerBuilder[F](executionContext)
+          .bindSocketAddress(inetSocketAddress)
+          .withHttpApp(httpApp)
+          .withoutBanner
+          .withNio2(config.nio2Enabled)
+          .withWebSockets(config.webSocketsEnabled)
+          .enableHttp2(config.http2Enabled)
+          .withResponseHeaderTimeout(Duration.fromNanos(config.responseHeaderTimeout.toNanos))
+          .withIdleTimeout(Duration.fromNanos(config.idleTimeout.toNanos))
+          .withBufferSize(config.bufferSize)
+          .withMaxRequestLineLength(config.maxRequestLineLength)
+          .withMaxHeadersLength(config.maxHeadersLength)
+          .withChunkBufferMaxSize(config.chunkBufferMaxSize)
+          .withConnectorPoolSize(config.connectorPoolSize)
+          .withChannelOption[java.lang.Boolean](StandardSocketOptions.TCP_NODELAY, config.socketOptions.tcpNoDelay)
+          .resource
     } yield server
   }
 }
