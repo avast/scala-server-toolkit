@@ -804,14 +804,10 @@ object TimerConfig {
 /** The component that coalesces writes on the connections.
   * This is exposed mainly to facilitate tuning during development. You shouldn't have to adjust this.
   *
-  * @param maxRunsWithNoWork  How many times the coalescer is allowed to reschedule itself when it did no work.
   * @param rescheduleInterval The reschedule interval.
   */
-final case class CoalescerConfig(
-    maxRunsWithNoWork: Int = CoalescerConfig.Default.maxRunsWithNoWork,
-    rescheduleInterval: Duration = CoalescerConfig.Default.rescheduleInterval
-)
+final case class CoalescerConfig(rescheduleInterval: Duration = CoalescerConfig.Default.rescheduleInterval)
 
 object CoalescerConfig {
-  val Default: CoalescerConfig = CoalescerConfig(5, 10.microseconds)
+  val Default: CoalescerConfig = CoalescerConfig(10.microseconds)
 }

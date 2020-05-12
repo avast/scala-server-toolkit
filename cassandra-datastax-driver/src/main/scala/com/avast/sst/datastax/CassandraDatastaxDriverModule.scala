@@ -149,7 +149,7 @@ object CassandraDatastaxDriverModule {
         stringProperty(NETTY_ADMIN_SHUTDOWN_UNIT)(cfg.advanced.netty.adminGroup.shutdown.unit),
         durationProperty(NETTY_TIMER_TICK_DURATION)(cfg.advanced.netty.timer.tickDuration),
         intProperty(NETTY_TIMER_TICKS_PER_WHEEL)(cfg.advanced.netty.timer.ticksPerWheel),
-        intProperty(COALESCER_MAX_RUNS)(cfg.advanced.coalescer.maxRunsWithNoWork)
+        durationProperty(COALESCER_INTERVAL)(cfg.advanced.coalescer.rescheduleInterval)
       ).foldRight(DriverConfigLoader.programmaticBuilder()) { (w, b) => w(b) }
 
       val loader = cfg.profiles
