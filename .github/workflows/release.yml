@@ -20,14 +20,14 @@ jobs:
       - name: Install GPG
         uses: olafurpg/setup-gpg@v2
       - name: Check/Compile/Test
-        run: sbt checkAll
+        run: sbt check
       - name: Release
         env:
           PGP_SECRET: ${{ secrets.PGP_SECRET }}
           PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-        run: sbt ci-release
+        run: sbt mimaReportBinaryIssues ci-release
       - name: Publish Microsite
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}

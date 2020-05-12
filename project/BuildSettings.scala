@@ -1,8 +1,10 @@
 import com.typesafe.sbt.site.SitePlugin.autoImport._
+import com.typesafe.tools.mima.plugin.MimaKeys._
 import mdoc.MdocPlugin.autoImport._
 import microsites.CdnDirectives
 import microsites.MicrositesPlugin.autoImport._
 import sbt.Keys._
+import sbt.nio.Keys._
 import sbt.{Def, _}
 import sbtunidoc.ScalaUnidocPlugin.autoImport._
 import scalafix.sbt.ScalafixPlugin.autoImport._
@@ -10,8 +12,20 @@ import scalafix.sbt.ScalafixPlugin.autoImport._
 object BuildSettings {
 
   lazy val common: Seq[Def.Setting[_]] = Seq(
-    crossScalaVersions := List(scalaVersion.value, "2.12.10"),
+    Global / onChangedBuildSource := ReloadOnSourceChanges,
+    Global / cancelable := true,
+    turbo := true,
+    organization := "com.avast",
+    organizationName := "Avast",
+    organizationHomepage := Some(url("https://avast.com")),
+    homepage := Some(url("https://github.com/avast/scala-server-toolkit")),
+    description := "Functional programming toolkit for building server applications in Scala.",
+    licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE")),
+    developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com"))),
+    scalaVersion := "2.13.2",
+    crossScalaVersions := List(scalaVersion.value, "2.12.11"),
     fork := true,
+    mimaPreviousArtifacts ~= { _.filter(_.revision == "0.1.34") }, // this is just temporary until we have release version 1.x
     libraryDependencies ++= Seq(
       compilerPlugin(Dependencies.kindProjector),
       compilerPlugin(Dependencies.silencer),
@@ -22,7 +36,7 @@ object BuildSettings {
       Dependencies.scalaTest % Test
     ),
     semanticdbEnabled := true,
-    semanticdbVersion := scalafixSemanticdb.revision,
+    semanticdbVersion := "4.3.10", // scalafixSemanticdb.revision,
     ThisBuild / scalafixDependencies ++= Seq(
       Dependencies.scalafixScaluzzi,
       Dependencies.scalafixSortImports

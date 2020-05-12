@@ -11,4 +11,4 @@ jobs:
         with:
           java-version: 1.8
       - name: Check/Compile/Test
-        run: sbt checkAll
+        run: sbt check

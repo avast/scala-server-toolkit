@@ -1,16 +1,3 @@
-ThisBuild / organization := "com.avast"
-ThisBuild / organizationName := "Avast"
-ThisBuild / organizationHomepage := Some(url("https://avast.com"))
-ThisBuild / homepage := Some(url("https://github.com/avast/scala-server-toolkit"))
-ThisBuild / description := "Functional programming toolkit for building server applications in Scala."
-ThisBuild / licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE"))
-ThisBuild / developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com")))
-
-ThisBuild / scalaVersion := "2.13.1"
-ThisBuild / turbo := true
-Global / onChangedBuildSource := ReloadOnSourceChanges
-Global / cancelable := true
-
 lazy val root = project
   .in(file("."))
   .aggregate(
@@ -49,6 +36,7 @@ lazy val root = project
     sentryPureConfig,
     sslConfig
   )
+  .settings(BuildSettings.common)
   .settings(
     name := "scala-server-toolkit",
     publish / skip := true
@@ -448,5 +436,8 @@ lazy val sslConfig = project
     )
   )
 
-addCommandAlias("checkAll", "; scalafmtSbtCheck; scalafmtCheckAll; compile:scalafix --check; test:scalafix --check; +test")
-addCommandAlias("fixAll", "; compile:scalafix; test:scalafix; scalafmtSbt; scalafmtAll")
+addCommandAlias(
+  "check",
+  "; scalafmtSbtCheck; scalafmtCheckAll; compile:scalafix --check; test:scalafix --check; +test"
+)
+addCommandAlias("fix", "; compile:scalafix; test:scalafix; scalafmtSbt; scalafmtAll")
