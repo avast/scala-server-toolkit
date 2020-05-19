@@ -21,6 +21,7 @@ pull_request_rules:
       - "#review-requested=0"
       - "#changes-requested-reviews-by=0"
       - "#approved-reviews-by>=1"
+      - label!=mergify-wait
       - status-success=build
     actions:
       merge:
