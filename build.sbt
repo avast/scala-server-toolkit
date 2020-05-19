@@ -5,6 +5,7 @@ lazy val root = project
     bundleZioHttp4sBlaze,
     cassandraDatastaxDriver,
     cassandraDatastaxDriverPureConfig,
+    catsEffect,
     doobieHikari,
     doobieHikariPureConfig,
     example,
@@ -97,6 +98,11 @@ lazy val cassandraDatastaxDriverPureConfig = project
     name := "sst-cassandra-datastax-driver-pureconfig",
     libraryDependencies += Dependencies.pureConfig
   )
+
+lazy val catsEffect = project
+  .in(file("cats-effect"))
+  .settings(BuildSettings.common)
+  .settings(name := "sst-cats-effect")
 
 lazy val doobieHikari = project
   .in(file("doobie-hikari"))
@@ -256,7 +262,10 @@ lazy val http4sServerMicrometer = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-http4s-server-micrometer",
-    libraryDependencies += Dependencies.micrometerCore
+    libraryDependencies ++= Seq(
+      Dependencies.micrometerCore,
+      Dependencies.jsr305 // required because of Scala compiler
+    )
   )
 
 lazy val jvm = project
@@ -273,7 +282,10 @@ lazy val jvmMicrometer = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-jvm-micrometer",
-    libraryDependencies += Dependencies.micrometerCore
+    libraryDependencies ++= Seq(
+      Dependencies.micrometerCore,
+      Dependencies.jsr305 // required because of Scala compiler
+    )
   )
 
 lazy val jvmPureConfig = project
@@ -438,6 +450,6 @@ lazy val sslConfig = project
 
 addCommandAlias(
   "check",
-  "; scalafmtSbtCheck; scalafmtCheckAll; compile:scalafix --check; test:scalafix --check; +test"
+  "; scalafmtSbtCheck; scalafmtCheckAll; +test"
 )
 addCommandAlias("fix", "; compile:scalafix; test:scalafix; scalafmtSbt; scalafmtAll")

@@ -18,7 +18,7 @@ object MicrometerHttp4sServerMetricsModule {
 
     for {
       metricsOps <- MicrometerHttp4sMetricsOpsModule.make[F](meterRegistry)
-      routeMetrics <- Sync[F].delay(new RouteMetrics[F](meterRegistry, clock))
+      routeMetrics <- Sync[F].delay(new RouteMetrics[F](meterRegistry))
     } yield new MicrometerHttp4sServerMetricsModule[F](Metrics(metricsOps), routeMetrics)
   }
 
