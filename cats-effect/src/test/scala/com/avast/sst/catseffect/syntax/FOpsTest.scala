@@ -1,7 +1,8 @@
-package com.avast.sst.catseffect
+package com.avast.sst.catseffect.syntax
 
 import cats.effect.concurrent.Ref
 import cats.effect.{Clock, IO, Timer}
+import com.avast.sst.catseffect.syntax.time._
 import org.scalatest.funsuite.AsyncFunSuite
 
 import scala.concurrent.ExecutionContext
