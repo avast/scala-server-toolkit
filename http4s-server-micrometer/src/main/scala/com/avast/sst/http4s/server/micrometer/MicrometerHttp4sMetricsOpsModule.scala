@@ -22,13 +22,11 @@ object MicrometerHttp4sMetricsOpsModule {
       private val prefix = "http.global"
       private val failureTime = meterRegistry.timer(s"$prefix.failure-time")
 
-      locally {
-        meterRegistry.gauge(
-          s"$prefix.active-requests",
-          activeRequests,
-          (_: Ref[F, Long]) => Effect[F].toIO(activeRequests.get).unsafeRunSync().toDouble
-        )
-      }
+      meterRegistry.gauge(
+        s"$prefix.active-requests",
+        activeRequests,
+        (_: Ref[F, Long]) => Effect[F].toIO(activeRequests.get).unsafeRunSync().toDouble
+      )
 
       override def increaseActiveRequests(classifier: Option[String]): F[Unit] = activeRequests.update(_ + 1)
 
