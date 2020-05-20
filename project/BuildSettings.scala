@@ -25,8 +25,6 @@ object BuildSettings {
     scalaVersion := "2.13.2",
     crossScalaVersions := List(scalaVersion.value, "2.12.11"),
     fork := true,
-    mimaPreviousArtifacts ~= { _.filter(_.revision == "0.1.34") }, // this is just temporary until we have release version 1.x
-    mimaFailOnNoPrevious := false,
     libraryDependencies ++= Seq(
       compilerPlugin(Dependencies.kindProjector),
       compilerPlugin(Dependencies.silencer),

@@ -27,7 +27,7 @@ jobs:
           PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-        run: sbt mimaReportBinaryIssues ci-release
+        run: sbt ci-release
       - name: Publish Microsite
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
