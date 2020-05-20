@@ -12,6 +12,7 @@ import scala.concurrent.duration.Duration
 
 trait TimeSyntax {
 
+  @SuppressWarnings(Array("scalafix:DisableSyntax.implicitConversion"))
   implicit def sstFOps[F[_], A](f: F[A]): FOps[F, A] = new FOps(f)
 
 }
