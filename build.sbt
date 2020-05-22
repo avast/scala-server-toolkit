@@ -11,6 +11,8 @@ lazy val root = project
     example,
     flyway,
     flywayPureConfig,
+    fs2Kafka,
+    fs2KafkaPureConfig,
     grpcServer,
     grpcServerMicrometer,
     grpcServerPureConfig,
@@ -164,6 +166,27 @@ lazy val flywayPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-flyway-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
+  )
+
+lazy val fs2Kafka = project
+  .in(file("fs2-kafka"))
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-fs2-kafka",
+    libraryDependencies ++= Seq(
+      Dependencies.fs2Kafka,
+      Dependencies.testContainersScalaScalaTest % Test,
+      Dependencies.testContainersScalaKafka % Test
+    )
+  )
+
+lazy val fs2KafkaPureConfig = project
+  .in(file("fs2-kafka-pureconfig"))
+  .dependsOn(fs2Kafka)
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-fs2-kafka-pureconfig",
     libraryDependencies += Dependencies.pureConfig
   )
 
