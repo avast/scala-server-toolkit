@@ -42,7 +42,7 @@ object ConsumerConfig {
 
   private def default[A](key: String): A = officialDefaults(key).asInstanceOf[A]
 
-  private def defaultMillis(key: String): FiniteDuration = FiniteDuration(default[Int](key), MILLISECONDS)
+  private def defaultMillis(key: String): FiniteDuration = FiniteDuration(default[Int](key).toLong, MILLISECONDS)
 
   private val defaultIsolationLevel = default[String](ApacheConsumerConfig.ISOLATION_LEVEL_CONFIG) match {
     case "read_uncommitted" => IsolationLevel.ReadUncommitted

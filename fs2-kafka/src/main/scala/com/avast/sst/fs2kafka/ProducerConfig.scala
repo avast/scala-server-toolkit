@@ -30,7 +30,7 @@ object ProducerConfig {
 
   private def default[A](key: String): A = officialDefaults(key).asInstanceOf[A]
 
-  private def defaultMillis(key: String): FiniteDuration = FiniteDuration(default[Int](key), MILLISECONDS)
+  private def defaultMillis(key: String): FiniteDuration = FiniteDuration(default[Int](key).toLong, MILLISECONDS)
   private def defaultMillisLong(key: String): FiniteDuration = FiniteDuration(default[Long](key), MILLISECONDS)
 
   private val defaultAcks = default[String](ApacheProducerConfig.ACKS_CONFIG) match {
