@@ -3,8 +3,6 @@ package com.avast.sst.fs2kafka
 import cats.effect.{Blocker, ConcurrentEffect, ContextShift, Resource, Timer}
 import fs2.kafka._
 
-import scala.util.chaining.scalaUtilChainingOps
-
 object Fs2KafkaModule {
 
   def makeConsumer[F[_]: ConcurrentEffect: ContextShift: Timer, K: Deserializer[F, *], V: Deserializer[F, *]](
@@ -83,5 +81,9 @@ object Fs2KafkaModule {
 
   def makeProducer[F[_]: ConcurrentEffect: ContextShift, K, V](settings: ProducerSettings[F, K, V]): Resource[F, KafkaProducer[F, K, V]] =
     producerResource[F].using(settings)
+
+  implicit final class ChainingOps[A](private val self: A) extends AnyVal {
+    def pipe[B](f: A => B): B = f(self)
+  }
 
 }
