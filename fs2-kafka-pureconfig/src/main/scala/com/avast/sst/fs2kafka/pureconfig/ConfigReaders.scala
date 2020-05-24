@@ -37,6 +37,7 @@ trait ConfigReaders {
     case s if s.toLowerCase() == "all" => Acks.All.asRight
     case value                         => CannotConvert(value, "Acks", "0|1|all").asLeft
   }
+
   implicit val fs2KafkaConsumerConfigReader: ConfigReader[ConsumerConfig] = deriveReader
 
   implicit val fs2KafkaProducerConfigReader: ConfigReader[ProducerConfig] = deriveReader

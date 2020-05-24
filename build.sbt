@@ -446,6 +446,7 @@ lazy val site = project
     example,
     flyway,
     flywayPureConfig,
+    fs2Kafka,
     http4sClientBlazePureConfig,
     http4sClientMonixCatnap,
     monixCatnapPureConfig,
