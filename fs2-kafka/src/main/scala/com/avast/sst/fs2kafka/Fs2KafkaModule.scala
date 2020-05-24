@@ -82,7 +82,7 @@ object Fs2KafkaModule {
   def makeProducer[F[_]: ConcurrentEffect: ContextShift, K, V](settings: ProducerSettings[F, K, V]): Resource[F, KafkaProducer[F, K, V]] =
     producerResource[F].using(settings)
 
-  implicit final class ChainingOps[A](private val self: A) extends AnyVal {
+  implicit private final class ChainingOps[A](private val self: A) extends AnyVal {
     def pipe[B](f: A => B): B = f(self)
   }
 
