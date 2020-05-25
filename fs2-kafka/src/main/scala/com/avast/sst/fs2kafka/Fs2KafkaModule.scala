@@ -7,7 +7,8 @@ object Fs2KafkaModule {
 
   def makeConsumer[F[_]: ConcurrentEffect: ContextShift: Timer, K: Deserializer[F, *], V: Deserializer[F, *]](
       config: ConsumerConfig,
-      blocker: Option[Blocker] = None
+      blocker: Option[Blocker] = None,
+      createConsumer: Option[Map[String, String] => F[KafkaByteConsumer]] = None
   ): Resource[F, KafkaConsumer[F, K, V]] = {
     def setOpt[A](maybeValue: Option[A])(
         setter: (ConsumerSettings[F, K, V], A) => ConsumerSettings[F, K, V]
@@ -42,6 +43,7 @@ object Fs2KafkaModule {
       .withSessionTimeout(config.sessionTimeout)
       .pipe(setOpt(blocker)(_.withBlocker(_)))
       .withProperties(config.properties)
+      .pipe(setOpt(createConsumer)(_.withCreateConsumer(_)))
 
     makeConsumer(settings)
   }
@@ -52,7 +54,8 @@ object Fs2KafkaModule {
 
   def makeProducer[F[_]: ConcurrentEffect: ContextShift, K: Serializer[F, *], V: Serializer[F, *]](
       config: ProducerConfig,
-      blocker: Option[Blocker] = None
+      blocker: Option[Blocker] = None,
+      createProducer: Option[Map[String, String] => F[KafkaByteProducer]] = None
   ): Resource[F, KafkaProducer[F, K, V]] = {
     def setOpt[A](maybeValue: Option[A])(
         setter: (ProducerSettings[F, K, V], A) => ProducerSettings[F, K, V]
@@ -77,6 +80,7 @@ object Fs2KafkaModule {
       .withRetries(config.retries)
       .pipe(setOpt(blocker)(_.withBlocker(_)))
       .withProperties(config.properties)
+      .pipe(setOpt(createProducer)(_.withCreateProducer(_)))
 
     makeProducer(settings)
   }
