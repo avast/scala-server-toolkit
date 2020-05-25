@@ -33,7 +33,8 @@ final case class ConsumerConfig(
     maxPollInterval: FiniteDuration = defaultMillis(ApacheConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG),
     maxPollRecords: Int = default(ApacheConsumerConfig.MAX_POLL_RECORDS_CONFIG),
     requestTimeout: FiniteDuration = defaultMillis(ApacheConsumerConfig.REQUEST_TIMEOUT_MS_CONFIG),
-    sessionTimeout: FiniteDuration = defaultMillis(ApacheConsumerConfig.SESSION_TIMEOUT_MS_CONFIG)
+    sessionTimeout: FiniteDuration = defaultMillis(ApacheConsumerConfig.SESSION_TIMEOUT_MS_CONFIG),
+    properties: Map[String, String] = Map.empty
 )
 
 object ConsumerConfig {

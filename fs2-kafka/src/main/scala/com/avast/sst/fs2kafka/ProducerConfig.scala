@@ -21,7 +21,8 @@ final case class ProducerConfig(
     enableIdempotence: Boolean = default[Boolean](ApacheProducerConfig.ENABLE_IDEMPOTENCE_CONFIG),
     maxInFlightRequestsPerConnection: Int = default[Int](ApacheProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION),
     parallelism: Int = 100,
-    retries: Int = 0
+    retries: Int = 0,
+    properties: Map[String, String] = Map.empty
 )
 
 object ProducerConfig {

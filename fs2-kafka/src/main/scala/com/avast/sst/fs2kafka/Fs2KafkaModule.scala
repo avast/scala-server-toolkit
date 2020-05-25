@@ -41,6 +41,7 @@ object Fs2KafkaModule {
       .withRequestTimeout(config.requestTimeout)
       .withSessionTimeout(config.sessionTimeout)
       .pipe(setOpt(blocker)(_.withBlocker(_)))
+      .withProperties(config.properties)
 
     makeConsumer(settings)
   }
@@ -75,6 +76,7 @@ object Fs2KafkaModule {
       .withParallelism(config.parallelism)
       .withRetries(config.retries)
       .pipe(setOpt(blocker)(_.withBlocker(_)))
+      .withProperties(config.properties)
 
     makeProducer(settings)
   }
@@ -82,6 +84,7 @@ object Fs2KafkaModule {
   def makeProducer[F[_]: ConcurrentEffect: ContextShift, K, V](settings: ProducerSettings[F, K, V]): Resource[F, KafkaProducer[F, K, V]] =
     producerResource[F].using(settings)
 
+  /** Copy of the same class from Scala 2.13 */
   implicit private final class ChainingOps[A](private val self: A) extends AnyVal {
     def pipe[B](f: A => B): B = f(self)
   }
