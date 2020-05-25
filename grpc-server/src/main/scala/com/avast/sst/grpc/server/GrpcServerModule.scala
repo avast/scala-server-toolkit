@@ -7,6 +7,7 @@ import io.grpc.{Server, ServerBuilder, ServerInterceptor, ServerServiceDefinitio
 
 import scala.collection.immutable.Seq
 import scala.concurrent.ExecutionContext
+
 object GrpcServerModule {
 
   /** Makes [[io.grpc.Server]] (Netty) initialized with the given config, services and interceptors.

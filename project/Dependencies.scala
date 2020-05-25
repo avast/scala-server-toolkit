@@ -7,6 +7,7 @@ object Dependencies {
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
   val flywayCore = "org.flywaydb" % "flyway-core" % "6.4.2"
+  val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "1.0.0"
   val grpcNettyShaded = "io.grpc" % "grpc-netty-shaded" % Versions.grpc
   val grpcProtobuf = "io.grpc" % "grpc-protobuf" % Versions.grpc
   val grpcStub = "io.grpc" % "grpc-stub" % Versions.grpc
@@ -34,6 +35,8 @@ object Dependencies {
   val silencerLib = "com.github.ghik" % "silencer-lib" % Versions.silencer cross CrossVersion.full
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.30"
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.4.2"
+  val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.37.0"
+  val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.37.0"
   val zio = "dev.zio" %% "zio" % "1.0.0-RC19-2"
   val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC14"
 
