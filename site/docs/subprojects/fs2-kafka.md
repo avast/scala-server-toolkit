@@ -30,4 +30,9 @@ for {
 ```
 
 The configuration of Kafka client is very large therefore you can either use the provided configuration case class, or you can use the underlying
-`ConsumerSettings`/`ProducerSettings` builders directly. 
+`ConsumerSettings`/`ProducerSettings` builders directly.
+
+The configuration case classes contain an "escape hatch" into the full world of Kafka client configuration options via untyped properties.
+This is there to be flexible in case it is needed. Documentation of all the configuration properties is available here:
+* [consumer](http://kafka.apache.org/documentation/#consumerconfigs)
+* [producer](http://kafka.apache.org/documentation/#producerconfigs)
