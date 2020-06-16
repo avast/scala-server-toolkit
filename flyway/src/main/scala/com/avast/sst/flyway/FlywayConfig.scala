@@ -22,5 +22,7 @@ final case class FlywayConfig(
     mixed: Boolean = false,
     locations: List[String] = List.empty,
     outOfOrder: Boolean = false,
-    validateOnMigrate: Boolean = true
+    validateOnMigrate: Boolean = true,
+    placeholderReplacement: Boolean = true,
+    placeholders: Map[String, String] = Map.empty
 )

@@ -157,7 +157,10 @@ lazy val flyway = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-flyway",
-    libraryDependencies += Dependencies.flywayCore
+    libraryDependencies ++= List(
+      Dependencies.scalaCollectionCompat,
+      Dependencies.flywayCore
+    )
   )
 
 lazy val flywayPureConfig = project

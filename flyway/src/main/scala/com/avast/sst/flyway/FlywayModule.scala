@@ -4,6 +4,8 @@ import cats.effect.Sync
 import javax.sql.DataSource
 import org.flywaydb.core.Flyway
 
+import scala.jdk.CollectionConverters._
+
 object FlywayModule {
 
   /** Makes [[org.flywaydb.core.Flyway]] from the given [[javax.sql.DataSource]] and config. */
@@ -24,6 +26,8 @@ object FlywayModule {
         .mixed(config.mixed)
         .outOfOrder(config.outOfOrder)
         .validateOnMigrate(config.validateOnMigrate)
+        .placeholderReplacement(config.placeholderReplacement)
+        .placeholders(config.placeholders.asJava)
 
       config.baselineVersion.foreach(builder.baselineVersion)
       config.targetVersion.foreach(builder.target)
