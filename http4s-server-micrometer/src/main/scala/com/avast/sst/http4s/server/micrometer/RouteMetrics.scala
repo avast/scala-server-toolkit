@@ -21,12 +21,11 @@ class RouteMetrics[F[_]: Sync](meterRegistry: MeterRegistry) {
       start <- F.delay(Timer.start(meterRegistry))
       response <- route.bracket(F.pure) { response =>
         F.delay(
-            start.stop(
-              meterRegistry
-                .timer(s"http.$name", "status", s"${response.status.code}", "status-class", s"${response.status.code / 100}xx")
-            )
+          start.stop(
+            meterRegistry
+              .timer(s"http.$name", "status", s"${response.status.code}", "status-class", s"${response.status.code / 100}xx")
           )
-          .as(())
+        ).as(())
       }
     } yield response
   }
