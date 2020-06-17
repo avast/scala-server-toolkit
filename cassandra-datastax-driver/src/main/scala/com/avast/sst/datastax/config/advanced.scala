@@ -109,7 +109,6 @@ object AdvancedConfig {
 }
 
 /**
-  *
   * @param warnIfSetKeyspace Whether a warning is logged when a request (such as a CQL `USE ...`) changes the active
   *                          keyspace.
   * @param logWarnings       Whether logging of server warnings generated during query execution should be disabled by the
@@ -210,7 +209,7 @@ final case class SpeculativeExecutionPolicyConfig(`class`: String, maxExecutions
 
 object SpeculativeExecutionPolicyConfig {
 
-  /**  A policy that schedules a configurable number of speculative executions, separated by a fixed delay.*/
+  /**  A policy that schedules a configurable number of speculative executions, separated by a fixed delay. */
   val ConstantSpeculative: SpeculativeExecutionPolicyConfig = SpeculativeExecutionPolicyConfig(
     "com.datastax.oss.driver.internal.core.specex.ConstantSpeculativeExecutionPolicy",
     Some(3),
@@ -663,7 +662,6 @@ object SchemaAgreementConfig {
 }
 
 /**
-  *
   * @param prepareOnAllNodes Overridable in a profile.
   */
 final case class PreparedStatementsConfig(
