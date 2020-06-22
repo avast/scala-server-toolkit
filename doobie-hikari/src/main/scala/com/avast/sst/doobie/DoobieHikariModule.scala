@@ -12,7 +12,6 @@ import doobie.enum.TransactionIsolation
 import doobie.hikari.HikariTransactor
 
 import scala.concurrent.ExecutionContext
-import scala.jdk.CollectionConverters._
 
 object DoobieHikariModule {
 
@@ -63,7 +62,7 @@ object DoobieHikariModule {
       c.setIsolateInternalQueries(config.isolateInternalQueries)
       c.setRegisterMbeans(config.registerMBeans)
       val dataSourceProperties = new Properties()
-      dataSourceProperties.putAll(config.dataSourceProperties.asJava)
+      config.dataSourceProperties.foreach { case (k, v) => dataSourceProperties.put(k, v) }
       c.setDataSourceProperties(dataSourceProperties)
 
       config.leakDetectionThreshold.map(_.toMillis).foreach(c.setLeakDetectionThreshold)
