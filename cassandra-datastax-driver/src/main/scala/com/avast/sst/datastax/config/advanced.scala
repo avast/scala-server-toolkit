@@ -209,7 +209,7 @@ final case class SpeculativeExecutionPolicyConfig(`class`: String, maxExecutions
 
 object SpeculativeExecutionPolicyConfig {
 
-  /**  A policy that schedules a configurable number of speculative executions, separated by a fixed delay. */
+  /** A policy that schedules a configurable number of speculative executions, separated by a fixed delay. */
   val ConstantSpeculative: SpeculativeExecutionPolicyConfig = SpeculativeExecutionPolicyConfig(
     "com.datastax.oss.driver.internal.core.specex.ConstantSpeculativeExecutionPolicy",
     Some(3),

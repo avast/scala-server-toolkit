@@ -14,7 +14,7 @@ private[datastax] object DatastaxHelper {
     b.withDuration(opt, java.time.Duration.ofNanos(value.toNanos))
   def stringListProperty(opt: DriverOption)(value: List[String])(b: DriverBuilder): DriverBuilder = b.withStringList(opt, value.asJava)
   def intListProperty(opt: DriverOption)(value: List[Int])(b: DriverBuilder): DriverBuilder =
-    b.withIntList(opt, value.map(i => new Integer(i)).asJava)
+    b.withIntList(opt, value.map(Integer.valueOf).asJava)
   def optional[T](f: T => DriverBuilder => DriverBuilder, value: Option[T])(b: DriverBuilder): DriverBuilder =
     value.map(f(_)(b)).getOrElse(b)
 }
