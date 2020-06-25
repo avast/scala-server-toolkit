@@ -42,10 +42,11 @@ class CorrelationIdMiddlewareTest extends AsyncFunSuite with Http4sDsl[IO] {
       .use {
         case (server, client) =>
           client
-            .fetch(
+            .run(
               Request[IO](uri = Uri.unsafeFromString(s"http://${server.address.getHostString}:${server.address.getPort}/test"))
                 .withHeaders(Header("Correlation-Id", "test-value"))
-            ) { response =>
+            )
+            .use { response =>
               IO.delay {
                 assert(response.headers.get(CaseInsensitiveString("Correlation-Id")).get.value === "test-value")
                 assert(response.headers.get(CaseInsensitiveString("Attribute-Value")).get.value === "Some(CorrelationId(test-value))")
