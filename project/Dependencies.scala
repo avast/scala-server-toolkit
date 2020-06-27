@@ -25,7 +25,7 @@ object Dependencies {
   val monixCatnap = "io.monix" %% "monix-catnap" % Versions.monix
   val monixEval = "io.monix" %% "monix-eval" % Versions.monix
   val postgresql = "org.postgresql" % "postgresql" % "42.2.14"
-  val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.12.3"
+  val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.13.0"
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.6"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.3"
   val scalafixSortImports = "com.nequissimus" %% "sort-imports" % "0.5.4"
