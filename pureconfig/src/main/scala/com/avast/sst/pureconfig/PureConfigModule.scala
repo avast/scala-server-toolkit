@@ -26,7 +26,7 @@ object PureConfigModule {
   def makeOrRaise[F[_]: Sync, A: ConfigReader: ClassTag](source: ConfigSource): F[A] = Sync[F].delay(source.loadOrThrow[A])
 
   private def convertFailures(failures: ConfigReaderFailures): NonEmptyList[String] = {
-    NonEmptyList(failures.head, failures.tail).map(formatFailure)
+    NonEmptyList(failures.head, failures.tail.toList).map(formatFailure)
   }
 
   private def formatFailure(configReaderFailure: ConfigReaderFailure): String = {
