@@ -37,7 +37,7 @@ object Dependencies {
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.4.2"
   val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.37.0"
   val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.37.0"
-  val zio = "dev.zio" %% "zio" % "1.0.0-RC21-1"
+  val zio = "dev.zio" %% "zio" % "1.0.0-RC21-2"
   val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.1.3.0-RC16"
 
   object Versions {
