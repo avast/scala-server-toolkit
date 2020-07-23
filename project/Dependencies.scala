@@ -50,7 +50,7 @@ object Dependencies {
     val micrometerJmx = "1.5.2"
     val micrometerStatsD = "1.5.2"
     val monix = "3.2.2"
-    val silencer = "1.7.0"
+    val silencer = "1.7.1"
 
   }
 
