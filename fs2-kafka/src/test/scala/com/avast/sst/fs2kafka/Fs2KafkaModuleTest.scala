@@ -26,7 +26,7 @@ class Fs2KafkaModuleTest extends AsyncFunSuite with ForAllTestContainer {
       event <- Resource.liftF(consumer.stream.head.compile.toList)
     } yield assert(event.head.record.key === "key" && event.head.record.value === "value")
 
-    io.use(IO.pure).unsafeToFuture
+    io.use(IO.pure).unsafeToFuture()
   }
 
 }

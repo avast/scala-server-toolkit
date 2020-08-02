@@ -28,7 +28,7 @@ object SslContextModule {
         SSLConfigFactory.parse(finalConfig, loggerFactory),
         new DefaultKeyManagerFactoryWrapper(KeyManagerFactory.getDefaultAlgorithm),
         new DefaultTrustManagerFactoryWrapper(TrustManagerFactory.getDefaultAlgorithm)
-      ).build
+      ).build()
     }
 
   /** Initializes [[javax.net.ssl.SSLContext]] from the provided config if it is enabled.
