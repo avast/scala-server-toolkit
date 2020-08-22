@@ -29,7 +29,7 @@ object Dependencies {
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.6"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.12"
   val scalafixSortImports = "com.nequissimus" %% "sort-imports" % "0.5.4"
-  val scalaTest = "org.scalatest" %% "scalatest" % "3.2.1"
+  val scalaTest = "org.scalatest" %% "scalatest" % "3.2.2"
   val sentry = "io.sentry" % "sentry" % "1.7.30"
   val silencer = "com.github.ghik" % "silencer-plugin" % Versions.silencer cross CrossVersion.full
   val silencerLib = "com.github.ghik" % "silencer-lib" % Versions.silencer cross CrossVersion.full
