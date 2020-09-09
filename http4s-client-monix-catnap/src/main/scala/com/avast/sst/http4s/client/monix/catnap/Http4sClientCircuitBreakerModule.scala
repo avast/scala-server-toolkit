@@ -28,8 +28,8 @@ object Http4sClientCircuitBreakerModule {
         case tuple @ (response, _) if !httpStatusClassifier.isServerFailure(response.status) => F.pure(tuple)
         case (response, close)                                                               => F.raiseError[(Response[F], F[Unit])](new ServerFailure(response, close))
       }
-      val lifted = circuitBreaker.protect(raisedInternal).recover {
-        case serverFailure: ServerFailure => (serverFailure.response, serverFailure.close)
+      val lifted = circuitBreaker.protect(raisedInternal).recover { case serverFailure: ServerFailure =>
+        (serverFailure.response, serverFailure.close)
       }
       Resource(lifted)
     }

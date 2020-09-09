@@ -14,8 +14,8 @@ class Http4sBlazeServerModuleTest extends AsyncFunSuite with Http4sDsl[IO] {
   implicit private val timer: Timer[IO] = IO.timer(ExecutionContext.global)
 
   test("Simple HTTP server") {
-    val routes = Http4sRouting.make(HttpRoutes.of[IO] {
-      case GET -> Root / "test" => Ok("test")
+    val routes = Http4sRouting.make(HttpRoutes.of[IO] { case GET -> Root / "test" =>
+      Ok("test")
     })
     val test = for {
       server <- Http4sBlazeServerModule.make[IO](Http4sBlazeServerConfig("127.0.0.1", 0), routes, ExecutionContext.global)
@@ -23,11 +23,10 @@ class Http4sBlazeServerModuleTest extends AsyncFunSuite with Http4sDsl[IO] {
     } yield (server, client)
 
     test
-      .use {
-        case (server, client) =>
-          client
-            .expect[String](s"http://${server.address.getHostString}:${server.address.getPort}/test")
-            .map(response => assert(response === "test"))
+      .use { case (server, client) =>
+        client
+          .expect[String](s"http://${server.address.getHostString}:${server.address.getPort}/test")
+          .map(response => assert(response === "test"))
       }
       .unsafeToFuture()
   }
