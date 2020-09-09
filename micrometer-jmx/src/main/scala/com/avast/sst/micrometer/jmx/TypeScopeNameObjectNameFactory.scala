@@ -35,11 +35,10 @@ private[jmx] class TypeScopeNameObjectNameFactory(separator: String = ".") exten
         override def entrySet(): util.Set[util.Map.Entry[String, String]] = map.entrySet()
       }
 
-      parts.zip(partNames).foreach {
-        case (part, partName) =>
-          val quoted = quote(part)
-          properties.put(partName, quoted)
-          map.put(partName, quoted)
+      parts.zip(partNames).foreach { case (part, partName) =>
+        val quoted = quote(part)
+        properties.put(partName, quoted)
+        map.put(partName, quoted)
       }
 
       new ObjectName(domain, properties)

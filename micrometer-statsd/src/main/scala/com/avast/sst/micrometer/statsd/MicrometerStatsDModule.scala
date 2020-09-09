@@ -36,9 +36,8 @@ object MicrometerStatsDModule {
 
           meterFilter.foreach(registry.config().meterFilter)
 
-          val preprocessedTags = config.commonTags.foldRight(List.empty[String]) {
-            case (tag, acc) =>
-              tag._1 :: tag._2 :: acc
+          val preprocessedTags = config.commonTags.foldRight(List.empty[String]) { case (tag, acc) =>
+            tag._1 :: tag._2 :: acc
           }
           registry.config().commonTags(preprocessedTags: _*)
 

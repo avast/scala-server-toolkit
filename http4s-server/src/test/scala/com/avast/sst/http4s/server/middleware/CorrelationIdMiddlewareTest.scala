@@ -24,10 +24,9 @@ class CorrelationIdMiddlewareTest extends AsyncFunSuite with Http4sDsl[IO] {
       middleware <- Resource.liftF(CorrelationIdMiddleware.default[IO])
       routes = Http4sRouting.make {
         middleware.wrap {
-          HttpRoutes.of[IO] {
-            case req @ GET -> Root / "test" =>
-              val id = middleware.retrieveCorrelationId(req)
-              Ok("test").map(_.withHeaders(Header("Attribute-Value", id.toString)))
+          HttpRoutes.of[IO] { case req @ GET -> Root / "test" =>
+            val id = middleware.retrieveCorrelationId(req)
+            Ok("test").map(_.withHeaders(Header("Attribute-Value", id.toString)))
           }
         }
       }
@@ -39,19 +38,18 @@ class CorrelationIdMiddlewareTest extends AsyncFunSuite with Http4sDsl[IO] {
     } yield (server, client)
 
     test
-      .use {
-        case (server, client) =>
-          client
-            .run(
-              Request[IO](uri = Uri.unsafeFromString(s"http://${server.address.getHostString}:${server.address.getPort}/test"))
-                .withHeaders(Header("Correlation-Id", "test-value"))
-            )
-            .use { response =>
-              IO.delay {
-                assert(response.headers.get(CaseInsensitiveString("Correlation-Id")).get.value === "test-value")
-                assert(response.headers.get(CaseInsensitiveString("Attribute-Value")).get.value === "Some(CorrelationId(test-value))")
-              }
+      .use { case (server, client) =>
+        client
+          .run(
+            Request[IO](uri = Uri.unsafeFromString(s"http://${server.address.getHostString}:${server.address.getPort}/test"))
+              .withHeaders(Header("Correlation-Id", "test-value"))
+          )
+          .use { response =>
+            IO.delay {
+              assert(response.headers.get(CaseInsensitiveString("Correlation-Id")).get.value === "test-value")
+              assert(response.headers.get(CaseInsensitiveString("Attribute-Value")).get.value === "Some(CorrelationId(test-value))")
             }
+          }
       }
       .unsafeToFuture()
   }
