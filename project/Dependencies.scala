@@ -26,7 +26,7 @@ object Dependencies {
   val monixEval = "io.monix" %% "monix-eval" % Versions.monix
   val postgresql = "org.postgresql" % "postgresql" % "42.2.16"
   val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.13.0"
-  val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.6"
+  val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.2.0"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.12"
   val scalafixSortImports = "com.nequissimus" %% "sort-imports" % "0.5.4"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.2"
