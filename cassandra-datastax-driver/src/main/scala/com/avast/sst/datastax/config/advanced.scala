@@ -108,8 +108,7 @@ object AdvancedConfig {
   )
 }
 
-/**
-  * @param warnIfSetKeyspace Whether a warning is logged when a request (such as a CQL `USE ...`) changes the active
+/** @param warnIfSetKeyspace Whether a warning is logged when a request (such as a CQL `USE ...`) changes the active
   *                          keyspace.
   * @param logWarnings       Whether logging of server warnings generated during query execution should be disabled by the
   *                          driver.
@@ -661,8 +660,7 @@ object SchemaAgreementConfig {
   val Default: SchemaAgreementConfig = SchemaAgreementConfig(200.milliseconds, 10.seconds, true)
 }
 
-/**
-  * @param prepareOnAllNodes Overridable in a profile.
+/** @param prepareOnAllNodes Overridable in a profile.
   */
 final case class PreparedStatementsConfig(
     prepareOnAllNodes: Boolean = PreparedStatementsConfig.Default.prepareOnAllNodes,

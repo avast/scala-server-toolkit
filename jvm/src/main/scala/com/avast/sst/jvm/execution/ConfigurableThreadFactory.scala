@@ -32,8 +32,7 @@ class ConfigurableThreadFactory(config: Config) extends ThreadFactory with ForkJ
 
 object ConfigurableThreadFactory {
 
-  /**
-    * @param nameFormat Formatted with long number, e.g. my-thread-%02d
+  /** @param nameFormat Formatted with long number, e.g. my-thread-%02d
     */
   final case class Config(
       nameFormat: Option[String] = None,
