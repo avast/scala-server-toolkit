@@ -30,7 +30,7 @@ object Dependencies {
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.14"
   val scalafixSortImports = "com.nequissimus" %% "sort-imports" % "0.5.4"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.2"
-  val sentry = "io.sentry" % "sentry" % "3.1.0"
+  val sentry = "io.sentry" % "sentry" % "3.1.1"
   val silencer = "com.github.ghik" % "silencer-plugin" % Versions.silencer cross CrossVersion.full
   val silencerLib = "com.github.ghik" % "silencer-lib" % Versions.silencer % Provided cross CrossVersion.full
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.30"
