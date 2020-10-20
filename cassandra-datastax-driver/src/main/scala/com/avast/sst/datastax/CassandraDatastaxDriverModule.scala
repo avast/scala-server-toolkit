@@ -28,6 +28,7 @@ object CassandraDatastaxDriverModule {
         stringProperty(LOAD_BALANCING_POLICY_CLASS)(cfg.basic.loadBalancingPolicy.`class`),
         optional(stringProperty(LOAD_BALANCING_LOCAL_DATACENTER), cfg.basic.loadBalancingPolicy.localDatacenter),
         optional(stringProperty(LOAD_BALANCING_FILTER_CLASS), cfg.basic.loadBalancingPolicy.filter.map(_.`class`)),
+        durationProperty(CONNECTION_CONNECT_TIMEOUT)(cfg.advanced.connection.connectTimeout),
         durationProperty(CONNECTION_INIT_QUERY_TIMEOUT)(cfg.advanced.connection.initQueryTimeout),
         intProperty(CONNECTION_POOL_LOCAL_SIZE)(cfg.advanced.connection.localPool.size),
         intProperty(CONNECTION_POOL_REMOTE_SIZE)(cfg.advanced.connection.remotePool.size),
