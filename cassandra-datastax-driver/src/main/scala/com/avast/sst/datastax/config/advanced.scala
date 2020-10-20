@@ -134,6 +134,7 @@ object AdvancedRequestConfig {
   * @param warnOnInitError          Whether to log non-fatal errors when the driver tries to open a new connection.
   */
 final case class ConnectionConfig(
+    connectTimeout: Duration = ConnectionConfig.Default.connectTimeout,
     initQueryTimeout: Duration = ConnectionConfig.Default.initQueryTimeout,
     setKeyspaceTimeout: Duration = ConnectionConfig.Default.setKeyspaceTimeout,
     localPool: PoolConfig = ConnectionConfig.Default.localPool,
@@ -145,7 +146,7 @@ final case class ConnectionConfig(
 
 object ConnectionConfig {
   val Default: ConnectionConfig =
-    ConnectionConfig(InitQueryTimeout, InitQueryTimeout, PoolConfig.Default, PoolConfig.Default, 1024, 24576, true)
+    ConnectionConfig(ConnectTimeout, InitQueryTimeout, InitQueryTimeout, PoolConfig.Default, PoolConfig.Default, 1024, 24576, true)
 }
 
 /** The driver maintains a connection pool to each node, according to the distance assigned to it
