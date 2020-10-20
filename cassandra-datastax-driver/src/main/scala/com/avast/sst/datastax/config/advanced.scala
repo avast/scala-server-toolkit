@@ -146,7 +146,7 @@ final case class ConnectionConfig(
 
 object ConnectionConfig {
   val Default: ConnectionConfig =
-    ConnectionConfig(ConnectTimeout, InitQueryTimeout, InitQueryTimeout, PoolConfig.Default, PoolConfig.Default, 1024, 24576, true)
+    ConnectionConfig(ConnectTimeout, InitQueryTimeout, InitQueryTimeout, PoolConfig.Default, PoolConfig.Default, 1024, 256, true)
 }
 
 /** The driver maintains a connection pool to each node, according to the distance assigned to it
