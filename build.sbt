@@ -62,7 +62,7 @@ lazy val bundleMonixHttp4sBlaze = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-bundle-monix-http4s-blaze",
-    libraryDependencies += Dependencies.monixEval
+    libraryDependencies += Dependencies.monixEval.withDottyCompat(scalaVersion.value)
   )
 
 lazy val bundleZioHttp4sBlaze = project
@@ -80,9 +80,9 @@ lazy val bundleZioHttp4sBlaze = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-bundle-zio-http4s-blaze",
-    libraryDependencies ++= Seq(
-      Dependencies.zio,
-      Dependencies.zioInteropCats
+    libraryDependencies ++= List(
+      Dependencies.zio.withDottyCompat(scalaVersion.value),
+      Dependencies.zioInteropCats.withDottyCompat(scalaVersion.value)
     )
   )
 
@@ -100,7 +100,7 @@ lazy val cassandraDatastaxDriverPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-cassandra-datastax-driver-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig.withDottyCompat(scalaVersion.value)
   )
 
 lazy val catsEffect = project
@@ -113,9 +113,9 @@ lazy val doobieHikari = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-doobie-hikari",
-    libraryDependencies ++= Seq(
-      Dependencies.doobie,
-      Dependencies.doobieHikari
+    libraryDependencies ++= List(
+      Dependencies.doobie.withDottyCompat(scalaVersion.value),
+      Dependencies.doobieHikari.withDottyCompat(scalaVersion.value)
     )
   )
 
@@ -125,7 +125,7 @@ lazy val doobieHikariPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-doobie-hikari-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig.withDottyCompat(scalaVersion.value)
   )
 
 lazy val example = project
@@ -148,7 +148,7 @@ lazy val example = project
   .settings(
     name := "sst-example",
     publish / skip := true,
-    libraryDependencies ++= Seq(
+    libraryDependencies ++= List(
       Dependencies.logbackClassic,
       Dependencies.postgresql
     )
@@ -160,7 +160,7 @@ lazy val flyway = project
   .settings(
     name := "sst-flyway",
     libraryDependencies ++= List(
-      Dependencies.scalaCollectionCompat,
+      Dependencies.scalaCollectionCompat.withDottyCompat(scalaVersion.value),
       Dependencies.flywayCore
     )
   )
@@ -171,7 +171,7 @@ lazy val flywayPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-flyway-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig.withDottyCompat(scalaVersion.value)
   )
 
 lazy val fs2Kafka = project
@@ -179,10 +179,10 @@ lazy val fs2Kafka = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-fs2-kafka",
-    libraryDependencies ++= Seq(
-      Dependencies.fs2Kafka,
-      Dependencies.testContainersScalaScalaTest % Test,
-      Dependencies.testContainersScalaKafka % Test
+    libraryDependencies ++= List(
+      Dependencies.fs2Kafka.withDottyCompat(scalaVersion.value),
+      Dependencies.testContainersScalaScalaTest.withDottyCompat(scalaVersion.value) % Test,
+      Dependencies.testContainersScalaKafka.withDottyCompat(scalaVersion.value) % Test
     )
   )
 
@@ -192,7 +192,7 @@ lazy val fs2KafkaPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-fs2-kafka-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig.withDottyCompat(scalaVersion.value)
   )
 
 lazy val grpcServer = project
@@ -200,7 +200,7 @@ lazy val grpcServer = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-grpc-server",
-    libraryDependencies ++= Seq(
+    libraryDependencies ++= List(
       Dependencies.grpcNettyShaded,
       Dependencies.grpcProtobuf,
       Dependencies.grpcStub,
@@ -223,7 +223,7 @@ lazy val grpcServerPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-grpc-server-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig.withDottyCompat(scalaVersion.value)
   )
 
 lazy val http4sClientBlaze = project
@@ -231,7 +231,7 @@ lazy val http4sClientBlaze = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-http4s-client-blaze",
-    libraryDependencies += Dependencies.http4sBlazeClient
+    libraryDependencies += Dependencies.http4sBlazeClient.withDottyCompat(scalaVersion.value)
   )
 
 lazy val http4sClientBlazePureConfig = project
@@ -246,7 +246,7 @@ lazy val http4sClientMonixCatnap = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-http4s-client-monix-catnap",
-    libraryDependencies += Dependencies.http4sClient
+    libraryDependencies += Dependencies.http4sClient.withDottyCompat(scalaVersion.value)
   )
 
 lazy val http4sServer = project
@@ -254,11 +254,11 @@ lazy val http4sServer = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-http4s-server",
-    libraryDependencies ++= Seq(
-      Dependencies.http4sServer,
-      Dependencies.http4sBlazeClient % Test,
-      Dependencies.http4sBlazeServer % Test,
-      Dependencies.http4sDsl % Test
+    libraryDependencies ++= List(
+      Dependencies.http4sServer.withDottyCompat(scalaVersion.value),
+      Dependencies.http4sBlazeClient.withDottyCompat(scalaVersion.value) % Test,
+      Dependencies.http4sBlazeServer.withDottyCompat(scalaVersion.value) % Test,
+      Dependencies.http4sDsl.withDottyCompat(scalaVersion.value) % Test
     )
   )
 
@@ -268,9 +268,9 @@ lazy val http4sServerBlaze = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-http4s-server-blaze",
-    libraryDependencies ++= Seq(
-      Dependencies.http4sBlazeServer,
-      Dependencies.http4sDsl,
+    libraryDependencies ++= List(
+      Dependencies.http4sBlazeServer.withDottyCompat(scalaVersion.value),
+      Dependencies.http4sDsl.withDottyCompat(scalaVersion.value),
       Dependencies.slf4jApi
     )
   )
@@ -281,7 +281,7 @@ lazy val http4sServerBlazePureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-http4s-server-blaze-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig.withDottyCompat(scalaVersion.value)
   )
 
 lazy val http4sServerMicrometer = project
@@ -290,7 +290,7 @@ lazy val http4sServerMicrometer = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-http4s-server-micrometer",
-    libraryDependencies ++= Seq(
+    libraryDependencies ++= List(
       Dependencies.micrometerCore,
       Dependencies.jsr305 // required because of Scala compiler
     )
@@ -310,7 +310,7 @@ lazy val jvmMicrometer = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-jvm-micrometer",
-    libraryDependencies ++= Seq(
+    libraryDependencies ++= List(
       Dependencies.micrometerCore,
       Dependencies.jsr305 // required because of Scala compiler
     )
@@ -322,7 +322,7 @@ lazy val jvmPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-jvm-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig.withDottyCompat(scalaVersion.value)
   )
 
 lazy val lettuce = project
@@ -347,7 +347,7 @@ lazy val micrometer = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-micrometer",
-    libraryDependencies ++= Seq(
+    libraryDependencies ++= List(
       Dependencies.micrometerCore,
       Dependencies.jsr305 // required because of Scala compiler
     )
@@ -358,7 +358,7 @@ lazy val micrometerJmx = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-micrometer-jmx",
-    libraryDependencies ++= Seq(
+    libraryDependencies ++= List(
       Dependencies.micrometerJmx,
       Dependencies.jsr305 // required because of Scala compiler
     )
@@ -370,7 +370,7 @@ lazy val micrometerJmxPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-micrometer-jmx-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig.withDottyCompat(scalaVersion.value)
   )
 
 lazy val micrometerStatsD = project
@@ -379,7 +379,7 @@ lazy val micrometerStatsD = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-micrometer-statsd",
-    libraryDependencies ++= Seq(
+    libraryDependencies ++= List(
       Dependencies.micrometerStatsD,
       Dependencies.jsr305 // required because of Scala compiler
     )
@@ -391,7 +391,7 @@ lazy val micrometerStatsDPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-micrometer-statsd-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig.withDottyCompat(scalaVersion.value)
   )
 
 lazy val monixCatnap = project
@@ -399,8 +399,8 @@ lazy val monixCatnap = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-monix-catnap",
-    libraryDependencies ++= Seq(
-      Dependencies.monixCatnap,
+    libraryDependencies ++= List(
+      Dependencies.monixCatnap.withDottyCompat(scalaVersion.value),
       Dependencies.slf4jApi
     )
   )
@@ -411,7 +411,7 @@ lazy val monixCatnapMicrometer = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-monix-catnap-micrometer",
-    libraryDependencies ++= Seq(
+    libraryDependencies ++= List(
       Dependencies.micrometerCore,
       Dependencies.jsr305 // required because of Scala compiler
     )
@@ -423,7 +423,7 @@ lazy val monixCatnapPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-monix-catnap-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig.withDottyCompat(scalaVersion.value)
   )
 
 lazy val pureConfig = project
@@ -431,7 +431,7 @@ lazy val pureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig.withDottyCompat(scalaVersion.value)
   )
 
 lazy val sentry = project
@@ -448,7 +448,7 @@ lazy val sentryPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-sentry-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig.withDottyCompat(scalaVersion.value)
   )
 
 lazy val site = project
@@ -489,9 +489,9 @@ lazy val sslConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-ssl-config",
-    libraryDependencies ++= Seq(
+    libraryDependencies ++= List(
       Dependencies.slf4jApi,
-      Dependencies.sslConfig
+      Dependencies.sslConfig.withDottyCompat(scalaVersion.value)
     )
   )
 

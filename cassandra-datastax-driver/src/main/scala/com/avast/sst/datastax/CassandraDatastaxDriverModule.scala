@@ -176,7 +176,7 @@ object CassandraDatastaxDriverModule {
       }
     }
 
-    val release = { session: CqlSession =>
+    val release = { (session: CqlSession) =>
       Sync[F].delay {
         session.close()
       }

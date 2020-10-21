@@ -2,7 +2,7 @@ package com.avast.sst.doobie.pureconfig
 
 import cats.syntax.either._
 import com.avast.sst.doobie.DoobieHikariConfig
-import doobie.enum.TransactionIsolation
+import doobie.`enum`.TransactionIsolation
 import pureconfig.ConfigReader
 import pureconfig.error.CannotConvert
 import pureconfig.generic.ProductHint

@@ -1,7 +1,7 @@
 package com.avast.sst.http4s.client
 
 import cats.effect._
-import org.http4s.headers.{`User-Agent`, AgentComment, AgentProduct}
+import org.http4s.headers.{AgentComment, AgentProduct, `User-Agent`}
 import org.scalatest.funsuite.AsyncFunSuite
 
 import scala.concurrent.ExecutionContext
@@ -23,7 +23,7 @@ class Http4SBlazeClientTest extends AsyncFunSuite {
         ),
         ExecutionContext.global
       )
-      response <- Resource.liftF(client.expect[String]("https://httpbin.org/user-agent"))
+      response <- Resource.liftF[IO, String](client.expect[String]("https://httpbin.org/user-agent"))
     } yield assert(response === expected)
 
     test.use(IO.pure).unsafeToFuture()

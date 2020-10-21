@@ -42,7 +42,7 @@ class LoggingServerInterceptor(logger: Logger) extends ServerInterceptor {
           status.getCause
         )
       } else {
-        logger.debug("Successful response from method {}: {}", Array(methodName, status): _*)
+        logger.debug(s"Successful response from method $methodName: $status")
       }
       super.close(status, trailers)
     }
@@ -51,7 +51,7 @@ class LoggingServerInterceptor(logger: Logger) extends ServerInterceptor {
   private class OnMessageServerCallListener[A](methodName: String, delegate: ServerCall.Listener[A])
       extends SimpleForwardingServerCallListener[A](delegate) {
     override def onMessage(message: A): Unit = {
-      logger.debug("Dispatching method {}", methodName)
+      logger.debug(s"Dispatching method $methodName")
       super.onMessage(message)
     }
   }
