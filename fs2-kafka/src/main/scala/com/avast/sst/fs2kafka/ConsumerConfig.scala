@@ -10,7 +10,7 @@ import scala.annotation.nowarn
 import scala.concurrent.duration.FiniteDuration
 import scala.jdk.CollectionConverters._
 
-@nowarn("dead code")
+@nowarn("msg=dead code")
 final case class ConsumerConfig(
     bootstrapServers: List[String],
     groupId: String,

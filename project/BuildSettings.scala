@@ -24,7 +24,7 @@ object BuildSettings {
     licenses := List("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE")),
     developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com"))),
     scalaVersion := "2.13.3",
-    crossScalaVersions := List(scalaVersion.value, "2.12.12", "0.27.0-RC1"),
+    crossScalaVersions := List(scalaVersion.value, "2.12.12", "3.0.0-M1"),
     fork := true,
     libraryDependencies ++= {
       if (!isDotty.value) List(compilerPlugin(Dependencies.kindProjector)) else Nil
@@ -33,7 +33,7 @@ object BuildSettings {
       Dependencies.catsEffect.withDottyCompat(scalaVersion.value),
       Dependencies.scalaCollectionCompat.withDottyCompat(scalaVersion.value),
       Dependencies.logbackClassic % Test,
-      Dependencies.scalaTest % Test
+      Dependencies.scalaTest.withDottyCompat(scalaVersion.value) % Test
     ),
     semanticdbEnabled := true,
     semanticdbVersion := scalafixSemanticdb.revision,
@@ -42,8 +42,12 @@ object BuildSettings {
       Dependencies.scalafixSortImports
     ),
     scalacOptions ++= {
-      if (isDotty.value) List("-source:3.0-migration")
-      else List("-Ywarn-unused" /* necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13) */ )
+      if (isDotty.value) List("-source:3.0-migration", "-Ykind-projector")
+      else
+        List("-Ywarn-unused" /* necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13) */ )
+    },
+    scalacOptions := {
+      if (scalaVersion.value.startsWith("2.12")) scalacOptions.value.filterNot(_ == "-Xfatal-warnings") else scalacOptions.value
     },
     Test / publishArtifact := false
   )

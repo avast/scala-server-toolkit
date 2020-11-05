@@ -19,7 +19,7 @@ trait ZioServerApp extends CatsApp {
 
   def program: Resource[Task, Server[Task]]
 
-  @nowarn("dead code")
+  @nowarn("msg=dead code")
   override def run(args: List[String]): ZIO[ZEnv, Nothing, ExitCode] = {
     program
       .use { server =>
