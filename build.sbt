@@ -18,6 +18,7 @@ lazy val root = project
     grpcServerPureConfig,
     http4sClientBlaze,
     http4sClientBlazePureConfig,
+    http4sClientJdk,
     http4sClientMonixCatnap,
     http4sServer,
     http4sServerBlaze,
@@ -240,6 +241,14 @@ lazy val http4sClientBlazePureConfig = project
   .dependsOn(http4sClientBlaze, jvmPureConfig)
   .settings(BuildSettings.common)
   .settings(name := "sst-http4s-client-blaze-pureconfig")
+
+lazy val http4sClientJdk = project
+  .in(file("http4s-client-jdk"))
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-http4s-client-jdk",
+    libraryDependencies += Dependencies.http4sJdkHttpClient
+  )
 
 lazy val http4sClientMonixCatnap = project
   .in(file("http4s-client-monix-catnap"))
