@@ -40,7 +40,7 @@ object LettuceModule {
           async.delay {
             client
               .connectAsync(codec, RedisURI.create(config.uri))
-              .handle { (connection, ex) =>
+              .handle[Unit] { (connection, ex) =>
                 if (ex == null) {
                   cb(connection.asRight)
                 } else {
