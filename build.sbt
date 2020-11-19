@@ -26,6 +26,8 @@ lazy val root = project
     jvm,
     jvmMicrometer,
     jvmPureConfig,
+    lettuce,
+    lettucePureConfig,
     micrometer,
     micrometerJmx,
     micrometerJmxPureConfig,
@@ -320,6 +322,23 @@ lazy val jvmPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-jvm-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
+  )
+
+lazy val lettuce = project
+  .in(file("lettuce"))
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-lettuce",
+    libraryDependencies += Dependencies.lettuce
+  )
+
+lazy val lettucePureConfig = project
+  .in(file("lettuce-pureconfig"))
+  .dependsOn(lettuce)
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-lettuce-pureconfig",
     libraryDependencies += Dependencies.pureConfig
   )
 
