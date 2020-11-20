@@ -18,7 +18,7 @@ jobs:
       - name: Install jekyll
         run: gem install jekyll -v 4.0.0
       - name: Install GPG
-        uses: olafurpg/setup-gpg@v2
+        uses: olafurpg/setup-gpg@v3
       - name: Check/Compile/Test
         run: sbt check
       - name: Release
