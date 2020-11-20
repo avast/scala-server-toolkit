@@ -12,11 +12,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - uses: actions/setup-ruby@v1
-        with:
-          ruby-version: '2.6'
-      - name: Install jekyll
-        run: gem install jekyll -v 4.0.0
       - name: Install GPG
         uses: olafurpg/setup-gpg@v3
       - name: Check/Compile/Test
@@ -28,6 +23,11 @@ jobs:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
         run: sbt ci-release
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Install jekyll
+        run: gem install jekyll -v 4.0.0
       - name: Publish Microsite
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
