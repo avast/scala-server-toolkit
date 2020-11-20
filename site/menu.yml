@@ -32,3 +32,5 @@ options:
         url: subprojects/monix-catnap
       - title: Sentry
         url: subprojects/sentry
+      - title: Lettuce (Redis)
+        url: subprojects/lettuce
