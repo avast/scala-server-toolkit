@@ -471,6 +471,7 @@ lazy val site = project
     fs2Kafka,
     http4sClientBlazePureConfig,
     http4sClientMonixCatnap,
+    lettucePureConfig,
     monixCatnapPureConfig,
     micrometerJmxPureConfig,
     sentry,

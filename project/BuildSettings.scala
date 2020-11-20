@@ -14,6 +14,7 @@ object BuildSettings {
   lazy val common: Seq[Def.Setting[_]] = Seq(
     Global / onChangedBuildSource := ReloadOnSourceChanges,
     Global / cancelable := true,
+    Global / excludeLintKeys += fork,
     turbo := true,
     organization := "com.avast",
     organizationName := "Avast",
