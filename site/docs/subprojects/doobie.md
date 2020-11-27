@@ -39,3 +39,6 @@ for {
                        .make[Task](configuration.database, boundedConnectExecutionContext, executorModule.blocker, Some(hikariMetricsFactory))
 } yield doobieTransactor
 ```
+
+Beware that you must set `autoCommit` and `transactionIsolation` settings together (setting just `autoCommit = true` with default 
+`transactionIsolation` will not commit transactions automatically).
