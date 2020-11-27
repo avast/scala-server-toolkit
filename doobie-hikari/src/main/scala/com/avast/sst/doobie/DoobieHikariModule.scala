@@ -51,7 +51,6 @@ object DoobieHikariModule {
       c.setJdbcUrl(config.url)
       c.setUsername(config.username)
       c.setPassword(config.password)
-      c.setAutoCommit(config.autoCommit)
       c.setConnectionTimeout(config.connectionTimeout.toMillis)
       c.setIdleTimeout(config.idleTimeout.toMillis)
       c.setMaxLifetime(config.maxLifeTime.toMillis)
