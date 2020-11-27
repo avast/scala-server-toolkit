@@ -11,7 +11,7 @@ final case class DoobieHikariConfig(
     url: String,
     username: String,
     password: String,
-    autoCommit: Boolean = true,
+    autoCommit: Boolean = false,
     connectionTimeout: FiniteDuration = FiniteDuration(30, TimeUnit.SECONDS),
     idleTimeout: FiniteDuration = FiniteDuration(10, TimeUnit.MINUTES),
     maxLifeTime: FiniteDuration = FiniteDuration(30, TimeUnit.MINUTES),
