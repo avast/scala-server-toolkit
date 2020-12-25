@@ -49,7 +49,6 @@ object BuildSettings {
   )
 
   lazy val microsite: Seq[Def.Setting[_]] = Seq(
-    micrositeCompilingDocsTool := WithMdoc,
     micrositeName := "scala-server-toolkit",
     micrositeDescription := "Functional programming toolkit for building server applications in Scala.",
     micrositeAuthor := "Avast",
