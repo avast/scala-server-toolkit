@@ -24,7 +24,7 @@ object BuildSettings {
     licenses := List("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE")),
     developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com"))),
     scalaVersion := "2.13.3",
-    crossScalaVersions := List(scalaVersion.value, "2.12.12", "3.0.0-M1"),
+    crossScalaVersions := List(scalaVersion.value, "2.12.12", "3.0.0-M3"),
     fork := true,
     libraryDependencies ++= {
       if (!isDotty.value) List(compilerPlugin(Dependencies.kindProjector)) else Nil
@@ -42,7 +42,7 @@ object BuildSettings {
       Dependencies.scalafixSortImports
     ),
     scalacOptions ++= {
-      if (isDotty.value) List("-source:3.0-migration", "-Ykind-projector")
+      if (isDotty.value) List("-source:3.0-migration")
       else
         List("-Ywarn-unused" /* necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13) */ )
     },
