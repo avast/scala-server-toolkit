@@ -8,7 +8,7 @@ import cats.effect.{Async, Blocker, ContextShift, Resource, Sync}
 import cats.syntax.show._
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.metrics.MetricsTrackerFactory
-import doobie.enum.TransactionIsolation
+import doobie.enumerated.TransactionIsolation
 import doobie.hikari.HikariTransactor
 
 import scala.concurrent.ExecutionContext
