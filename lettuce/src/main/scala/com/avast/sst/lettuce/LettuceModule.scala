@@ -14,7 +14,7 @@ object LettuceModule {
 
   /** Makes [[io.lettuce.core.RedisClient]] initialized with the given config and optionally [[io.lettuce.core.resource.ClientResources]]. */
   def makeClient[F[_]: Sync](config: LettuceConfig, clientResources: Option[ClientResources] = None): Resource[F, RedisClient] = {
-    val create = clientResources match {
+    lazy val create = clientResources match {
       case Some(resources) => RedisClient.create(resources)
       case None            => RedisClient.create()
     }
