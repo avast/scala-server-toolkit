@@ -21,7 +21,7 @@ implicit val runtime = zio.Runtime.default // this is just needed in example
 implicit val lettuceCodec: RedisCodec[String, String] = StringCodec.UTF8
 
 for {
-connection <- LettuceModule.makeConnection[Task, String, String](LettuceConfig("redis://localhost"))
-value <- Resource.liftF(Task.effect(connection.sync().get("key")))
+  connection <- LettuceModule.makeConnection[Task, String, String](LettuceConfig("redis://localhost"))
+  value <- Resource.liftF(Task.effect(connection.sync().get("key")))
 } yield value
 ```
