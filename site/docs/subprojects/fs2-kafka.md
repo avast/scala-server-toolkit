@@ -36,3 +36,6 @@ The configuration case classes contain an "escape hatch" into the full world of 
 This is there to be flexible in case it is needed. Documentation of all the configuration properties is available here:
 * [consumer](http://kafka.apache.org/documentation/#consumerconfigs)
 * [producer](http://kafka.apache.org/documentation/#producerconfigs)
+
+Beware that there is an optional dependency on `jackson-databind` for the default implementation of `SASL/OAUTHBEARER` in `kafka-clients`.
+You need to provide it explicitly: https://kafka.apache.org/documentation/#security_sasl_oauthbearer_clientconfig

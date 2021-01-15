@@ -50,7 +50,7 @@ object Fs2KafkaModule {
 
   def makeConsumer[F[_]: ConcurrentEffect: ContextShift: Timer, K, V](
       settings: ConsumerSettings[F, K, V]
-  ): Resource[F, KafkaConsumer[F, K, V]] = consumerResource[F].using(settings)
+  ): Resource[F, KafkaConsumer[F, K, V]] = KafkaConsumer.resource[F, K, V](settings)
 
   def makeProducer[F[_]: ConcurrentEffect: ContextShift, K: Serializer[F, *], V: Serializer[F, *]](
       config: ProducerConfig,
@@ -86,7 +86,7 @@ object Fs2KafkaModule {
   }
 
   def makeProducer[F[_]: ConcurrentEffect: ContextShift, K, V](settings: ProducerSettings[F, K, V]): Resource[F, KafkaProducer[F, K, V]] =
-    producerResource[F].using(settings)
+    KafkaProducer.resource[F, K, V](settings)
 
   /** Copy of the same class from Scala 2.13 */
   implicit private final class ChainingOps[A](private val self: A) extends AnyVal {
