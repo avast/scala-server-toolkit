@@ -16,6 +16,7 @@ object Dependencies {
   val http4sClient = "org.http4s" %% "http4s-client" % Versions.http4s
   val http4sDsl = "org.http4s" %% "http4s-dsl" % Versions.http4s
   val http4sServer = "org.http4s" %% "http4s-server" % Versions.http4s
+  val jacksonDatabind = "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.1"
   val jsr305 = "com.google.code.findbugs" % "jsr305" % "3.0.2"
   val kindProjector = "org.typelevel" % "kind-projector" % "0.11.2" cross CrossVersion.full
   val lettuce = "io.lettuce" % "lettuce-core" % "6.0.2.RELEASE"

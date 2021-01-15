@@ -182,7 +182,8 @@ lazy val fs2Kafka = project
     libraryDependencies ++= Seq(
       Dependencies.fs2Kafka,
       Dependencies.testContainersScalaScalaTest % Test,
-      Dependencies.testContainersScalaKafka % Test
+      Dependencies.testContainersScalaKafka % Test,
+      Dependencies.jacksonDatabind % Test
     )
   )
 
