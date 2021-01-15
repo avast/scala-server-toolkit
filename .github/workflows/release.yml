@@ -44,4 +44,5 @@ jobs:
           ssh-add - <<< "${DEPLOY_KEY}"
           git config --global user.email "janecek@avast.com"
           git config --global user.name "scala-server-toolkit bot"
+          export GEM_HOME=${PWD}/vendor/bundle
           sbt site/publishMicrosite
