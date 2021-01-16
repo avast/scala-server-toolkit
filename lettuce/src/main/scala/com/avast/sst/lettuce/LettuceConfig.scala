@@ -1,12 +1,11 @@
 package com.avast.sst.lettuce
 
-import java.nio.charset.Charset
-
 import com.avast.sst.lettuce.LettuceConfig.{SocketOptions, SslOptions, TimeoutOptions}
 import io.lettuce.core.ClientOptions.DisconnectedBehavior
 import io.lettuce.core.protocol.ProtocolVersion
 import io.lettuce.core.{ClientOptions, SocketOptions => LettuceSocketOptions, TimeoutOptions => LettuceTimeoutOptions}
 
+import java.nio.charset.Charset
 import scala.concurrent.duration.Duration
 
 final case class LettuceConfig(

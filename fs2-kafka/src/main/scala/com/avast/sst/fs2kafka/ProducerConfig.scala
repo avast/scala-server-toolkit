@@ -1,11 +1,10 @@
 package com.avast.sst.fs2kafka
 
-import java.util.concurrent.TimeUnit.{MILLISECONDS, SECONDS}
-
 import com.avast.sst.fs2kafka.ProducerConfig._
 import fs2.kafka.Acks
 import org.apache.kafka.clients.producer.{ProducerConfig => ApacheProducerConfig}
 
+import java.util.concurrent.TimeUnit.{MILLISECONDS, SECONDS}
 import scala.concurrent.duration.FiniteDuration
 import scala.jdk.CollectionConverters._
 

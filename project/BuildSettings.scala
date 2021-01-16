@@ -39,7 +39,7 @@ object BuildSettings {
     semanticdbVersion := scalafixSemanticdb.revision,
     ThisBuild / scalafixDependencies ++= Seq(
       Dependencies.scalafixScaluzzi,
-      Dependencies.scalafixSortImports
+      Dependencies.scalafixOrganizeImports
     ),
     scalacOptions ++= Seq(
       "-Ywarn-unused", // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)

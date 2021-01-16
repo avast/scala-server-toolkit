@@ -1,9 +1,8 @@
 package com.avast.sst.doobie
 
-import java.util.concurrent.TimeUnit
-
 import doobie.enum.TransactionIsolation
 
+import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.FiniteDuration
 
 final case class DoobieHikariConfig(

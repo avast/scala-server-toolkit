@@ -1,7 +1,5 @@
 package com.avast.sst.lettuce.pureconfig
 
-import java.nio.charset.Charset
-
 import cats.syntax.either._
 import com.avast.sst.lettuce.LettuceConfig
 import com.avast.sst.lettuce.LettuceConfig.{SocketOptions, SslOptions, TimeoutOptions}
@@ -11,6 +9,8 @@ import pureconfig.ConfigReader
 import pureconfig.error.CannotConvert
 import pureconfig.generic.ProductHint
 import pureconfig.generic.semiauto.deriveReader
+
+import java.nio.charset.Charset
 
 trait ConfigReaders {
 

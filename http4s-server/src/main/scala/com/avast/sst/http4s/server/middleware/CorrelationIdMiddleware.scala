@@ -1,7 +1,5 @@
 package com.avast.sst.http4s.server.middleware
 
-import java.util.UUID
-
 import cats.data.{Kleisli, OptionT}
 import cats.effect.Sync
 import cats.syntax.functor._
@@ -10,6 +8,8 @@ import io.chrisdavenport.vault.Key
 import org.http4s.util.CaseInsensitiveString
 import org.http4s.{Header, HttpRoutes, Request, Response}
 import org.slf4j.LoggerFactory
+
+import java.util.UUID
 
 /** Provides correlation ID functionality. Either generates new correlation ID for a request or takes the one sent in HTTP header
   * and puts it to [[org.http4s.Request]] attributes. It is also filled into HTTP response header.

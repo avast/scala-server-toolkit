@@ -1,10 +1,10 @@
 package com.avast.sst.micrometer.jmx
 
-import java.util
-import java.util.regex.Pattern
-
 import cats.syntax.either._
 import com.codahale.metrics.jmx.{DefaultObjectNameFactory, ObjectNameFactory}
+
+import java.util
+import java.util.regex.Pattern
 import javax.management.ObjectName
 
 /** This is custom [[com.codahale.metrics.jmx.ObjectNameFactory]] which uses "type-scope-name" hierarchy of resulting

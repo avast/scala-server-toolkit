@@ -1,9 +1,8 @@
 package com.avast.sst.micrometer.statsd
 
-import java.util.concurrent.TimeUnit
-
 import io.micrometer.statsd.{StatsdFlavor, StatsdProtocol}
 
+import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.Duration
 
 final case class MicrometerStatsDConfig(

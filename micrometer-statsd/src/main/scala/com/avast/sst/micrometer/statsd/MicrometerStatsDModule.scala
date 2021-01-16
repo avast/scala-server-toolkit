@@ -1,13 +1,13 @@
 package com.avast.sst.micrometer.statsd
 
-import java.time.Duration
-
 import cats.effect.{Resource, Sync}
 import com.avast.sst.micrometer.PrefixMeterFilter
 import io.micrometer.core.instrument.Clock
 import io.micrometer.core.instrument.config.{MeterFilter, NamingConvention}
 import io.micrometer.core.instrument.util.HierarchicalNameMapper
 import io.micrometer.statsd.{StatsdConfig, StatsdFlavor, StatsdMeterRegistry, StatsdProtocol}
+
+import java.time.Duration
 
 object MicrometerStatsDModule {
 

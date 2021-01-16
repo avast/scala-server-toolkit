@@ -1,12 +1,11 @@
 package com.avast.sst.http4s.server
 
-import java.net.{InetSocketAddress, StandardSocketOptions}
-
 import cats.effect.{ConcurrentEffect, Resource, Timer}
 import org.http4s.HttpApp
 import org.http4s.server.Server
 import org.http4s.server.blaze.BlazeServerBuilder
 
+import java.net.{InetSocketAddress, StandardSocketOptions}
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.Duration
 

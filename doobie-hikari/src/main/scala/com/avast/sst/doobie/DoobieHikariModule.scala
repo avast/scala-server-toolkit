@@ -1,8 +1,5 @@
 package com.avast.sst.doobie
 
-import java.util.Properties
-import java.util.concurrent.{ScheduledExecutorService, ThreadFactory}
-
 import cats.Show
 import cats.effect.{Async, Blocker, ContextShift, Resource, Sync}
 import cats.syntax.show._
@@ -11,6 +8,8 @@ import com.zaxxer.hikari.metrics.MetricsTrackerFactory
 import doobie.enumerated.TransactionIsolation
 import doobie.hikari.HikariTransactor
 
+import java.util.Properties
+import java.util.concurrent.{ScheduledExecutorService, ThreadFactory}
 import scala.concurrent.ExecutionContext
 
 object DoobieHikariModule {

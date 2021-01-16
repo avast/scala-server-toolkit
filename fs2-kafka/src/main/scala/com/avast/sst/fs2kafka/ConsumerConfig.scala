@@ -1,12 +1,11 @@
 package com.avast.sst.fs2kafka
 
-import java.util.concurrent.TimeUnit.{MILLISECONDS, SECONDS}
-
 import com.avast.sst.fs2kafka.ConsumerConfig._
 import com.github.ghik.silencer.silent
 import fs2.kafka.{AutoOffsetReset, CommitRecovery, IsolationLevel}
 import org.apache.kafka.clients.consumer.{ConsumerConfig => ApacheConsumerConfig}
 
+import java.util.concurrent.TimeUnit.{MILLISECONDS, SECONDS}
 import scala.concurrent.duration.FiniteDuration
 import scala.jdk.CollectionConverters._
 

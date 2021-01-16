@@ -1,9 +1,9 @@
 package com.avast.sst.flyway
 
 import cats.effect.Sync
-import javax.sql.DataSource
 import org.flywaydb.core.Flyway
 
+import javax.sql.DataSource
 import scala.jdk.CollectionConverters._
 
 object FlywayModule {

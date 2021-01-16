@@ -1,8 +1,8 @@
 package com.avast.sst.jvm.system.random
 
-import java.security.SecureRandom
-
 import cats.effect.Sync
+
+import java.security.SecureRandom
 
 /** Provides random number generators. */
 object RandomModule {

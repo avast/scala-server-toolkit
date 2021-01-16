@@ -1,7 +1,5 @@
 package com.avast.sst.example
 
-import java.util.concurrent.TimeUnit
-
 import cats.effect.{Clock, Resource}
 import com.avast.sst.bundle.ZioServerApp
 import com.avast.sst.doobie.DoobieHikariModule
@@ -27,6 +25,7 @@ import zio.Task
 import zio.interop.catz._
 import zio.interop.catz.implicits._
 
+import java.util.concurrent.TimeUnit
 import scala.concurrent.ExecutionContext
 
 object Main extends ZioServerApp {

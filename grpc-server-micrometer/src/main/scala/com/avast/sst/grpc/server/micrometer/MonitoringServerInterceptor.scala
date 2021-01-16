@@ -1,11 +1,11 @@
 package com.avast.sst.grpc.server.micrometer
 
-import java.util.concurrent.atomic.AtomicLong
-import java.util.concurrent.{ConcurrentHashMap, TimeUnit}
-
 import io.grpc.ForwardingServerCall.SimpleForwardingServerCall
 import io.grpc._
 import io.micrometer.core.instrument.{MeterRegistry, Timer}
+
+import java.util.concurrent.atomic.AtomicLong
+import java.util.concurrent.{ConcurrentHashMap, TimeUnit}
 
 /** Records important gRPC call metrics in [[io.micrometer.core.instrument.MeterRegistry]].
   *

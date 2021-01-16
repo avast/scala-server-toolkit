@@ -1,14 +1,14 @@
 package com.avast.sst.lettuce
 
-import java.io.File
-import java.time.Duration
-
 import cats.effect.{Async, Resource, Sync}
 import cats.syntax.either._
 import io.lettuce.core.api.StatefulRedisConnection
 import io.lettuce.core.codec.RedisCodec
 import io.lettuce.core.resource.ClientResources
 import io.lettuce.core.{ClientOptions, RedisClient, RedisURI, SocketOptions, SslOptions, TimeoutOptions}
+
+import java.io.File
+import java.time.Duration
 
 object LettuceModule {
 

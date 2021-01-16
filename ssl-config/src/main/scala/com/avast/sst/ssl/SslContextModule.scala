@@ -9,6 +9,7 @@ import com.typesafe.sslconfig.ssl.{
   DefaultTrustManagerFactoryWrapper,
   SSLConfigFactory
 }
+
 import javax.net.ssl.{KeyManagerFactory, SSLContext, TrustManagerFactory}
 
 object SslContextModule {

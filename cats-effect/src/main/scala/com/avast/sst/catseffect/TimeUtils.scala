@@ -1,12 +1,11 @@
 package com.avast.sst.catseffect
 
-import java.util.concurrent.TimeUnit
-
 import cats.effect.syntax.bracket._
 import cats.effect.{Bracket, Clock}
 import cats.syntax.flatMap._
 import cats.syntax.functor._
 
+import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.Duration
 
 object TimeUtils {

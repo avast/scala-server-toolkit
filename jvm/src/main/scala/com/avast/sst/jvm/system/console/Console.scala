@@ -1,9 +1,8 @@
 package com.avast.sst.jvm.system.console
 
-import java.io.{OutputStream, Reader}
-
 import cats.effect.Sync
 
+import java.io.{OutputStream, Reader}
 import scala.io.StdIn
 import scala.{Console => SConsole}
 

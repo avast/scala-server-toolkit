@@ -1,8 +1,8 @@
 package com.avast.sst.flyway
 
-import java.nio.charset.{Charset, StandardCharsets}
-
 import org.flywaydb.core.api.MigrationVersion
+
+import java.nio.charset.{Charset, StandardCharsets}
 
 final case class FlywayConfig(
     baselineOnMigrate: Boolean = false,

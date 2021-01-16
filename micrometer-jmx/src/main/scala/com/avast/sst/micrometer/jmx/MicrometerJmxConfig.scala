@@ -1,7 +1,6 @@
 package com.avast.sst.micrometer.jmx
 
 import java.util.concurrent.TimeUnit
-
 import scala.concurrent.duration.Duration
 
 final case class MicrometerJmxConfig(

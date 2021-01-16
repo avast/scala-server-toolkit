@@ -1,11 +1,10 @@
 package com.avast.sst.http4s.server
 
-import java.util.concurrent.TimeUnit
-
 import com.avast.sst.http4s.server.Http4sBlazeServerConfig.SocketOptions
 import org.http4s.blaze.channel
 import org.http4s.server.defaults
 
+import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.{Duration, FiniteDuration}
 
 final case class Http4sBlazeServerConfig(
