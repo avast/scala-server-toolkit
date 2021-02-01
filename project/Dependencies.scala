@@ -30,7 +30,7 @@ object Dependencies {
   val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.14.0"
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.4.1"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.17"
-  val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.4.4"
+  val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.5.0"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.3"
   val sentry = "io.sentry" % "sentry" % "4.0.0"
   val silencer = "com.github.ghik" % "silencer-plugin" % Versions.silencer cross CrossVersion.full
