@@ -31,7 +31,6 @@ object Http4sBlazeServerModule {
           .bindSocketAddress(inetSocketAddress)
           .withHttpApp(httpApp)
           .withoutBanner
-          .withNio2(config.nio2Enabled)
           .withWebSockets(config.webSocketsEnabled)
           .enableHttp2(config.http2Enabled)
           .withResponseHeaderTimeout(Duration.fromNanos(config.responseHeaderTimeout.toNanos))
@@ -41,6 +40,7 @@ object Http4sBlazeServerModule {
           .withMaxHeadersLength(config.maxHeadersLength)
           .withChunkBufferMaxSize(config.chunkBufferMaxSize)
           .withConnectorPoolSize(config.connectorPoolSize)
+          .withMaxConnections(config.maxConnections)
           .withChannelOption[java.lang.Boolean](StandardSocketOptions.TCP_NODELAY, config.socketOptions.tcpNoDelay)
           .resource
     } yield server
