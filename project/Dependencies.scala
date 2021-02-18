@@ -31,7 +31,7 @@ object Dependencies {
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.4.2"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.17"
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.5.0"
-  val scalaTest = "org.scalatest" %% "scalatest" % "3.2.3"
+  val scalaTest = "org.scalatest" %% "scalatest" % "3.2.4"
   val sentry = "io.sentry" % "sentry" % "4.1.0"
   val silencer = "com.github.ghik" % "silencer-plugin" % Versions.silencer cross CrossVersion.full
   val silencerLib = "com.github.ghik" % "silencer-lib" % Versions.silencer % Provided cross CrossVersion.full
