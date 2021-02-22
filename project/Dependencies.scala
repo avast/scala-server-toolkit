@@ -7,7 +7,7 @@ object Dependencies {
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
   val flywayCore = "org.flywaydb" % "flyway-core" % "7.5.3"
-  val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "1.4.0"
+  val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "1.4.1"
   val grpcNettyShaded = "io.grpc" % "grpc-netty-shaded" % Versions.grpc
   val grpcProtobuf = "io.grpc" % "grpc-protobuf" % Versions.grpc
   val grpcStub = "io.grpc" % "grpc-stub" % Versions.grpc
@@ -31,8 +31,8 @@ object Dependencies {
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.4.2"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.17"
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.5.0"
-  val scalaTest = "org.scalatest" %% "scalatest" % "3.2.5"
-  val sentry = "io.sentry" % "sentry" % "4.1.0"
+  val scalaTest = "org.scalatest" %% "scalatest" % "3.2.4"
+  val sentry = "io.sentry" % "sentry" % "4.2.0"
   val silencer = "com.github.ghik" % "silencer-plugin" % Versions.silencer cross CrossVersion.full
   val silencerLib = "com.github.ghik" % "silencer-lib" % Versions.silencer % Provided cross CrossVersion.full
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.30"
