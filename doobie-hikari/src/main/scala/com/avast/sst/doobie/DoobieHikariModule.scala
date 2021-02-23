@@ -27,7 +27,7 @@ object DoobieHikariModule {
     for {
       hikariConfig <- Resource.liftF(makeHikariConfig(config, metricsTrackerFactory))
       transactor <- HikariTransactor.fromHikariConfig(hikariConfig, boundedConnectExecutionContext, blocker)
-    } yield transactor.copy()
+    } yield transactor
   }
 
   implicit private val transactionIsolationShow: Show[TransactionIsolation] = {
