@@ -59,6 +59,7 @@ object DoobieHikariModule {
       c.setAllowPoolSuspension(config.allowPoolSuspension)
       c.setIsolateInternalQueries(config.isolateInternalQueries)
       c.setRegisterMbeans(config.registerMBeans)
+      c.setAutoCommit(config.autoCommit)
       val dataSourceProperties = new Properties()
       config.dataSourceProperties.foreach { case (k, v) => dataSourceProperties.put(k, v) }
       c.setDataSourceProperties(dataSourceProperties)

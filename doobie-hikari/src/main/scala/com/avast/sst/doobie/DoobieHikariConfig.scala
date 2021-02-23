@@ -24,5 +24,6 @@ final case class DoobieHikariConfig(
     registerMBeans: Boolean = false,
     validationTimeout: Option[FiniteDuration] = None,
     transactionIsolation: Option[TransactionIsolation] = None,
-    dataSourceProperties: Map[String, String] = Map.empty
+    dataSourceProperties: Map[String, String] = Map.empty,
+    autoCommit: Boolean = true
 )
