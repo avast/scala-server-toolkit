@@ -14,6 +14,8 @@ jobs:
         with:
           java-version: 1.8
       - uses: coursier/cache-action@v5
+        with:
+          extraKey: ${{ secrets.BUILD_CACHE_VERSION }}
       - name: Check/Compile/Test
         run: sbt check
   update_release_draft:
