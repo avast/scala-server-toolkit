@@ -24,7 +24,7 @@ object BuildSettings {
     licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE")),
     developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com"))),
     scalaVersion := "2.13.3",
-    crossScalaVersions := List(scalaVersion.value, "2.12.12"),
+    crossScalaVersions := List(scalaVersion.value, "2.12.13"),
     fork := true,
     libraryDependencies ++= Seq(
       compilerPlugin(Dependencies.kindProjector),
