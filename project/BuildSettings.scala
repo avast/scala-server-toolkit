@@ -1,5 +1,4 @@
 import com.typesafe.sbt.site.SitePlugin.autoImport._
-import com.typesafe.tools.mima.plugin.MimaKeys._
 import mdoc.MdocPlugin.autoImport._
 import microsites.CdnDirectives
 import microsites.MicrositesPlugin.autoImport._
@@ -45,6 +44,7 @@ object BuildSettings {
       "-Ywarn-unused", // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
       "-P:silencer:checkUnused"
     ),
+    javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
     Test / publishArtifact := false
   )
 

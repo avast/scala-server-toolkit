@@ -18,12 +18,13 @@ lazy val root = project
     grpcServerPureConfig,
     http4sClientBlaze,
     http4sClientBlazePureConfig,
-    http4sClientJdk,
     http4sClientMonixCatnap,
     http4sServer,
     http4sServerBlaze,
     http4sServerBlazePureConfig,
     http4sServerMicrometer,
+    jdkHttpClient,
+    jdkHttpClientPureConfig,
     jvm,
     jvmMicrometer,
     jvmPureConfig,
@@ -242,14 +243,6 @@ lazy val http4sClientBlazePureConfig = project
   .settings(BuildSettings.common)
   .settings(name := "sst-http4s-client-blaze-pureconfig")
 
-lazy val http4sClientJdk = project
-  .in(file("http4s-client-jdk"))
-  .settings(BuildSettings.common)
-  .settings(
-    name := "sst-http4s-client-jdk",
-    libraryDependencies += Dependencies.http4sJdkHttpClient
-  )
-
 lazy val http4sClientMonixCatnap = project
   .in(file("http4s-client-monix-catnap"))
   .dependsOn(monixCatnapMicrometer)
@@ -304,6 +297,22 @@ lazy val http4sServerMicrometer = project
       Dependencies.micrometerCore,
       Dependencies.jsr305 // required because of Scala compiler
     )
+  )
+
+lazy val jdkHttpClient = project
+  .in(file("jdk-http-client"))
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-jdk-http-client"
+  )
+
+lazy val jdkHttpClientPureConfig = project
+  .in(file("jdk-http-client-pureconfig"))
+  .dependsOn(jdkHttpClient)
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-jdk-http-client-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
   )
 
 lazy val jvm = project
