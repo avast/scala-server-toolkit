@@ -27,9 +27,9 @@ object Dependencies {
   val monixCatnap = "io.monix" %% "monix-catnap" % Versions.monix
   val monixEval = "io.monix" %% "monix-eval" % Versions.monix
   val postgresql = "org.postgresql" % "postgresql" % "42.2.19"
-  val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.14.0"
+  val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.14.1"
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.4.2"
-  val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.17"
+  val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.18"
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.5.0"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.5"
   val sentry = "io.sentry" % "sentry" % "4.2.0"
@@ -52,7 +52,7 @@ object Dependencies {
     val micrometerJmx = "1.6.4"
     val micrometerStatsD = "1.6.4"
     val monix = "3.3.0"
-    val silencer = "1.7.1"
+    val silencer = "1.7.3"
 
   }
 
