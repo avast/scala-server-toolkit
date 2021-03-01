@@ -7,7 +7,7 @@ import io.micrometer.core.instrument.MeterRegistry
 import org.http4s.HttpRoutes
 import org.http4s.server.middleware.Metrics
 
-class MicrometerHttp4sServerMetricsModule[F[_]: Sync](val serverMetrics: HttpRoutes[F] => HttpRoutes[F], val routeMetrics: RouteMetrics[F])
+class MicrometerHttp4sServerMetricsModule[F[_]](val serverMetrics: HttpRoutes[F] => HttpRoutes[F], val routeMetrics: RouteMetrics[F])
 
 object MicrometerHttp4sServerMetricsModule {
 

@@ -1,5 +1,4 @@
 import com.typesafe.sbt.site.SitePlugin.autoImport._
-import com.typesafe.tools.mima.plugin.MimaKeys._
 import mdoc.MdocPlugin.autoImport._
 import microsites.CdnDirectives
 import microsites.MicrositesPlugin.autoImport._
@@ -23,7 +22,7 @@ object BuildSettings {
     description := "Functional programming toolkit for building server applications in Scala.",
     licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE")),
     developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com"))),
-    scalaVersion := "2.13.3",
+    scalaVersion := "2.13.5",
     crossScalaVersions := List(scalaVersion.value, "2.12.13"),
     fork := true,
     libraryDependencies ++= Seq(
@@ -41,10 +40,10 @@ object BuildSettings {
       Dependencies.scalafixScaluzzi,
       Dependencies.scalafixOrganizeImports
     ),
-    scalacOptions ++= Seq(
+    scalacOptions ++= List(
       "-Ywarn-unused", // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
       "-P:silencer:checkUnused"
-    ),
+    ) ++ (if (scalaVersion.value.startsWith("2.13")) List("-Wmacros:after") else List.empty),
     Test / publishArtifact := false
   )
 
