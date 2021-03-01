@@ -44,6 +44,7 @@ object BuildSettings {
       "-Ywarn-unused", // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
       "-P:silencer:checkUnused"
     ) ++ (if (scalaVersion.value.startsWith("2.13")) List("-Wmacros:after") else List.empty),
+    javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
     Test / publishArtifact := false
   )
 

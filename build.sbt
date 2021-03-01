@@ -23,6 +23,8 @@ lazy val root = project
     http4sServerBlaze,
     http4sServerBlazePureConfig,
     http4sServerMicrometer,
+    jdkHttpClient,
+    jdkHttpClientPureConfig,
     jvm,
     jvmMicrometer,
     jvmPureConfig,
@@ -295,6 +297,22 @@ lazy val http4sServerMicrometer = project
       Dependencies.micrometerCore,
       Dependencies.jsr305 // required because of Scala compiler
     )
+  )
+
+lazy val jdkHttpClient = project
+  .in(file("jdk-http-client"))
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-jdk-http-client"
+  )
+
+lazy val jdkHttpClientPureConfig = project
+  .in(file("jdk-http-client-pureconfig"))
+  .dependsOn(jdkHttpClient)
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-jdk-http-client-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
   )
 
 lazy val jvm = project
