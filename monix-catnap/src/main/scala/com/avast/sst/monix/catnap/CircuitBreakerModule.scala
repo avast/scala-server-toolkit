@@ -54,7 +54,7 @@ object CircuitBreakerModule {
   }
 
   /** Wraps [[monix.catnap.CircuitBreaker]] and adds monitoring metrics (e.g. number of rejected tasks). */
-  def withMetrics[F[_]: Sync](circuitBreakerMetrics: CircuitBreakerMetrics[F], circuitBreaker: CircuitBreaker[F]): CircuitBreaker[F] = {
+  def withMetrics[F[_]](circuitBreakerMetrics: CircuitBreakerMetrics[F], circuitBreaker: CircuitBreaker[F]): CircuitBreaker[F] = {
     circuitBreaker
       .doOnRejectedTask(circuitBreakerMetrics.increaseRejected)
       .doOnClosed(circuitBreakerMetrics.setState(Closed))

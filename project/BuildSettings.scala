@@ -1,5 +1,4 @@
 import com.typesafe.sbt.site.SitePlugin.autoImport._
-import com.typesafe.tools.mima.plugin.MimaKeys._
 import mdoc.MdocPlugin.autoImport._
 import microsites.CdnDirectives
 import microsites.MicrositesPlugin.autoImport._
@@ -41,10 +40,10 @@ object BuildSettings {
       Dependencies.scalafixScaluzzi,
       Dependencies.scalafixOrganizeImports
     ),
-    scalacOptions ++= Seq(
+    scalacOptions ++= List(
       "-Ywarn-unused", // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
       "-P:silencer:checkUnused"
-    ),
+    ) ++ (if (scalaVersion.value.startsWith("2.13")) List("-Wmacros:after") else List.empty),
     Test / publishArtifact := false
   )
 
