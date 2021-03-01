@@ -31,7 +31,7 @@ object GrpcServerModule {
           .handshakeTimeout(config.handshakeTimeout.toMillis, TimeUnit.MILLISECONDS)
           .maxInboundMessageSize(config.maxInboundMessageSize)
           .maxInboundMetadataSize(config.maxInboundMetadataSize)
-          .executor(executionContext.execute)
+          .executor(executionContext.execute(_))
 
         services.foreach(builder.addService)
         interceptors.foreach(builder.intercept)

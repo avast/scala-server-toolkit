@@ -65,7 +65,8 @@ lazy val bundleMonixHttp4sBlaze = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-bundle-monix-http4s-blaze",
-    libraryDependencies += Dependencies.monixEval
+    libraryDependencies += Dependencies.monixEval,
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val bundleZioHttp4sBlaze = project
@@ -86,7 +87,8 @@ lazy val bundleZioHttp4sBlaze = project
     libraryDependencies ++= Seq(
       Dependencies.zio,
       Dependencies.zioInteropCats
-    )
+    ),
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val cassandraDatastaxDriver = project
@@ -103,7 +105,8 @@ lazy val cassandraDatastaxDriverPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-cassandra-datastax-driver-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig,
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val catsEffect = project
@@ -128,7 +131,8 @@ lazy val doobieHikariPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-doobie-hikari-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig,
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val example = project
@@ -155,7 +159,8 @@ lazy val example = project
     libraryDependencies ++= Seq(
       Dependencies.logbackClassic,
       Dependencies.postgresql
-    )
+    ),
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val flyway = project
@@ -175,7 +180,8 @@ lazy val flywayPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-flyway-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig,
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val fs2Kafka = project
@@ -197,7 +203,8 @@ lazy val fs2KafkaPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-fs2-kafka-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig,
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val grpcServer = project
@@ -228,7 +235,8 @@ lazy val grpcServerPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-grpc-server-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig,
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val http4sClientBlaze = project
@@ -243,7 +251,10 @@ lazy val http4sClientBlazePureConfig = project
   .in(file("http4s-client-blaze-pureconfig"))
   .dependsOn(http4sClientBlaze, jvmPureConfig)
   .settings(BuildSettings.common)
-  .settings(name := "sst-http4s-client-blaze-pureconfig")
+  .settings(
+    name := "sst-http4s-client-blaze-pureconfig",
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
+  )
 
 lazy val http4sClientMonixCatnap = project
   .in(file("http4s-client-monix-catnap"))
@@ -286,7 +297,8 @@ lazy val http4sServerBlazePureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-http4s-server-blaze-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig,
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val http4sServerMicrometer = project
@@ -314,7 +326,8 @@ lazy val jdkHttpClientPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-jdk-http-client-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig,
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val jvm = project
@@ -343,7 +356,8 @@ lazy val jvmPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-jvm-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig,
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val lettuce = project
@@ -360,7 +374,8 @@ lazy val lettucePureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-lettuce-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig,
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val micrometer = project
@@ -391,7 +406,8 @@ lazy val micrometerJmxPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-micrometer-jmx-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig,
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val micrometerStatsD = project
@@ -412,7 +428,8 @@ lazy val micrometerStatsDPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-micrometer-statsd-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig,
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val monixCatnap = project
@@ -444,7 +461,8 @@ lazy val monixCatnapPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-monix-catnap-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig,
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val pureConfig = project
@@ -452,7 +470,8 @@ lazy val pureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig,
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val sentry = project
@@ -469,7 +488,8 @@ lazy val sentryPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-sentry-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    libraryDependencies += Dependencies.pureConfig,
+    crossScalaVersions := BuildSettings.crossVersionsWithoutScala3
   )
 
 lazy val site = project

@@ -1,5 +1,6 @@
 package com.avast.sst.example.service
 
+import doobie.Fragment
 import doobie.implicits._
 import doobie.util.transactor.Transactor
 import zio.Task
@@ -16,7 +17,8 @@ object RandomService {
   def apply(transactor: Transactor[Task]): RandomService =
     new RandomService {
       override def randomNumber: Task[Double] = {
-        sql"select random()"
+        Fragment
+          .const("select random()")
           .query[Double]
           .unique
           .transact(transactor)

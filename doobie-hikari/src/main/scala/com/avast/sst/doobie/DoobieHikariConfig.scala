@@ -1,6 +1,6 @@
 package com.avast.sst.doobie
 
-import doobie.enum.TransactionIsolation
+import doobie.enumerated.TransactionIsolation
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.FiniteDuration

@@ -13,6 +13,14 @@ import scalafix.sbt.ScalafixPlugin.autoImport._
 
 object BuildSettings {
 
+  private def isScala3(scalaVersion: String): Boolean = CrossVersion.partialVersion(scalaVersion).exists(_._1 == 3)
+
+  private val scala212 = "2.12.14"
+  private val scala213 = "2.13.6"
+  private val scala3 = "3.0.0"
+
+  val crossVersionsWithoutScala3: List[String] = List(scala213, scala212)
+
   lazy val common: Seq[Def.Setting[_]] = Seq(
     Global / onChangedBuildSource := ReloadOnSourceChanges,
     Global / cancelable := true,
@@ -27,13 +35,13 @@ object BuildSettings {
     description := "Functional programming toolkit for building server applications in Scala.",
     licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE")),
     developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com"))),
-    scalaVersion := "2.13.6",
-    crossScalaVersions := List(scalaVersion.value, "2.12.15"),
+    scalaVersion := scala213,
+    crossScalaVersions := List(scala213, scala212, scala3),
     fork := true,
-    libraryDependencies ++= Seq(
-      compilerPlugin(Dependencies.kindProjector),
+    libraryDependencies ++= (if (!isScala3(scalaVersion.value)) List(compilerPlugin(Dependencies.kindProjector)) else List.empty) ++ List(
       Dependencies.catsEffect,
       Dependencies.scalaCollectionCompat,
+      "org.jetbrains" % "annotations" % "21.0.1", // TODO: this should be compile only dependecy!
       Dependencies.logbackClassic % Test,
       Dependencies.scalaTest % Test
     ),
@@ -43,9 +51,10 @@ object BuildSettings {
       Dependencies.scalafixScaluzzi,
       Dependencies.scalafixOrganizeImports
     ),
-    scalacOptions ++= List(
-      "-Ywarn-unused" // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
-    ) ++ (if (scalaVersion.value.startsWith("2.13")) List("-Wmacros:after") else List.empty),
+    scalacOptions ++=
+      // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13))
+      (if (isScala3(scalaVersion.value)) List("-source:3.0-migration") else List("-Ywarn-unused")) ++
+        (if (scalaVersion.value.startsWith("2.13")) List("-Wmacros:after", "-Ytasty-reader") else List.empty),
     Compile / doc / scalacOptions -= "-Xfatal-warnings",
     missinglinkExcludedDependencies ++= List(
       moduleFilter(organization = "ch.qos.logback"),

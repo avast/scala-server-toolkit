@@ -47,13 +47,18 @@ object Main extends ZioServerApp {
         executorModule
           .makeThreadPoolExecutor(
             configuration.boundedConnectExecutor,
-            new ConfigurableThreadFactory(Config(Some("hikari-connect-%02d")))
+            new ConfigurableThreadFactory(Config(nameFormat = Some("hikari-connect-%02d")))
           )
           .map(ExecutionContext.fromExecutorService)
       hikariMetricsFactory = new MicrometerMetricsTrackerFactory(meterRegistry)
       doobieTransactor <-
         DoobieHikariModule
-          .make[Task](configuration.database, boundedConnectExecutionContext, executorModule.blocker, Some(hikariMetricsFactory))
+          .make[Task](
+            configuration.database,
+            boundedConnectExecutionContext: ExecutionContext,
+            executorModule.blocker,
+            Some(hikariMetricsFactory)
+          )
       randomService = RandomService(doobieTransactor)
       httpClient <- Http4sBlazeClientModule.make[Task](configuration.client, executorModule.executionContext)
       circuitBreakerMetrics <- Resource.eval(MicrometerCircuitBreakerMetricsModule.make[Task]("test-http-client", meterRegistry))
