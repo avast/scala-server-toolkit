@@ -8,7 +8,7 @@ import javax.net.ssl.SSLContext
 
 object JdkHttpClientModule {
 
-  /** Makes [[java.net.http.HttpClient]] initialized with the given config. */
+  /** Makes `java.net.http.HttpClient` initialized with the given config. */
   def make(
       config: JdkHttpClientConfig,
       executor: Option[Executor] = None,
