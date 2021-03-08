@@ -43,6 +43,7 @@ lazy val root = project
     sentryPureConfig,
     sslConfig
   )
+  .disablePlugins(SbtVersionPolicyPlugin)
   .settings(BuildSettings.common)
   .settings(
     name := "scala-server-toolkit",
@@ -132,6 +133,7 @@ lazy val doobieHikariPureConfig = project
 
 lazy val example = project
   .in(file("example"))
+  .disablePlugins(SbtVersionPolicyPlugin)
   .dependsOn(
     bundleZioHttp4sBlaze,
     cassandraDatastaxDriver,

@@ -6,6 +6,7 @@ import sbt.Keys._
 import sbt.nio.Keys._
 import sbt.{Def, _}
 import sbtunidoc.ScalaUnidocPlugin.autoImport._
+import sbtversionpolicy.SbtVersionPolicyPlugin.autoImport._
 import scalafix.sbt.ScalafixPlugin.autoImport._
 
 object BuildSettings {
@@ -15,6 +16,7 @@ object BuildSettings {
     Global / cancelable := true,
     Global / excludeLintKeys += fork,
     ThisBuild / versionScheme := Some("early-semver"),
+    ThisBuild / versionPolicyIntention := Compatibility.BinaryCompatible,
     turbo := true,
     organization := "com.avast",
     organizationName := "Avast",
