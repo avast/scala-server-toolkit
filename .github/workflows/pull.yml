@@ -14,4 +14,4 @@ jobs:
         with:
           extraKey: pr-${GITHUB_HEAD_REF}
       - name: Check/Compile/Test
-        run: sbt check
+        run: sbt versionPolicyCheck check
