@@ -14,6 +14,7 @@ object BuildSettings {
     Global / onChangedBuildSource := ReloadOnSourceChanges,
     Global / cancelable := true,
     Global / excludeLintKeys += fork,
+    ThisBuild / versionScheme := Some("early-semver"),
     turbo := true,
     organization := "com.avast",
     organizationName := "Avast",
