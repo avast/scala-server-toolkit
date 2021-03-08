@@ -14,7 +14,7 @@ jobs:
           java-version: 11
       - uses: coursier/cache-action@v5
       - name: Check/Compile/Test
-        run: sbt check
+        run: sbt versionCheck check
       - name: Release
         env:
           PGP_SECRET: ${{ secrets.PGP_SECRET }}
