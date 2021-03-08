@@ -49,13 +49,15 @@ object BuildSettings {
       "-P:silencer:checkUnused"
     ) ++ (if (scalaVersion.value.startsWith("2.13")) List("-Wmacros:after") else List.empty),
     missinglinkExcludedDependencies ++= List(
-      moduleFilter(organization = "ch.qos.logback", name = "logback-core"),
+      moduleFilter(organization = "ch.qos.logback"),
       moduleFilter(organization = "com.datastax.oss", name = "java-driver-core"),
       moduleFilter(organization = "com.zaxxer", name = "HikariCP"),
-      moduleFilter(organization = "io.micrometer", name = "micrometer-core"),
-      moduleFilter(organization = "io.micrometer", name = "micrometer-registry-statsd"),
-      moduleFilter(organization = "io.netty", name = "netty-common"),
+      moduleFilter(organization = "io.lettuce"),
+      moduleFilter(organization = "io.micrometer"),
+      moduleFilter(organization = "io.netty"),
+      moduleFilter(organization = "io.projectreactor", name = "reactor-core"),
       moduleFilter(organization = "io.sentry", name = "sentry"),
+      moduleFilter(organization = "org.apache.kafka", name = "kafka-clients"),
       moduleFilter(organization = "org.codehaus.groovy", name = "groovy"),
       moduleFilter(organization = "org.flywaydb", name = "flyway-core"),
       moduleFilter(organization = "org.slf4j", name = "slf4j-api")
