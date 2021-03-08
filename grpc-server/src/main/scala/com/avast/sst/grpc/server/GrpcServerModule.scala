@@ -1,12 +1,12 @@
 package com.avast.sst.grpc.server
 
-import java.util.concurrent.TimeUnit
-
 import cats.effect.{Resource, Sync}
 import io.grpc.{Server, ServerBuilder, ServerInterceptor, ServerServiceDefinition}
 
+import java.util.concurrent.TimeUnit
 import scala.collection.immutable.Seq
 import scala.concurrent.ExecutionContext
+
 object GrpcServerModule {
 
   /** Makes [[io.grpc.Server]] (Netty) initialized with the given config, services and interceptors.

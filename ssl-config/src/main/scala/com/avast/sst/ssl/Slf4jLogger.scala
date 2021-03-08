@@ -21,9 +21,10 @@ private class Slf4jLogger(l: Logger) extends NoDepsLogger {
 
 private[ssl] object Slf4jLogger {
 
-  def factory: LoggerFactory = new LoggerFactory {
-    override def apply(clazz: Class[_]): NoDepsLogger = new Slf4jLogger(Slf4jLoggerFactory.getLogger(clazz))
-    override def apply(name: String): NoDepsLogger = new Slf4jLogger(Slf4jLoggerFactory.getLogger(name))
-  }
+  def factory: LoggerFactory =
+    new LoggerFactory {
+      override def apply(clazz: Class[_]): NoDepsLogger = new Slf4jLogger(Slf4jLoggerFactory.getLogger(clazz))
+      override def apply(name: String): NoDepsLogger = new Slf4jLogger(Slf4jLoggerFactory.getLogger(name))
+    }
 
 }

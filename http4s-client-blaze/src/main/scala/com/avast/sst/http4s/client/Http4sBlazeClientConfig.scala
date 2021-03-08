@@ -1,12 +1,11 @@
 package com.avast.sst.http4s.client
 
-import java.util.concurrent.TimeUnit
-
 import org.http4s.BuildInfo
 import org.http4s.client.blaze.ParserMode
 import org.http4s.client.defaults
-import org.http4s.headers.{`User-Agent`, AgentComment, AgentProduct}
+import org.http4s.headers.{AgentComment, AgentProduct, `User-Agent`}
 
+import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.{Duration, FiniteDuration}
 
 final case class Http4sBlazeClientConfig(

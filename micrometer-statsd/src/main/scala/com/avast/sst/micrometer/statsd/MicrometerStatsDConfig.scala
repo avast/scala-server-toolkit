@@ -1,9 +1,8 @@
 package com.avast.sst.micrometer.statsd
 
-import java.util.concurrent.TimeUnit
-
 import io.micrometer.statsd.{StatsdFlavor, StatsdProtocol}
 
+import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.Duration
 
 final case class MicrometerStatsDConfig(
@@ -16,5 +15,7 @@ final case class MicrometerStatsDConfig(
     pollingFrequency: Duration = Duration(10, TimeUnit.SECONDS),
     step: Duration = Duration(1, TimeUnit.MINUTES),
     publishUnchangedMeters: Boolean = true,
-    buffered: Boolean = true
+    buffered: Boolean = true,
+    prefix: String = "",
+    commonTags: Map[String, String] = Map.empty
 )

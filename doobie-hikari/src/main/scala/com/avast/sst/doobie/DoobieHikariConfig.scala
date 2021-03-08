@@ -1,9 +1,8 @@
 package com.avast.sst.doobie
 
-import java.util.concurrent.TimeUnit
-
 import doobie.enum.TransactionIsolation
 
+import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.FiniteDuration
 
 final case class DoobieHikariConfig(
@@ -11,7 +10,6 @@ final case class DoobieHikariConfig(
     url: String,
     username: String,
     password: String,
-    autoCommit: Boolean = true,
     connectionTimeout: FiniteDuration = FiniteDuration(30, TimeUnit.SECONDS),
     idleTimeout: FiniteDuration = FiniteDuration(10, TimeUnit.MINUTES),
     maxLifeTime: FiniteDuration = FiniteDuration(30, TimeUnit.MINUTES),
@@ -25,5 +23,7 @@ final case class DoobieHikariConfig(
     poolName: Option[String] = None,
     registerMBeans: Boolean = false,
     validationTimeout: Option[FiniteDuration] = None,
-    transactionIsolation: Option[TransactionIsolation] = None
+    transactionIsolation: Option[TransactionIsolation] = None,
+    dataSourceProperties: Map[String, String] = Map.empty,
+    autoCommit: Boolean = false
 )

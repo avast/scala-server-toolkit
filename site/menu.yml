@@ -20,6 +20,8 @@ options:
         url: subprojects/pureconfig
       - title: Datastax Cassandra Driver
         url: subprojects/cassandra-datastax-driver
+      - title: FS2 Kafka
+        url: subprojects/fs2-kafka
       - title: SSL Config
         url: subprojects/ssl-config
       - title: doobie
@@ -30,3 +32,5 @@ options:
         url: subprojects/monix-catnap
       - title: Sentry
         url: subprojects/sentry
+      - title: Lettuce (Redis)
+        url: subprojects/lettuce

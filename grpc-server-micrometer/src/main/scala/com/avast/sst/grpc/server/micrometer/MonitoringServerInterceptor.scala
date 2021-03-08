@@ -1,11 +1,11 @@
 package com.avast.sst.grpc.server.micrometer
 
-import java.util.concurrent.atomic.AtomicLong
-import java.util.concurrent.{ConcurrentHashMap, TimeUnit}
-
 import io.grpc.ForwardingServerCall.SimpleForwardingServerCall
 import io.grpc._
 import io.micrometer.core.instrument.{MeterRegistry, Timer}
+
+import java.util.concurrent.atomic.AtomicLong
+import java.util.concurrent.{ConcurrentHashMap, TimeUnit}
 
 /** Records important gRPC call metrics in [[io.micrometer.core.instrument.MeterRegistry]].
   *
@@ -47,11 +47,14 @@ class MonitoringServerInterceptor(meterRegistry: MeterRegistry) extends ServerIn
   }
 
   private def makeGauge(name: String): AtomicLong = {
-    gaugeCache.computeIfAbsent(name, n => {
-      val counter = new AtomicLong()
-      meterRegistry.gauge(n, counter)
-      counter
-    })
+    gaugeCache.computeIfAbsent(
+      name,
+      n => {
+        val counter = new AtomicLong()
+        meterRegistry.gauge(n, counter)
+        counter
+      }
+    )
   }
 
   private def makeTimer(name: String): Timer = timerCache.computeIfAbsent(name, meterRegistry.timer(_))

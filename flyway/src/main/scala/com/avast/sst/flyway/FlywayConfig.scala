@@ -1,8 +1,8 @@
 package com.avast.sst.flyway
 
-import java.nio.charset.{Charset, StandardCharsets}
-
 import org.flywaydb.core.api.MigrationVersion
+
+import java.nio.charset.{Charset, StandardCharsets}
 
 final case class FlywayConfig(
     baselineOnMigrate: Boolean = false,
@@ -22,5 +22,7 @@ final case class FlywayConfig(
     mixed: Boolean = false,
     locations: List[String] = List.empty,
     outOfOrder: Boolean = false,
-    validateOnMigrate: Boolean = true
+    validateOnMigrate: Boolean = true,
+    placeholderReplacement: Boolean = true,
+    placeholders: Map[String, String] = Map.empty
 )

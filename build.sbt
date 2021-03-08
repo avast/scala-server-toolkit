@@ -1,16 +1,3 @@
-ThisBuild / organization := "com.avast"
-ThisBuild / organizationName := "Avast"
-ThisBuild / organizationHomepage := Some(url("https://avast.com"))
-ThisBuild / homepage := Some(url("https://github.com/avast/scala-server-toolkit"))
-ThisBuild / description := "Functional programming toolkit for building server applications in Scala."
-ThisBuild / licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE"))
-ThisBuild / developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com")))
-
-ThisBuild / scalaVersion := "2.13.1"
-ThisBuild / turbo := true
-Global / onChangedBuildSource := ReloadOnSourceChanges
-Global / cancelable := true
-
 lazy val root = project
   .in(file("."))
   .aggregate(
@@ -18,11 +5,14 @@ lazy val root = project
     bundleZioHttp4sBlaze,
     cassandraDatastaxDriver,
     cassandraDatastaxDriverPureConfig,
+    catsEffect,
     doobieHikari,
     doobieHikariPureConfig,
     example,
     flyway,
     flywayPureConfig,
+    fs2Kafka,
+    fs2KafkaPureConfig,
     grpcServer,
     grpcServerMicrometer,
     grpcServerPureConfig,
@@ -33,9 +23,14 @@ lazy val root = project
     http4sServerBlaze,
     http4sServerBlazePureConfig,
     http4sServerMicrometer,
+    jdkHttpClient,
+    jdkHttpClientPureConfig,
     jvm,
     jvmMicrometer,
     jvmPureConfig,
+    lettuce,
+    lettucePureConfig,
+    micrometer,
     micrometerJmx,
     micrometerJmxPureConfig,
     micrometerStatsD,
@@ -48,6 +43,7 @@ lazy val root = project
     sentryPureConfig,
     sslConfig
   )
+  .settings(BuildSettings.common)
   .settings(
     name := "scala-server-toolkit",
     publish / skip := true
@@ -109,6 +105,11 @@ lazy val cassandraDatastaxDriverPureConfig = project
     libraryDependencies += Dependencies.pureConfig
   )
 
+lazy val catsEffect = project
+  .in(file("cats-effect"))
+  .settings(BuildSettings.common)
+  .settings(name := "sst-cats-effect")
+
 lazy val doobieHikari = project
   .in(file("doobie-hikari"))
   .settings(BuildSettings.common)
@@ -160,7 +161,10 @@ lazy val flyway = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-flyway",
-    libraryDependencies += Dependencies.flywayCore
+    libraryDependencies ++= List(
+      Dependencies.scalaCollectionCompat,
+      Dependencies.flywayCore
+    )
   )
 
 lazy val flywayPureConfig = project
@@ -169,6 +173,28 @@ lazy val flywayPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-flyway-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
+  )
+
+lazy val fs2Kafka = project
+  .in(file("fs2-kafka"))
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-fs2-kafka",
+    libraryDependencies ++= Seq(
+      Dependencies.fs2Kafka,
+      Dependencies.testContainersScalaScalaTest % Test,
+      Dependencies.testContainersScalaKafka % Test,
+      Dependencies.jacksonDatabind % Test
+    )
+  )
+
+lazy val fs2KafkaPureConfig = project
+  .in(file("fs2-kafka-pureconfig"))
+  .dependsOn(fs2Kafka)
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-fs2-kafka-pureconfig",
     libraryDependencies += Dependencies.pureConfig
   )
 
@@ -267,7 +293,26 @@ lazy val http4sServerMicrometer = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-http4s-server-micrometer",
-    libraryDependencies += Dependencies.micrometerCore
+    libraryDependencies ++= Seq(
+      Dependencies.micrometerCore,
+      Dependencies.jsr305 // required because of Scala compiler
+    )
+  )
+
+lazy val jdkHttpClient = project
+  .in(file("jdk-http-client"))
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-jdk-http-client"
+  )
+
+lazy val jdkHttpClientPureConfig = project
+  .in(file("jdk-http-client-pureconfig"))
+  .dependsOn(jdkHttpClient)
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-jdk-http-client-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
   )
 
 lazy val jvm = project
@@ -284,7 +329,10 @@ lazy val jvmMicrometer = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-jvm-micrometer",
-    libraryDependencies += Dependencies.micrometerCore
+    libraryDependencies ++= Seq(
+      Dependencies.micrometerCore,
+      Dependencies.jsr305 // required because of Scala compiler
+    )
   )
 
 lazy val jvmPureConfig = project
@@ -294,6 +342,34 @@ lazy val jvmPureConfig = project
   .settings(
     name := "sst-jvm-pureconfig",
     libraryDependencies += Dependencies.pureConfig
+  )
+
+lazy val lettuce = project
+  .in(file("lettuce"))
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-lettuce",
+    libraryDependencies += Dependencies.lettuce
+  )
+
+lazy val lettucePureConfig = project
+  .in(file("lettuce-pureconfig"))
+  .dependsOn(lettuce)
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-lettuce-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
+  )
+
+lazy val micrometer = project
+  .in(file("micrometer"))
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-micrometer",
+    libraryDependencies ++= Seq(
+      Dependencies.micrometerCore,
+      Dependencies.jsr305 // required because of Scala compiler
+    )
   )
 
 lazy val micrometerJmx = project
@@ -318,6 +394,7 @@ lazy val micrometerJmxPureConfig = project
 
 lazy val micrometerStatsD = project
   .in(file("micrometer-statsd"))
+  .dependsOn(micrometer)
   .settings(BuildSettings.common)
   .settings(
     name := "sst-micrometer-statsd",
@@ -410,8 +487,10 @@ lazy val site = project
     example,
     flyway,
     flywayPureConfig,
+    fs2Kafka,
     http4sClientBlazePureConfig,
     http4sClientMonixCatnap,
+    lettucePureConfig,
     monixCatnapPureConfig,
     micrometerJmxPureConfig,
     sentry,
@@ -436,7 +515,7 @@ lazy val sslConfig = project
   )
 
 addCommandAlias(
-  "checkAll",
-  "; scalafmtSbtCheck; scalafmtCheckAll; compile:scalafix --check; test:scalafix --check; missinglinkCheck; +test"
+  "check",
+  "; scalafmtSbtCheck; scalafmtCheckAll; missinglinkCheck; +test"
 )
-addCommandAlias("fixAll", "; compile:scalafix; test:scalafix; scalafmtSbt; scalafmtAll")
+addCommandAlias("fix", "; compile:scalafix; test:scalafix; scalafmtSbt; scalafmtAll")

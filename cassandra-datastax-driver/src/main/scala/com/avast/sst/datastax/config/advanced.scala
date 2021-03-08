@@ -108,9 +108,7 @@ object AdvancedConfig {
   )
 }
 
-/**
-  *
-  * @param warnIfSetKeyspace Whether a warning is logged when a request (such as a CQL `USE ...`) changes the active
+/** @param warnIfSetKeyspace Whether a warning is logged when a request (such as a CQL `USE ...`) changes the active
   *                          keyspace.
   * @param logWarnings       Whether logging of server warnings generated during query execution should be disabled by the
   *                          driver.
@@ -136,6 +134,7 @@ object AdvancedRequestConfig {
   * @param warnOnInitError          Whether to log non-fatal errors when the driver tries to open a new connection.
   */
 final case class ConnectionConfig(
+    connectTimeout: Duration = ConnectionConfig.Default.connectTimeout,
     initQueryTimeout: Duration = ConnectionConfig.Default.initQueryTimeout,
     setKeyspaceTimeout: Duration = ConnectionConfig.Default.setKeyspaceTimeout,
     localPool: PoolConfig = ConnectionConfig.Default.localPool,
@@ -147,7 +146,7 @@ final case class ConnectionConfig(
 
 object ConnectionConfig {
   val Default: ConnectionConfig =
-    ConnectionConfig(InitQueryTimeout, InitQueryTimeout, PoolConfig.Default, PoolConfig.Default, 1024, 24576, true)
+    ConnectionConfig(ConnectTimeout, InitQueryTimeout, InitQueryTimeout, PoolConfig.Default, PoolConfig.Default, 1024, 256, true)
 }
 
 /** The driver maintains a connection pool to each node, according to the distance assigned to it
@@ -210,7 +209,7 @@ final case class SpeculativeExecutionPolicyConfig(`class`: String, maxExecutions
 
 object SpeculativeExecutionPolicyConfig {
 
-  /**  A policy that schedules a configurable number of speculative executions, separated by a fixed delay.*/
+  /** A policy that schedules a configurable number of speculative executions, separated by a fixed delay. */
   val ConstantSpeculative: SpeculativeExecutionPolicyConfig = SpeculativeExecutionPolicyConfig(
     "com.datastax.oss.driver.internal.core.specex.ConstantSpeculativeExecutionPolicy",
     Some(3),
@@ -662,9 +661,7 @@ object SchemaAgreementConfig {
   val Default: SchemaAgreementConfig = SchemaAgreementConfig(200.milliseconds, 10.seconds, true)
 }
 
-/**
-  *
-  * @param prepareOnAllNodes Overridable in a profile.
+/** @param prepareOnAllNodes Overridable in a profile.
   */
 final case class PreparedStatementsConfig(
     prepareOnAllNodes: Boolean = PreparedStatementsConfig.Default.prepareOnAllNodes,
@@ -804,14 +801,10 @@ object TimerConfig {
 /** The component that coalesces writes on the connections.
   * This is exposed mainly to facilitate tuning during development. You shouldn't have to adjust this.
   *
-  * @param maxRunsWithNoWork  How many times the coalescer is allowed to reschedule itself when it did no work.
   * @param rescheduleInterval The reschedule interval.
   */
-final case class CoalescerConfig(
-    maxRunsWithNoWork: Int = CoalescerConfig.Default.maxRunsWithNoWork,
-    rescheduleInterval: Duration = CoalescerConfig.Default.rescheduleInterval
-)
+final case class CoalescerConfig(rescheduleInterval: Duration = CoalescerConfig.Default.rescheduleInterval)
 
 object CoalescerConfig {
-  val Default: CoalescerConfig = CoalescerConfig(5, 10.microseconds)
+  val Default: CoalescerConfig = CoalescerConfig(10.microseconds)
 }

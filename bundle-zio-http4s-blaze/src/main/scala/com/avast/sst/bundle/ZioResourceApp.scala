@@ -15,15 +15,15 @@ trait ZioResourceApp[A] extends CatsApp {
 
   def program: Resource[Task, A]
 
-  override def run(args: List[String]): ZIO[ZEnv, Nothing, Int] = {
+  override def run(args: List[String]): ZIO[ZEnv, Nothing, ExitCode] = {
     program
       .use(_ => Task.unit)
       .fold(
         ex => {
           logger.error("Application initialization failed!", ex)
-          1
+          ExitCode.failure
         },
-        _ => 0
+        _ => ExitCode.success
       )
   }
 

@@ -5,33 +5,47 @@ import microsites.CdnDirectives
 import microsites.MicrositesPlugin.autoImport._
 import sbt.Keys._
 import sbt._
+import sbt.nio.Keys._
 import sbtunidoc.ScalaUnidocPlugin.autoImport._
 import scalafix.sbt.ScalafixPlugin.autoImport._
 
 object BuildSettings {
 
   lazy val common: Seq[Def.Setting[_]] = Seq(
-    crossScalaVersions := List(scalaVersion.value, "2.12.10"),
+    Global / onChangedBuildSource := ReloadOnSourceChanges,
+    Global / cancelable := true,
+    Global / excludeLintKeys += fork,
+    ThisBuild / versionScheme := Some("early-semver"),
+    turbo := true,
+    organization := "com.avast",
+    organizationName := "Avast",
+    organizationHomepage := Some(url("https://avast.com")),
+    homepage := Some(url("https://github.com/avast/scala-server-toolkit")),
+    description := "Functional programming toolkit for building server applications in Scala.",
+    licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE")),
+    developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com"))),
+    scalaVersion := "2.13.5",
+    crossScalaVersions := List(scalaVersion.value, "2.12.13"),
     fork := true,
     libraryDependencies ++= Seq(
       compilerPlugin(Dependencies.kindProjector),
       compilerPlugin(Dependencies.silencer),
-      compilerPlugin(scalafixSemanticdb), // necessary for Scalafix
       Dependencies.silencerLib,
       Dependencies.catsEffect,
       Dependencies.scalaCollectionCompat,
       Dependencies.logbackClassic % Test,
       Dependencies.scalaTest % Test
     ),
+    semanticdbEnabled := true,
+    semanticdbVersion := scalafixSemanticdb.revision,
     ThisBuild / scalafixDependencies ++= Seq(
       Dependencies.scalafixScaluzzi,
-      Dependencies.scalafixSortImports
+      Dependencies.scalafixOrganizeImports
     ),
-    scalacOptions ++= Seq(
-      "-Yrangepos", // necessary for Scalafix (required by SemanticDB compiler plugin)
+    scalacOptions ++= List(
       "-Ywarn-unused", // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
       "-P:silencer:checkUnused"
-    ),
+    ) ++ (if (scalaVersion.value.startsWith("2.13")) List("-Wmacros:after") else List.empty),
     missinglinkExcludedDependencies ++= List(
       moduleFilter(organization = "ch.qos.logback", name = "logback-core"),
       moduleFilter(organization = "com.datastax.oss", name = "java-driver-core"),
@@ -44,11 +58,11 @@ object BuildSettings {
       moduleFilter(organization = "org.flywaydb", name = "flyway-core"),
       moduleFilter(organization = "org.slf4j", name = "slf4j-api")
     ),
+    javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
     Test / publishArtifact := false
   )
 
   lazy val microsite: Seq[Def.Setting[_]] = Seq(
-    micrositeCompilingDocsTool := WithMdoc,
     micrositeName := "scala-server-toolkit",
     micrositeDescription := "Functional programming toolkit for building server applications in Scala.",
     micrositeAuthor := "Avast",

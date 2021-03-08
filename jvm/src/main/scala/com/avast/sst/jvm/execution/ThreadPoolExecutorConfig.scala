@@ -1,7 +1,6 @@
 package com.avast.sst.jvm.execution
 
 import java.util.concurrent.TimeUnit
-
 import scala.concurrent.duration.{Duration, FiniteDuration}
 
 final case class ThreadPoolExecutorConfig(

@@ -1,12 +1,11 @@
 package com.avast.sst.http4s.server
 
-import java.net.{InetSocketAddress, StandardSocketOptions}
-
 import cats.effect.{ConcurrentEffect, Resource, Timer}
 import org.http4s.HttpApp
 import org.http4s.server.Server
 import org.http4s.server.blaze.BlazeServerBuilder
 
+import java.net.{InetSocketAddress, StandardSocketOptions}
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.Duration
 
@@ -27,23 +26,23 @@ object Http4sBlazeServerModule {
           InetSocketAddress.createUnresolved(config.listenAddress, config.listenPort)
         )
       )
-      server <- BlazeServerBuilder[F]
-        .bindSocketAddress(inetSocketAddress)
-        .withHttpApp(httpApp)
-        .withExecutionContext(executionContext)
-        .withoutBanner
-        .withNio2(config.nio2Enabled)
-        .withWebSockets(config.webSocketsEnabled)
-        .enableHttp2(config.http2Enabled)
-        .withResponseHeaderTimeout(Duration.fromNanos(config.responseHeaderTimeout.toNanos))
-        .withIdleTimeout(Duration.fromNanos(config.idleTimeout.toNanos))
-        .withBufferSize(config.bufferSize)
-        .withMaxRequestLineLength(config.maxRequestLineLength)
-        .withMaxHeadersLength(config.maxHeadersLength)
-        .withChunkBufferMaxSize(config.chunkBufferMaxSize)
-        .withConnectorPoolSize(config.connectorPoolSize)
-        .withChannelOption[java.lang.Boolean](StandardSocketOptions.TCP_NODELAY, config.socketOptions.tcpNoDelay)
-        .resource
+      server <-
+        BlazeServerBuilder[F](executionContext)
+          .bindSocketAddress(inetSocketAddress)
+          .withHttpApp(httpApp)
+          .withoutBanner
+          .withWebSockets(config.webSocketsEnabled)
+          .enableHttp2(config.http2Enabled)
+          .withResponseHeaderTimeout(Duration.fromNanos(config.responseHeaderTimeout.toNanos))
+          .withIdleTimeout(Duration.fromNanos(config.idleTimeout.toNanos))
+          .withBufferSize(config.bufferSize)
+          .withMaxRequestLineLength(config.maxRequestLineLength)
+          .withMaxHeadersLength(config.maxHeadersLength)
+          .withChunkBufferMaxSize(config.chunkBufferMaxSize)
+          .withConnectorPoolSize(config.connectorPoolSize)
+          .withMaxConnections(config.maxConnections)
+          .withChannelOption[java.lang.Boolean](StandardSocketOptions.TCP_NODELAY, config.socketOptions.tcpNoDelay)
+          .resource
     } yield server
   }
 }

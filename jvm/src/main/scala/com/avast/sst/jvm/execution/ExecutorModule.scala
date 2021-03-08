@@ -1,5 +1,8 @@
 package com.avast.sst.jvm.execution
 
+import cats.effect.{Blocker, Resource, Sync}
+import com.avast.sst.jvm.execution.ConfigurableThreadFactory.Config
+
 import java.util.concurrent.ForkJoinPool.ForkJoinWorkerThreadFactory
 import java.util.concurrent.{
   BlockingQueue,
@@ -11,10 +14,6 @@ import java.util.concurrent.{
   ThreadPoolExecutor,
   TimeUnit
 }
-
-import cats.effect.{Blocker, Resource, Sync}
-import com.avast.sst.jvm.execution.ConfigurableThreadFactory.Config
-
 import scala.concurrent.{ExecutionContext, ExecutionContextExecutorService}
 
 /** Provides necessary executors - the default one for execution of your business logic and callbacks and special one designated for

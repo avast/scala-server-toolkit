@@ -6,6 +6,7 @@ import com.avast.sst.datastax.config.CassandraDatastaxDriverConfig
 import com.datastax.oss.driver.api.core.CqlSession
 import com.datastax.oss.driver.api.core.config.DefaultDriverOption._
 import com.datastax.oss.driver.api.core.config.{DriverConfigLoader, ProgrammaticDriverConfigLoaderBuilder => DriverBuilder}
+
 import javax.net.ssl.SSLContext
 
 object CassandraDatastaxDriverModule {
@@ -28,6 +29,7 @@ object CassandraDatastaxDriverModule {
         stringProperty(LOAD_BALANCING_POLICY_CLASS)(cfg.basic.loadBalancingPolicy.`class`),
         optional(stringProperty(LOAD_BALANCING_LOCAL_DATACENTER), cfg.basic.loadBalancingPolicy.localDatacenter),
         optional(stringProperty(LOAD_BALANCING_FILTER_CLASS), cfg.basic.loadBalancingPolicy.filter.map(_.`class`)),
+        durationProperty(CONNECTION_CONNECT_TIMEOUT)(cfg.advanced.connection.connectTimeout),
         durationProperty(CONNECTION_INIT_QUERY_TIMEOUT)(cfg.advanced.connection.initQueryTimeout),
         intProperty(CONNECTION_POOL_LOCAL_SIZE)(cfg.advanced.connection.localPool.size),
         intProperty(CONNECTION_POOL_REMOTE_SIZE)(cfg.advanced.connection.remotePool.size),
@@ -149,7 +151,7 @@ object CassandraDatastaxDriverModule {
         stringProperty(NETTY_ADMIN_SHUTDOWN_UNIT)(cfg.advanced.netty.adminGroup.shutdown.unit),
         durationProperty(NETTY_TIMER_TICK_DURATION)(cfg.advanced.netty.timer.tickDuration),
         intProperty(NETTY_TIMER_TICKS_PER_WHEEL)(cfg.advanced.netty.timer.ticksPerWheel),
-        intProperty(COALESCER_MAX_RUNS)(cfg.advanced.coalescer.maxRunsWithNoWork)
+        durationProperty(COALESCER_INTERVAL)(cfg.advanced.coalescer.rescheduleInterval)
       ).foldRight(DriverConfigLoader.programmaticBuilder()) { (w, b) => w(b) }
 
       val loader = cfg.profiles

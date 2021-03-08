@@ -150,19 +150,20 @@ sealed abstract class ConsistencyLevel {
 
   import ConsistencyLevel._
 
-  def toStringRepr: String = this match {
-    case Any         => "ANY"
-    case One         => "ONE"
-    case Two         => "TWO"
-    case Three       => "THREE"
-    case Quorum      => "QUORUM"
-    case All         => "ALL"
-    case LocalOne    => "LOCAL_ONE"
-    case LocalQuorum => "LOCAL_QUORUM"
-    case EachQuorum  => "EACH_QUORUM "
-    case Serial      => "SERIAL"
-    case LocalSerial => "LOCAL_SERIAL"
-  }
+  def toStringRepr: String =
+    this match {
+      case Any         => "ANY"
+      case One         => "ONE"
+      case Two         => "TWO"
+      case Three       => "THREE"
+      case Quorum      => "QUORUM"
+      case All         => "ALL"
+      case LocalOne    => "LOCAL_ONE"
+      case LocalQuorum => "LOCAL_QUORUM"
+      case EachQuorum  => "EACH_QUORUM "
+      case Serial      => "SERIAL"
+      case LocalSerial => "LOCAL_SERIAL"
+    }
 
 }
 

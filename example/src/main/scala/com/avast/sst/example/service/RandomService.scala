@@ -13,13 +13,14 @@ trait RandomService {
 
 object RandomService {
 
-  def apply(transactor: Transactor[Task]): RandomService = new RandomService {
-    override def randomNumber: Task[Double] = {
-      sql"select random()"
-        .query[Double]
-        .unique
-        .transact(transactor)
+  def apply(transactor: Transactor[Task]): RandomService =
+    new RandomService {
+      override def randomNumber: Task[Double] = {
+        sql"select random()"
+          .query[Double]
+          .unique
+          .transact(transactor)
+      }
     }
-  }
 
 }

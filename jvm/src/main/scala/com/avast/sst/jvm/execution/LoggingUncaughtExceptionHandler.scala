@@ -1,8 +1,8 @@
 package com.avast.sst.jvm.execution
 
-import java.lang.Thread.UncaughtExceptionHandler
-
 import org.slf4j.LoggerFactory
+
+import java.lang.Thread.UncaughtExceptionHandler
 
 object LoggingUncaughtExceptionHandler extends UncaughtExceptionHandler {
 

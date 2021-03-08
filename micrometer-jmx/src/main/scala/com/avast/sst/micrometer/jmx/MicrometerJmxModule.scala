@@ -1,7 +1,5 @@
 package com.avast.sst.micrometer.jmx
 
-import java.time.Duration
-
 import cats.effect.{Resource, Sync}
 import com.codahale.metrics.MetricRegistry
 import com.codahale.metrics.jmx.JmxReporter
@@ -9,6 +7,8 @@ import io.micrometer.core.instrument.Clock
 import io.micrometer.core.instrument.config.NamingConvention
 import io.micrometer.core.instrument.util.HierarchicalNameMapper
 import io.micrometer.jmx.{JmxConfig, JmxMeterRegistry}
+
+import java.time.Duration
 
 object MicrometerJmxModule {
 

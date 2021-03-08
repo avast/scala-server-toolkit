@@ -1,13 +1,13 @@
 package com.avast.sst.monix.catnap.micrometer
 
-import java.util.concurrent.atomic.AtomicInteger
-
 import cats.effect.Sync
 import cats.syntax.functor._
 import com.avast.sst.monix.catnap.CircuitBreakerMetrics
 import com.avast.sst.monix.catnap.CircuitBreakerMetrics.State
 import com.avast.sst.monix.catnap.CircuitBreakerMetrics.State.{Closed, HalfOpen, Open}
 import io.micrometer.core.instrument.MeterRegistry
+
+import java.util.concurrent.atomic.AtomicInteger
 
 object MicrometerCircuitBreakerMetricsModule {
 

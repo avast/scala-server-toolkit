@@ -1,15 +1,15 @@
 package com.avast.sst.doobie
 
-import java.util.concurrent.{ScheduledExecutorService, ThreadFactory}
-
 import cats.Show
 import cats.effect.{Async, Blocker, ContextShift, Resource, Sync}
 import cats.syntax.show._
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.metrics.MetricsTrackerFactory
-import doobie.enum.TransactionIsolation
+import doobie.enumerated.TransactionIsolation
 import doobie.hikari.HikariTransactor
 
+import java.util.Properties
+import java.util.concurrent.{ScheduledExecutorService, ThreadFactory}
 import scala.concurrent.ExecutionContext
 
 object DoobieHikariModule {
@@ -50,7 +50,6 @@ object DoobieHikariModule {
       c.setJdbcUrl(config.url)
       c.setUsername(config.username)
       c.setPassword(config.password)
-      c.setAutoCommit(config.autoCommit)
       c.setConnectionTimeout(config.connectionTimeout.toMillis)
       c.setIdleTimeout(config.idleTimeout.toMillis)
       c.setMaxLifetime(config.maxLifeTime.toMillis)
@@ -60,6 +59,10 @@ object DoobieHikariModule {
       c.setAllowPoolSuspension(config.allowPoolSuspension)
       c.setIsolateInternalQueries(config.isolateInternalQueries)
       c.setRegisterMbeans(config.registerMBeans)
+      c.setAutoCommit(config.autoCommit)
+      val dataSourceProperties = new Properties()
+      config.dataSourceProperties.foreach { case (k, v) => dataSourceProperties.put(k, v) }
+      c.setDataSourceProperties(dataSourceProperties)
 
       config.leakDetectionThreshold.map(_.toMillis).foreach(c.setLeakDetectionThreshold)
       config.initializationFailTimeout.map(_.toMillis).foreach(c.setInitializationFailTimeout)

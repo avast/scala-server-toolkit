@@ -5,22 +5,16 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK 1.8
+      - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
-      - uses: actions/setup-ruby@v1
-        with:
-          ruby-version: '2.6'
-      - name: Install jekyll
-        run: gem install jekyll -v 4.0.0
-      - name: Install GPG
-        uses: olafurpg/setup-gpg@v2
+          java-version: 11
+      - uses: coursier/cache-action@v5
       - name: Check/Compile/Test
-        run: sbt checkAll
+        run: sbt check
       - name: Release
         env:
           PGP_SECRET: ${{ secrets.PGP_SECRET }}
@@ -28,6 +22,19 @@ jobs:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
         run: sbt ci-release
+      - uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems
+          restore-keys: |
+            ${{ runner.os }}-gems
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Install jekyll
+        run: |
+          export GEM_HOME=${PWD}/vendor/bundle
+          gem install jekyll -v 4.0.0
       - name: Publish Microsite
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
@@ -37,4 +44,6 @@ jobs:
           ssh-add - <<< "${DEPLOY_KEY}"
           git config --global user.email "janecek@avast.com"
           git config --global user.name "scala-server-toolkit bot"
+          export PATH="${PWD}/vendor/bundle/bin:$PATH"
+          export GEM_HOME=${PWD}/vendor/bundle
           sbt site/publishMicrosite

@@ -1,7 +1,5 @@
 package com.avast.sst.example
 
-import java.util.concurrent.TimeUnit
-
 import cats.effect.{Clock, Resource}
 import com.avast.sst.bundle.ZioServerApp
 import com.avast.sst.doobie.DoobieHikariModule
@@ -27,6 +25,7 @@ import zio.Task
 import zio.interop.catz._
 import zio.interop.catz.implicits._
 
+import java.util.concurrent.TimeUnit
 import scala.concurrent.ExecutionContext
 
 object Main extends ZioServerApp {
@@ -44,15 +43,17 @@ object Main extends ZioServerApp {
       meterRegistry <- MicrometerJmxModule.make[Task](configuration.jmx)
       _ <- Resource.liftF(MicrometerJvmModule.make[Task](meterRegistry))
       serverMetricsModule <- Resource.liftF(MicrometerHttp4sServerMetricsModule.make[Task](meterRegistry, clock))
-      boundedConnectExecutionContext <- executorModule
-        .makeThreadPoolExecutor(
-          configuration.boundedConnectExecutor,
-          new ConfigurableThreadFactory(Config(Some("hikari-connect-%02d")))
-        )
-        .map(ExecutionContext.fromExecutorService)
+      boundedConnectExecutionContext <-
+        executorModule
+          .makeThreadPoolExecutor(
+            configuration.boundedConnectExecutor,
+            new ConfigurableThreadFactory(Config(Some("hikari-connect-%02d")))
+          )
+          .map(ExecutionContext.fromExecutorService)
       hikariMetricsFactory = new MicrometerMetricsTrackerFactory(meterRegistry)
-      doobieTransactor <- DoobieHikariModule
-        .make[Task](configuration.database, boundedConnectExecutionContext, executorModule.blocker, Some(hikariMetricsFactory))
+      doobieTransactor <-
+        DoobieHikariModule
+          .make[Task](configuration.database, boundedConnectExecutionContext, executorModule.blocker, Some(hikariMetricsFactory))
       randomService = RandomService(doobieTransactor)
       httpClient <- Http4sBlazeClientModule.make[Task](configuration.client, executorModule.executionContext)
       circuitBreakerMetrics <- Resource.liftF(MicrometerCircuitBreakerMetricsModule.make[Task]("test-http-client", meterRegistry))
