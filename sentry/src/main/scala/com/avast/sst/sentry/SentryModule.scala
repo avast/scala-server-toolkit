@@ -12,7 +12,7 @@ object SentryModule {
     Resource.make {
       Sync[F].delay {
         Sentry.init((options: SentryOptions) => {
-          config.dsn.foreach(options.setDsn)
+          options.setDsn(config.dsn)
           config.release.foreach(options.setRelease)
           config.environment.foreach(options.setEnvironment)
           config.distribution.foreach(options.setDist)
