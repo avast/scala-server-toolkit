@@ -6,5 +6,5 @@ final case class SentryConfig(
     environment: Option[String] = None,
     distribution: Option[String] = None,
     serverName: Option[String] = None,
-    stacktraceAppPackages: List[String] = List.empty
+    inAppInclude: List[String] = List.empty
 )
