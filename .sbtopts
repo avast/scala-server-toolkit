@@ -1,2 +1,2 @@
--J-Xmx8g
+-J-Xmx4g
 -J-XX:+UseG1GC

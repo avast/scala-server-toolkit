@@ -1,4 +1,5 @@
 import ch.epfl.scala.sbtmissinglink.MissingLinkPlugin.autoImport._
+import ch.epfl.scala.sbtmissinglink.MissingLinkPlugin.missinglinkConflictsTag
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import mdoc.MdocPlugin.autoImport._
 import microsites.CdnDirectives
@@ -62,6 +63,7 @@ object BuildSettings {
       moduleFilter(organization = "org.flywaydb", name = "flyway-core"),
       moduleFilter(organization = "org.slf4j", name = "slf4j-api")
     ),
+    concurrentRestrictions += Tags.limit(missinglinkConflictsTag, 4), // limit missing-link to limit heap consumption
     javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
     Test / publishArtifact := false
   )
