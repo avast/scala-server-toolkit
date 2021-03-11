@@ -11,15 +11,13 @@ object SentryModule {
   def make[F[_]: Sync](config: SentryConfig): Resource[F, Unit] = {
     Resource.make {
       Sync[F].delay {
-        val dsnCustomizations = s"${config.stacktraceAppPackages.mkString("stacktrace.app.packages=", ",", "")}"
-        val finalDsn = if (dsnCustomizations.nonEmpty) s"${config.dsn}?$dsnCustomizations" else config.dsn
-
         Sentry.init((options: SentryOptions) => {
-          options.setDsn(finalDsn)
+          config.dsn.foreach(options.setDsn)
           config.release.foreach(options.setRelease)
           config.environment.foreach(options.setEnvironment)
           config.distribution.foreach(options.setDist)
           config.serverName.foreach(options.setServerName)
+          config.inAppInclude.foreach(options.addInAppInclude)
         })
       }
     }(_ => Sync[F].delay(Sentry.close()))
