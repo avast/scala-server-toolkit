@@ -8,7 +8,7 @@ import scala.jdk.CollectionConverters._
 
 object FlywayModule {
 
-  /** Makes [[org.flywaydb.core.Flyway]] from the given [[javax.sql.DataSource]] and config. */
+  /** Makes [[org.flywaydb.core.Flyway]] from the given `javax.sql.DataSource` and config. */
   def make[F[_]: Sync](dataSource: DataSource, config: FlywayConfig): F[Flyway] = {
     Sync[F].delay {
       val builder = Flyway.configure

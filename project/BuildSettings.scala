@@ -1,12 +1,13 @@
+import ch.epfl.scala.sbtmissinglink.MissingLinkPlugin.autoImport._
 import com.typesafe.sbt.site.SitePlugin.autoImport._
-import com.typesafe.tools.mima.plugin.MimaKeys._
 import mdoc.MdocPlugin.autoImport._
 import microsites.CdnDirectives
 import microsites.MicrositesPlugin.autoImport._
 import sbt.Keys._
+import sbt._
 import sbt.nio.Keys._
-import sbt.{Def, _}
 import sbtunidoc.ScalaUnidocPlugin.autoImport._
+import sbtversionpolicy.SbtVersionPolicyPlugin.autoImport._
 import scalafix.sbt.ScalafixPlugin.autoImport._
 
 object BuildSettings {
@@ -15,6 +16,8 @@ object BuildSettings {
     Global / onChangedBuildSource := ReloadOnSourceChanges,
     Global / cancelable := true,
     Global / excludeLintKeys += fork,
+    ThisBuild / versionScheme := Some("early-semver"),
+    ThisBuild / versionPolicyIntention := Compatibility.BinaryCompatible,
     turbo := true,
     organization := "com.avast",
     organizationName := "Avast",
@@ -23,8 +26,8 @@ object BuildSettings {
     description := "Functional programming toolkit for building server applications in Scala.",
     licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE")),
     developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com"))),
-    scalaVersion := "2.13.3",
-    crossScalaVersions := List(scalaVersion.value, "2.12.12"),
+    scalaVersion := "2.13.5",
+    crossScalaVersions := List(scalaVersion.value, "2.12.13"),
     fork := true,
     libraryDependencies ++= Seq(
       compilerPlugin(Dependencies.kindProjector),
@@ -41,10 +44,25 @@ object BuildSettings {
       Dependencies.scalafixScaluzzi,
       Dependencies.scalafixOrganizeImports
     ),
-    scalacOptions ++= Seq(
+    scalacOptions ++= List(
       "-Ywarn-unused", // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
       "-P:silencer:checkUnused"
+    ) ++ (if (scalaVersion.value.startsWith("2.13")) List("-Wmacros:after") else List.empty),
+    missinglinkExcludedDependencies ++= List(
+      moduleFilter(organization = "ch.qos.logback"),
+      moduleFilter(organization = "com.datastax.oss", name = "java-driver-core"),
+      moduleFilter(organization = "com.zaxxer", name = "HikariCP"),
+      moduleFilter(organization = "io.lettuce"),
+      moduleFilter(organization = "io.micrometer"),
+      moduleFilter(organization = "io.netty"),
+      moduleFilter(organization = "io.projectreactor", name = "reactor-core"),
+      moduleFilter(organization = "io.sentry", name = "sentry"),
+      moduleFilter(organization = "org.apache.kafka", name = "kafka-clients"),
+      moduleFilter(organization = "org.codehaus.groovy", name = "groovy"),
+      moduleFilter(organization = "org.flywaydb", name = "flyway-core"),
+      moduleFilter(organization = "org.slf4j", name = "slf4j-api")
     ),
+    javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
     Test / publishArtifact := false
   )
 

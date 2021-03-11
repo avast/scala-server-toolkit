@@ -23,6 +23,8 @@ lazy val root = project
     http4sServerBlaze,
     http4sServerBlazePureConfig,
     http4sServerMicrometer,
+    jdkHttpClient,
+    jdkHttpClientPureConfig,
     jvm,
     jvmMicrometer,
     jvmPureConfig,
@@ -41,6 +43,7 @@ lazy val root = project
     sentryPureConfig,
     sslConfig
   )
+  .disablePlugins(SbtVersionPolicyPlugin)
   .settings(BuildSettings.common)
   .settings(
     name := "scala-server-toolkit",
@@ -130,6 +133,7 @@ lazy val doobieHikariPureConfig = project
 
 lazy val example = project
   .in(file("example"))
+  .disablePlugins(SbtVersionPolicyPlugin)
   .dependsOn(
     bundleZioHttp4sBlaze,
     cassandraDatastaxDriver,
@@ -295,6 +299,22 @@ lazy val http4sServerMicrometer = project
       Dependencies.micrometerCore,
       Dependencies.jsr305 // required because of Scala compiler
     )
+  )
+
+lazy val jdkHttpClient = project
+  .in(file("jdk-http-client"))
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-jdk-http-client"
+  )
+
+lazy val jdkHttpClientPureConfig = project
+  .in(file("jdk-http-client-pureconfig"))
+  .dependsOn(jdkHttpClient)
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-jdk-http-client-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
   )
 
 lazy val jvm = project
@@ -498,6 +518,6 @@ lazy val sslConfig = project
 
 addCommandAlias(
   "check",
-  "; scalafmtSbtCheck; scalafmtCheckAll; +test"
+  "; scalafmtSbtCheck; scalafmtCheckAll; missinglinkCheck; +test"
 )
 addCommandAlias("fix", "; compile:scalafix; test:scalafix; scalafmtSbt; scalafmtAll")
