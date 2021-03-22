@@ -21,7 +21,7 @@ class CorrelationIdMiddlewareTest extends AsyncFunSuite with Http4sDsl[IO] {
 
   test("CorrelationIdMiddleware fills Request attributes and HTTP response header") {
     val test = for {
-      middleware <- Resource.liftF(CorrelationIdMiddleware.default[IO])
+      middleware <- Resource.eval(CorrelationIdMiddleware.default[IO])
       routes = Http4sRouting.make {
         middleware.wrap {
           HttpRoutes.of[IO] { case req @ GET -> Root / "test" =>

@@ -21,9 +21,9 @@ class Fs2KafkaModuleTest extends AsyncFunSuite with ForAllTestContainer {
       consumer <- Fs2KafkaModule.makeConsumer[IO, String, String](
         ConsumerConfig(List(container.bootstrapServers), groupId = "test", autoOffsetReset = AutoOffsetReset.Earliest)
       )
-      _ <- Resource.liftF(consumer.subscribeTo("test"))
-      _ <- Resource.liftF(producer.produce(ProducerRecords.one(ProducerRecord("test", "key", "value"))).flatten)
-      event <- Resource.liftF(consumer.stream.head.compile.toList)
+      _ <- Resource.eval(consumer.subscribeTo("test"))
+      _ <- Resource.eval(producer.produce(ProducerRecords.one(ProducerRecord("test", "key", "value"))).flatten)
+      event <- Resource.eval(consumer.stream.head.compile.toList)
     } yield assert(event.head.record.key === "key" && event.head.record.value === "value")
 
     io.use(IO.pure).unsafeToFuture()

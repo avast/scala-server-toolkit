@@ -21,7 +21,7 @@ object Http4sBlazeServerModule {
       executionContext: ExecutionContext
   ): Resource[F, Server[F]] = {
     for {
-      inetSocketAddress <- Resource.liftF(
+      inetSocketAddress <- Resource.eval(
         ConcurrentEffect[F].delay(
           InetSocketAddress.createUnresolved(config.listenAddress, config.listenPort)
         )

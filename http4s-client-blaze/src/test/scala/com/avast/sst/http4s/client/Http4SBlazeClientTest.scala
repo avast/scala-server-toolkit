@@ -23,7 +23,7 @@ class Http4SBlazeClientTest extends AsyncFunSuite {
         ),
         ExecutionContext.global
       )
-      response <- Resource.liftF(client.expect[String]("https://httpbin.org/user-agent"))
+      response <- Resource.eval(client.expect[String]("https://httpbin.org/user-agent"))
     } yield assert(response === expected)
 
     test.use(IO.pure).unsafeToFuture()
