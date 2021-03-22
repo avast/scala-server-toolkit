@@ -58,7 +58,7 @@ object ExecutorModule {
     */
   def makeDefault[F[_]: Sync]: Resource[F, ExecutorModule[F]] = {
     for {
-      numOfCpus <- Resource.liftF(Sync[F].delay(Runtime.getRuntime.availableProcessors))
+      numOfCpus <- Resource.eval(Sync[F].delay(Runtime.getRuntime.availableProcessors))
       coreSize = numOfCpus * 2
       executor <- makeThreadPoolExecutor(ThreadPoolExecutorConfig(coreSize, coreSize), toolkitThreadFactory, new LinkedBlockingQueue)
         .map(ExecutionContext.fromExecutorService)
@@ -71,7 +71,7 @@ object ExecutorModule {
     */
   def makeFromExecutionContext[F[_]: Sync](executor: ExecutionContext): Resource[F, ExecutorModule[F]] = {
     for {
-      numOfCpus <- Resource.liftF(Sync[F].delay(Runtime.getRuntime.availableProcessors))
+      numOfCpus <- Resource.eval(Sync[F].delay(Runtime.getRuntime.availableProcessors))
       blockingExecutor <- makeBlockingExecutor.map(ExecutionContext.fromExecutorService)
     } yield new ExecutorModule[F](numOfCpus, executor, blockingExecutor)
   }
@@ -81,7 +81,7 @@ object ExecutorModule {
     */
   def makeFromConfig[F[_]: Sync](executorConfig: ThreadPoolExecutorConfig): Resource[F, ExecutorModule[F]] = {
     for {
-      numOfCpus <- Resource.liftF(Sync[F].delay(Runtime.getRuntime.availableProcessors))
+      numOfCpus <- Resource.eval(Sync[F].delay(Runtime.getRuntime.availableProcessors))
       executor <- makeThreadPoolExecutor(executorConfig, toolkitThreadFactory, new LinkedBlockingQueue)
         .map(ExecutionContext.fromExecutorService)
       blockingExecutor <- makeBlockingExecutor.map(ExecutionContext.fromExecutorService)
@@ -93,7 +93,7 @@ object ExecutorModule {
     */
   def makeForkJoinFromConfig[F[_]: Sync](executorConfig: ForkJoinPoolConfig): Resource[F, ExecutorModule[F]] = {
     for {
-      numOfCpus <- Resource.liftF(Sync[F].delay(Runtime.getRuntime.availableProcessors))
+      numOfCpus <- Resource.eval(Sync[F].delay(Runtime.getRuntime.availableProcessors))
       executor <- makeForkJoinPool(executorConfig, numOfCpus, toolkitThreadFactory)
         .map(ExecutionContext.fromExecutorService)
       blockingExecutor <- makeBlockingExecutor.map(ExecutionContext.fromExecutorService)

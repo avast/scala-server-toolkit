@@ -32,17 +32,17 @@ object Main extends ZioServerApp {
 
   def program: Resource[Task, Server[Task]] = {
     for {
-      configuration <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
+      configuration <- Resource.eval(PureConfigModule.makeOrRaise[Task, Configuration])
       executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.platform.executor.asEC)
       clock = Clock.create[Task]
-      currentTime <- Resource.liftF(clock.realTime(TimeUnit.MILLISECONDS))
+      currentTime <- Resource.eval(clock.realTime(TimeUnit.MILLISECONDS))
       console <- Resource.pure[Task, Console[Task]](ConsoleModule.make[Task])
-      _ <- Resource.liftF(
+      _ <- Resource.eval(
         console.printLine(s"The current Unix epoch time is $currentTime. This system has ${executorModule.numOfCpus} CPUs.")
       )
       meterRegistry <- MicrometerJmxModule.make[Task](configuration.jmx)
-      _ <- Resource.liftF(MicrometerJvmModule.make[Task](meterRegistry))
-      serverMetricsModule <- Resource.liftF(MicrometerHttp4sServerMetricsModule.make[Task](meterRegistry, clock))
+      _ <- Resource.eval(MicrometerJvmModule.make[Task](meterRegistry))
+      serverMetricsModule <- Resource.eval(MicrometerHttp4sServerMetricsModule.make[Task](meterRegistry, clock))
       boundedConnectExecutionContext <-
         executorModule
           .makeThreadPoolExecutor(
@@ -56,8 +56,8 @@ object Main extends ZioServerApp {
           .make[Task](configuration.database, boundedConnectExecutionContext, executorModule.blocker, Some(hikariMetricsFactory))
       randomService = RandomService(doobieTransactor)
       httpClient <- Http4sBlazeClientModule.make[Task](configuration.client, executorModule.executionContext)
-      circuitBreakerMetrics <- Resource.liftF(MicrometerCircuitBreakerMetricsModule.make[Task]("test-http-client", meterRegistry))
-      circuitBreaker <- Resource.liftF(CircuitBreakerModule[Task].make(configuration.circuitBreaker, clock))
+      circuitBreakerMetrics <- Resource.eval(MicrometerCircuitBreakerMetricsModule.make[Task]("test-http-client", meterRegistry))
+      circuitBreaker <- Resource.eval(CircuitBreakerModule[Task].make(configuration.circuitBreaker, clock))
       enrichedCircuitBreaker = withLogging("test-http-client", withMetrics(circuitBreakerMetrics, circuitBreaker))
       client = Http4sClientCircuitBreakerModule.make[Task](httpClient, enrichedCircuitBreaker)
       routingModule = new Http4sRoutingModule(randomService, client, serverMetricsModule)

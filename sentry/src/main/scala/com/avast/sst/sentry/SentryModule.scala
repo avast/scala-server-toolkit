@@ -31,7 +31,7 @@ object SentryModule {
     */
   def makeWithReleaseFromPackage[F[_]: Sync, Main: ClassTag](config: SentryConfig): Resource[F, Unit] = {
     for {
-      customizedConfig <- Resource.liftF {
+      customizedConfig <- Resource.eval {
         Sync[F].delay {
           for {
             pkg <- Option(implicitly[ClassTag[Main]].runtimeClass.getPackage)
