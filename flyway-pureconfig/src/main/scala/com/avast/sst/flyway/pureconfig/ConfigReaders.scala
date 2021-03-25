@@ -21,4 +21,5 @@ trait ConfigReaders {
   implicit val flywayMigrationVersionReader: ConfigReader[MigrationVersion] = ConfigReader[String].map(MigrationVersion.fromVersion)
 
   implicit val flywayFlywayConfigReader: ConfigReader[FlywayConfig] = deriveReader
+
 }

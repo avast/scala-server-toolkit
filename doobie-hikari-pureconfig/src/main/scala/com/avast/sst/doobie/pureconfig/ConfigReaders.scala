@@ -22,4 +22,5 @@ trait ConfigReaders {
   }
 
   implicit val doobieDoobieHikariConfigReader: ConfigReader[DoobieHikariConfig] = deriveReader
+
 }
