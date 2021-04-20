@@ -40,7 +40,7 @@ object Dependencies {
   val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.39.3"
   val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.39.3"
   val zio = "dev.zio" %% "zio" % "1.0.6"
-  val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.4.0.0"
+  val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.4.1.0"
 
   object Versions {
 
