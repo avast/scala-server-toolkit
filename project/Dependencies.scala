@@ -26,7 +26,7 @@ object Dependencies {
   val micrometerStatsD = "io.micrometer" % "micrometer-registry-statsd" % Versions.micrometerStatsD
   val monixCatnap = "io.monix" %% "monix-catnap" % Versions.monix
   val monixEval = "io.monix" %% "monix-eval" % Versions.monix
-  val postgresql = "org.postgresql" % "postgresql" % "42.2.19"
+  val postgresql = "org.postgresql" % "postgresql" % "42.2.20"
   val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.15.0"
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.4.3"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.18"
@@ -39,8 +39,8 @@ object Dependencies {
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.4.3"
   val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.39.3"
   val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.39.3"
-  val zio = "dev.zio" %% "zio" % "1.0.6"
-  val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "3.0.2.0"
+  val zio = "dev.zio" %% "zio" % "1.0.7"
+  val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.4.1.0"
 
   object Versions {
 
