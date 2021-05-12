@@ -37,8 +37,8 @@ object Dependencies {
   val silencerLib = "com.github.ghik" % "silencer-lib" % Versions.silencer % Provided cross CrossVersion.full
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.30"
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.4.3"
-  val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.39.3"
-  val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.39.3"
+  val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.39.4"
+  val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.39.4"
   val zio = "dev.zio" %% "zio" % "1.0.7"
   val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.4.1.0"
 
