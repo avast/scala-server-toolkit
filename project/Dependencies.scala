@@ -18,7 +18,7 @@ object Dependencies {
   val http4sServer = "org.http4s" %% "http4s-server" % Versions.http4s
   val jacksonDatabind = "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.3"
   val jsr305 = "com.google.code.findbugs" % "jsr305" % "3.0.2"
-  val kindProjector = "org.typelevel" % "kind-projector" % "0.12.0" cross CrossVersion.full
+  val kindProjector = "org.typelevel" % "kind-projector" % "0.13.0" cross CrossVersion.full
   val lettuce = "io.lettuce" % "lettuce-core" % "6.1.2.RELEASE"
   val logbackClassic = "ch.qos.logback" % "logback-classic" % "1.2.3"
   val micrometerCore = "io.micrometer" % "micrometer-core" % Versions.micrometerCore
