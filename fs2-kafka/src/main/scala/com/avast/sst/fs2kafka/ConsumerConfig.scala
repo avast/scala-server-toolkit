@@ -40,6 +40,7 @@ object ConsumerConfig {
 
   private val officialDefaults = ApacheConsumerConfig.configDef().defaultValues().asScala
 
+  @SuppressWarnings(Array("scalafix:DisableSyntax.asInstanceOf"))
   private def default[A](key: String): A = officialDefaults(key).asInstanceOf[A]
 
   private def defaultMillis(key: String): FiniteDuration = FiniteDuration(default[Int](key).toLong, MILLISECONDS)

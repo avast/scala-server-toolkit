@@ -29,6 +29,7 @@ object LettuceModule {
   }
 
   /** Makes [[io.lettuce.core.api.StatefulRedisConnection]] initialized with the given config and optionally [[io.lettuce.core.resource.ClientResources]]. */
+  @SuppressWarnings(Array("scalafix:DisableSyntax.==", "scalafix:DisableSyntax.null"))
   def makeConnection[F[_]: Async, K, V](
       config: LettuceConfig,
       clientResources: Option[ClientResources] = None
