@@ -42,7 +42,7 @@ object Main extends ZioServerApp {
       )
       meterRegistry <- MicrometerJmxModule.make[Task](configuration.jmx)
       _ <- Resource.eval(MicrometerJvmModule.make[Task](meterRegistry))
-      serverMetricsModule <- Resource.eval(MicrometerHttp4sServerMetricsModule.make[Task](meterRegistry, clock))
+      serverMetricsModule <- Resource.eval(MicrometerHttp4sServerMetricsModule.make[Task](meterRegistry, executorModule.blocker, clock))
       boundedConnectExecutionContext <-
         executorModule
           .makeThreadPoolExecutor(
