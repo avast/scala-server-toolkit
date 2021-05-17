@@ -18,7 +18,7 @@ object Dependencies {
   val http4sServer = "org.http4s" %% "http4s-server" % Versions.http4s
   val jacksonDatabind = "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.3"
   val jsr305 = "com.google.code.findbugs" % "jsr305" % "3.0.2"
-  val kindProjector = "org.typelevel" % "kind-projector" % "0.12.0" cross CrossVersion.full
+  val kindProjector = "org.typelevel" % "kind-projector" % "0.13.0" cross CrossVersion.full
   val lettuce = "io.lettuce" % "lettuce-core" % "6.1.2.RELEASE"
   val logbackClassic = "ch.qos.logback" % "logback-classic" % "1.2.3"
   val micrometerCore = "io.micrometer" % "micrometer-core" % Versions.micrometerCore
@@ -28,10 +28,10 @@ object Dependencies {
   val monixEval = "io.monix" %% "monix-eval" % Versions.monix
   val postgresql = "org.postgresql" % "postgresql" % "42.2.20"
   val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.15.0"
-  val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.4.3"
+  val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.4.4"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.18"
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.5.0"
-  val scalaTest = "org.scalatest" %% "scalatest" % "3.2.8"
+  val scalaTest = "org.scalatest" %% "scalatest" % "3.2.9"
   val sentry = "io.sentry" % "sentry" % "4.3.0"
   val silencer = "com.github.ghik" % "silencer-plugin" % Versions.silencer cross CrossVersion.full
   val silencerLib = "com.github.ghik" % "silencer-lib" % Versions.silencer % Provided cross CrossVersion.full
@@ -46,12 +46,12 @@ object Dependencies {
 
     val datastaxJavaDriverCore = "4.11.1"
     val doobie = "0.13.2"
-    val grpc = "1.37.0"
-    val http4s = "0.21.22"
+    val grpc = "1.37.1"
+    val http4s = "0.21.23"
     val micrometerCore = "1.7.0"
     val micrometerJmx = "1.7.0"
     val micrometerStatsD = "1.7.0"
-    val monix = "3.3.0"
+    val monix = "3.4.0"
     val silencer = "1.7.3"
 
   }

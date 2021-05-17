@@ -8,6 +8,7 @@ import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.{Duration, TimeUnit}
 import cats.effect.{ Ref, Temporal }
 
+@SuppressWarnings(Array("scalafix:Disable.get", "scalafix:DisableSyntax.var"))
 class FOpsTest extends AsyncFunSuite {
 
   implicit private val timer: Temporal[IO] = IO.timer(ExecutionContext.global)

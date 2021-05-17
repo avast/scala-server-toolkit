@@ -1,8 +1,6 @@
 package com.avast.sst.http4s.server.middleware
 
-import java.net.InetSocketAddress
-
-import cats.effect.{IO, Resource}
+import cats.effect.{ContextShift, IO, Resource, Timer}
 import com.avast.sst.http4s.server.Http4sRouting
 import org.http4s.client.blaze.BlazeClientBuilder
 import org.http4s.dsl.Http4sDsl
@@ -11,6 +9,7 @@ import org.http4s.util.CaseInsensitiveString
 import org.http4s.{Header, HttpRoutes, Request, Uri}
 import org.scalatest.funsuite.AsyncFunSuite
 
+import java.net.InetSocketAddress
 import scala.concurrent.ExecutionContext
 import cats.effect.Temporal
 
