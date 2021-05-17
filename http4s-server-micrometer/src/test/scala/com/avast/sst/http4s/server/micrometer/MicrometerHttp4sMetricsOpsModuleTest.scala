@@ -1,17 +1,19 @@
 package com.avast.sst.http4s.server.micrometer
 
-import cats.effect.IO
+import cats.effect.{Blocker, IO}
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import org.http4s.{Method, Status}
 import org.scalatest.funsuite.AnyFunSuite
 
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.{Executors, TimeUnit}
+import scala.concurrent.ExecutionContext
 
 class MicrometerHttp4sMetricsOpsModuleTest extends AnyFunSuite {
 
   test("http4s MetricsOps for Micrometer") {
     val registry = new SimpleMeterRegistry()
-    val metricsOps = MicrometerHttp4sMetricsOpsModule.make[IO](registry).unsafeRunSync()
+    val blocker = Blocker.liftExecutionContext(ExecutionContext.fromExecutor(Executors.newCachedThreadPool()))
+    val metricsOps = MicrometerHttp4sMetricsOpsModule.make[IO](registry, blocker).unsafeRunSync()
 
     metricsOps.increaseActiveRequests(None).unsafeRunSync()
     metricsOps.recordTotalTime(Method.GET, Status.Ok, 2500, None).unsafeRunSync()
