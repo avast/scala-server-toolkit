@@ -1,19 +1,20 @@
 package com.avast.sst.micrometer.statsd
 
-import cats.effect.{Resource, Sync}
+import cats.effect.{Blocker, ContextShift, Resource, Sync}
 import com.avast.sst.micrometer.PrefixMeterFilter
 import io.micrometer.core.instrument.Clock
 import io.micrometer.core.instrument.config.{MeterFilter, NamingConvention}
 import io.micrometer.core.instrument.util.HierarchicalNameMapper
-import io.micrometer.statsd.{StatsdConfig, StatsdFlavor, StatsdMeterRegistry, StatsdProtocol}
+import io.micrometer.statsd._
 
 import java.time.Duration
 
 object MicrometerStatsDModule {
 
   /** Makes configured [[io.micrometer.statsd.StatsdMeterRegistry]]. */
-  def make[F[_]: Sync](
+  def make[F[_]: Sync: ContextShift](
       config: MicrometerStatsDConfig,
+      blocker: Blocker,
       clock: Clock = Clock.SYSTEM,
       nameMapper: HierarchicalNameMapper = HierarchicalNameMapper.DEFAULT,
       namingConvention: Option[NamingConvention] = None,
@@ -43,7 +44,7 @@ object MicrometerStatsDModule {
 
           registry
         }
-      }(registry => Sync[F].delay(registry.close()))
+      }(registry => blocker.delay(registry.close()))
   }
 
   private class CustomStatsdConfig(c: MicrometerStatsDConfig) extends StatsdConfig {
