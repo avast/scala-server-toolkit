@@ -33,8 +33,6 @@ object Dependencies {
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.5.0"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.9"
   val sentry = "io.sentry" % "sentry" % "4.3.0"
-  val silencer = "com.github.ghik" % "silencer-plugin" % Versions.silencer cross CrossVersion.full
-  val silencerLib = "com.github.ghik" % "silencer-lib" % Versions.silencer % Provided cross CrossVersion.full
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.30"
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.4.3"
   val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.39.4"
@@ -52,7 +50,6 @@ object Dependencies {
     val micrometerJmx = "1.7.0"
     val micrometerStatsD = "1.7.0"
     val monix = "3.4.0"
-    val silencer = "1.7.4"
 
   }
 
