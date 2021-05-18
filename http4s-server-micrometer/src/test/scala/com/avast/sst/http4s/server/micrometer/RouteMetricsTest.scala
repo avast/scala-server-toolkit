@@ -1,11 +1,11 @@
 package com.avast.sst.http4s.server.micrometer
 
-import java.util.concurrent.TimeUnit
-
 import cats.effect.SyncIO
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import org.http4s.Response
 import org.scalatest.funsuite.AnyFunSuite
+
+import java.util.concurrent.TimeUnit
 
 class RouteMetricsTest extends AnyFunSuite {
 

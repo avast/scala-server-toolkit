@@ -8,6 +8,7 @@ import org.scalatest.funsuite.AsyncFunSuite
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.{Duration, TimeUnit}
 
+@SuppressWarnings(Array("scalafix:Disable.get", "scalafix:DisableSyntax.var"))
 class FOpsTest extends AsyncFunSuite {
 
   implicit private val timer: Timer[IO] = IO.timer(ExecutionContext.global)

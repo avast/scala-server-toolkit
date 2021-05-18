@@ -1,10 +1,9 @@
 package com.avast.sst.jvm.system.console
 
-import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
-
 import cats.effect.SyncIO
 import org.scalatest.funsuite.AnyFunSuite
 
+import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import scala.{Console => SConsole}
 
 class ConsoleModuleTest extends AnyFunSuite {
