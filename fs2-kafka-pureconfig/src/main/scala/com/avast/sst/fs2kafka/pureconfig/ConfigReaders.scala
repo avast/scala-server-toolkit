@@ -8,6 +8,7 @@ import pureconfig.error.CannotConvert
 import pureconfig.generic.ProductHint
 import pureconfig.generic.semiauto.deriveReader
 
+@SuppressWarnings(Array("scalafix:DisableSyntax.=="))
 trait ConfigReaders {
 
   implicit protected def hint[T]: ProductHint[T] = ProductHint.default

@@ -1,15 +1,15 @@
 package com.avast.sst.fs2kafka
 
 import com.avast.sst.fs2kafka.ConsumerConfig._
-import com.github.ghik.silencer.silent
 import fs2.kafka.{AutoOffsetReset, CommitRecovery, IsolationLevel}
 import org.apache.kafka.clients.consumer.{ConsumerConfig => ApacheConsumerConfig}
 
 import java.util.concurrent.TimeUnit.{MILLISECONDS, SECONDS}
+import scala.annotation.nowarn
 import scala.concurrent.duration.FiniteDuration
 import scala.jdk.CollectionConverters._
 
-@silent("dead code")
+@nowarn("msg=dead code")
 final case class ConsumerConfig(
     bootstrapServers: List[String],
     groupId: String,
@@ -40,6 +40,7 @@ object ConsumerConfig {
 
   private val officialDefaults = ApacheConsumerConfig.configDef().defaultValues().asScala
 
+  @SuppressWarnings(Array("scalafix:DisableSyntax.asInstanceOf"))
   private def default[A](key: String): A = officialDefaults(key).asInstanceOf[A]
 
   private def defaultMillis(key: String): FiniteDuration = FiniteDuration(default[Int](key).toLong, MILLISECONDS)

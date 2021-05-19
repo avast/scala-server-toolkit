@@ -32,8 +32,6 @@ object BuildSettings {
     fork := true,
     libraryDependencies ++= Seq(
       compilerPlugin(Dependencies.kindProjector),
-      compilerPlugin(Dependencies.silencer),
-      Dependencies.silencerLib,
       Dependencies.catsEffect,
       Dependencies.scalaCollectionCompat,
       Dependencies.logbackClassic % Test,
@@ -46,8 +44,7 @@ object BuildSettings {
       Dependencies.scalafixOrganizeImports
     ),
     scalacOptions ++= List(
-      "-Ywarn-unused", // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
-      "-P:silencer:checkUnused"
+      "-Ywarn-unused" // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
     ) ++ (if (scalaVersion.value.startsWith("2.13")) List("-Wmacros:after") else List.empty),
     missinglinkExcludedDependencies ++= List(
       moduleFilter(organization = "ch.qos.logback"),

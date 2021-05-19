@@ -1,7 +1,7 @@
 package com.avast.sst.http4s.client
 
 import cats.effect._
-import org.http4s.headers.{`User-Agent`, AgentComment, AgentProduct}
+import org.http4s.headers._
 import org.scalatest.funsuite.AsyncFunSuite
 
 import scala.concurrent.ExecutionContext

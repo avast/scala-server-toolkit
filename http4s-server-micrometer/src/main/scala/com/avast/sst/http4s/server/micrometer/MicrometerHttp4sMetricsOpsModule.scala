@@ -1,7 +1,7 @@
 package com.avast.sst.http4s.server.micrometer
 
-import cats.effect.Effect
 import cats.effect.concurrent.Ref
+import cats.effect.{Blocker, ContextShift, Effect, IO}
 import cats.syntax.functor._
 import io.micrometer.core.instrument.MeterRegistry
 import org.http4s.metrics.{MetricsOps, TerminationType}
@@ -12,8 +12,10 @@ import java.util.concurrent.TimeUnit
 object MicrometerHttp4sMetricsOpsModule {
 
   /** Makes [[org.http4s.metrics.MetricsOps]] to record the usual HTTP server metrics. */
-  def make[F[_]: Effect](meterRegistry: MeterRegistry): F[MetricsOps[F]] = {
+  def make[F[_]: Effect](meterRegistry: MeterRegistry, blocker: Blocker): F[MetricsOps[F]] = {
     val F = Effect[F]
+
+    implicit val iocs: ContextShift[IO] = IO.contextShift(blocker.blockingContext)
 
     for {
       activeRequests <- Ref.of[F, Long](0L)
@@ -25,7 +27,7 @@ object MicrometerHttp4sMetricsOpsModule {
       meterRegistry.gauge(
         s"$prefix.active-requests",
         activeRequests,
-        (_: Ref[F, Long]) => Effect[F].toIO(activeRequests.get).unsafeRunSync().toDouble
+        (_: Ref[F, Long]) => blocker.blockOn(Effect[F].toIO(activeRequests.get)).unsafeRunSync().toDouble
       )
 
       override def increaseActiveRequests(classifier: Option[String]): F[Unit] = activeRequests.update(_ + 1)
