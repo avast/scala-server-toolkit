@@ -44,7 +44,7 @@ object Dependencies {
 
     val datastaxJavaDriverCore = "4.11.1"
     val doobie = "0.13.3"
-    val grpc = "1.37.1"
+    val grpc = "1.38.0"
     val http4s = "0.21.23"
     val micrometerCore = "1.7.0"
     val micrometerJmx = "1.7.0"
