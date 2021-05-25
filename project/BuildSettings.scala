@@ -61,7 +61,7 @@ object BuildSettings {
       moduleFilter(organization = "org.flywaydb", name = "flyway-core"),
       moduleFilter(organization = "org.slf4j", name = "slf4j-api")
     ),
-    concurrentRestrictions += Tags.limit(missinglinkConflictsTag, 4), // limit missing-link to limit heap consumption
+    concurrentRestrictions += Tags.limit(missinglinkConflictsTag, 2), // limit missing-link to limit heap consumption
     javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
     Test / publishArtifact := false
   )
