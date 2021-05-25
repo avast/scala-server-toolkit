@@ -46,6 +46,7 @@ object BuildSettings {
     scalacOptions ++= List(
       "-Ywarn-unused" // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
     ) ++ (if (scalaVersion.value.startsWith("2.13")) List("-Wmacros:after") else List.empty),
+    Compile / doc / scalacOptions -= "-Xfatal-warnings",
     missinglinkExcludedDependencies ++= List(
       moduleFilter(organization = "ch.qos.logback"),
       moduleFilter(organization = "com.datastax.oss", name = "java-driver-core"),
