@@ -2,7 +2,7 @@
 
 <p>This subproject initializes Datastax Cassandra driver’s <code class="highlighter-rouge">Session</code>.</p>
 
-<p><code class="highlighter-rouge">libraryDependencies += "com.avast" %% "sst-cassandra-datastax-driver" % "0.10.0+0-981088a6+20210518-1452-SNAPSHOT"</code></p>
+<p><code class="highlighter-rouge">libraryDependencies += "com.avast" %% "sst-cassandra-datastax-driver" % "0.10.4"</code></p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect.Resource</span>
 <span class="k">import</span> <span class="nn">com.avast.sst.datastax.CassandraDatastaxDriverModule</span>
@@ -15,7 +15,7 @@
 <span class="k">implicit</span> <span class="k">val</span> <span class="nv">runtime</span> <span class="k">=</span> <span class="nv">zio</span><span class="o">.</span><span class="py">Runtime</span><span class="o">.</span><span class="py">default</span> <span class="c1">// this is just needed in example</span>
 
 <span class="k">for</span> <span class="o">{</span>
-    <span class="n">configuration</span> <span class="k">&lt;-</span> <span class="nv">Resource</span><span class="o">.</span><span class="py">liftF</span><span class="o">(</span><span class="nv">PureConfigModule</span><span class="o">.</span><span class="py">makeOrRaise</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">CassandraDatastaxDriverConfig</span><span class="o">])</span>
+    <span class="n">configuration</span> <span class="k">&lt;-</span> <span class="nv">Resource</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="nv">PureConfigModule</span><span class="o">.</span><span class="py">makeOrRaise</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">CassandraDatastaxDriverConfig</span><span class="o">])</span>
     <span class="n">db</span> <span class="k">&lt;-</span> <span class="nv">CassandraDatastaxDriverModule</span><span class="o">.</span><span class="py">make</span><span class="o">[</span><span class="kt">Task</span><span class="o">](</span><span class="n">configuration</span><span class="o">)</span>
 <span class="o">}</span> <span class="k">yield</span> <span class="n">db</span>
 </code></pre></div></div>
