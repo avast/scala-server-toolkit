@@ -34,8 +34,8 @@ for {
   executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.platform.executor.asEC)
   clock = Clock.create[Task]
   jmxMeterRegistry <- MicrometerJmxModule.make[Task](MicrometerJmxConfig("com.avast"))
-  _ <- Resource.liftF(MicrometerJvmModule.make[Task](jmxMeterRegistry))
-  serverMetricsModule <- Resource.liftF(MicrometerHttp4sServerMetricsModule.make[Task](jmxMeterRegistry, executorModule.blocker, clock))
+  _ <- Resource.eval(MicrometerJvmModule.make[Task](jmxMeterRegistry))
+  serverMetricsModule <- Resource.eval(MicrometerHttp4sServerMetricsModule.make[Task](jmxMeterRegistry, executorModule.blocker, clock))
   routes = Http4sRouting.make {
     serverMetricsModule.serverMetrics {
       HttpRoutes.of[Task] {
