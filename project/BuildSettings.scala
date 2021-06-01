@@ -27,7 +27,7 @@ object BuildSettings {
     description := "Functional programming toolkit for building server applications in Scala.",
     licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE")),
     developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com"))),
-    scalaVersion := "2.13.5",
+    scalaVersion := "2.13.6",
     crossScalaVersions := List(scalaVersion.value, "2.12.14"),
     fork := true,
     libraryDependencies ++= Seq(
