@@ -28,12 +28,10 @@ object BuildSettings {
     licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE")),
     developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com"))),
     scalaVersion := "2.13.6",
-    crossScalaVersions := List(scalaVersion.value, "2.12.13"),
+    crossScalaVersions := List(scalaVersion.value, "2.12.14"),
     fork := true,
     libraryDependencies ++= Seq(
       compilerPlugin(Dependencies.kindProjector),
-      compilerPlugin(Dependencies.silencer),
-      Dependencies.silencerLib,
       Dependencies.catsEffect,
       Dependencies.scalaCollectionCompat,
       Dependencies.logbackClassic % Test,
@@ -46,9 +44,9 @@ object BuildSettings {
       Dependencies.scalafixOrganizeImports
     ),
     scalacOptions ++= List(
-      "-Ywarn-unused", // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
-      "-P:silencer:checkUnused"
+      "-Ywarn-unused" // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
     ) ++ (if (scalaVersion.value.startsWith("2.13")) List("-Wmacros:after") else List.empty),
+    Compile / doc / scalacOptions -= "-Xfatal-warnings",
     missinglinkExcludedDependencies ++= List(
       moduleFilter(organization = "ch.qos.logback"),
       moduleFilter(organization = "com.datastax.oss", name = "java-driver-core"),
@@ -63,7 +61,7 @@ object BuildSettings {
       moduleFilter(organization = "org.flywaydb", name = "flyway-core"),
       moduleFilter(organization = "org.slf4j", name = "slf4j-api")
     ),
-    concurrentRestrictions += Tags.limit(missinglinkConflictsTag, 4), // limit missing-link to limit heap consumption
+    concurrentRestrictions += Tags.limit(missinglinkConflictsTag, 2), // limit missing-link to limit heap consumption
     javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
     Test / publishArtifact := false
   )

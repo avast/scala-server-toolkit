@@ -1,11 +1,12 @@
 package com.avast.sst.bundle
 
 import cats.effect.Resource
-import com.github.ghik.silencer.silent
 import org.http4s.server.Server
 import org.slf4j.LoggerFactory
 import zio._
 import zio.interop.catz._
+
+import scala.annotation.nowarn
 
 /** Extend this `trait` if you want to implement server application using [[zio.ZIO]] effect data type.
   *
@@ -18,7 +19,7 @@ trait ZioServerApp extends CatsApp {
 
   def program: Resource[Task, Server[Task]]
 
-  @silent("dead code")
+  @nowarn("msg=dead code")
   override def run(args: List[String]): ZIO[ZEnv, Nothing, ExitCode] = {
     program
       .use { server =>

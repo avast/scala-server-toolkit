@@ -6,8 +6,8 @@ object Dependencies {
   val datastaxJavaDriverCore = "com.datastax.oss" % "java-driver-core" % Versions.datastaxJavaDriverCore
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
-  val flywayCore = "org.flywaydb" % "flyway-core" % "7.9.0"
-  val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "1.6.1"
+  val flywayCore = "org.flywaydb" % "flyway-core" % "7.9.1"
+  val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "1.7.0"
   val grpcNettyShaded = "io.grpc" % "grpc-netty-shaded" % Versions.grpc
   val grpcProtobuf = "io.grpc" % "grpc-protobuf" % Versions.grpc
   val grpcStub = "io.grpc" % "grpc-stub" % Versions.grpc
@@ -29,30 +29,27 @@ object Dependencies {
   val postgresql = "org.postgresql" % "postgresql" % "42.2.20"
   val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.15.0"
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.4.4"
-  val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.18"
+  val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.20"
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.5.0"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.9"
   val sentry = "io.sentry" % "sentry" % "4.3.0"
-  val silencer = "com.github.ghik" % "silencer-plugin" % Versions.silencer cross CrossVersion.full
-  val silencerLib = "com.github.ghik" % "silencer-lib" % Versions.silencer % Provided cross CrossVersion.full
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.30"
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.4.3"
-  val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.39.4"
-  val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.39.4"
+  val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.39.5"
+  val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.39.5"
   val zio = "dev.zio" %% "zio" % "1.0.8"
-  val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.4.1.0"
+  val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.5.1.0"
 
   object Versions {
 
     val datastaxJavaDriverCore = "4.11.1"
-    val doobie = "0.13.3"
-    val grpc = "1.37.1"
-    val http4s = "0.21.23"
+    val doobie = "0.13.4"
+    val grpc = "1.38.0"
+    val http4s = "0.21.24"
     val micrometerCore = "1.7.0"
     val micrometerJmx = "1.7.0"
     val micrometerStatsD = "1.7.0"
     val monix = "3.4.0"
-    val silencer = "1.7.4"
 
   }
 

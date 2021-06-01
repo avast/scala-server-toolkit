@@ -76,7 +76,7 @@ import dsl._
 implicit val runtime = zio.Runtime.default // this is just needed in example
 
 for {
-  middleware <- Resource.liftF(CorrelationIdMiddleware.default[Task])
+  middleware <- Resource.eval(CorrelationIdMiddleware.default[Task])
   executorModule <- ExecutorModule.makeDefault[Task]
   routes = Http4sRouting.make {
     middleware.wrap {
