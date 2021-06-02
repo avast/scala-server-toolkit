@@ -24,8 +24,8 @@ for {
   consumer <- Fs2KafkaModule.makeConsumer[Task, String, String](
     ConsumerConfig(List("localhost:9092"), groupId = "test", autoOffsetReset = AutoOffsetReset.Earliest)
   )
-  _ <- Resource.liftF(consumer.subscribeTo("test"))
-  consumerStream <- Resource.liftF(consumer.stream)
+  _ <- Resource.eval(consumer.subscribeTo("test"))
+  consumerStream <- Resource.eval(consumer.stream)
 } yield consumerStream
 ```
 

@@ -21,7 +21,7 @@ import zio.interop.catz._
 
 for {
   doobieTransactor <- DoobieHikariModule.make[Task](???, ???, ???, ???)
-  flyway <- Resource.liftF(FlywayModule.make[Task](doobieTransactor.kernel, ???))
-  _ <- Resource.liftF(Task.effect(flyway.migrate()))
+  flyway <- Resource.eval(FlywayModule.make[Task](doobieTransactor.kernel, ???))
+  _ <- Resource.eval(Task.effect(flyway.migrate()))
 } yield ()
 ```

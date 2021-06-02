@@ -25,7 +25,7 @@ import zio.interop.catz._
 implicit val runtime = zio.Runtime.default // this is just needed in example
 
 for {
-  configuration <- Resource.liftF(PureConfigModule.makeOrRaise[Task, Configuration])
+  configuration <- Resource.eval(PureConfigModule.makeOrRaise[Task, Configuration])
   executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.platform.executor.asEC)
   meterRegistry <- MicrometerJmxModule.make[Task](configuration.jmx)
   boundedConnectExecutionContext <- executorModule

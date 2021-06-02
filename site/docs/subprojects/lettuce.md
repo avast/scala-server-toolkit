@@ -22,6 +22,6 @@ implicit val lettuceCodec: RedisCodec[String, String] = StringCodec.UTF8
 
 for {
   connection <- LettuceModule.makeConnection[Task, String, String](LettuceConfig("redis://localhost"))
-  value <- Resource.liftF(Task.effect(connection.sync().get("key")))
+  value <- Resource.eval(Task.effect(connection.sync().get("key")))
 } yield value
 ```
