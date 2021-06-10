@@ -21,7 +21,7 @@ import zio.interop.catz._
 implicit val runtime = zio.Runtime.default // this is just needed in example
 
 for {
-    configuration <- Resource.liftF(PureConfigModule.makeOrRaise[Task, CassandraDatastaxDriverConfig])
+    configuration <- Resource.eval(PureConfigModule.makeOrRaise[Task, CassandraDatastaxDriverConfig])
     db <- CassandraDatastaxDriverModule.make[Task](configuration)
 } yield db
 ```
