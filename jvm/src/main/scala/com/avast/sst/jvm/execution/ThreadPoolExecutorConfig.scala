@@ -6,6 +6,6 @@ import scala.concurrent.duration.{Duration, FiniteDuration}
 final case class ThreadPoolExecutorConfig(
     coreSize: Int,
     maxSize: Int,
-    keepAlive: FiniteDuration = Duration(1000L, TimeUnit.MILLISECONDS),
+    keepAlive: FiniteDuration = Duration(60000L, TimeUnit.MILLISECONDS),
     allowCoreThreadTimeout: Boolean = false
 )
