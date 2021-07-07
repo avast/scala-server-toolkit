@@ -42,6 +42,9 @@ object Http4sBlazeServerModule {
           .withConnectorPoolSize(config.connectorPoolSize)
           .withMaxConnections(config.maxConnections)
           .withChannelOption[java.lang.Boolean](StandardSocketOptions.TCP_NODELAY, config.socketOptions.tcpNoDelay)
+          .withChannelOption[java.lang.Boolean](StandardSocketOptions.SO_KEEPALIVE, config.socketOptions.soKeepAlive)
+          .withChannelOption[java.lang.Boolean](StandardSocketOptions.SO_REUSEADDR, config.socketOptions.soReuseAddr)
+          .withChannelOption[java.lang.Boolean](StandardSocketOptions.SO_REUSEPORT, config.socketOptions.soReusePort)
           .resource
     } yield server
   }
