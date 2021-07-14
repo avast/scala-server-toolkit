@@ -19,7 +19,7 @@ object Dependencies {
   val jacksonDatabind = "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.4"
   val jsr305 = "com.google.code.findbugs" % "jsr305" % "3.0.2"
   val kindProjector = "org.typelevel" % "kind-projector" % "0.13.0" cross CrossVersion.full
-  val lettuce = "io.lettuce" % "lettuce-core" % "6.1.3.RELEASE"
+  val lettuce = "io.lettuce" % "lettuce-core" % "6.1.4.RELEASE"
   val logbackClassic = "ch.qos.logback" % "logback-classic" % "1.2.3"
   val micrometerCore = "io.micrometer" % "micrometer-core" % Versions.micrometerCore
   val micrometerJmx = "io.micrometer" % "micrometer-registry-jmx" % Versions.micrometerJmx
