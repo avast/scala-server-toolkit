@@ -2,11 +2,11 @@ import sbt._
 
 object Dependencies {
 
-  val catsEffect = "org.typelevel" %% "cats-effect" % "3.2.0"
+  val catsEffect = "org.typelevel" %% "cats-effect" % "2.5.2"
   val datastaxJavaDriverCore = "com.datastax.oss" % "java-driver-core" % Versions.datastaxJavaDriverCore
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
-  val flywayCore = "org.flywaydb" % "flyway-core" % "7.11.3"
+  val flywayCore = "org.flywaydb" % "flyway-core" % "7.11.4"
   val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "1.7.0"
   val grpcNettyShaded = "io.grpc" % "grpc-netty-shaded" % Versions.grpc
   val grpcProtobuf = "io.grpc" % "grpc-protobuf" % Versions.grpc
@@ -20,7 +20,7 @@ object Dependencies {
   val jsr305 = "com.google.code.findbugs" % "jsr305" % "3.0.2"
   val kindProjector = "org.typelevel" % "kind-projector" % "0.13.0" cross CrossVersion.full
   val lettuce = "io.lettuce" % "lettuce-core" % "6.1.4.RELEASE"
-  val logbackClassic = "ch.qos.logback" % "logback-classic" % "1.2.4"
+  val logbackClassic = "ch.qos.logback" % "logback-classic" % "1.2.5"
   val micrometerCore = "io.micrometer" % "micrometer-core" % Versions.micrometerCore
   val micrometerJmx = "io.micrometer" % "micrometer-registry-jmx" % Versions.micrometerJmx
   val micrometerStatsD = "io.micrometer" % "micrometer-registry-statsd" % Versions.micrometerStatsD
@@ -37,7 +37,7 @@ object Dependencies {
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.4.3"
   val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.39.5"
   val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.39.5"
-  val zio = "dev.zio" %% "zio" % "1.0.9"
+  val zio = "dev.zio" %% "zio" % "1.0.10"
   val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.5.1.0"
 
   object Versions {
