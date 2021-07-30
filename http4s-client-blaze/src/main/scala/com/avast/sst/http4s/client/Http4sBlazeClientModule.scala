@@ -2,7 +2,7 @@ package com.avast.sst.http4s.client
 
 import cats.effect.{ConcurrentEffect, Resource}
 import org.http4s.client.Client
-import org.http4s.client.blaze.BlazeClientBuilder
+import org.http4s.blaze.client.BlazeClientBuilder
 
 import javax.net.ssl.SSLContext
 import scala.concurrent.ExecutionContext
