@@ -7,7 +7,7 @@ object Dependencies {
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
   val flywayCore = "org.flywaydb" % "flyway-core" % "7.12.0"
-  val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "1.7.0"
+  val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "2.1.0"
   val grpcNettyShaded = "io.grpc" % "grpc-netty-shaded" % Versions.grpc
   val grpcProtobuf = "io.grpc" % "grpc-protobuf" % Versions.grpc
   val grpcStub = "io.grpc" % "grpc-stub" % Versions.grpc
