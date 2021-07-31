@@ -1,7 +1,7 @@
 package com.avast.sst.doobie
 
 import cats.Show
-import cats.effect.{Async, Blocker, ContextShift, Resource, Sync}
+import cats.effect.{Async, Resource, Sync}
 import cats.syntax.show._
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.metrics.MetricsTrackerFactory
@@ -21,9 +21,8 @@ object DoobieHikariModule {
   def make[F[_]: Async](
       config: DoobieHikariConfig,
       boundedConnectExecutionContext: ExecutionContext,
-      blocker: Blocker,
       metricsTrackerFactory: Option[MetricsTrackerFactory] = None
-  )(implicit cs: ContextShift[F]): Resource[F, HikariTransactor[F]] = {
+  ): Resource[F, HikariTransactor[F]] = {
     for {
       hikariConfig <- Resource.eval(makeHikariConfig(config, metricsTrackerFactory))
       transactor <- HikariTransactor.fromHikariConfig(hikariConfig, boundedConnectExecutionContext, blocker)
