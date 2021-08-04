@@ -2,7 +2,7 @@ import sbt._
 
 object Dependencies {
 
-  val catsEffect = "org.typelevel" %% "cats-effect" % "3.2.1"
+  val catsEffect = "org.typelevel" %% "cats-effect" % "2.5.3"
   val datastaxJavaDriverCore = "com.datastax.oss" % "java-driver-core" % Versions.datastaxJavaDriverCore
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
@@ -34,7 +34,7 @@ object Dependencies {
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.9"
   val sentry = "io.sentry" % "sentry" % "5.0.1"
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.32"
-  val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.4.3"
+  val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.6.0"
   val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.39.5"
   val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.39.5"
   val zio = "dev.zio" %% "zio" % "1.0.10"
