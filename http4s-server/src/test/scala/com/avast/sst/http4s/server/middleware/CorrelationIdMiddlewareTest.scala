@@ -1,6 +1,6 @@
 package com.avast.sst.http4s.server.middleware
 
-import cats.effect.{ContextShift, IO, Resource, Timer}
+import cats.effect.{IO, Resource}
 import com.avast.sst.http4s.server.Http4sRouting
 import org.http4s.client.blaze.BlazeClientBuilder
 import org.http4s.dsl.Http4sDsl
@@ -11,12 +11,13 @@ import org.scalatest.funsuite.AsyncFunSuite
 
 import java.net.InetSocketAddress
 import scala.concurrent.ExecutionContext
+import cats.effect.Temporal
 
 @SuppressWarnings(Array("scalafix:Disable.get", "scalafix:Disable.toString", "scalafix:Disable.createUnresolved"))
 class CorrelationIdMiddlewareTest extends AsyncFunSuite with Http4sDsl[IO] {
 
   implicit private val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
-  implicit private val timer: Timer[IO] = IO.timer(ExecutionContext.global)
+  implicit private val timer: Temporal[IO] = IO.timer(ExecutionContext.global)
 
   test("CorrelationIdMiddleware fills Request attributes and HTTP response header") {
     val test = for {
