@@ -30,7 +30,7 @@ import scala.concurrent.ExecutionContext
 
 object Main extends ZioServerApp {
 
-  def program: Resource[Task, Server[Task]] = {
+  def program: Resource[Task, Server] = {
     for {
       configuration <- Resource.eval(PureConfigModule.makeOrRaise[Task, Configuration])
       executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.platform.executor.asEC)

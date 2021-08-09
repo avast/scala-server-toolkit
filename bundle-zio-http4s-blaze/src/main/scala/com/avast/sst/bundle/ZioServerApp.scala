@@ -17,7 +17,7 @@ trait ZioServerApp extends CatsApp {
 
   private val logger = LoggerFactory.getLogger(this.getClass)
 
-  def program: Resource[Task, Server[Task]]
+  def program: Resource[Task, Server]
 
   @nowarn("msg=dead code")
   override def run(args: List[String]): ZIO[ZEnv, Nothing, ExitCode] = {
