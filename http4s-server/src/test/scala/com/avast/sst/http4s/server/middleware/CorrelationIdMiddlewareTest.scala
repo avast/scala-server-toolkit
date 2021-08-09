@@ -2,12 +2,12 @@ package com.avast.sst.http4s.server.middleware
 
 import cats.effect.{ContextShift, IO, Resource, Timer}
 import com.avast.sst.http4s.server.Http4sRouting
-import org.http4s.client.blaze.BlazeClientBuilder
+import org.http4s.blaze.client.BlazeClientBuilder
+import org.http4s.blaze.server.BlazeServerBuilder
 import org.http4s.dsl.Http4sDsl
-import org.http4s.server.blaze.BlazeServerBuilder
-import org.http4s.util.CaseInsensitiveString
 import org.http4s.{Header, HttpRoutes, Request, Uri}
 import org.scalatest.funsuite.AsyncFunSuite
+import org.typelevel.ci.CIString
 
 import java.net.InetSocketAddress
 import scala.concurrent.ExecutionContext
@@ -25,7 +25,7 @@ class CorrelationIdMiddlewareTest extends AsyncFunSuite with Http4sDsl[IO] {
         middleware.wrap {
           HttpRoutes.of[IO] { case req @ GET -> Root / "test" =>
             val id = middleware.retrieveCorrelationId(req)
-            Ok("test").map(_.withHeaders(Header("Attribute-Value", id.toString)))
+            Ok("test").map(_.withHeaders(Header.Raw(CIString("Attribute-Value"), id.toString)))
           }
         }
       }
@@ -41,12 +41,12 @@ class CorrelationIdMiddlewareTest extends AsyncFunSuite with Http4sDsl[IO] {
         client
           .run(
             Request[IO](uri = Uri.unsafeFromString(s"http://${server.address.getHostString}:${server.address.getPort}/test"))
-              .withHeaders(Header("Correlation-Id", "test-value"))
+              .withHeaders(Header.Raw(CIString("Correlation-Id"), "test-value"))
           )
           .use { response =>
             IO.delay {
-              assert(response.headers.get(CaseInsensitiveString("Correlation-Id")).get.value === "test-value")
-              assert(response.headers.get(CaseInsensitiveString("Attribute-Value")).get.value === "Some(CorrelationId(test-value))")
+              assert(response.headers.get(CIString("Correlation-Id")).get.head.value === "test-value")
+              assert(response.headers.get(CIString("Attribute-Value")).get.head.value === "Some(CorrelationId(test-value))")
             }
           }
       }

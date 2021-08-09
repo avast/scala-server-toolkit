@@ -2,6 +2,7 @@ package com.avast.sst.http4s.client
 
 import cats.effect._
 import org.http4s.headers._
+import org.http4s.{ProductComment, ProductId}
 import org.scalatest.funsuite.AsyncFunSuite
 
 import scala.concurrent.ExecutionContext
@@ -19,7 +20,7 @@ class Http4SBlazeClientTest extends AsyncFunSuite {
     val test = for {
       client <- Http4sBlazeClientModule.make[IO](
         Http4sBlazeClientConfig(
-          userAgent = `User-Agent`(AgentProduct("http4s-client", Some("1.2.3")), List(AgentComment("Test")))
+          userAgent = `User-Agent`(ProductId("http4s-client", Some("1.2.3")), List(ProductComment("Test")))
         ),
         ExecutionContext.global
       )
