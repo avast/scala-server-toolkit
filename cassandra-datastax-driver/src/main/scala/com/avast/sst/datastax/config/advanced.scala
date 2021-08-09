@@ -280,12 +280,12 @@ object DriftWarningConfig {
   * @param logs  Parameters for RequestLogger
   */
 final case class RequestTrackerConfig(
-    `class`: String = "com.datastax.oss.driver.internal.core.tracker.NoopRequestTracker",
+    classes: List[String] = List("com.datastax.oss.driver.internal.core.tracker.NoopRequestTracker"),
     logs: Option[LogsConfig]
 )
 
 object RequestTrackerConfig {
-  val Default: RequestTrackerConfig = RequestTrackerConfig("com.datastax.oss.driver.internal.core.tracker.NoopRequestTracker", None)
+  val Default: RequestTrackerConfig = RequestTrackerConfig(List("com.datastax.oss.driver.internal.core.tracker.NoopRequestTracker"), None)
 }
 
 /** Parameters for RequestLogger.
@@ -377,12 +377,12 @@ object ThrottlerConfig {
   * You can also specify a custom class that implements NodeStateListener and has a public
   * constructor with a DriverContext argument.
   */
-final case class NodeStateListenerConfig(`class`: String)
+final case class NodeStateListenerConfig(classes: List[String])
 
 object NodeStateListenerConfig {
 
   /** Node state listener implementation with empty methods. */
-  val Noop: NodeStateListenerConfig = NodeStateListenerConfig("com.datastax.oss.driver.internal.core.metadata.NoopNodeStateListener")
+  val Noop: NodeStateListenerConfig = NodeStateListenerConfig(List("com.datastax.oss.driver.internal.core.metadata.NoopNodeStateListener"))
 
   val Default: NodeStateListenerConfig = Noop
 }
@@ -395,13 +395,13 @@ object NodeStateListenerConfig {
   * You can also specify a custom class that implements `SchemaChangeListener` and has a public
   * constructor with a DriverContext argument.
   */
-final case class SchemaChangeListenerConfig(`class`: String)
+final case class SchemaChangeListenerConfig(classes: List[String])
 
 object SchemaChangeListenerConfig {
 
   /** Schema change listener implementation with empty methods. */
   val Noop: SchemaChangeListenerConfig = SchemaChangeListenerConfig(
-    "com.datastax.oss.driver.internal.core.metadata.schema.NoopSchemaChangeListener"
+    List("com.datastax.oss.driver.internal.core.metadata.schema.NoopSchemaChangeListener")
   )
 
   val Default: SchemaChangeListenerConfig = Noop
