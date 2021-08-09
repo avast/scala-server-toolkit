@@ -2,12 +2,12 @@ import sbt._
 
 object Dependencies {
 
-  val catsEffect = "org.typelevel" %% "cats-effect" % "2.5.2"
+  val catsEffect = "org.typelevel" %% "cats-effect" % "2.5.3"
   val datastaxJavaDriverCore = "com.datastax.oss" % "java-driver-core" % Versions.datastaxJavaDriverCore
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
-  val flywayCore = "org.flywaydb" % "flyway-core" % "7.12.0"
-  val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "2.1.0"
+  val flywayCore = "org.flywaydb" % "flyway-core" % "7.12.1"
+  val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "1.7.0"
   val grpcNettyShaded = "io.grpc" % "grpc-netty-shaded" % Versions.grpc
   val grpcProtobuf = "io.grpc" % "grpc-protobuf" % Versions.grpc
   val grpcStub = "io.grpc" % "grpc-stub" % Versions.grpc
@@ -34,7 +34,7 @@ object Dependencies {
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.9"
   val sentry = "io.sentry" % "sentry" % "5.0.1"
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.32"
-  val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.4.3"
+  val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.6.0"
   val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.39.5"
   val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.39.5"
   val zio = "dev.zio" %% "zio" % "1.0.10"
@@ -42,7 +42,7 @@ object Dependencies {
 
   object Versions {
 
-    val datastaxJavaDriverCore = "4.12.0"
+    val datastaxJavaDriverCore = "4.12.1"
     val doobie = "0.13.4"
     val grpc = "1.39.0"
     val http4s = "0.21.25"
