@@ -14,7 +14,7 @@ trait MonixServerApp extends TaskApp {
 
   private val logger = LoggerFactory.getLogger(this.getClass)
 
-  def program: Resource[Task, Server[Task]]
+  def program: Resource[Task, Server]
 
   override def run(args: List[String]): Task[ExitCode] = {
     program
