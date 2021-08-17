@@ -6,8 +6,8 @@ object Dependencies {
   val datastaxJavaDriverCore = "com.datastax.oss" % "java-driver-core" % Versions.datastaxJavaDriverCore
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
-  val flywayCore = "org.flywaydb" % "flyway-core" % "7.13.0"
-  val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "2.1.0"
+  val flywayCore = "org.flywaydb" % "flyway-core" % "7.14.0"
+  val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "1.7.0"
   val grpcNettyShaded = "io.grpc" % "grpc-netty-shaded" % Versions.grpc
   val grpcProtobuf = "io.grpc" % "grpc-protobuf" % Versions.grpc
   val grpcStub = "io.grpc" % "grpc-stub" % Versions.grpc
@@ -46,9 +46,9 @@ object Dependencies {
     val doobie = "0.13.4"
     val grpc = "1.39.0"
     val http4s = "0.22.2"
-    val micrometerCore = "1.7.2"
-    val micrometerJmx = "1.7.2"
-    val micrometerStatsD = "1.7.2"
+    val micrometerCore = "1.7.3"
+    val micrometerJmx = "1.7.3"
+    val micrometerStatsD = "1.7.3"
     val monix = "3.4.0"
 
   }
