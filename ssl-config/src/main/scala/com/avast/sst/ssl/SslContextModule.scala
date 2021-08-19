@@ -18,7 +18,8 @@ object SslContextModule {
 
   /** Initializes [[javax.net.ssl.SSLContext]] from the provided config.
     *
-    * @param withReference Whether we should use reference config of "ssl-config" library as well.
+    * @param withReference
+    *   Whether we should use reference config of "ssl-config" library as well.
     */
   def make[F[_]: Sync](config: Config, withReference: Boolean = true): F[SSLContext] =
     Sync[F].delay {
@@ -34,10 +35,11 @@ object SslContextModule {
 
   /** Initializes [[javax.net.ssl.SSLContext]] from the provided config if it is enabled.
     *
-    * Expects a boolean value `enabled` at the root of the provided [[com.typesafe.config.Config]]
-    * which determines whether to initialize the context or not.
+    * Expects a boolean value `enabled` at the root of the provided [[com.typesafe.config.Config]] which determines whether to initialize
+    * the context or not.
     *
-    * @param withReference Whether we should use reference config of "ssl-config" library as well.
+    * @param withReference
+    *   Whether we should use reference config of "ssl-config" library as well.
     */
   def makeIfEnabled[F[_]: Sync](config: Config, withReference: Boolean = true): F[Option[SSLContext]] = {
     if (config.hasPath(SslContextEnabledKey) && config.getBoolean(SslContextEnabledKey)) {

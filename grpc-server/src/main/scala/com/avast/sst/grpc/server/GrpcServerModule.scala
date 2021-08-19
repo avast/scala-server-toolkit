@@ -11,9 +11,12 @@ object GrpcServerModule {
 
   /** Makes [[io.grpc.Server]] (Netty) initialized with the given config, services and interceptors.
     *
-    * @param services service implementations to be added to the handler registry
-    * @param executionContext executor to be used for the server
-    * @param interceptors that are run for all the services
+    * @param services
+    *   service implementations to be added to the handler registry
+    * @param executionContext
+    *   executor to be used for the server
+    * @param interceptors
+    *   that are run for all the services
     */
   def make[F[_]: Sync](
       config: GrpcServerConfig,

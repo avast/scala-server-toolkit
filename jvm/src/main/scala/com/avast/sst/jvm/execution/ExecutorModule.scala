@@ -55,8 +55,8 @@ object ExecutorModule {
 
   private final val DefaultBlockingExecutorConfig = ThreadPoolExecutorConfig(0, Int.MaxValue, allowCoreThreadTimeout = true)
 
-  /** Makes [[com.avast.sst.jvm.execution.ExecutorModule]] with default callback executor and extra [[cats.effect.Blocker]] executor
-    * for blocking operations.
+  /** Makes [[com.avast.sst.jvm.execution.ExecutorModule]] with default callback executor and extra [[cats.effect.Blocker]] executor for
+    * blocking operations.
     */
   def makeDefault[F[_]: Sync]: Resource[F, ExecutorModule[F]] = {
     for {
@@ -72,8 +72,8 @@ object ExecutorModule {
     } yield new ExecutorModule[F](numOfCpus, executor, blockingExecutor)
   }
 
-  /** Makes [[com.avast.sst.jvm.execution.ExecutorModule]] with the provided callback executor and extra [[cats.effect.Blocker]]
-    * executor for blocking operations.
+  /** Makes [[com.avast.sst.jvm.execution.ExecutorModule]] with the provided callback executor and extra [[cats.effect.Blocker]] executor
+    * for blocking operations.
     */
   def makeFromExecutionContext[F[_]: Sync](
       executor: ExecutionContext,
@@ -85,8 +85,7 @@ object ExecutorModule {
     } yield new ExecutorModule[F](numOfCpus, executor, blockingExecutor)
   }
 
-  /** Makes [[com.avast.sst.jvm.execution.ExecutorModule]] with executor and extra [[cats.effect.Blocker]] executor
-    * for blocking operations.
+  /** Makes [[com.avast.sst.jvm.execution.ExecutorModule]] with executor and extra [[cats.effect.Blocker]] executor for blocking operations.
     */
   def makeFromConfig[F[_]: Sync](
       executorConfig: ThreadPoolExecutorConfig,
@@ -100,8 +99,8 @@ object ExecutorModule {
     } yield new ExecutorModule[F](numOfCpus, executor, blockingExecutor)
   }
 
-  /** Makes [[com.avast.sst.jvm.execution.ExecutorModule]] with fork-join executor and extra [[cats.effect.Blocker]] executor
-    * for blocking operations.
+  /** Makes [[com.avast.sst.jvm.execution.ExecutorModule]] with fork-join executor and extra [[cats.effect.Blocker]] executor for blocking
+    * operations.
     */
   def makeForkJoinFromConfig[F[_]: Sync](
       executorConfig: ForkJoinPoolConfig,

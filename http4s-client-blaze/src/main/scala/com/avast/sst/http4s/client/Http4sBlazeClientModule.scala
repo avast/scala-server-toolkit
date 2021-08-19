@@ -10,7 +10,8 @@ object Http4sBlazeClientModule {
 
   /** Makes [[org.http4s.client.Client]] (Blaze) initialized with the given config.
     *
-    * @param executionContext callback handling [[scala.concurrent.ExecutionContext]]
+    * @param executionContext
+    *   callback handling [[scala.concurrent.ExecutionContext]]
     */
   def make[F[_]: ConcurrentEffect](
       config: Http4sBlazeClientConfig,
