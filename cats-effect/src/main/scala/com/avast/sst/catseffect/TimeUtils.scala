@@ -22,9 +22,8 @@ object TimeUtils {
     } yield result
   }
 
-  /** Measures the time it takes the effect to finish and records it using the provided function. It distinguishes between successful
-    * and failure state.
-    * Please note, that in case of the effect cancellation the `record` is not invoked at all.
+  /** Measures the time it takes the effect to finish and records it using the provided function. It distinguishes between successful and
+    * failure state. Please note, that in case of the effect cancellation the `record` is not invoked at all.
     */
   def timeCase[F[_], A](f: F[A])(record: Either[Duration, Duration] => F[Unit])(implicit F: Bracket[F, Throwable], C: Clock[F]): F[A] = {
     def calculateAndRecordAs(start: Long)(wrap: Duration => Either[Duration, Duration]): F[Unit] = {

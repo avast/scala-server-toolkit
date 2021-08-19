@@ -23,11 +23,11 @@ object SentryModule {
     }(_ => Sync[F].delay(Sentry.close()))
   }
 
-  /** Makes [[io.sentry.SentryClient]] initialized with the given config and overrides the `release` property
-    * with `Implementation-Title`@`Implementation-Version` from the `MANIFEST.MF` file inside the same JAR (package) as the `Main` class.
+  /** Makes [[io.sentry.SentryClient]] initialized with the given config and overrides the `release` property with
+    * `Implementation-Title`@`Implementation-Version` from the `MANIFEST.MF` file inside the same JAR (package) as the `Main` class.
     *
-    * This format is recommended by Sentry ([[https://docs.sentry.io/workflow/releases]])
-    * because releases are global and must be differentiated.
+    * This format is recommended by Sentry ([[https://docs.sentry.io/workflow/releases]]) because releases are global and must be
+    * differentiated.
     */
   def makeWithReleaseFromPackage[F[_]: Sync, Main: ClassTag](config: SentryConfig): Resource[F, Unit] = {
     for {

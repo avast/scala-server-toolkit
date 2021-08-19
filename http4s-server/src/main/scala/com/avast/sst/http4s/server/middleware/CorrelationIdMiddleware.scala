@@ -11,8 +11,8 @@ import org.typelevel.vault.Key
 
 import java.util.UUID
 
-/** Provides correlation ID functionality. Either generates new correlation ID for a request or takes the one sent in HTTP header
-  * and puts it to [[org.http4s.Request]] attributes. It is also filled into HTTP response header.
+/** Provides correlation ID functionality. Either generates new correlation ID for a request or takes the one sent in HTTP header and puts
+  * it to [[org.http4s.Request]] attributes. It is also filled into HTTP response header.
   *
   * Use method `retrieveCorrelationId` to get the value from request attributes.
   */
