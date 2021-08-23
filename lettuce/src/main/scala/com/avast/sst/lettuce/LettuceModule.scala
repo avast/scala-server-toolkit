@@ -12,7 +12,8 @@ import java.time.Duration
 
 object LettuceModule {
 
-  /** Makes [[io.lettuce.core.RedisClient]] initialized with the given config and optionally [[io.lettuce.core.resource.ClientResources]]. */
+  /** Makes [[io.lettuce.core.RedisClient]] initialized with the given config and optionally [[io.lettuce.core.resource.ClientResources]].
+    */
   def makeClient[F[_]: Sync](config: LettuceConfig, clientResources: Option[ClientResources] = None): Resource[F, RedisClient] = {
     lazy val create = clientResources match {
       case Some(resources) => RedisClient.create(resources)
@@ -28,7 +29,9 @@ object LettuceModule {
     }(c => sync.delay(c.shutdown()))
   }
 
-  /** Makes [[io.lettuce.core.api.StatefulRedisConnection]] initialized with the given config and optionally [[io.lettuce.core.resource.ClientResources]]. */
+  /** Makes [[io.lettuce.core.api.StatefulRedisConnection]] initialized with the given config and optionally
+    * [[io.lettuce.core.resource.ClientResources]].
+    */
   @SuppressWarnings(Array("scalafix:DisableSyntax.==", "scalafix:DisableSyntax.null"))
   def makeConnection[F[_]: Async, K, V](
       config: LettuceConfig,

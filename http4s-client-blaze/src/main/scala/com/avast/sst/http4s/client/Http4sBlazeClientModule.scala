@@ -1,8 +1,8 @@
 package com.avast.sst.http4s.client
 
 import cats.effect.{ConcurrentEffect, Resource}
+import org.http4s.blaze.client.BlazeClientBuilder
 import org.http4s.client.Client
-import org.http4s.client.blaze.BlazeClientBuilder
 
 import javax.net.ssl.SSLContext
 import scala.concurrent.ExecutionContext
@@ -10,7 +10,8 @@ object Http4sBlazeClientModule {
 
   /** Makes [[org.http4s.client.Client]] (Blaze) initialized with the given config.
     *
-    * @param executionContext callback handling [[scala.concurrent.ExecutionContext]]
+    * @param executionContext
+    *   callback handling [[scala.concurrent.ExecutionContext]]
     */
   def make[F[_]: ConcurrentEffect](
       config: Http4sBlazeClientConfig,

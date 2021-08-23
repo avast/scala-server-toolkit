@@ -11,8 +11,8 @@ class MicrometerHttp4sServerMetricsModule[F[_]](val serverMetrics: HttpRoutes[F]
 
 object MicrometerHttp4sServerMetricsModule {
 
-  /** Makes [[com.avast.sst.http4s.server.micrometer.MicrometerHttp4sServerMetricsModule]] that can be used to setup monitoring
-    * of the whole HTTP server and individual routes.
+  /** Makes [[com.avast.sst.http4s.server.micrometer.MicrometerHttp4sServerMetricsModule]] that can be used to setup monitoring of the whole
+    * HTTP server and individual routes.
     */
   def make[F[_]: Effect](meterRegistry: MeterRegistry, blocker: Blocker, clock: Clock[F]): F[MicrometerHttp4sServerMetricsModule[F]] = {
     implicit val c: Clock[F] = clock

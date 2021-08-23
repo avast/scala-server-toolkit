@@ -2,8 +2,8 @@ package com.avast.sst.http4s.server
 
 import cats.effect.{ConcurrentEffect, Resource, Timer}
 import org.http4s.HttpApp
+import org.http4s.blaze.server.BlazeServerBuilder
 import org.http4s.server.Server
-import org.http4s.server.blaze.BlazeServerBuilder
 
 import java.net.{InetSocketAddress, StandardSocketOptions}
 import scala.concurrent.ExecutionContext
@@ -13,13 +13,14 @@ object Http4sBlazeServerModule {
 
   /** Makes [[org.http4s.server.Server]] (Blaze) initialized with the given config and [[org.http4s.HttpApp]].
     *
-    * @param executionContext callback handling [[scala.concurrent.ExecutionContext]]
+    * @param executionContext
+    *   callback handling [[scala.concurrent.ExecutionContext]]
     */
   def make[F[_]: ConcurrentEffect: Timer](
       config: Http4sBlazeServerConfig,
       httpApp: HttpApp[F],
       executionContext: ExecutionContext
-  ): Resource[F, Server[F]] = {
+  ): Resource[F, Server] = {
     for {
       inetSocketAddress <- Resource.eval(
         ConcurrentEffect[F].delay(

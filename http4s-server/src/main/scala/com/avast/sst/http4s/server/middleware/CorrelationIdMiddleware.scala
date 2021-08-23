@@ -1,23 +1,23 @@
 package com.avast.sst.http4s.server.middleware
 
-import cats.data.{Kleisli, OptionT}
+import cats.data.{Kleisli, NonEmptyList, OptionT}
 import cats.effect.Sync
 import cats.syntax.functor._
 import com.avast.sst.http4s.server.middleware.CorrelationIdMiddleware.CorrelationId
-import io.chrisdavenport.vault.Key
-import org.http4s.util.CaseInsensitiveString
 import org.http4s.{Header, HttpRoutes, Request, Response}
 import org.slf4j.LoggerFactory
+import org.typelevel.ci.CIString
+import org.typelevel.vault.Key
 
 import java.util.UUID
 
-/** Provides correlation ID functionality. Either generates new correlation ID for a request or takes the one sent in HTTP header
-  * and puts it to [[org.http4s.Request]] attributes. It is also filled into HTTP response header.
+/** Provides correlation ID functionality. Either generates new correlation ID for a request or takes the one sent in HTTP header and puts
+  * it to [[org.http4s.Request]] attributes. It is also filled into HTTP response header.
   *
   * Use method `retrieveCorrelationId` to get the value from request attributes.
   */
 class CorrelationIdMiddleware[F[_]: Sync](
-    correlationIdHeaderName: CaseInsensitiveString,
+    correlationIdHeaderName: CIString,
     attributeKey: Key[CorrelationId],
     generator: () => String
 ) {
@@ -29,7 +29,7 @@ class CorrelationIdMiddleware[F[_]: Sync](
   def wrap(routes: HttpRoutes[F]): HttpRoutes[F] =
     Kleisli[OptionT[F, *], Request[F], Response[F]] { request =>
       request.headers.get(correlationIdHeaderName) match {
-        case Some(header) =>
+        case Some(NonEmptyList(header, _)) =>
           val requestWithAttribute = request.withAttribute(attributeKey, CorrelationId(header.value))
           routes(requestWithAttribute).map(r => r.withHeaders(r.headers.put(header)))
         case None =>
@@ -38,7 +38,7 @@ class CorrelationIdMiddleware[F[_]: Sync](
             _ <- log(newCorrelationId)
             requestWithAttribute = request.withAttribute(attributeKey, CorrelationId(newCorrelationId))
             response <- routes(requestWithAttribute)
-          } yield response.withHeaders(response.headers.put(Header(correlationIdHeaderName.value, newCorrelationId)))
+          } yield response.withHeaders(response.headers.put(Header.Raw(correlationIdHeaderName, newCorrelationId)))
       }
     }
 
@@ -62,7 +62,7 @@ object CorrelationIdMiddleware {
   @SuppressWarnings(Array("scalafix:Disable.toString"))
   def default[F[_]: Sync]: F[CorrelationIdMiddleware[F]] = {
     Key.newKey[F, CorrelationId].map { attributeKey =>
-      new CorrelationIdMiddleware(CaseInsensitiveString("Correlation-ID"), attributeKey, () => UUID.randomUUID().toString)
+      new CorrelationIdMiddleware(CIString("Correlation-ID"), attributeKey, () => UUID.randomUUID().toString)
     }
   }
 
