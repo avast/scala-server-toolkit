@@ -14,7 +14,8 @@ class RouteMetrics[F[_]: Sync](meterRegistry: MeterRegistry) {
 
   /** Wraps a single route with the usual metrics (count, times, HTTP status codes).
     *
-    * @param name will be used in metric name
+    * @param name
+    *   will be used in metric name
     */
   def wrap(name: String)(route: => F[Response[F]]): F[Response[F]] = {
     for {
