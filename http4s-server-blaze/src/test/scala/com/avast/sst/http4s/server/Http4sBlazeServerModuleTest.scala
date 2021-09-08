@@ -1,17 +1,18 @@
 package com.avast.sst.http4s.server
 
-import cats.effect.{ContextShift, IO, Timer}
+import cats.effect.IO
 import com.avast.sst.http4s.client.{Http4sBlazeClientConfig, Http4sBlazeClientModule}
 import org.http4s.HttpRoutes
 import org.http4s.dsl.Http4sDsl
 import org.scalatest.funsuite.AsyncFunSuite
 
 import scala.concurrent.ExecutionContext
+import cats.effect.Temporal
 
 class Http4sBlazeServerModuleTest extends AsyncFunSuite with Http4sDsl[IO] {
 
   implicit private val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
-  implicit private val timer: Timer[IO] = IO.timer(ExecutionContext.global)
+  implicit private val timer: Temporal[IO] = IO.timer(ExecutionContext.global)
 
   test("Simple HTTP server") {
     val routes = Http4sRouting.make(HttpRoutes.of[IO] { case GET -> Root / "test" =>
