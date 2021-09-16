@@ -19,7 +19,7 @@ object Dependencies {
   val jacksonDatabind = "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.5"
   val jsr305 = "com.google.code.findbugs" % "jsr305" % "3.0.2"
   val kindProjector = "org.typelevel" % "kind-projector" % "0.13.2" cross CrossVersion.full
-  val lettuce = "io.lettuce" % "lettuce-core" % "6.1.4.RELEASE"
+  val lettuce = "io.lettuce" % "lettuce-core" % "6.1.5.RELEASE"
   val logbackClassic = "ch.qos.logback" % "logback-classic" % "1.2.6"
   val micrometerCore = "io.micrometer" % "micrometer-core" % Versions.micrometerCore
   val micrometerJmx = "io.micrometer" % "micrometer-registry-jmx" % Versions.micrometerJmx
@@ -45,10 +45,10 @@ object Dependencies {
     val datastaxJavaDriverCore = "4.13.0"
     val doobie = "0.13.4"
     val grpc = "1.40.1"
-    val http4s = "0.23.3"
-    val micrometerCore = "1.7.3"
-    val micrometerJmx = "1.7.3"
-    val micrometerStatsD = "1.7.3"
+    val http4s = "0.22.4"
+    val micrometerCore = "1.7.4"
+    val micrometerJmx = "1.7.4"
+    val micrometerStatsD = "1.7.4"
     val monix = "3.4.0"
 
   }
