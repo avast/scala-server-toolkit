@@ -6,7 +6,7 @@ import fs2.kafka.{Acks, AutoOffsetReset, CommitRecovery, IsolationLevel}
 import pureconfig.ConfigReader
 import pureconfig.error.CannotConvert
 import pureconfig.generic.ProductHint
-import pureconfig.generic.semiauto.deriveReader
+import pureconfig.generic.semiauto._
 
 @SuppressWarnings(Array("scalafix:DisableSyntax.=="))
 trait ConfigReaders {
@@ -39,8 +39,8 @@ trait ConfigReaders {
     case value                         => CannotConvert(value, "Acks", "0|1|all").asLeft
   }
 
-  implicit val fs2KafkaConsumerConfigReader: ConfigReader[ConsumerConfig] = deriveReader
+  implicit val fs2KafkaConsumerConfigReader: ConfigReader[ConsumerConfig] = deriveReader[ConsumerConfig]
 
-  implicit val fs2KafkaProducerConfigReader: ConfigReader[ProducerConfig] = deriveReader
+  implicit val fs2KafkaProducerConfigReader: ConfigReader[ProducerConfig] = deriveReader[ProducerConfig]
 
 }

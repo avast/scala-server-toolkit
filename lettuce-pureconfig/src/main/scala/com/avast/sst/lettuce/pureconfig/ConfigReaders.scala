@@ -8,7 +8,7 @@ import io.lettuce.core.protocol.ProtocolVersion
 import pureconfig.ConfigReader
 import pureconfig.error.CannotConvert
 import pureconfig.generic.ProductHint
-import pureconfig.generic.semiauto.deriveReader
+import pureconfig.generic.semiauto._
 
 import java.nio.charset.Charset
 
@@ -43,12 +43,12 @@ trait ConfigReaders {
     Either.catchNonFatal(Charset.forName(charset)).leftMap(ex => CannotConvert(charset, "java.nio.Charset", ex.getMessage))
   }
 
-  implicit val lettuceSocketOptionsReader: ConfigReader[SocketOptions] = deriveReader
+  implicit val lettuceSocketOptionsReader: ConfigReader[SocketOptions] = deriveReader[SocketOptions]
 
-  implicit val lettuceSslOptionsReader: ConfigReader[SslOptions] = deriveReader
+  implicit val lettuceSslOptionsReader: ConfigReader[SslOptions] = deriveReader[SslOptions]
 
-  implicit val lettuceTimeoutOptionsReader: ConfigReader[TimeoutOptions] = deriveReader
+  implicit val lettuceTimeoutOptionsReader: ConfigReader[TimeoutOptions] = deriveReader[TimeoutOptions]
 
-  implicit val lettuceConfigReader: ConfigReader[LettuceConfig] = deriveReader
+  implicit val lettuceConfigReader: ConfigReader[LettuceConfig] = deriveReader[LettuceConfig]
 
 }

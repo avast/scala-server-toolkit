@@ -16,13 +16,13 @@ Loading of configuration is side-effectful so it is wrapped in `F` which is `Syn
 ```scala mdoc:silent
 import com.avast.sst.pureconfig.PureConfigModule
 import pureconfig.ConfigReader
-import pureconfig.generic.semiauto.deriveReader
+import pureconfig.generic.semiauto._
 import zio.interop.catz._
 import zio.Task
 
 final case class ServerConfiguration(listenAddress: String, listenPort: Int)
 
-implicit val serverConfigurationReader: ConfigReader[ServerConfiguration] = deriveReader
+implicit val serverConfigurationReader: ConfigReader[ServerConfiguration] = deriveReader[ServerConfiguration]
 
 val maybeConfiguration = PureConfigModule.make[Task, ServerConfiguration]
 ```

@@ -15,11 +15,9 @@ object BuildSettings {
 
   private def isScala3(scalaVersion: String): Boolean = CrossVersion.partialVersion(scalaVersion).exists(_._1 == 3)
 
-  private val scala212 = "2.12.14"
+  private val scala212 = "2.12.15"
   private val scala213 = "2.13.6"
-  private val scala3 = "3.0.0"
-
-  val crossVersionsWithoutScala3: List[String] = List(scala213, scala212)
+  private val scala3 = "3.0.2"
 
   lazy val common: Seq[Def.Setting[_]] = Seq(
     Global / onChangedBuildSource := ReloadOnSourceChanges,
@@ -41,7 +39,7 @@ object BuildSettings {
     libraryDependencies ++= (if (!isScala3(scalaVersion.value)) List(compilerPlugin(Dependencies.kindProjector)) else List.empty) ++ List(
       Dependencies.catsEffect,
       Dependencies.scalaCollectionCompat,
-      "org.jetbrains" % "annotations" % "21.0.1", // TODO: this should be compile only dependecy!
+      "org.jetbrains" % "annotations" % "21.0.1", // TODO: this should be compile only dependency!
       Dependencies.logbackClassic % Test,
       Dependencies.scalaTest % Test
     ),

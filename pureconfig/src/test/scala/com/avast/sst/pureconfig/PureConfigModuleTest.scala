@@ -4,7 +4,7 @@ import cats.data.NonEmptyList
 import cats.effect.SyncIO
 import org.scalatest.funsuite.AnyFunSuite
 import pureconfig.error.ConfigReaderException
-import pureconfig.generic.semiauto.deriveReader
+import pureconfig.generic.semiauto._
 import pureconfig.{ConfigReader, ConfigSource}
 
 class PureConfigModuleTest extends AnyFunSuite {
@@ -14,7 +14,7 @@ class PureConfigModuleTest extends AnyFunSuite {
 
   private case class TestConfig(number: Int, string: String)
 
-  implicit private val configReader: ConfigReader[TestConfig] = deriveReader
+  implicit private val configReader: ConfigReader[TestConfig] = deriveReader[TestConfig]
 
   test("Simple configuration loading") {
     assert(PureConfigModule.make[SyncIO, TestConfig](source).unsafeRunSync() === Right(TestConfig(123, "test")))

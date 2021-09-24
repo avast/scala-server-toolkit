@@ -6,7 +6,7 @@ import doobie.enumerated.TransactionIsolation
 import pureconfig.ConfigReader
 import pureconfig.error.CannotConvert
 import pureconfig.generic.ProductHint
-import pureconfig.generic.semiauto.deriveReader
+import pureconfig.generic.semiauto._
 
 trait ConfigReaders {
 
@@ -21,6 +21,6 @@ trait ConfigReaders {
     case unknown                        => Left(CannotConvert(unknown, "TransactionIsolation", "unknown value"))
   }
 
-  implicit val doobieDoobieHikariConfigReader: ConfigReader[DoobieHikariConfig] = deriveReader
+  implicit val doobieDoobieHikariConfigReader: ConfigReader[DoobieHikariConfig] = deriveReader[DoobieHikariConfig]
 
 }

@@ -7,7 +7,7 @@ import org.http4s.headers.`User-Agent`
 import pureconfig.ConfigReader
 import pureconfig.error.CannotConvert
 import pureconfig.generic.ProductHint
-import pureconfig.generic.semiauto.{deriveEnumerationReader, deriveReader}
+import pureconfig.generic.semiauto._
 
 trait ConfigReaders {
 
@@ -19,6 +19,6 @@ trait ConfigReaders {
 
   implicit val http4sClientParserModeReader: ConfigReader[ParserMode] = deriveEnumerationReader
 
-  implicit val http4sClientHttp4sBlazeClientConfigReader: ConfigReader[Http4sBlazeClientConfig] = deriveReader
+  implicit val http4sClientHttp4sBlazeClientConfigReader: ConfigReader[Http4sBlazeClientConfig] = deriveReader[Http4sBlazeClientConfig]
 
 }

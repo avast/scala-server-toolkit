@@ -6,7 +6,7 @@ import org.flywaydb.core.api.MigrationVersion
 import pureconfig.ConfigReader
 import pureconfig.error.ExceptionThrown
 import pureconfig.generic.ProductHint
-import pureconfig.generic.semiauto.deriveReader
+import pureconfig.generic.semiauto._
 
 import java.nio.charset.Charset
 
@@ -20,6 +20,6 @@ trait ConfigReaders {
 
   implicit val flywayMigrationVersionReader: ConfigReader[MigrationVersion] = ConfigReader[String].map(MigrationVersion.fromVersion)
 
-  implicit val flywayFlywayConfigReader: ConfigReader[FlywayConfig] = deriveReader
+  implicit val flywayFlywayConfigReader: ConfigReader[FlywayConfig] = deriveReader[FlywayConfig]
 
 }
