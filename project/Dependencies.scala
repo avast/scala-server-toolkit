@@ -26,13 +26,13 @@ object Dependencies {
   val micrometerStatsD = "io.micrometer" % "micrometer-registry-statsd" % Versions.micrometerStatsD
   val monixCatnap = "io.monix" %% "monix-catnap" % Versions.monix
   val monixEval = "io.monix" %% "monix-eval" % Versions.monix
-  val postgresql = "org.postgresql" % "postgresql" % "42.2.23"
+  val postgresql = "org.postgresql" % "postgresql" % "42.2.24"
   val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.16.0"
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.5.0"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.20"
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.5.0"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.10"
-  val sentry = "io.sentry" % "sentry" % "5.1.2"
+  val sentry = "io.sentry" % "sentry" % "5.2.0"
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.32"
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.6.0"
   val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.39.8"
@@ -44,8 +44,8 @@ object Dependencies {
 
     val datastaxJavaDriverCore = "4.13.0"
     val doobie = "0.13.4"
-    val grpc = "1.40.1"
-    val http4s = "0.23.4"
+    val grpc = "1.41.0"
+    val http4s = "0.22.5"
     val micrometerCore = "1.7.4"
     val micrometerJmx = "1.7.4"
     val micrometerStatsD = "1.7.4"
