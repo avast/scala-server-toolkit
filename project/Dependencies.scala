@@ -16,7 +16,7 @@ object Dependencies {
   val http4sClient = "org.http4s" %% "http4s-client" % Versions.http4s
   val http4sDsl = "org.http4s" %% "http4s-dsl" % Versions.http4s
   val http4sServer = "org.http4s" %% "http4s-server" % Versions.http4s
-  val jacksonDatabind = "com.fasterxml.jackson.core" % "jackson-databind" % "2.12.5"
+  val jacksonDatabind = "com.fasterxml.jackson.core" % "jackson-databind" % "2.13.0"
   val jsr305 = "com.google.code.findbugs" % "jsr305" % "3.0.2"
   val kindProjector = "org.typelevel" % "kind-projector" % "0.13.2" cross CrossVersion.full
   val lettuce = "io.lettuce" % "lettuce-core" % "6.1.5.RELEASE"
@@ -27,7 +27,7 @@ object Dependencies {
   val monixCatnap = "io.monix" %% "monix-catnap" % Versions.monix
   val monixEval = "io.monix" %% "monix-eval" % Versions.monix
   val postgresql = "org.postgresql" % "postgresql" % "42.2.24"
-  val pureConfig = ("com.github.pureconfig" %% "pureconfig" % "0.16.0").cross(CrossVersion.for3Use2_13)
+  val pureConfig = ("com.github.pureconfig" %% "pureconfig" % "0.17.0").cross(CrossVersion.for3Use2_13)
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.5.0"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.20"
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.5.0"
