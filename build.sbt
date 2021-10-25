@@ -35,6 +35,8 @@ lazy val root = project
     micrometerJmxPureConfig,
     micrometerStatsD,
     micrometerStatsDPureConfig,
+    micrometerPrometheus,
+    micrometerPrometheusPureConfig,
     monixCatnap,
     monixCatnapMicrometer,
     monixCatnapPureConfig,
@@ -391,6 +393,26 @@ lazy val micrometerJmxPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-micrometer-jmx-pureconfig",
+    libraryDependencies += Dependencies.pureConfig
+  )
+
+lazy val micrometerPrometheus = project
+  .in(file("micrometer-prometheus"))
+  .dependsOn(micrometer)
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-micrometer-prometheus",
+    libraryDependencies ++= Seq(
+      Dependencies.micrometerPrometheus
+    )
+  )
+
+lazy val micrometerPrometheusPureConfig = project
+  .in(file("micrometer-prometheus-pureconfig"))
+  .dependsOn(micrometerPrometheus)
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-micrometer-prometheus-pureconfig",
     libraryDependencies += Dependencies.pureConfig
   )
 
