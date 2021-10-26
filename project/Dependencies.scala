@@ -24,6 +24,7 @@ object Dependencies {
   val micrometerCore = "io.micrometer" % "micrometer-core" % Versions.micrometerCore
   val micrometerJmx = "io.micrometer" % "micrometer-registry-jmx" % Versions.micrometerJmx
   val micrometerStatsD = "io.micrometer" % "micrometer-registry-statsd" % Versions.micrometerStatsD
+  val micrometerPrometheus = "io.micrometer" % "micrometer-registry-prometheus" % Versions.micrometerPrometheus
   val monixCatnap = "io.monix" %% "monix-catnap" % Versions.monix
   val monixEval = "io.monix" %% "monix-eval" % Versions.monix
   val postgresql = "org.postgresql" % "postgresql" % "42.3.0"
@@ -49,6 +50,7 @@ object Dependencies {
     val micrometerCore = "1.7.5"
     val micrometerJmx = "1.7.5"
     val micrometerStatsD = "1.7.5"
+    val micrometerPrometheus = "1.7.5"
     val monix = "3.4.0"
 
   }
