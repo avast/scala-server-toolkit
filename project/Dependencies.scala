@@ -6,7 +6,7 @@ object Dependencies {
   val datastaxJavaDriverCore = "com.datastax.oss" % "java-driver-core" % Versions.datastaxJavaDriverCore
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
-  val flywayCore = "org.flywaydb" % "flyway-core" % "8.0.3"
+  val flywayCore = "org.flywaydb" % "flyway-core" % "8.0.4"
   val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "1.8.0"
   val grpcNettyShaded = "io.grpc" % "grpc-netty-shaded" % Versions.grpc
   val grpcProtobuf = "io.grpc" % "grpc-protobuf" % Versions.grpc
@@ -29,9 +29,9 @@ object Dependencies {
   val monixEval = "io.monix" %% "monix-eval" % Versions.monix
   val postgresql = "org.postgresql" % "postgresql" % "42.3.1"
   val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.17.0"
-  val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.5.0"
+  val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.6.0"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.20"
-  val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.5.0"
+  val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.6.0"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.10"
   val sentry = "io.sentry" % "sentry" % "5.3.0"
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.32"
@@ -46,11 +46,11 @@ object Dependencies {
     val datastaxJavaDriverCore = "4.13.0"
     val doobie = "0.13.4"
     val grpc = "1.42.0"
-    val http4s = "0.23.6"
-    val micrometerCore = "1.7.5"
-    val micrometerJmx = "1.7.5"
-    val micrometerStatsD = "1.7.5"
-    val micrometerPrometheus = "1.7.5"
+    val http4s = "0.22.7"
+    val micrometerCore = "1.7.6"
+    val micrometerJmx = "1.7.6"
+    val micrometerStatsD = "1.7.6"
+    val micrometerPrometheus = "1.7.6"
     val monix = "3.4.0"
 
   }
