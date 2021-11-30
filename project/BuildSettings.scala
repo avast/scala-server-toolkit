@@ -1,5 +1,3 @@
-import ch.epfl.scala.sbtmissinglink.MissingLinkPlugin.autoImport._
-import ch.epfl.scala.sbtmissinglink.MissingLinkPlugin.missinglinkConflictsTag
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import mdoc.MdocPlugin.autoImport._
 import microsites.CdnDirectives
@@ -38,7 +36,7 @@ object BuildSettings {
       Dependencies.scalaTest % Test
     ),
     semanticdbEnabled := true,
-    semanticdbVersion := "4.4.30", // scalafixSemanticdb.revision,
+    semanticdbVersion := scalafixSemanticdb.revision,
     ThisBuild / scalafixDependencies ++= Seq(
       Dependencies.scalafixScaluzzi,
       Dependencies.scalafixOrganizeImports
@@ -47,21 +45,6 @@ object BuildSettings {
       "-Ywarn-unused" // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13)
     ) ++ (if (scalaVersion.value.startsWith("2.13")) List("-Wmacros:after") else List.empty),
     Compile / doc / scalacOptions -= "-Xfatal-warnings",
-    missinglinkExcludedDependencies ++= List(
-      moduleFilter(organization = "ch.qos.logback"),
-      moduleFilter(organization = "com.datastax.oss", name = "java-driver-core"),
-      moduleFilter(organization = "com.zaxxer", name = "HikariCP"),
-      moduleFilter(organization = "io.lettuce"),
-      moduleFilter(organization = "io.micrometer"),
-      moduleFilter(organization = "io.netty"),
-      moduleFilter(organization = "io.projectreactor", name = "reactor-core"),
-      moduleFilter(organization = "io.sentry", name = "sentry"),
-      moduleFilter(organization = "org.apache.kafka", name = "kafka-clients"),
-      moduleFilter(organization = "org.codehaus.groovy", name = "groovy"),
-      moduleFilter(organization = "org.flywaydb", name = "flyway-core"),
-      moduleFilter(organization = "org.slf4j", name = "slf4j-api")
-    ),
-    concurrentRestrictions += Tags.limit(missinglinkConflictsTag, 2), // limit missing-link to limit heap consumption
     javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
     Test / publishArtifact := false
   )

@@ -6,8 +6,8 @@ object Dependencies {
   val datastaxJavaDriverCore = "com.datastax.oss" % "java-driver-core" % Versions.datastaxJavaDriverCore
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
-  val flywayCore = "org.flywaydb" % "flyway-core" % "8.1.0"
-  val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "2.2.0"
+  val flywayCore = "org.flywaydb" % "flyway-core" % "8.2.0"
+  val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "1.8.0"
   val grpcNettyShaded = "io.grpc" % "grpc-netty-shaded" % Versions.grpc
   val grpcProtobuf = "io.grpc" % "grpc-protobuf" % Versions.grpc
   val grpcStub = "io.grpc" % "grpc-stub" % Versions.grpc
@@ -33,7 +33,7 @@ object Dependencies {
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.20"
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.6.0"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.10"
-  val sentry = "io.sentry" % "sentry" % "5.4.1"
+  val sentry = "io.sentry" % "sentry" % "5.4.3"
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.32"
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.6.0"
   val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.39.12"
