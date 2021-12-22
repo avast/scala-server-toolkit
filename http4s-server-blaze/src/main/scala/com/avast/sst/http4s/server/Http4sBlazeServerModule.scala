@@ -5,7 +5,8 @@ import org.http4s.HttpApp
 import org.http4s.blaze.server.BlazeServerBuilder
 import org.http4s.server.Server
 
-import java.net.{InetSocketAddress, StandardSocketOptions}
+import java.net.StandardSocketOptions.{SO_KEEPALIVE, SO_REUSEADDR, SO_REUSEPORT}
+import java.net.{InetSocketAddress, SocketOption, StandardSocketOptions}
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.Duration
 
@@ -27,8 +28,8 @@ object Http4sBlazeServerModule {
           InetSocketAddress.createUnresolved(config.listenAddress, config.listenPort)
         )
       )
-      server <-
-        BlazeServerBuilder[F](executionContext)
+      server <- {
+        val builder = BlazeServerBuilder[F](executionContext)
           .bindSocketAddress(inetSocketAddress)
           .withHttpApp(httpApp)
           .withoutBanner
@@ -43,10 +44,23 @@ object Http4sBlazeServerModule {
           .withConnectorPoolSize(config.connectorPoolSize)
           .withMaxConnections(config.maxConnections)
           .withChannelOption[java.lang.Boolean](StandardSocketOptions.TCP_NODELAY, config.socketOptions.tcpNoDelay)
-          .withChannelOption[java.lang.Boolean](StandardSocketOptions.SO_KEEPALIVE, config.socketOptions.soKeepAlive)
-          .withChannelOption[java.lang.Boolean](StandardSocketOptions.SO_REUSEADDR, config.socketOptions.soReuseAddr)
-          .withChannelOption[java.lang.Boolean](StandardSocketOptions.SO_REUSEPORT, config.socketOptions.soReusePort)
-          .resource
+
+        val optionalOptions = {
+          import config.socketOptions._
+
+          def set(builder: BlazeServerBuilder[F], value: Option[Boolean], option: SocketOption[java.lang.Boolean]): BlazeServerBuilder[F] =
+            value.map(builder.withChannelOption[java.lang.Boolean](option, _)).getOrElse(builder)
+
+          List[BlazeServerBuilder[F] => BlazeServerBuilder[F]](
+            b => set(b, soKeepAlive, SO_KEEPALIVE),
+            b => set(b, soReuseAddr, SO_REUSEADDR),
+            b => set(b, soReusePort, SO_REUSEPORT)
+          )
+        }
+
+        val updatedBuilder = optionalOptions.foldLeft(builder) { (b, configure) => configure(b) }
+        updatedBuilder.resource
+      }
     } yield server
   }
 }
