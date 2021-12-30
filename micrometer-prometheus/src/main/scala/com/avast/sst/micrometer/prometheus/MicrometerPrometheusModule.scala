@@ -1,6 +1,6 @@
 package com.avast.sst.micrometer.prometheus
 
-import cats.effect.{Blocker, ContextShift, Resource, Sync}
+import cats.effect.{Resource, Sync}
 import com.avast.sst.micrometer.PrefixMeterFilter
 import io.micrometer.core.instrument.config.{MeterFilter, NamingConvention}
 import io.micrometer.prometheus.{HistogramFlavor, PrometheusConfig, PrometheusMeterRegistry}
@@ -12,7 +12,6 @@ object MicrometerPrometheusModule {
   /** Makes configured [[io.micrometer.prometheus.PrometheusMeterRegistry]]. */
   def make[F[_]: Sync: ContextShift](
       config: MicrometerPrometheusConfig,
-      blocker: Blocker,
       namingConvention: Option[NamingConvention] = None,
       meterFilter: Option[MeterFilter] = None
   ): Resource[F, PrometheusMeterRegistry] = {
@@ -36,7 +35,7 @@ object MicrometerPrometheusModule {
 
           registry
         }
-      }(registry => blocker.delay(registry.close()))
+      }(registry => Sync[F].blocking(registry.close()))
   }
 
   private class CustomPrometheusConfig(c: MicrometerPrometheusConfig) extends PrometheusConfig {
