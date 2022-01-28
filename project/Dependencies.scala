@@ -2,7 +2,7 @@ import sbt._
 
 object Dependencies {
 
-  val catsEffect = "org.typelevel" %% "cats-effect" % "2.5.4"
+  val catsEffect = "org.typelevel" %% "cats-effect" % "3.3.5"
   val datastaxJavaDriverCore = "com.datastax.oss" % "java-driver-core" % Versions.datastaxJavaDriverCore
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
