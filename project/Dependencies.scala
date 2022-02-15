@@ -27,7 +27,7 @@ object Dependencies {
   val micrometerPrometheus = "io.micrometer" % "micrometer-registry-prometheus" % Versions.micrometerPrometheus
   val monixCatnap = "io.monix" %% "monix-catnap" % Versions.monix
   val monixEval = "io.monix" %% "monix-eval" % Versions.monix
-  val postgresql = "org.postgresql" % "postgresql" % "42.3.2"
+  val postgresql = "org.postgresql" % "postgresql" % "42.3.3"
   val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.17.1"
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.6.0"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.21"
