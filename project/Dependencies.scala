@@ -6,7 +6,7 @@ object Dependencies {
   val datastaxJavaDriverCore = "com.datastax.oss" % "java-driver-core" % Versions.datastaxJavaDriverCore
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
-  val flywayCore = "org.flywaydb" % "flyway-core" % "8.4.4"
+  val flywayCore = "org.flywaydb" % "flyway-core" % "8.5.0"
   val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "1.9.0"
   val grpcNettyShaded = "io.grpc" % "grpc-netty-shaded" % Versions.grpc
   val grpcProtobuf = "io.grpc" % "grpc-protobuf" % Versions.grpc
@@ -27,17 +27,17 @@ object Dependencies {
   val micrometerPrometheus = "io.micrometer" % "micrometer-registry-prometheus" % Versions.micrometerPrometheus
   val monixCatnap = "io.monix" %% "monix-catnap" % Versions.monix
   val monixEval = "io.monix" %% "monix-eval" % Versions.monix
-  val postgresql = "org.postgresql" % "postgresql" % "42.3.2"
+  val postgresql = "org.postgresql" % "postgresql" % "42.3.3"
   val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.17.1"
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.6.0"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.21"
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.6.0"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.11"
   val sentry = "io.sentry" % "sentry" % "5.6.1"
-  val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.35"
+  val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.36"
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.6.0"
-  val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.40.0"
-  val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.40.0"
+  val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.40.1"
+  val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.40.1"
   val zio = "dev.zio" %% "zio" % "1.0.13"
   val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.5.1.0"
 
@@ -47,10 +47,10 @@ object Dependencies {
     val doobie = "0.13.4"
     val grpc = "1.44.0"
     val http4s = "0.22.11"
-    val micrometerCore = "1.8.2"
-    val micrometerJmx = "1.8.2"
-    val micrometerStatsD = "1.8.2"
-    val micrometerPrometheus = "1.8.2"
+    val micrometerCore = "1.8.3"
+    val micrometerJmx = "1.8.3"
+    val micrometerStatsD = "1.8.3"
+    val micrometerPrometheus = "1.8.3"
     val monix = "3.4.0"
 
   }
