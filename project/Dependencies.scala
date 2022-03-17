@@ -47,10 +47,10 @@ object Dependencies {
     val doobie = "0.13.4"
     val grpc = "1.45.0"
     val http4s = "0.22.12"
-    val micrometerCore = "1.8.3"
-    val micrometerJmx = "1.8.3"
-    val micrometerStatsD = "1.8.3"
-    val micrometerPrometheus = "1.8.3"
+    val micrometerCore = "1.8.4"
+    val micrometerJmx = "1.8.4"
+    val micrometerStatsD = "1.8.4"
+    val micrometerPrometheus = "1.8.4"
     val monix = "3.4.0"
 
   }
