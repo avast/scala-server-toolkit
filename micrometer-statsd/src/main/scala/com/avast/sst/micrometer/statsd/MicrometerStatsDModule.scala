@@ -1,6 +1,6 @@
 package com.avast.sst.micrometer.statsd
 
-import cats.effect.{Blocker, ContextShift, Resource, Sync}
+import cats.effect.{Resource, Sync}
 import com.avast.sst.micrometer.PrefixMeterFilter
 import io.micrometer.core.instrument.Clock
 import io.micrometer.core.instrument.config.{MeterFilter, NamingConvention}
@@ -14,7 +14,6 @@ object MicrometerStatsDModule {
   /** Makes configured [[io.micrometer.statsd.StatsdMeterRegistry]]. */
   def make[F[_]: Sync: ContextShift](
       config: MicrometerStatsDConfig,
-      blocker: Blocker,
       clock: Clock = Clock.SYSTEM,
       nameMapper: HierarchicalNameMapper = HierarchicalNameMapper.DEFAULT,
       namingConvention: Option[NamingConvention] = None,
