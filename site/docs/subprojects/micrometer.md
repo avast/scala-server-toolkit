@@ -23,9 +23,9 @@ import org.http4s.HttpRoutes
 import org.http4s.server.Server
 import zio.interop.catz._
 import zio.interop.catz.implicits._
-import zio.Task
+import zio._
 
-implicit val runtime = zio.Runtime.default // this is just needed in example
+implicit val runtime: Runtime[ZEnv] = zio.Runtime.default // this is just needed in example
 
 val dsl = Http4sDsl[Task] // this is just needed in example
 import dsl._

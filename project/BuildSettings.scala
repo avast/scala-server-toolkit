@@ -1,5 +1,3 @@
-import ch.epfl.scala.sbtmissinglink.MissingLinkPlugin.autoImport._
-import ch.epfl.scala.sbtmissinglink.MissingLinkPlugin.missinglinkConflictsTag
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import mdoc.MdocPlugin.autoImport._
 import microsites.CdnDirectives
@@ -17,7 +15,7 @@ object BuildSettings {
 
   private val scala212 = "2.12.15"
   private val scala213 = "2.13.6"
-  private val scala3 = "3.0.2"
+  private val scala3 = "3.1.1"
 
   lazy val common: Seq[Def.Setting[_]] = Seq(
     Global / onChangedBuildSource := ReloadOnSourceChanges,
@@ -33,7 +31,7 @@ object BuildSettings {
     description := "Functional programming toolkit for building server applications in Scala.",
     licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE")),
     developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com"))),
-    scalaVersion := scala213,
+    scalaVersion := scala3,
     crossScalaVersions := List(scala213, scala212, scala3),
     fork := true,
     libraryDependencies ++= (if (!isScala3(scalaVersion.value)) List(compilerPlugin(Dependencies.kindProjector)) else List.empty) ++ List(
@@ -54,21 +52,6 @@ object BuildSettings {
       (if (isScala3(scalaVersion.value)) List("-source:3.0-migration") else List("-Ywarn-unused")) ++
         (if (scalaVersion.value.startsWith("2.13")) List("-Wmacros:after", "-Ytasty-reader") else List.empty),
     Compile / doc / scalacOptions -= "-Xfatal-warnings",
-    missinglinkExcludedDependencies ++= List(
-      moduleFilter(organization = "ch.qos.logback"),
-      moduleFilter(organization = "com.datastax.oss", name = "java-driver-core"),
-      moduleFilter(organization = "com.zaxxer", name = "HikariCP"),
-      moduleFilter(organization = "io.lettuce"),
-      moduleFilter(organization = "io.micrometer"),
-      moduleFilter(organization = "io.netty"),
-      moduleFilter(organization = "io.projectreactor", name = "reactor-core"),
-      moduleFilter(organization = "io.sentry", name = "sentry"),
-      moduleFilter(organization = "org.apache.kafka", name = "kafka-clients"),
-      moduleFilter(organization = "org.codehaus.groovy", name = "groovy"),
-      moduleFilter(organization = "org.flywaydb", name = "flyway-core"),
-      moduleFilter(organization = "org.slf4j", name = "slf4j-api")
-    ),
-    concurrentRestrictions += Tags.limit(missinglinkConflictsTag, 2), // limit missing-link to limit heap consumption
     javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
     Test / publishArtifact := false
   )

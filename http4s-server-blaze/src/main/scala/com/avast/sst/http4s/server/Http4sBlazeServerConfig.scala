@@ -29,9 +29,9 @@ object Http4sBlazeServerConfig {
 
   final case class SocketOptions(
       tcpNoDelay: Boolean = true,
-      soKeepAlive: Boolean = true,
-      soReuseAddr: Boolean = true,
-      soReusePort: Boolean = true
+      soKeepAlive: Option[Boolean] = None,
+      soReuseAddr: Option[Boolean] = None,
+      soReusePort: Option[Boolean] = None
   )
 
 }
