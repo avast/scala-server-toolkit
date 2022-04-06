@@ -2,89 +2,90 @@ package com.avast.sst.datastax.pureconfig
 
 import com.avast.sst.datastax.config._
 import pureconfig.{ConfigFieldMapping, ConfigReader}
+import pureconfig.generic.derivation.default._
 
 trait ConfigReaders {
 
   implicit val cassandraDatastaxDriverDatastaxConfigReader: ConfigReader[CassandraDatastaxDriverConfig] =
-    implicitly[ConfigReader[CassandraDatastaxDriverConfig]]
+    ConfigReader.derived
 
   // Basic driver config
-  implicit val cassandraDatastaxDriverBasicConfigReader: ConfigReader[BasicConfig] = implicitly[ConfigReader[BasicConfig]]
+  implicit val cassandraDatastaxDriverBasicConfigReader: ConfigReader[BasicConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverConsistencyLevelReader: ConfigReader[ConsistencyLevel] =
-    implicitly[ConfigReader[ConsistencyLevel]]
+    ConfigReader.derived
   implicit val cassandraDatastaxDriverBasicRequestConfigReader: ConfigReader[BasicRequestConfig] =
-    implicitly[ConfigReader[BasicRequestConfig]]
+    ConfigReader.derived
   implicit val cassandraDatastaxDriverLoadBalancingConfigReader: ConfigReader[LoadBalancingPolicyConfig] =
-    implicitly[ConfigReader[LoadBalancingPolicyConfig]]
-  implicit val cassandraDatastaxDriverFilterConfigReader: ConfigReader[FilterConfig] = implicitly[ConfigReader[FilterConfig]]
+    ConfigReader.derived
+  implicit val cassandraDatastaxDriverFilterConfigReader: ConfigReader[FilterConfig] = ConfigReader.derived
 
   // Advanced driver config
-  implicit val cassandraDatastaxDriverAdvancedConfigReader: ConfigReader[AdvancedConfig] = implicitly[ConfigReader[AdvancedConfig]]
-  implicit val cassandraDatastaxDriverRetryPolicyConfigReader: ConfigReader[RetryPolicyConfig] = implicitly[ConfigReader[RetryPolicyConfig]]
+  implicit val cassandraDatastaxDriverAdvancedConfigReader: ConfigReader[AdvancedConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverRetryPolicyConfigReader: ConfigReader[RetryPolicyConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverSpeculativeExecutionPolicyConfigReader: ConfigReader[SpeculativeExecutionPolicyConfig] =
-    implicitly[ConfigReader[SpeculativeExecutionPolicyConfig]]
+    ConfigReader.derived
   implicit val cassandraDatastaxDriverTimestampGeneratorConfigReader: ConfigReader[TimestampGeneratorConfig] =
-    implicitly[ConfigReader[TimestampGeneratorConfig]]
-  implicit val cassandraDatastaxDriverTraceConfigReader: ConfigReader[TraceConfig] = implicitly[ConfigReader[TraceConfig]]
+    ConfigReader.derived
+  implicit val cassandraDatastaxDriverTraceConfigReader: ConfigReader[TraceConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverDriftWarningConfigReader: ConfigReader[DriftWarningConfig] =
-    implicitly[ConfigReader[DriftWarningConfig]]
-  implicit val cassandraDatastaxDriverConnectionConfigReader: ConfigReader[ConnectionConfig] = implicitly[ConfigReader[ConnectionConfig]]
-  implicit val cassandraDatastaxDriverPoolConfigReader: ConfigReader[PoolConfig] = implicitly[ConfigReader[PoolConfig]]
+    ConfigReader.derived
+  implicit val cassandraDatastaxDriverConnectionConfigReader: ConfigReader[ConnectionConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverPoolConfigReader: ConfigReader[PoolConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverReconnectionPolicyConfigReader: ConfigReader[ReconnectionPolicyConfig] =
-    implicitly[ConfigReader[ReconnectionPolicyConfig]]
+    ConfigReader.derived
   implicit val cassandraDatastaxDriverAuthProviderConfigReader: ConfigReader[AuthProviderConfig] =
-    implicitly[ConfigReader[AuthProviderConfig]]
+    ConfigReader.derived
   implicit val cassandraDatastaxDriverRequestTrackerConfigReader: ConfigReader[RequestTrackerConfig] =
-    implicitly[ConfigReader[RequestTrackerConfig]]
-  implicit val cassandraDatastaxDriverLogsConfigReader: ConfigReader[LogsConfig] = implicitly[ConfigReader[LogsConfig]]
-  implicit val cassandraDatastaxDriverSlowConfigReader: ConfigReader[SlowConfig] = implicitly[ConfigReader[SlowConfig]]
-  implicit val cassandraDatastaxDriverThrottlerConfigReader: ConfigReader[ThrottlerConfig] = implicitly[ConfigReader[ThrottlerConfig]]
+    ConfigReader.derived
+  implicit val cassandraDatastaxDriverLogsConfigReader: ConfigReader[LogsConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverSlowConfigReader: ConfigReader[SlowConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverThrottlerConfigReader: ConfigReader[ThrottlerConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverNodeStateListenerConfigReader: ConfigReader[NodeStateListenerConfig] =
-    implicitly[ConfigReader[NodeStateListenerConfig]]
+    ConfigReader.derived
   implicit val cassandraDatastaxDriverSchemaChangeListenerConfigReader: ConfigReader[SchemaChangeListenerConfig] =
-    implicitly[ConfigReader[SchemaChangeListenerConfig]]
+    ConfigReader.derived
   implicit val cassandraDatastaxDriverAddressTranslatorConfigReader: ConfigReader[AddressTranslatorConfig] =
-    implicitly[ConfigReader[AddressTranslatorConfig]]
-  implicit val cassandraDatastaxDriverProtocolConfigReader: ConfigReader[ProtocolConfig] = implicitly[ConfigReader[ProtocolConfig]]
-  implicit val cassandraDatastaxDriverMetricsConfigReader: ConfigReader[MetricsConfig] = implicitly[ConfigReader[MetricsConfig]]
-  implicit val cassandraDatastaxDriverSessionConfigReader: ConfigReader[SessionConfig] = implicitly[ConfigReader[SessionConfig]]
-  implicit val cassandraDatastaxDriverCqlRequestsConfigReader: ConfigReader[CqlRequestsConfig] = implicitly[ConfigReader[CqlRequestsConfig]]
-  implicit val cassandraDatastaxDriverThrottlingConfigReader: ConfigReader[ThrottlingConfig] = implicitly[ConfigReader[ThrottlingConfig]]
-  implicit val cassandraDatastaxDriverDelayConfigReader: ConfigReader[DelayConfig] = implicitly[ConfigReader[DelayConfig]]
-  implicit val cassandraDatastaxDriverNodeConfigReader: ConfigReader[NodeConfig] = implicitly[ConfigReader[NodeConfig]]
-  implicit val cassandraDatastaxDriverCqlMessagesConfigReader: ConfigReader[CqlMessagesConfig] = implicitly[ConfigReader[CqlMessagesConfig]]
-  implicit val cassandraDatastaxDriverSocketConfigReader: ConfigReader[SocketConfig] = implicitly[ConfigReader[SocketConfig]]
-  implicit val cassandraDatastaxDriverHeartbeatConfigReader: ConfigReader[HeartbeatConfig] = implicitly[ConfigReader[HeartbeatConfig]]
-  implicit val cassandraDatastaxDriverMetadataConfigReader: ConfigReader[MetadataConfig] = implicitly[ConfigReader[MetadataConfig]]
+    ConfigReader.derived
+  implicit val cassandraDatastaxDriverProtocolConfigReader: ConfigReader[ProtocolConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverMetricsConfigReader: ConfigReader[MetricsConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverSessionConfigReader: ConfigReader[SessionConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverCqlRequestsConfigReader: ConfigReader[CqlRequestsConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverThrottlingConfigReader: ConfigReader[ThrottlingConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverDelayConfigReader: ConfigReader[DelayConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverNodeConfigReader: ConfigReader[NodeConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverCqlMessagesConfigReader: ConfigReader[CqlMessagesConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverSocketConfigReader: ConfigReader[SocketConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverHeartbeatConfigReader: ConfigReader[HeartbeatConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverMetadataConfigReader: ConfigReader[MetadataConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverTopologyEventDebouncerConfigReader: ConfigReader[TopologyEventDebouncerConfig] =
-    implicitly[ConfigReader[TopologyEventDebouncerConfig]]
-  implicit val cassandraDatastaxDriverSchemaConfigReader: ConfigReader[SchemaConfig] = implicitly[ConfigReader[SchemaConfig]]
-  implicit val cassandraDatastaxDriverDebouncerConfigReader: ConfigReader[DebouncerConfig] = implicitly[ConfigReader[DebouncerConfig]]
-  implicit val cassandraDatastaxDriverTokenMapConfigReader: ConfigReader[TokenMapConfig] = implicitly[ConfigReader[TokenMapConfig]]
+    ConfigReader.derived
+  implicit val cassandraDatastaxDriverSchemaConfigReader: ConfigReader[SchemaConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverDebouncerConfigReader: ConfigReader[DebouncerConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverTokenMapConfigReader: ConfigReader[TokenMapConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverControlConnectionConfigReader: ConfigReader[ControlConnectionConfig] =
-    implicitly[ConfigReader[ControlConnectionConfig]]
+    ConfigReader.derived
   implicit val cassandraDatastaxDriverSchemaAgreementConfigReader: ConfigReader[SchemaAgreementConfig] =
-    implicitly[ConfigReader[SchemaAgreementConfig]]
+    ConfigReader.derived
   implicit val cassandraDatastaxDriverPreparedStatementsConfigReader: ConfigReader[PreparedStatementsConfig] =
-    implicitly[ConfigReader[PreparedStatementsConfig]]
+    ConfigReader.derived
   implicit val cassandraDatastaxDriverReprepareOnUpConfigReader: ConfigReader[ReprepareOnUpConfig] =
-    implicitly[ConfigReader[ReprepareOnUpConfig]]
-  implicit val cassandraDatastaxDriverNettyConfigReader: ConfigReader[NettyConfig] = implicitly[ConfigReader[NettyConfig]]
-  implicit val cassandraDatastaxDriverGroupConfigReader: ConfigReader[GroupConfig] = implicitly[ConfigReader[GroupConfig]]
-  implicit val cassandraDatastaxDriverShutdownConfigReader: ConfigReader[ShutdownConfig] = implicitly[ConfigReader[ShutdownConfig]]
-  implicit val cassandraDatastaxDriverTimerConfigReader: ConfigReader[TimerConfig] = implicitly[ConfigReader[TimerConfig]]
-  implicit val cassandraDatastaxDriverCoalescerConfigReader: ConfigReader[CoalescerConfig] = implicitly[ConfigReader[CoalescerConfig]]
+    ConfigReader.derived
+  implicit val cassandraDatastaxDriverNettyConfigReader: ConfigReader[NettyConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverGroupConfigReader: ConfigReader[GroupConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverShutdownConfigReader: ConfigReader[ShutdownConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverTimerConfigReader: ConfigReader[TimerConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverCoalescerConfigReader: ConfigReader[CoalescerConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverAdvancedRequestConfigReader: ConfigReader[AdvancedRequestConfig] =
-    implicitly[ConfigReader[AdvancedRequestConfig]]
+    ConfigReader.derived
 
   // Profile overridable config
-  implicit val cassandraDatastaxDriverProfileConfigReader: ConfigReader[ProfileConfig] = implicitly[ConfigReader[ProfileConfig]]
+  implicit val cassandraDatastaxDriverProfileConfigReader: ConfigReader[ProfileConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverProfileBasicConfigReader: ConfigReader[ProfileBasicConfig] =
-    implicitly[ConfigReader[ProfileBasicConfig]]
+    ConfigReader.derived
   implicit val cassandraDatastaxDriverProfileAdvancedConfigReader: ConfigReader[ProfileAdvancedConfig] =
-    implicitly[ConfigReader[ProfileAdvancedConfig]]
+    ConfigReader.derived
   implicit val cassandraDatastaxDriverProfilePreparedStatementsConfigReader: ConfigReader[ProfilePreparedStatementsConfig] =
-    implicitly[ConfigReader[ProfilePreparedStatementsConfig]]
+    ConfigReader.derived
   implicit val cassandraDatastaxDriverProfileProfileAdvancedRequestConfigReader: ConfigReader[ProfileAdvancedRequestConfig] =
-    implicitly[ConfigReader[ProfileAdvancedRequestConfig]]
+    ConfigReader.derived
 }

@@ -5,6 +5,7 @@ import com.avast.sst.fs2kafka.{ConsumerConfig, ProducerConfig}
 import fs2.kafka.{Acks, AutoOffsetReset, CommitRecovery, IsolationLevel}
 import pureconfig.ConfigReader
 import pureconfig.error.CannotConvert
+import pureconfig.generic.derivation.default._
 
 @SuppressWarnings(Array("scalafix:DisableSyntax.=="))
 trait ConfigReaders {
@@ -35,8 +36,8 @@ trait ConfigReaders {
     case value                         => CannotConvert(value, "Acks", "0|1|all").asLeft
   }
 
-  implicit val fs2KafkaConsumerConfigReader: ConfigReader[ConsumerConfig] = implicitly[ConfigReader[ConsumerConfig]]
+  implicit val fs2KafkaConsumerConfigReader: ConfigReader[ConsumerConfig] = ConfigReader.derived
 
-  implicit val fs2KafkaProducerConfigReader: ConfigReader[ProducerConfig] = implicitly[ConfigReader[ProducerConfig]]
+  implicit val fs2KafkaProducerConfigReader: ConfigReader[ProducerConfig] = ConfigReader.derived
 
 }

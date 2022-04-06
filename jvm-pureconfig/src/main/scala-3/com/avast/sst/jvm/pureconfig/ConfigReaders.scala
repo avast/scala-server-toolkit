@@ -9,10 +9,10 @@ import pureconfig.generic.derivation.default._
 trait ConfigReaders {
 
   implicit val jvmThreadPoolExecutorConfigReader: ConfigReader[ThreadPoolExecutorConfig] =
-    implicitly[ConfigReader[ThreadPoolExecutorConfig]]
+    ConfigReader.derived
 
-  implicit val jvmTaskPeekingModeReader: ConfigReader[TaskPeekingMode] = implicitly[ConfigReader[TaskPeekingMode]]
+  implicit val jvmTaskPeekingModeReader: ConfigReader[TaskPeekingMode] = ConfigReader.derived
 
-  implicit val jvmForkJoinPoolConfigReader: ConfigReader[ForkJoinPoolConfig] = implicitly[ConfigReader[ForkJoinPoolConfig]]
+  implicit val jvmForkJoinPoolConfigReader: ConfigReader[ForkJoinPoolConfig] = ConfigReader.derived
 
 }

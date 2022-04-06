@@ -18,10 +18,11 @@ import com.avast.sst.pureconfig.PureConfigModule
 import pureconfig.ConfigReader
 import zio.interop.catz._
 import zio.Task
+import pureconfig.generic.derivation.default._
 
 final case class ServerConfiguration(listenAddress: String, listenPort: Int)
 
-implicit val serverConfigurationReader: ConfigReader[ServerConfiguration] = implicitly[ConfigReader[ServerConfiguration]]
+implicit val serverConfigurationReader: ConfigReader[ServerConfiguration] = ConfigReader.derived
 
 val maybeConfiguration = PureConfigModule.make[Task, ServerConfiguration]
 ```

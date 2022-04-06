@@ -5,6 +5,8 @@ import com.avast.sst.flyway.FlywayConfig
 import org.flywaydb.core.api.MigrationVersion
 import pureconfig.ConfigReader
 import pureconfig.error.ExceptionThrown
+import pureconfig.generic.derivation.default._
+import pureconfig.generic.derivation.default._
 
 import java.nio.charset.Charset
 
@@ -16,6 +18,6 @@ trait ConfigReaders {
 
   implicit val flywayMigrationVersionReader: ConfigReader[MigrationVersion] = ConfigReader[String].map(MigrationVersion.fromVersion)
 
-  implicit val flywayFlywayConfigReader: ConfigReader[FlywayConfig] = implicitly[ConfigReader[FlywayConfig]]
+  implicit val flywayFlywayConfigReader: ConfigReader[FlywayConfig] = ConfigReader.derived
 
 }

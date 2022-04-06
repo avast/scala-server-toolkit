@@ -5,6 +5,7 @@ import com.avast.sst.doobie.DoobieHikariConfig
 import doobie.enumerated.TransactionIsolation
 import pureconfig.ConfigReader
 import pureconfig.error.CannotConvert
+import pureconfig.generic.derivation.default._
 
 trait ConfigReaders {
 
@@ -17,6 +18,6 @@ trait ConfigReaders {
     case unknown                        => Left(CannotConvert(unknown, "TransactionIsolation", "unknown value"))
   }
 
-  implicit val doobieDoobieHikariConfigReader: ConfigReader[DoobieHikariConfig] = implicitly[ConfigReader[DoobieHikariConfig]]
+  implicit val doobieDoobieHikariConfigReader: ConfigReader[DoobieHikariConfig] = ConfigReader.derived
 
 }

@@ -13,6 +13,7 @@ import com.avast.sst.micrometer.jmx.pureconfig.implicits._
 import com.avast.sst.monix.catnap.CircuitBreakerConfig
 import com.avast.sst.monix.catnap.pureconfig.implicits._
 import pureconfig.ConfigReader
+import pureconfig.generic.derivation.default._
 
 final case class Configuration(
     server: Http4sBlazeServerConfig,
@@ -25,6 +26,6 @@ final case class Configuration(
 
 object Configuration {
 
-  implicit val reader: ConfigReader[Configuration] = implicitly[ConfigReader[Configuration]]
+  implicit val reader: ConfigReader[Configuration] = ConfigReader.derived
 
 }
