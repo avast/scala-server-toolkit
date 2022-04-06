@@ -1,6 +1,6 @@
 package com.avast.sst.http4s.server
 
-import cats.effect.{ConcurrentEffect, Resource, Timer}
+import cats.effect.{ConcurrentEffect, Resource}
 import org.http4s.HttpApp
 import org.http4s.blaze.server.BlazeServerBuilder
 import org.http4s.server.Server
@@ -9,6 +9,7 @@ import java.net.StandardSocketOptions.{SO_KEEPALIVE, SO_REUSEADDR, SO_REUSEPORT}
 import java.net.{InetSocketAddress, SocketOption, StandardSocketOptions}
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.Duration
+import cats.effect.Temporal
 
 object Http4sBlazeServerModule {
 
@@ -17,7 +18,7 @@ object Http4sBlazeServerModule {
     * @param executionContext
     *   callback handling [[scala.concurrent.ExecutionContext]]
     */
-  def make[F[_]: ConcurrentEffect: Timer](
+  def make[F[_]: ConcurrentEffect: Temporal](
       config: Http4sBlazeServerConfig,
       httpApp: HttpApp[F],
       executionContext: ExecutionContext
