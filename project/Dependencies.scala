@@ -6,7 +6,7 @@ object Dependencies {
   val datastaxJavaDriverCore = "com.datastax.oss" % "java-driver-core" % Versions.datastaxJavaDriverCore
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
-  val flywayCore = "org.flywaydb" % "flyway-core" % "8.5.5"
+  val flywayCore = "org.flywaydb" % "flyway-core" % "8.5.6"
   val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "1.10.0"
   val grpcNettyShaded = "io.grpc" % "grpc-netty-shaded" % Versions.grpc
   val grpcProtobuf = "io.grpc" % "grpc-protobuf" % Versions.grpc
@@ -16,7 +16,7 @@ object Dependencies {
   val http4sClient = "org.http4s" %% "http4s-client" % Versions.http4s
   val http4sDsl = "org.http4s" %% "http4s-dsl" % Versions.http4s
   val http4sServer = "org.http4s" %% "http4s-server" % Versions.http4s
-  val jacksonDatabind = "com.fasterxml.jackson.core" % "jackson-databind" % "2.13.2.1"
+  val jacksonDatabind = "com.fasterxml.jackson.core" % "jackson-databind" % "2.13.2.2"
   val jsr305 = "com.google.code.findbugs" % "jsr305" % "3.0.2"
   val kindProjector = "org.typelevel" % "kind-projector" % "0.13.2" cross CrossVersion.full
   val lettuce = "io.lettuce" % "lettuce-core" % "6.1.8.RELEASE"
@@ -33,11 +33,11 @@ object Dependencies {
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.21"
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.6.0"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.11"
-  val sentry = "io.sentry" % "sentry" % "5.7.0"
+  val sentry = "io.sentry" % "sentry" % "5.7.1"
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.36"
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.6.1"
-  val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.40.3"
-  val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.40.3"
+  val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.40.5"
+  val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.40.5"
   val zio = "dev.zio" %% "zio" % "1.0.13"
   val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.5.1.0"
 
@@ -45,7 +45,7 @@ object Dependencies {
 
     val datastaxJavaDriverCore = "4.14.0"
     val doobie = "0.13.4"
-    val grpc = "1.45.0"
+    val grpc = "1.45.1"
     val http4s = "0.22.12"
     val micrometerCore = "1.8.4"
     val micrometerJmx = "1.8.4"
