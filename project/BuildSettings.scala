@@ -37,7 +37,7 @@ object BuildSettings {
     libraryDependencies ++= (if (!isScala3(scalaVersion.value)) List(compilerPlugin(Dependencies.kindProjector)) else List.empty) ++ List(
       Dependencies.catsEffect,
       Dependencies.scalaCollectionCompat,
-      "org.jetbrains" % "annotations" % "21.0.1", // TODO: this should be compile only dependency!
+      Dependencies.jetbriansAnnotations % "compile-internal",
       Dependencies.logbackClassic % Test,
       Dependencies.scalaTest % Test
     ),
