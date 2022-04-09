@@ -42,7 +42,7 @@ class LoggingServerInterceptor(logger: Logger) extends ServerInterceptor {
           status.getCause
         )
       } else {
-        logger.debug("Successful response from method {}: {}", Array(methodName, status) *)
+        logger.debug("Successful response from method {}: {}", Array(methodName, status)*)
       }
       super.close(status, trailers)
     }

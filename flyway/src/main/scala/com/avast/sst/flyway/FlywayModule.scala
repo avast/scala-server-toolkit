@@ -19,7 +19,7 @@ object FlywayModule {
         .connectRetries(config.connectRetries)
         .encoding(config.encoding)
         .group(config.group)
-        .ignoreMigrationPatterns(config.ignoreMigrationPatterns *)
+        .ignoreMigrationPatterns(config.ignoreMigrationPatterns*)
         .mixed(config.mixed)
         .outOfOrder(config.outOfOrder)
         .validateOnMigrate(config.validateOnMigrate)
@@ -30,7 +30,7 @@ object FlywayModule {
       config.targetVersion.foreach(builder.target)
       config.baselineDescription.foreach(builder.baselineDescription)
       config.installedBy.foreach(builder.installedBy)
-      if (config.locations.nonEmpty) builder.locations(config.locations *)
+      if (config.locations.nonEmpty) builder.locations(config.locations*)
 
       builder.load()
     }
