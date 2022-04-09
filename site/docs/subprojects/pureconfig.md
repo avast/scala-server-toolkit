@@ -8,13 +8,13 @@ title: "PureConfig"
 `libraryDependencies += "com.avast" %% "sst-pureconfig" % "@VERSION@"`
 
 This subproject allows you to load your application's configuration file into a case class. It uses [PureConfig](https://pureconfig.github.io) 
-library to do so. Pureconfig uses [Lightbend Config](https://github.com/lightbend/config) which means that your application's configuration 
+library to do so. PureConfig uses [Lightbend Config](https://github.com/lightbend/config) which means that your application's configuration 
 will be in [HOCON](https://github.com/lightbend/config/blob/master/HOCON.md) format.
 
 Loading of a configuration is effectful, so it is wrapped in `F[_]` which is `Sync`. This module also tweaks the error messages a little.
 
 ## Usage and typeclass derivation
-Unfortunately there are some incompatible changes between Scala 2 and Scala 3 series of pureconfig when it comes to typeclass derivation. We've created different implementation for each series in order to unblock migration to Scala 3 for SST users. Read on for further details on usage of each.
+Unfortunately there are some incompatible changes between Scala 2 and Scala 3 series of PureConfig when it comes to typeclass derivation. We've created different implementation for each series in order to unblock migration to Scala 3 for SST users. Read on for further details on usage of each.
 
 ### Scala 2
 
