@@ -17,6 +17,7 @@ object Dependencies {
   val http4sDsl = "org.http4s" %% "http4s-dsl" % Versions.http4s
   val http4sServer = "org.http4s" %% "http4s-server" % Versions.http4s
   val jacksonDatabind = "com.fasterxml.jackson.core" % "jackson-databind" % "2.13.2.2"
+  val jetbrainsAnnotations = "org.jetbrains" % "annotations" % "21.0.1"
   val jsr305 = "com.google.code.findbugs" % "jsr305" % "3.0.2"
   val kindProjector = "org.typelevel" % "kind-projector" % "0.13.2" cross CrossVersion.full
   val lettuce = "io.lettuce" % "lettuce-core" % "6.1.8.RELEASE"
@@ -28,7 +29,8 @@ object Dependencies {
   val monixCatnap = "io.monix" %% "monix-catnap" % Versions.monix
   val monixEval = "io.monix" %% "monix-eval" % Versions.monix
   val postgresql = "org.postgresql" % "postgresql" % "42.3.3"
-  val pureConfig = "com.github.pureconfig" %% "pureconfig" % "0.17.1"
+  val pureConfigCore = "com.github.pureconfig" %% "pureconfig-core" % Versions.pureConfig
+  val pureConfigGeneric = "com.github.pureconfig" %% "pureconfig-generic" % Versions.pureConfig
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.7.0"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.21"
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.6.0"
@@ -52,6 +54,7 @@ object Dependencies {
     val micrometerStatsD = "1.8.4"
     val micrometerPrometheus = "1.8.4"
     val monix = "3.4.0"
+    val pureConfig = "0.17.1"
 
   }
 

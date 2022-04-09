@@ -18,11 +18,11 @@ import zio._
 import zio.interop.catz._
 import zio.interop.catz.implicits._
 
-implicit val runtime = zio.Runtime.default // this is just needed in example
+implicit val runtime: Runtime[ZEnv] = zio.Runtime.default // this is just needed in example
 
 for {
   consumer <- Fs2KafkaModule.makeConsumer[Task, String, String](
-    ConsumerConfig(List("localhost:9092"), groupId = "test", autoOffsetReset = AutoOffsetReset.Earliest)
+    ConsumerConfig(List("localhost:9092"), groupId = "test", autoOffsetReset = AutoOffsetReset.Earliest), None, None
   )
   _ <- Resource.eval(consumer.subscribeTo("test"))
   consumerStream <- Resource.eval(consumer.stream)

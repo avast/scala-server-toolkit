@@ -1,3 +1,17 @@
+def pureconfig = libraryDependencies ++= {
+  CrossVersion.partialVersion(scalaVersion.value) match {
+    case Some((3, _)) =>
+      List(
+        Dependencies.pureConfigCore
+      )
+    case Some((2, _)) =>
+      List(
+        Dependencies.pureConfigCore,
+        Dependencies.pureConfigGeneric
+      )
+  }
+}
+
 lazy val root = project
   .in(file("."))
   .aggregate(
@@ -105,7 +119,7 @@ lazy val cassandraDatastaxDriverPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-cassandra-datastax-driver-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    pureconfig
   )
 
 lazy val catsEffect = project
@@ -130,7 +144,7 @@ lazy val doobieHikariPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-doobie-hikari-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    pureconfig
   )
 
 lazy val example = project
@@ -177,7 +191,7 @@ lazy val flywayPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-flyway-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    pureconfig
   )
 
 lazy val fs2Kafka = project
@@ -199,7 +213,7 @@ lazy val fs2KafkaPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-fs2-kafka-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    pureconfig
   )
 
 lazy val grpcServer = project
@@ -230,7 +244,7 @@ lazy val grpcServerPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-grpc-server-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    pureconfig
   )
 
 lazy val http4sClientBlaze = project
@@ -288,7 +302,7 @@ lazy val http4sServerBlazePureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-http4s-server-blaze-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    pureconfig
   )
 
 lazy val http4sServerMicrometer = project
@@ -316,7 +330,7 @@ lazy val jdkHttpClientPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-jdk-http-client-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    pureconfig
   )
 
 lazy val jvm = project
@@ -345,7 +359,7 @@ lazy val jvmPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-jvm-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    pureconfig
   )
 
 lazy val lettuce = project
@@ -362,7 +376,7 @@ lazy val lettucePureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-lettuce-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    pureconfig
   )
 
 lazy val micrometer = project
@@ -393,7 +407,7 @@ lazy val micrometerJmxPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-micrometer-jmx-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    pureconfig
   )
 
 lazy val micrometerPrometheus = project
@@ -411,7 +425,7 @@ lazy val micrometerPrometheusPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-micrometer-prometheus-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    pureconfig
   )
 
 lazy val micrometerStatsD = project
@@ -432,7 +446,7 @@ lazy val micrometerStatsDPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-micrometer-statsd-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    pureconfig
   )
 
 lazy val monixCatnap = project
@@ -464,7 +478,7 @@ lazy val monixCatnapPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-monix-catnap-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    pureconfig
   )
 
 lazy val pureConfig = project
@@ -472,7 +486,7 @@ lazy val pureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    pureconfig
   )
 
 lazy val sentry = project
@@ -489,7 +503,7 @@ lazy val sentryPureConfig = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-sentry-pureconfig",
-    libraryDependencies += Dependencies.pureConfig
+    pureconfig
   )
 
 lazy val site = project
@@ -521,6 +535,10 @@ lazy val site = project
   .settings(BuildSettings.common)
   .settings(BuildSettings.microsite)
   .settings(
+    libraryDependencies += "org.scalameta" %% "mdoc" % "2.3.2" excludeAll (
+      ExclusionRule(organization = "org.slf4j"),
+      ExclusionRule(organization = "org.scala-lang.modules", name = "scala-collection-compat_2.13")
+    ),
     publish / skip := true,
     scalacOptions := scalacOptions.value.filterNot(_ == "-Xfatal-warnings").filterNot(_ == "-Xlint:infer-any")
   )
@@ -538,6 +556,6 @@ lazy val sslConfig = project
 
 addCommandAlias(
   "check",
-  "scalafmtSbtCheck; scalafmtCheckAll; Compile/scalafix --check; Test/scalafix --check; +doc; +site/mdoc; +test"
+  "scalafmtSbtCheck; scalafmtCheckAll; Compile/scalafix --check; Test/scalafix --check; +doc; site/mdoc; +test"
 )
 addCommandAlias("fix", "Compile/scalafix; Test/scalafix; scalafmtSbt; scalafmtAll")
