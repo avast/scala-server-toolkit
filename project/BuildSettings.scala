@@ -37,7 +37,7 @@ object BuildSettings {
     libraryDependencies ++= (if (!isScala3(scalaVersion.value)) List(compilerPlugin(Dependencies.kindProjector)) else List.empty) ++ List(
       Dependencies.catsEffect,
       Dependencies.scalaCollectionCompat,
-      Dependencies.jetbriansAnnotations % "compile-internal",
+      Dependencies.jetbrainsAnnotations % "compile-internal",
       Dependencies.logbackClassic % Test,
       Dependencies.scalaTest % Test
     ),
