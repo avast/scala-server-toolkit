@@ -4,7 +4,7 @@ import cats.effect.SyncIO
 import org.scalatest.funsuite.AnyFunSuite
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
-import scala.{Console => SConsole}
+import scala.{Console as SConsole}
 
 class ConsoleModuleTest extends AnyFunSuite {
 

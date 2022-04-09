@@ -1,7 +1,7 @@
 package com.avast.sst.http4s.client
 
-import cats.effect._
-import org.http4s.headers._
+import cats.effect.*
+import org.http4s.headers.*
 import org.http4s.{ProductComment, ProductId}
 import org.scalatest.funsuite.AsyncFunSuite
 
