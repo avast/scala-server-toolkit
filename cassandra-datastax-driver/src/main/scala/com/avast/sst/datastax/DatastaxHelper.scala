@@ -1,9 +1,9 @@
 package com.avast.sst.datastax
 
-import com.datastax.oss.driver.api.core.config.{DriverOption, ProgrammaticDriverConfigLoaderBuilder => DriverBuilder}
+import com.datastax.oss.driver.api.core.config.{DriverOption, ProgrammaticDriverConfigLoaderBuilder as DriverBuilder}
 
 import scala.concurrent.duration.Duration
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 /** Helper functions to construct Datastax session using Java builder. */
 private[datastax] object DatastaxHelper {

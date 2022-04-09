@@ -1,11 +1,11 @@
 package com.avast.sst.doobie.pureconfig
 
-import cats.syntax.either._
+import cats.syntax.either.*
 import com.avast.sst.doobie.DoobieHikariConfig
 import doobie.enumerated.TransactionIsolation
 import pureconfig.ConfigReader
 import pureconfig.error.CannotConvert
-import pureconfig.generic.derivation.default._
+import pureconfig.generic.derivation.default.*
 
 trait ConfigReaders {
 

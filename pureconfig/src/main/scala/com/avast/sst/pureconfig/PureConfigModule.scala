@@ -2,7 +2,7 @@ package com.avast.sst.pureconfig
 
 import cats.data.NonEmptyList
 import cats.effect.Sync
-import cats.syntax.either._
+import cats.syntax.either.*
 import pureconfig.error.{ConfigReaderFailure, ConfigReaderFailures, ConvertFailure}
 import pureconfig.{ConfigReader, ConfigSource}
 

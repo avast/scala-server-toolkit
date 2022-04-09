@@ -9,6 +9,7 @@ def pureconfig = libraryDependencies ++= {
         Dependencies.pureConfigCore,
         Dependencies.pureConfigGeneric
       )
+    case _ => List.empty
   }
 }
 

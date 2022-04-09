@@ -1,6 +1,6 @@
 package com.avast.sst.datastax
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 package object config {
   val ConnectTimeout: Duration = 5.seconds

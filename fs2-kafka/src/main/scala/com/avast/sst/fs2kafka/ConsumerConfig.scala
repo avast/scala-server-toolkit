@@ -1,13 +1,13 @@
 package com.avast.sst.fs2kafka
 
-import com.avast.sst.fs2kafka.ConsumerConfig._
+import com.avast.sst.fs2kafka.ConsumerConfig.*
 import fs2.kafka.{AutoOffsetReset, CommitRecovery, IsolationLevel}
-import org.apache.kafka.clients.consumer.{ConsumerConfig => ApacheConsumerConfig}
+import org.apache.kafka.clients.consumer.{ConsumerConfig as ApacheConsumerConfig}
 
 import java.util.concurrent.TimeUnit.{MILLISECONDS, SECONDS}
 import scala.annotation.nowarn
 import scala.concurrent.duration.FiniteDuration
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 @nowarn("msg=dead code")
 final case class ConsumerConfig(

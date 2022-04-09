@@ -1,12 +1,12 @@
 package com.avast.sst.flyway.pureconfig
 
-import cats.syntax.either._
+import cats.syntax.either.*
 import com.avast.sst.flyway.FlywayConfig
 import org.flywaydb.core.api.MigrationVersion
 import pureconfig.ConfigReader
 import pureconfig.error.ExceptionThrown
-import pureconfig.generic.derivation.default._
-import pureconfig.generic.derivation.default._
+import pureconfig.generic.derivation.default.*
+import pureconfig.generic.derivation.default.*
 
 import java.nio.charset.Charset
 

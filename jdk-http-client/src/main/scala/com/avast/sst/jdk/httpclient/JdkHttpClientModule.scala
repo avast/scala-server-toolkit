@@ -2,7 +2,7 @@ package com.avast.sst.jdk.httpclient
 
 import java.net.http.HttpClient
 import java.net.{Authenticator, CookieHandler, ProxySelector}
-import java.time.{Duration => JDuration}
+import java.time.{Duration as JDuration}
 import java.util.concurrent.Executor
 import javax.net.ssl.SSLContext
 

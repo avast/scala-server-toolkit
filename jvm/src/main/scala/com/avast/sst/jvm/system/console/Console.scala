@@ -4,7 +4,7 @@ import cats.effect.Sync
 
 import java.io.{OutputStream, Reader}
 import scala.io.StdIn
-import scala.{Console => SConsole}
+import scala.{Console as SConsole}
 
 /** Pure console allowing to read and print lines. */
 trait Console[F[_]] {

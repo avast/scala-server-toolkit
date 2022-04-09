@@ -1,8 +1,8 @@
 package com.avast.sst.http4s.client.monix.catnap
 
 import cats.effect.{Resource, Sync}
-import cats.syntax.applicativeError._
-import cats.syntax.flatMap._
+import cats.syntax.applicativeError.*
+import cats.syntax.flatMap.*
 import monix.catnap.CircuitBreaker
 import org.http4s.Response
 import org.http4s.client.Client

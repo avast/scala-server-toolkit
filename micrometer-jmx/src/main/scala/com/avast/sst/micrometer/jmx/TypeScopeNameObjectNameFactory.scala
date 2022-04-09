@@ -1,6 +1,6 @@
 package com.avast.sst.micrometer.jmx
 
-import cats.syntax.either._
+import cats.syntax.either.*
 import com.codahale.metrics.jmx.{DefaultObjectNameFactory, ObjectNameFactory}
 
 import java.util

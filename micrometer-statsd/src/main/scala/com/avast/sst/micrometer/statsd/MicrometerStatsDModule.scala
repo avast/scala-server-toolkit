@@ -5,7 +5,7 @@ import com.avast.sst.micrometer.PrefixMeterFilter
 import io.micrometer.core.instrument.Clock
 import io.micrometer.core.instrument.config.{MeterFilter, NamingConvention}
 import io.micrometer.core.instrument.util.HierarchicalNameMapper
-import io.micrometer.statsd._
+import io.micrometer.statsd.*
 
 import java.time.Duration
 
@@ -40,7 +40,7 @@ object MicrometerStatsDModule {
           val preprocessedTags = config.commonTags.foldRight(List.empty[String]) { case (tag, acc) =>
             tag._1 :: tag._2 :: acc
           }
-          registry.config().commonTags(preprocessedTags: _*)
+          registry.config().commonTags(preprocessedTags *)
 
           registry
         }

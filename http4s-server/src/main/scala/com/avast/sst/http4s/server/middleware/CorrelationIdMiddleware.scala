@@ -2,7 +2,7 @@ package com.avast.sst.http4s.server.middleware
 
 import cats.data.{Kleisli, NonEmptyList, OptionT}
 import cats.effect.Sync
-import cats.syntax.functor._
+import cats.syntax.functor.*
 import com.avast.sst.http4s.server.middleware.CorrelationIdMiddleware.CorrelationId
 import org.http4s.{Header, HttpRoutes, Request, Response}
 import org.slf4j.LoggerFactory

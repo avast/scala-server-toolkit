@@ -2,7 +2,7 @@ package com.avast.sst.grpc.server.interceptor
 
 import io.grpc.ForwardingServerCall.SimpleForwardingServerCall
 import io.grpc.ForwardingServerCallListener.SimpleForwardingServerCallListener
-import io.grpc._
+import io.grpc.*
 import org.slf4j.Logger
 
 /** Adds basic logging around each gRPC call. */
@@ -42,7 +42,7 @@ class LoggingServerInterceptor(logger: Logger) extends ServerInterceptor {
           status.getCause
         )
       } else {
-        logger.debug("Successful response from method {}: {}", Array(methodName, status): _*)
+        logger.debug("Successful response from method {}: {}", Array(methodName, status) *)
       }
       super.close(status, trailers)
     }

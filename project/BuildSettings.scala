@@ -47,10 +47,13 @@ object BuildSettings {
       Dependencies.scalafixScaluzzi,
       Dependencies.scalafixOrganizeImports
     ),
-    scalacOptions ++=
-      // necessary for Scalafix RemoveUnused rule (not present in sbt-tpolecat for 2.13))
-      (if (isScala3(scalaVersion.value)) List("-source:3.0-migration") else List("-Ywarn-unused")) ++
-        (if (scalaVersion.value.startsWith("2.13")) List("-Wmacros:after", "-Ytasty-reader") else List.empty),
+    scalacOptions ++= {
+      CrossVersion.partialVersion(scalaVersion.value) match {
+        case Some((3, _)) => Seq("-source:future")
+        case Some((2, _)) => Seq("-Xsource:3")
+        case _            => Seq.empty
+      }
+    },
     Compile / doc / scalacOptions -= "-Xfatal-warnings",
     javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
     Test / publishArtifact := false

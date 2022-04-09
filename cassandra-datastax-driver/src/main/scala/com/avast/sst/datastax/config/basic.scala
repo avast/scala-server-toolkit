@@ -1,6 +1,6 @@
 package com.avast.sst.datastax.config
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 /** Basic datastax driver configuration.
   *
@@ -142,7 +142,7 @@ final case class FilterConfig(`class`: String)
   */
 sealed abstract class ConsistencyLevel {
 
-  import ConsistencyLevel._
+  import ConsistencyLevel.*
 
   def toStringRepr: String =
     this match {

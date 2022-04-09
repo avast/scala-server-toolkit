@@ -32,7 +32,7 @@ object MicrometerPrometheusModule {
           val preprocessedTags = config.commonTags.foldRight(List.empty[String]) { case (tag, acc) =>
             tag._1 :: tag._2 :: acc
           }
-          registry.config().commonTags(preprocessedTags: _*)
+          registry.config().commonTags(preprocessedTags *)
 
           registry
         }

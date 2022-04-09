@@ -1,7 +1,7 @@
 package com.avast.sst.ssl
 
 import cats.effect.Sync
-import cats.syntax.functor._
+import cats.syntax.functor.*
 import com.typesafe.config.{Config, ConfigFactory}
 import com.typesafe.sslconfig.ssl.{
   ConfigSSLContextBuilder,

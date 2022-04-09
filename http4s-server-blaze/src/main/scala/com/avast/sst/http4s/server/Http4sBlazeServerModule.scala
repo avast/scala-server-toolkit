@@ -46,7 +46,7 @@ object Http4sBlazeServerModule {
           .withChannelOption[java.lang.Boolean](StandardSocketOptions.TCP_NODELAY, config.socketOptions.tcpNoDelay)
 
         val optionalOptions = {
-          import config.socketOptions._
+          import config.socketOptions.*
 
           def set(builder: BlazeServerBuilder[F], value: Option[Boolean], option: SocketOption[java.lang.Boolean]): BlazeServerBuilder[F] =
             value.map(builder.withChannelOption[java.lang.Boolean](option, _)).getOrElse(builder)
