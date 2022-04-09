@@ -11,12 +11,12 @@ This subproject initializes [FS2 Kafka](https://github.com/fd4s/fs2-kafka) consu
 
 ```scala mdoc:silent
 import cats.effect.Resource
-import cats.syntax.flatMap._
-import com.avast.sst.fs2kafka._
+import cats.syntax.flatMap.*
+import com.avast.sst.fs2kafka.*
 import fs2.kafka.{AutoOffsetReset, ProducerRecord, ProducerRecords}
-import zio._
-import zio.interop.catz._
-import zio.interop.catz.implicits._
+import zio.*
+import zio.interop.catz.*
+import zio.interop.catz.implicits.*
 
 implicit val runtime: Runtime[ZEnv] = zio.Runtime.default // this is just needed in example
 

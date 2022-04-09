@@ -16,7 +16,7 @@ Loading of SSL context is side-effectful so it is wrapped in `F` which is `Sync`
 ```scala mdoc:silent
 import com.avast.sst.ssl.SslContextModule
 import com.typesafe.config.ConfigFactory
-import zio.interop.catz._
+import zio.interop.catz.*
 import zio.Task
 
 val config = ConfigFactory.load().getConfig("ssl-config")

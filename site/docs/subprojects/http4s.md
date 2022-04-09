@@ -13,21 +13,21 @@ implementations - for now we provide only implementations based on [Blaze](https
 Both server and client are configured via configuration `case class` which contains default values taken from the underlying implementations.
 
 ```scala mdoc:silent:reset-class
-import cats.effect._
-import com.avast.sst.http4s.client._
-import com.avast.sst.http4s.server._
+import cats.effect.*
+import com.avast.sst.http4s.client.*
+import com.avast.sst.http4s.server.*
 import com.avast.sst.jvm.execution.ExecutorModule
 import com.avast.sst.jvm.system.console.ConsoleModule
 import org.http4s.dsl.Http4sDsl
 import org.http4s.HttpRoutes
-import zio.interop.catz._
-import zio.interop.catz.implicits._
-import zio._
+import zio.interop.catz.*
+import zio.interop.catz.implicits.*
+import zio.*
 
 implicit val runtime: Runtime[ZEnv] = zio.Runtime.default // this is just needed in example
 
 val dsl = Http4sDsl[Task] // this is just needed in example
-import dsl._
+import dsl.*
 
 val routes = Http4sRouting.make { 
   HttpRoutes.of[Task] {
@@ -60,18 +60,18 @@ runtime.unsafeRun(program)
 ### Correlation ID Middleware
 
 ```scala mdoc:silent:reset
-import cats.effect._
-import com.avast.sst.http4s.server._
+import cats.effect.*
+import com.avast.sst.http4s.server.*
 import com.avast.sst.http4s.server.middleware.CorrelationIdMiddleware
 import com.avast.sst.jvm.execution.ExecutorModule
 import org.http4s.dsl.Http4sDsl
 import org.http4s.HttpRoutes
-import zio.interop.catz._
-import zio.interop.catz.implicits._
-import zio._
+import zio.interop.catz.*
+import zio.interop.catz.implicits.*
+import zio.*
 
 val dsl = Http4sDsl[Task]  // this is just needed in example
-import dsl._
+import dsl.*
 
 implicit val runtime: Runtime[ZEnv] = zio.Runtime.default // this is just needed in example
 

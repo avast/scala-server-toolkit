@@ -13,10 +13,10 @@ This subproject initializes Datastax Cassandra driver's `Session`.
 import cats.effect.Resource
 import com.avast.sst.datastax.CassandraDatastaxDriverModule
 import com.avast.sst.datastax.config.CassandraDatastaxDriverConfig
-import com.avast.sst.datastax.pureconfig.implicits._
+import com.avast.sst.datastax.pureconfig.implicits.*
 import com.avast.sst.pureconfig.PureConfigModule
-import zio._
-import zio.interop.catz._
+import zio.*
+import zio.interop.catz.*
 
 implicit val runtime: Runtime[ZEnv] = zio.Runtime.default // this is just needed in example
 

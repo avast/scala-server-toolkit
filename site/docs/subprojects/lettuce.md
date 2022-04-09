@@ -13,8 +13,8 @@ This subproject initializes [Lettuce](https://lettuce.io) Redis driver:
 import cats.effect.Resource
 import com.avast.sst.lettuce.{LettuceConfig, LettuceModule}
 import io.lettuce.core.codec.{RedisCodec, StringCodec}
-import zio._
-import zio.interop.catz._
+import zio.*
+import zio.interop.catz.*
 
 implicit val runtime: Runtime[ZEnv] = zio.Runtime.default // this is just needed in example
 

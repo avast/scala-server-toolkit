@@ -16,7 +16,7 @@ Subproject `sst-jvm` provides pure implementations of different JVM-related util
 ```scala mdoc:silent
 import com.avast.sst.jvm.system.console.ConsoleModule
 import com.avast.sst.jvm.system.random.RandomModule
-import zio.interop.catz._
+import zio.interop.catz.*
 import zio.Task
  
 val program = for {

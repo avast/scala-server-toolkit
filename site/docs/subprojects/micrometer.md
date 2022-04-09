@@ -13,22 +13,22 @@ interop subprojects such as `sst-http4s-server-micrometer` which implement monit
 
 ```scala mdoc:silent
 import cats.effect.{Clock, Resource}
-import com.avast.sst.http4s.server._
+import com.avast.sst.http4s.server.*
 import com.avast.sst.http4s.server.micrometer.MicrometerHttp4sServerMetricsModule
 import com.avast.sst.jvm.execution.ExecutorModule
 import com.avast.sst.jvm.micrometer.MicrometerJvmModule
-import com.avast.sst.micrometer.jmx._
+import com.avast.sst.micrometer.jmx.*
 import org.http4s.dsl.Http4sDsl
 import org.http4s.HttpRoutes
 import org.http4s.server.Server
-import zio.interop.catz._
-import zio.interop.catz.implicits._
-import zio._
+import zio.interop.catz.*
+import zio.interop.catz.implicits.*
+import zio.*
 
 implicit val runtime: Runtime[ZEnv] = zio.Runtime.default // this is just needed in example
 
 val dsl = Http4sDsl[Task] // this is just needed in example
-import dsl._
+import dsl.*
 
 for {
   executorModule <- ExecutorModule.makeFromExecutionContext[Task](runtime.platform.executor.asEC)
