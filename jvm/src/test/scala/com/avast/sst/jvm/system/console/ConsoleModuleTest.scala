@@ -6,8 +6,6 @@ import org.scalatest.funsuite.AnyFunSuite
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import scala.Console as SConsole
 
-import scala.language.adhocExtensions
-
 class ConsoleModuleTest extends AnyFunSuite {
 
   test("Console input") {

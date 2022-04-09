@@ -3,8 +3,6 @@ package com.avast.sst.fs2kafka
 import cats.effect.{Blocker, ConcurrentEffect, ContextShift, Resource, Timer}
 import fs2.kafka.*
 
-import scala.language.adhocExtensions
-
 object Fs2KafkaModule {
 
   def makeConsumer[F[_]: ConcurrentEffect: ContextShift: Timer, K: Deserializer[F, *], V: Deserializer[F, *]](

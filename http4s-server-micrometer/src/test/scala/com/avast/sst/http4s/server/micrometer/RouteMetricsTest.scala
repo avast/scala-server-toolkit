@@ -5,8 +5,6 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import org.http4s.Response
 import org.scalatest.funsuite.AnyFunSuite
 
-import scala.language.adhocExtensions
-
 import java.util.concurrent.TimeUnit
 
 class RouteMetricsTest extends AnyFunSuite {

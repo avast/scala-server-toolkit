@@ -7,8 +7,6 @@ import pureconfig.error.ConfigReaderException
 import pureconfig.{ConfigReader, ConfigSource}
 import pureconfig.generic.derivation.default.*
 
-import scala.language.adhocExtensions
-
 class PureConfigModuleTest extends AnyFunSuite {
 
   private val source = ConfigSource.string("""|number = 123

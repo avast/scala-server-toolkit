@@ -49,7 +49,7 @@ object BuildSettings {
     ),
     scalacOptions ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((3, _)) => Seq("-source:future")
+        case Some((3, _)) => Seq("-source:future", "-language:adhocExtensions")
         case Some((2, _)) => Seq("-Xsource:3")
         case _            => Seq.empty
       }

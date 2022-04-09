@@ -3,8 +3,6 @@ package com.avast.sst.micrometer
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import org.scalatest.funsuite.AnyFunSuite
 
-import scala.language.adhocExtensions
-
 class PrefixMeterFilterTest extends AnyFunSuite {
 
   test("prefixing") {
