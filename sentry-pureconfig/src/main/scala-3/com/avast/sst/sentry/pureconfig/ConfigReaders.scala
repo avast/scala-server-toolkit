@@ -2,8 +2,8 @@ package com.avast.sst.sentry.pureconfig
 
 import com.avast.sst.sentry.SentryConfig
 import pureconfig.ConfigReader
-import pureconfig.generic.derivation.default._
-import pureconfig.generic.derivation.default._
+import pureconfig.generic.derivation.default.*
+import pureconfig.generic.derivation.default.*
 
 trait ConfigReaders {
 

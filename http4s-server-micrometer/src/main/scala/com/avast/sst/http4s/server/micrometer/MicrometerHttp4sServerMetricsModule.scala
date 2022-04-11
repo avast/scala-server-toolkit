@@ -1,8 +1,8 @@
 package com.avast.sst.http4s.server.micrometer
 
 import cats.effect.{Blocker, Clock, Effect, Sync}
-import cats.syntax.flatMap._
-import cats.syntax.functor._
+import cats.syntax.flatMap.*
+import cats.syntax.functor.*
 import io.micrometer.core.instrument.MeterRegistry
 import org.http4s.HttpRoutes
 import org.http4s.server.middleware.Metrics

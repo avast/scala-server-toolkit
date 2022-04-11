@@ -2,8 +2,8 @@ package com.avast.sst.bundle
 
 import cats.effect.Resource
 import org.slf4j.LoggerFactory
-import zio._
-import zio.interop.catz._
+import zio.*
+import zio.interop.catz.*
 
 /** Extend this `trait` if you want to implement application using [[zio.ZIO]] effect data type.
   *

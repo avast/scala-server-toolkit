@@ -2,7 +2,7 @@ package com.avast.sst.micrometer.jmx.pureconfig
 
 import com.avast.sst.micrometer.jmx.MicrometerJmxConfig
 import pureconfig.ConfigReader
-import pureconfig.generic.derivation.default._
+import pureconfig.generic.derivation.default.*
 
 trait ConfigReaders {
 

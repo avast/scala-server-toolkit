@@ -2,7 +2,7 @@ package com.avast.sst.doobie
 
 import cats.Show
 import cats.effect.{Async, Blocker, ContextShift, Resource, Sync}
-import cats.syntax.show._
+import cats.syntax.show.*
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.metrics.MetricsTrackerFactory
 import doobie.enumerated.TransactionIsolation

@@ -1,7 +1,7 @@
 package com.avast.sst.grpc.server.micrometer
 
 import io.grpc.ForwardingServerCall.SimpleForwardingServerCall
-import io.grpc._
+import io.grpc.*
 import io.micrometer.core.instrument.{MeterRegistry, Timer}
 
 import java.util.concurrent.atomic.AtomicLong

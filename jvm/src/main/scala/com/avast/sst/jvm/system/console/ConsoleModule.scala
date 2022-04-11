@@ -2,7 +2,7 @@ package com.avast.sst.jvm.system.console
 
 import cats.effect.Sync
 
-import scala.{Console => SConsole}
+import scala.{Console as SConsole}
 
 /** Provides console - standard in/out/err. */
 object ConsoleModule {

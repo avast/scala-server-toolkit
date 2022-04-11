@@ -4,7 +4,7 @@ import com.avast.sst.jvm.execution.ForkJoinPoolConfig.TaskPeekingMode
 import com.avast.sst.jvm.execution.{ForkJoinPoolConfig, ThreadPoolExecutorConfig}
 import pureconfig.ConfigReader
 import pureconfig.generic.derivation.EnumConfigReader
-import pureconfig.generic.derivation.default._
+import pureconfig.generic.derivation.default.*
 
 trait ConfigReaders {
 

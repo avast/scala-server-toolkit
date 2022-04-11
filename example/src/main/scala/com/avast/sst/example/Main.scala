@@ -22,8 +22,8 @@ import com.avast.sst.pureconfig.PureConfigModule
 import com.zaxxer.hikari.metrics.micrometer.MicrometerMetricsTrackerFactory
 import org.http4s.server.Server
 import zio.Task
-import zio.interop.catz._
-import zio.interop.catz.implicits._
+import zio.interop.catz.*
+import zio.interop.catz.implicits.*
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.ExecutionContext

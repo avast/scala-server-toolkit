@@ -17,7 +17,7 @@ import cats.effect.Resource
 import com.avast.sst.doobie.DoobieHikariModule
 import com.avast.sst.flyway.FlywayModule
 import zio.Task
-import zio.interop.catz._
+import zio.interop.catz.*
 
 for {
   doobieTransactor <- DoobieHikariModule.make[Task](???, ???, ???, ???)

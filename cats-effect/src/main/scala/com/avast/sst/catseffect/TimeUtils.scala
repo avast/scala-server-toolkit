@@ -1,9 +1,9 @@
 package com.avast.sst.catseffect
 
-import cats.effect.syntax.bracket._
+import cats.effect.syntax.bracket.*
 import cats.effect.{Bracket, Clock, ExitCase}
-import cats.syntax.flatMap._
-import cats.syntax.functor._
+import cats.syntax.flatMap.*
+import cats.syntax.functor.*
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.Duration

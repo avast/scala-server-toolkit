@@ -1,9 +1,9 @@
 package com.avast.sst.http4s.server.micrometer
 
 import cats.effect.Sync
-import cats.effect.syntax.bracket._
-import cats.syntax.flatMap._
-import cats.syntax.functor._
+import cats.effect.syntax.bracket.*
+import cats.syntax.flatMap.*
+import cats.syntax.functor.*
 import io.micrometer.core.instrument.{MeterRegistry, Timer}
 import org.http4s.Response
 

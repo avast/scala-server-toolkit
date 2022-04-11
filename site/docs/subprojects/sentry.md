@@ -15,8 +15,8 @@ the `release` property of Sentry. This allows you to automatically propage the v
 Initialization of the `SentryClient` is side-effectful so it is wrapped in `Resource[F, SentryClient]` and `F` is `Sync`.
 
 ```scala mdoc:silent
-import com.avast.sst.sentry._
-import zio.interop.catz._
+import com.avast.sst.sentry.*
+import zio.interop.catz.*
 import zio.Task
 
 val sentry = SentryModule.make[Task](SentryConfig("<dsn>"))

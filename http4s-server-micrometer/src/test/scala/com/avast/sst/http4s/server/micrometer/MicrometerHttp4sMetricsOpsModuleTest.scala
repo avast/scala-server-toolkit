@@ -6,6 +6,7 @@ import org.http4s.{Method, Status}
 import org.scalatest.funsuite.AnyFunSuite
 
 import java.util.concurrent.{Executors, TimeUnit}
+
 import scala.concurrent.ExecutionContext
 
 class MicrometerHttp4sMetricsOpsModuleTest extends AnyFunSuite {

@@ -1,7 +1,7 @@
 package com.avast.sst.fs2kafka
 
 import cats.effect.{Blocker, ConcurrentEffect, ContextShift, Resource, Timer}
-import fs2.kafka._
+import fs2.kafka.*
 
 object Fs2KafkaModule {
 

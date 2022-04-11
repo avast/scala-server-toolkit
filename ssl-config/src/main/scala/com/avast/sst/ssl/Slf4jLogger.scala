@@ -1,7 +1,7 @@
 package com.avast.sst.ssl
 
 import com.typesafe.sslconfig.util.{LoggerFactory, NoDepsLogger}
-import org.slf4j.{Logger, LoggerFactory => Slf4jLoggerFactory}
+import org.slf4j.{Logger, LoggerFactory as Slf4jLoggerFactory}
 
 private class Slf4jLogger(l: Logger) extends NoDepsLogger {
 
@@ -23,7 +23,7 @@ private[ssl] object Slf4jLogger {
 
   def factory: LoggerFactory =
     new LoggerFactory {
-      override def apply(clazz: Class[_]): NoDepsLogger = new Slf4jLogger(Slf4jLoggerFactory.getLogger(clazz))
+      override def apply(clazz: Class[?]): NoDepsLogger = new Slf4jLogger(Slf4jLoggerFactory.getLogger(clazz))
       override def apply(name: String): NoDepsLogger = new Slf4jLogger(Slf4jLoggerFactory.getLogger(name))
     }
 

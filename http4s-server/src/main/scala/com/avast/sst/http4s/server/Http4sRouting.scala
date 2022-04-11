@@ -1,7 +1,7 @@
 package com.avast.sst.http4s.server
 
 import cats.Monad
-import cats.syntax.all._
+import cats.syntax.all.*
 import org.http4s.{HttpApp, HttpRoutes}
 
 object Http4sRouting {

@@ -5,7 +5,7 @@ import cats.effect.SyncIO
 import org.scalatest.funsuite.AnyFunSuite
 import pureconfig.error.ConfigReaderException
 import pureconfig.{ConfigReader, ConfigSource}
-import pureconfig.generic.derivation.default._
+import pureconfig.generic.derivation.default.*
 
 class PureConfigModuleTest extends AnyFunSuite {
 

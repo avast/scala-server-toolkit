@@ -2,7 +2,7 @@ package com.avast.sst.jdk.httpclient.pureconfig
 
 import pureconfig.ConfigReader
 import com.avast.sst.jdk.httpclient.JdkHttpClientConfig
-import pureconfig.generic.derivation.default._
+import pureconfig.generic.derivation.default.*
 
 trait ConfigReaders {
 

@@ -1,13 +1,13 @@
 package com.avast.sst.lettuce.pureconfig
 
-import cats.syntax.either._
+import cats.syntax.either.*
 import com.avast.sst.lettuce.LettuceConfig
 import com.avast.sst.lettuce.LettuceConfig.{SocketOptions, SslOptions, TimeoutOptions}
 import io.lettuce.core.ClientOptions.DisconnectedBehavior
 import io.lettuce.core.protocol.ProtocolVersion
 import pureconfig.ConfigReader
 import pureconfig.error.CannotConvert
-import pureconfig.generic.derivation.default._
+import pureconfig.generic.derivation.default.*
 
 import java.nio.charset.Charset
 

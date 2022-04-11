@@ -1,6 +1,6 @@
 package com.avast.sst.example.module
 
-import cats.implicits._
+import cats.implicits.*
 import com.avast.sst.example.service.RandomService
 import com.avast.sst.http4s.server.Http4sRouting
 import com.avast.sst.http4s.server.micrometer.MicrometerHttp4sServerMetricsModule
@@ -8,7 +8,7 @@ import org.http4s.client.Client
 import org.http4s.dsl.Http4sDsl
 import org.http4s.{HttpApp, HttpRoutes}
 import zio.Task
-import zio.interop.catz._
+import zio.interop.catz.*
 
 class Http4sRoutingModule(
     randomService: RandomService,
@@ -16,7 +16,7 @@ class Http4sRoutingModule(
     serverMetricsModule: MicrometerHttp4sServerMetricsModule[Task]
 ) extends Http4sDsl[Task] {
 
-  import serverMetricsModule._
+  import serverMetricsModule.*
 
   private val helloWorldRoute = routeMetrics.wrap("hello")(Ok("Hello World!"))
 

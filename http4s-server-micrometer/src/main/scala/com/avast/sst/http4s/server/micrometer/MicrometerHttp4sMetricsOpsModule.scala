@@ -2,7 +2,7 @@ package com.avast.sst.http4s.server.micrometer
 
 import cats.effect.concurrent.Ref
 import cats.effect.{Blocker, ContextShift, Effect, IO}
-import cats.syntax.functor._
+import cats.syntax.functor.*
 import io.micrometer.core.instrument.MeterRegistry
 import org.http4s.metrics.{MetricsOps, TerminationType}
 import org.http4s.{Method, Status}

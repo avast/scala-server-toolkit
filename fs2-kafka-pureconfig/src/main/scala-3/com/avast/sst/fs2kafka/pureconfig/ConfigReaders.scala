@@ -1,11 +1,11 @@
 package com.avast.sst.fs2kafka.pureconfig
 
-import cats.syntax.either._
+import cats.syntax.either.*
 import com.avast.sst.fs2kafka.{ConsumerConfig, ProducerConfig}
 import fs2.kafka.{Acks, AutoOffsetReset, CommitRecovery, IsolationLevel}
 import pureconfig.ConfigReader
 import pureconfig.error.CannotConvert
-import pureconfig.generic.derivation.default._
+import pureconfig.generic.derivation.default.*
 
 @SuppressWarnings(Array("scalafix:DisableSyntax.=="))
 trait ConfigReaders {

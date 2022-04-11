@@ -3,8 +3,8 @@ package com.avast.sst.bundle
 import cats.effect.Resource
 import org.http4s.server.Server
 import org.slf4j.LoggerFactory
-import zio._
-import zio.interop.catz._
+import zio.*
+import zio.interop.catz.*
 
 import scala.annotation.nowarn
 

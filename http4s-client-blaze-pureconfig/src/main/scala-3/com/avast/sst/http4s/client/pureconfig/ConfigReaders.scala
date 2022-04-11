@@ -1,12 +1,12 @@
 package com.avast.sst.http4s.client.pureconfig
 
-import cats.syntax.either._
+import cats.syntax.either.*
 import com.avast.sst.http4s.client.Http4sBlazeClientConfig
 import org.http4s.blaze.client.ParserMode
 import org.http4s.headers.`User-Agent`
 import pureconfig.ConfigReader
 import pureconfig.error.CannotConvert
-import pureconfig.generic.derivation.default._
+import pureconfig.generic.derivation.default.*
 
 trait ConfigReaders {
 

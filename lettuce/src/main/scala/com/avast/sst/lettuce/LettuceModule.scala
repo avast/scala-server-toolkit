@@ -1,7 +1,7 @@
 package com.avast.sst.lettuce
 
 import cats.effect.{Async, Resource, Sync}
-import cats.syntax.either._
+import cats.syntax.either.*
 import io.lettuce.core.api.StatefulRedisConnection
 import io.lettuce.core.codec.RedisCodec
 import io.lettuce.core.resource.ClientResources

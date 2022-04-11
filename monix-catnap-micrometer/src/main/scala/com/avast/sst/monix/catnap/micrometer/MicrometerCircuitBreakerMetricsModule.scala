@@ -1,7 +1,7 @@
 package com.avast.sst.monix.catnap.micrometer
 
 import cats.effect.Sync
-import cats.syntax.functor._
+import cats.syntax.functor.*
 import com.avast.sst.monix.catnap.CircuitBreakerMetrics
 import com.avast.sst.monix.catnap.CircuitBreakerMetrics.State
 import com.avast.sst.monix.catnap.CircuitBreakerMetrics.State.{Closed, HalfOpen, Open}

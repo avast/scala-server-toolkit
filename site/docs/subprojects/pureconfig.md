@@ -24,7 +24,7 @@ Sample usage:
 import com.avast.sst.pureconfig.PureConfigModule
 import pureconfig.ConfigReader
 import pureconfig.generic.semiauto.deriveReader
-import zio.interop.catz._
+import zio.interop.catz.*
 import zio.Task
 
 final case class ServerConfiguration(listenAddress: String, listenPort: Int)
@@ -37,7 +37,7 @@ val maybeConfiguration = PureConfigModule.make[Task, ServerConfiguration]
 We also provide modules with implicits for many of SST modules. Look for `sst-*-pureconfig` subprojects to get `implicit` instances of `ConfigReader` for specific libraries, e.g.:
 
 ```scala mdoc:silent
-import com.avast.sst.http4s.server.pureconfig.implicits._
+import com.avast.sst.http4s.server.pureconfig.implicits.*
 ```
 
 The default `*.pureconfig.implicits._` import contains the default naming convention for PureConfig which is `kebab-case` 
@@ -54,9 +54,9 @@ Sample usage:
 ```scala mdoc:silent
 import com.avast.sst.pureconfig.PureConfigModule
 import pureconfig.ConfigReader
-import zio.interop.catz._
+import zio.interop.catz.*
 import zio.Task
-import pureconfig.generic.derivation.default._
+import pureconfig.generic.derivation.default.*
 
 final case class ServerConfiguration(listenAddress: String, listenPort: Int)
 

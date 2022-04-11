@@ -1,6 +1,6 @@
 package com.avast.sst.datastax.config
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 /** Advanced datastax driver configuration
   *

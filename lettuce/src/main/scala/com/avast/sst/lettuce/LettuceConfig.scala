@@ -3,7 +3,7 @@ package com.avast.sst.lettuce
 import com.avast.sst.lettuce.LettuceConfig.{SocketOptions, SslOptions, TimeoutOptions}
 import io.lettuce.core.ClientOptions.DisconnectedBehavior
 import io.lettuce.core.protocol.ProtocolVersion
-import io.lettuce.core.{ClientOptions, SocketOptions => LettuceSocketOptions, TimeoutOptions => LettuceTimeoutOptions}
+import io.lettuce.core.{ClientOptions, SocketOptions as LettuceSocketOptions, TimeoutOptions as LettuceTimeoutOptions}
 
 import java.nio.charset.Charset
 import scala.concurrent.duration.Duration

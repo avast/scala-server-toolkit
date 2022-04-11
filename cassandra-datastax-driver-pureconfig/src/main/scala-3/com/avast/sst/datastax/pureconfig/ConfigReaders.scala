@@ -1,8 +1,8 @@
 package com.avast.sst.datastax.pureconfig
 
-import com.avast.sst.datastax.config._
+import com.avast.sst.datastax.config.*
 import pureconfig.{ConfigFieldMapping, ConfigReader}
-import pureconfig.generic.derivation.default._
+import pureconfig.generic.derivation.default.*
 
 trait ConfigReaders {
 
