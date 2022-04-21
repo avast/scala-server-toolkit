@@ -2,17 +2,17 @@
 
 <p>This subproject initializes Datastax Cassandra driver’s <code class="highlighter-rouge">Session</code>.</p>
 
-<p><code class="highlighter-rouge">libraryDependencies += "com.avast" %% "sst-cassandra-datastax-driver" % "0.15.8"</code></p>
+<p><code class="highlighter-rouge">libraryDependencies += "com.avast" %% "sst-cassandra-datastax-driver" % "0.16.0"</code></p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect.Resource</span>
 <span class="k">import</span> <span class="nn">com.avast.sst.datastax.CassandraDatastaxDriverModule</span>
 <span class="k">import</span> <span class="nn">com.avast.sst.datastax.config.CassandraDatastaxDriverConfig</span>
-<span class="k">import</span> <span class="nn">com.avast.sst.datastax.pureconfig.implicits._</span>
+<span class="k">import</span> <span class="nn">com.avast.sst.datastax.pureconfig.implicits.</span><span class="o">*</span>
 <span class="k">import</span> <span class="nn">com.avast.sst.pureconfig.PureConfigModule</span>
-<span class="k">import</span> <span class="nn">zio._</span>
-<span class="k">import</span> <span class="nn">zio.interop.catz._</span>
+<span class="k">import</span> <span class="nn">zio.</span><span class="o">*</span>
+<span class="k">import</span> <span class="nn">zio.interop.catz.</span><span class="o">*</span>
 
-<span class="k">implicit</span> <span class="k">val</span> <span class="nv">runtime</span> <span class="k">=</span> <span class="nv">zio</span><span class="o">.</span><span class="py">Runtime</span><span class="o">.</span><span class="py">default</span> <span class="c1">// this is just needed in example</span>
+<span class="k">implicit</span> <span class="k">val</span> <span class="nv">runtime</span><span class="k">:</span> <span class="kt">Runtime</span><span class="o">[</span><span class="kt">ZEnv</span><span class="o">]</span> <span class="k">=</span> <span class="nv">zio</span><span class="o">.</span><span class="py">Runtime</span><span class="o">.</span><span class="py">default</span> <span class="c1">// this is just needed in example</span>
 
 <span class="k">for</span> <span class="o">{</span>
     <span class="n">configuration</span> <span class="k">&lt;-</span> <span class="nv">Resource</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="nv">PureConfigModule</span><span class="o">.</span><span class="py">makeOrRaise</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">CassandraDatastaxDriverConfig</span><span class="o">])</span>

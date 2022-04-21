@@ -4,25 +4,25 @@
 
 <h3 id="buildsbt">build.sbt</h3>
 
-<p><code class="highlighter-rouge">libraryDependencies += "com.avast" %% "sst-bundle-zio-http4s-blaze" % "0.15.8"</code></p>
+<p><code class="highlighter-rouge">libraryDependencies += "com.avast" %% "sst-bundle-zio-http4s-blaze" % "0.16.0"</code></p>
 
 <h3 id="main">Main</h3>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect._</span>
-<span class="k">import</span> <span class="nn">com.avast.sst.http4s.client._</span>
-<span class="k">import</span> <span class="nn">com.avast.sst.http4s.server._</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect.</span><span class="o">*</span>
+<span class="k">import</span> <span class="nn">com.avast.sst.http4s.client.</span><span class="o">*</span>
+<span class="k">import</span> <span class="nn">com.avast.sst.http4s.server.</span><span class="o">*</span>
 <span class="k">import</span> <span class="nn">com.avast.sst.jvm.execution.ExecutorModule</span>
 <span class="k">import</span> <span class="nn">com.avast.sst.jvm.system.console.ConsoleModule</span>
 <span class="k">import</span> <span class="nn">org.http4s.dsl.Http4sDsl</span>
 <span class="k">import</span> <span class="nn">org.http4s.HttpRoutes</span>
-<span class="k">import</span> <span class="nn">zio.interop.catz._</span>
-<span class="k">import</span> <span class="nn">zio.interop.catz.implicits._</span>
-<span class="k">import</span> <span class="nn">zio.Task</span>
+<span class="k">import</span> <span class="nn">zio.interop.catz.</span><span class="o">*</span>
+<span class="k">import</span> <span class="nn">zio.interop.catz.implicits.</span><span class="o">*</span>
+<span class="k">import</span> <span class="nn">zio.</span><span class="o">{</span><span class="nc">Task</span><span class="o">,</span> <span class="nc">ZEnv</span><span class="o">,</span> <span class="nc">Runtime</span><span class="o">}</span>
 
-<span class="k">implicit</span> <span class="k">val</span> <span class="nv">runtime</span> <span class="k">=</span> <span class="nv">zio</span><span class="o">.</span><span class="py">Runtime</span><span class="o">.</span><span class="py">default</span> <span class="c1">// this is just needed in example</span>
+<span class="k">implicit</span> <span class="k">val</span> <span class="nv">runtime</span><span class="k">:</span> <span class="kt">Runtime</span><span class="o">[</span><span class="kt">ZEnv</span><span class="o">]</span> <span class="k">=</span> <span class="nv">zio</span><span class="o">.</span><span class="py">Runtime</span><span class="o">.</span><span class="py">default</span> <span class="c1">// this is just needed in example</span>
 
 <span class="k">val</span> <span class="nv">dsl</span> <span class="k">=</span> <span class="nc">Http4sDsl</span><span class="o">[</span><span class="kt">Task</span><span class="o">]</span> <span class="c1">// this is just needed in example</span>
-<span class="k">import</span> <span class="nn">dsl._</span>
+<span class="k">import</span> <span class="nn">dsl.</span><span class="o">*</span>
 
 <span class="k">val</span> <span class="nv">routes</span> <span class="k">=</span> <span class="nv">Http4sRouting</span><span class="o">.</span><span class="py">make</span> <span class="o">{</span> 
   <span class="nv">HttpRoutes</span><span class="o">.</span><span class="py">of</span><span class="o">[</span><span class="kt">Task</span><span class="o">]</span> <span class="o">{</span>
