@@ -16,13 +16,13 @@ import pureconfig.ConfigReader
 import pureconfig.generic.semiauto._
 
 final case class Configuration(
-                                server: Http4sBlazeServerConfig,
-                                database: DoobieHikariConfig,
-                                boundedConnectExecutor: ThreadPoolExecutorConfig,
-                                client: Http4sBlazeClientConfig,
-                                circuitBreaker: CircuitBreakerConfig,
-                                jmx: MicrometerJmxConfig
-                              )
+    server: Http4sBlazeServerConfig,
+    database: DoobieHikariConfig,
+    boundedConnectExecutor: ThreadPoolExecutorConfig,
+    client: Http4sBlazeClientConfig,
+    circuitBreaker: CircuitBreakerConfig,
+    jmx: MicrometerJmxConfig
+)
 
 object Configuration {
 
