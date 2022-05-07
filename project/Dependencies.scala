@@ -53,7 +53,7 @@ object Dependencies {
     val micrometerJmx = "1.8.5"
     val micrometerStatsD = "1.8.5"
     val micrometerPrometheus = "1.8.5"
-    val monix = "3.4.0"
+    val monix = "3.4.1"
     val pureConfig = "0.17.1"
 
   }
