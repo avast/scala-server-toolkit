@@ -35,7 +35,7 @@ object Dependencies {
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.21"
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.6.0"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.12"
-  val sentry = "io.sentry" % "sentry" % "5.7.3"
+  val sentry = "io.sentry" % "sentry" % "5.7.4"
   val slf4jApi = "org.slf4j" % "slf4j-api" % "1.7.36"
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.6.1"
   val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.40.7"
