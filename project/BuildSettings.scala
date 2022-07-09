@@ -15,7 +15,7 @@ object BuildSettings {
 
   private val scala212 = "2.12.15"
   private val scala213 = "2.13.8"
-  private val scala3 = "3.1.1"
+  private val scala3 = "3.1.3"
 
   lazy val common: Seq[Def.Setting[_]] = Seq(
     Global / onChangedBuildSource := ReloadOnSourceChanges,
