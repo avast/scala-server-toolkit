@@ -1,17 +1,17 @@
 package com.avast.sst.catseffect.syntax
 
-import cats.effect.concurrent.Ref
-import cats.effect.{Clock, IO, Timer}
+import cats.effect.{Clock, IO}
 import com.avast.sst.catseffect.syntax.time.*
 import org.scalatest.funsuite.AsyncFunSuite
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration.{Duration, TimeUnit}
+import cats.effect.{ Ref, Temporal }
 
 @SuppressWarnings(Array("scalafix:Disable.get", "scalafix:DisableSyntax.var"))
 class FOpsTest extends AsyncFunSuite {
 
-  implicit private val timer: Timer[IO] = IO.timer(ExecutionContext.global)
+  implicit private val timer: Temporal[IO] = IO.timer(ExecutionContext.global)
 
   test("time") {
     val sleepTime = Duration.fromNanos(500000000)

@@ -1,11 +1,12 @@
 package com.avast.sst.fs2kafka
 
-import cats.effect.{Blocker, ConcurrentEffect, ContextShift, Resource, Timer}
+import cats.effect.{ConcurrentEffect, Resource}
 import fs2.kafka.*
+import cats.effect.Temporal
 
 object Fs2KafkaModule {
 
-  def makeConsumer[F[_]: ConcurrentEffect: ContextShift: Timer, K: Deserializer[F, *], V: Deserializer[F, *]](
+  def makeConsumer[F[_]: ConcurrentEffect: ContextShift: Temporal, K: Deserializer[F, *], V: Deserializer[F, *]](
       config: ConsumerConfig,
       blocker: Option[Blocker] = None,
       createConsumer: Option[Map[String, String] => F[KafkaByteConsumer]] = None
@@ -48,7 +49,7 @@ object Fs2KafkaModule {
     makeConsumer(settings)
   }
 
-  def makeConsumer[F[_]: ConcurrentEffect: ContextShift: Timer, K, V](
+  def makeConsumer[F[_]: ConcurrentEffect: ContextShift: Temporal, K, V](
       settings: ConsumerSettings[F, K, V]
   ): Resource[F, KafkaConsumer[F, K, V]] = KafkaConsumer.resource[F, K, V](settings)
 

@@ -1,6 +1,6 @@
 package com.avast.sst.http4s.server.micrometer
 
-import cats.effect.{Blocker, Clock, Effect, Sync}
+import cats.effect.{Clock, Effect, Sync}
 import cats.syntax.flatMap.*
 import cats.syntax.functor.*
 import io.micrometer.core.instrument.MeterRegistry
@@ -14,7 +14,7 @@ object MicrometerHttp4sServerMetricsModule {
   /** Makes [[com.avast.sst.http4s.server.micrometer.MicrometerHttp4sServerMetricsModule]] that can be used to setup monitoring of the whole
     * HTTP server and individual routes.
     */
-  def make[F[_]: Effect](meterRegistry: MeterRegistry, blocker: Blocker, clock: Clock[F]): F[MicrometerHttp4sServerMetricsModule[F]] = {
+  def make[F[_]: Effect](meterRegistry: MeterRegistry, clock: Clock[F]): F[MicrometerHttp4sServerMetricsModule[F]] = {
     implicit val c: Clock[F] = clock
 
     for {

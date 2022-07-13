@@ -1,18 +1,18 @@
 package com.avast.sst.http4s.server.micrometer
 
-import cats.effect.concurrent.Ref
-import cats.effect.{Blocker, ContextShift, Effect, IO}
+import cats.effect.{Effect, IO}
 import cats.syntax.functor.*
 import io.micrometer.core.instrument.MeterRegistry
 import org.http4s.metrics.{MetricsOps, TerminationType}
 import org.http4s.{Method, Status}
 
 import java.util.concurrent.TimeUnit
+import cats.effect.Ref
 
 object MicrometerHttp4sMetricsOpsModule {
 
   /** Makes [[org.http4s.metrics.MetricsOps]] to record the usual HTTP server metrics. */
-  def make[F[_]: Effect](meterRegistry: MeterRegistry, blocker: Blocker): F[MetricsOps[F]] = {
+  def make[F[_]: Effect](meterRegistry: MeterRegistry): F[MetricsOps[F]] = {
     val F = Effect[F]
 
     implicit val iocs: ContextShift[IO] = IO.contextShift(blocker.blockingContext)

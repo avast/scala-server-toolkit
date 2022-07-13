@@ -1,6 +1,6 @@
 package com.avast.sst.http4s.server.micrometer
 
-import cats.effect.{Blocker, IO}
+import cats.effect.IO
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import org.http4s.{Method, Status}
 import org.scalatest.funsuite.AnyFunSuite
