@@ -42,7 +42,7 @@ object BuildSettings {
       Dependencies.scalaTest % Test
     ),
     semanticdbEnabled := true,
-    semanticdbVersion := scalafixSemanticdb.revision,
+    semanticdbVersion := "4.5.9", // scalafixSemanticdb.revision,
     ThisBuild / scalafixDependencies ++= Seq(
       Dependencies.scalafixScaluzzi,
       Dependencies.scalafixOrganizeImports
