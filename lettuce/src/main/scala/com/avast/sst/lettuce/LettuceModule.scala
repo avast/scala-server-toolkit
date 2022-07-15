@@ -63,7 +63,6 @@ object LettuceModule {
       .builder()
       .pingBeforeActivateConnection(config.pingBeforeActivateConnection)
       .autoReconnect(config.autoReconnect)
-      .cancelCommandsOnReconnectFailure(config.cancelCommandsOnReconnectFailure)
       .suspendReconnectOnProtocolFailure(config.suspendReconnectOnProtocolFailure)
       .requestQueueSize(config.requestQueueSize)
       .disconnectedBehavior(config.disconnectedBehavior)

@@ -12,7 +12,6 @@ final case class LettuceConfig(
     uri: String,
     pingBeforeActivateConnection: Boolean = ClientOptions.DEFAULT_PING_BEFORE_ACTIVATE_CONNECTION,
     autoReconnect: Boolean = ClientOptions.DEFAULT_AUTO_RECONNECT,
-    cancelCommandsOnReconnectFailure: Boolean = ClientOptions.DEFAULT_CANCEL_CMD_RECONNECT_FAIL,
     suspendReconnectOnProtocolFailure: Boolean = ClientOptions.DEFAULT_SUSPEND_RECONNECT_PROTO_FAIL,
     requestQueueSize: Int = ClientOptions.DEFAULT_REQUEST_QUEUE_SIZE,
     disconnectedBehavior: DisconnectedBehavior = DisconnectedBehavior.DEFAULT,
