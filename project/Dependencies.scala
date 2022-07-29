@@ -31,7 +31,7 @@ object Dependencies {
   val postgresql = "org.postgresql" % "postgresql" % "42.4.0"
   val pureConfigCore = "com.github.pureconfig" %% "pureconfig-core" % Versions.pureConfig
   val pureConfigGeneric = "com.github.pureconfig" %% "pureconfig-generic" % Versions.pureConfig
-  val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.8.0"
+  val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.8.1"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.21"
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.6.0"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.12"
