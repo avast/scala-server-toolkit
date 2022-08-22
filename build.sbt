@@ -16,8 +16,12 @@ def pureconfig = libraryDependencies ++= {
 lazy val root = project
   .in(file("."))
   .aggregate(
+    appMonix,
+    appZio,
     bundleMonixHttp4sBlaze,
+    bundleMonixHttp4sEmber,
     bundleZioHttp4sBlaze,
+    bundleZioHttp4sEmber,
     cassandraDatastaxDriver,
     cassandraDatastaxDriverPureConfig,
     catsEffect,
@@ -33,10 +37,14 @@ lazy val root = project
     grpcServerPureConfig,
     http4sClientBlaze,
     http4sClientBlazePureConfig,
+    http4sClientEmber,
+    http4sClientEmberPureConfig,
     http4sClientMonixCatnap,
     http4sServer,
     http4sServerBlaze,
     http4sServerBlazePureConfig,
+    http4sServerEmber,
+    http4sServerEmberPureConfig,
     http4sServerMicrometer,
     jdkHttpClient,
     jdkHttpClientPureConfig,
@@ -67,13 +75,9 @@ lazy val root = project
     publish / skip := true
   )
 
-lazy val bundleMonixHttp4sBlaze = project
-  .in(file("bundle-monix-http4s-blaze"))
+lazy val appMonix = project
+  .in(file("app-monix"))
   .dependsOn(
-    http4sClientBlaze,
-    http4sClientBlazePureConfig,
-    http4sServerBlaze,
-    http4sServerBlazePureConfig,
     http4sServerMicrometer,
     jvmMicrometer,
     jvmPureConfig,
@@ -81,8 +85,53 @@ lazy val bundleMonixHttp4sBlaze = project
   )
   .settings(BuildSettings.common)
   .settings(
-    name := "sst-bundle-monix-http4s-blaze",
+    name := "sst-app-monix",
     libraryDependencies += Dependencies.monixEval
+  )
+
+lazy val bundleMonixHttp4sBlaze = project
+  .in(file("bundle-monix-http4s-blaze"))
+  .dependsOn(
+    http4sClientBlaze,
+    http4sClientBlazePureConfig,
+    http4sServerBlaze,
+    http4sServerBlazePureConfig,
+    appMonix
+  )
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-bundle-monix-http4s-blaze"
+  )
+
+lazy val bundleMonixHttp4sEmber = project
+  .in(file("bundle-monix-http4s-ember"))
+  .dependsOn(
+    http4sClientEmber,
+    http4sClientEmberPureConfig,
+    http4sServerEmber,
+    http4sServerEmberPureConfig,
+    appMonix
+  )
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-bundle-monix-http4s-ember"
+  )
+
+lazy val appZio = project
+  .in(file("app-zio"))
+  .dependsOn(
+    http4sServerMicrometer,
+    jvmMicrometer,
+    jvmPureConfig,
+    pureConfig
+  )
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-app-zio",
+    libraryDependencies ++= Seq(
+      Dependencies.zio,
+      Dependencies.zioInteropCats
+    )
   )
 
 lazy val bundleZioHttp4sBlaze = project
@@ -92,18 +141,25 @@ lazy val bundleZioHttp4sBlaze = project
     http4sClientBlazePureConfig,
     http4sServerBlaze,
     http4sServerBlazePureConfig,
-    http4sServerMicrometer,
-    jvmMicrometer,
-    jvmPureConfig,
-    pureConfig
+    appZio
   )
   .settings(BuildSettings.common)
   .settings(
-    name := "sst-bundle-zio-http4s-blaze",
-    libraryDependencies ++= Seq(
-      Dependencies.zio,
-      Dependencies.zioInteropCats
-    )
+    name := "sst-bundle-zio-http4s-blaze"
+  )
+
+lazy val bundleZioHttp4sEmber = project
+  .in(file("bundle-zio-http4s-ember"))
+  .dependsOn(
+    http4sClientEmber,
+    http4sClientEmberPureConfig,
+    http4sServerEmber,
+    http4sServerEmberPureConfig,
+    appZio
+  )
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-bundle-zio-http4s-ember"
   )
 
 lazy val cassandraDatastaxDriver = project
@@ -256,11 +312,25 @@ lazy val http4sClientBlaze = project
     libraryDependencies += Dependencies.http4sBlazeClient
   )
 
+lazy val http4sClientEmber = project
+  .in(file("http4s-client-ember"))
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-http4s-client-ember",
+    libraryDependencies += Dependencies.http4sEmberClient
+  )
+
 lazy val http4sClientBlazePureConfig = project
   .in(file("http4s-client-blaze-pureconfig"))
   .dependsOn(http4sClientBlaze, jvmPureConfig)
   .settings(BuildSettings.common)
   .settings(name := "sst-http4s-client-blaze-pureconfig")
+
+lazy val http4sClientEmberPureConfig = project
+  .in(file("http4s-client-ember-pureconfig"))
+  .dependsOn(http4sClientEmber, jvmPureConfig)
+  .settings(BuildSettings.common)
+  .settings(name := "sst-http4s-client-ember-pureconfig")
 
 lazy val http4sClientMonixCatnap = project
   .in(file("http4s-client-monix-catnap"))
@@ -297,12 +367,34 @@ lazy val http4sServerBlaze = project
     )
   )
 
+lazy val http4sServerEmber = project
+  .in(file("http4s-server-ember"))
+  .dependsOn(http4sServer, http4sClientEmber % Test)
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-http4s-server-ember",
+    libraryDependencies ++= Seq(
+      Dependencies.http4sEmberServer,
+      Dependencies.http4sDsl,
+      Dependencies.slf4jApi
+    )
+  )
+
 lazy val http4sServerBlazePureConfig = project
   .in(file("http4s-server-blaze-pureconfig"))
   .dependsOn(http4sServerBlaze)
   .settings(BuildSettings.common)
   .settings(
     name := "sst-http4s-server-blaze-pureconfig",
+    pureconfig
+  )
+
+lazy val http4sServerEmberPureConfig = project
+  .in(file("http4s-server-ember-pureconfig"))
+  .dependsOn(http4sServerEmber)
+  .settings(BuildSettings.common)
+  .settings(
+    name := "sst-http4s-server-ember-pureconfig",
     pureconfig
   )
 
