@@ -13,6 +13,8 @@ object Dependencies {
   val grpcStub = "io.grpc" % "grpc-stub" % Versions.grpc
   val http4sBlazeClient = "org.http4s" %% "http4s-blaze-client" % Versions.http4s
   val http4sBlazeServer = "org.http4s" %% "http4s-blaze-server" % Versions.http4s
+  val http4sEmberClient = "org.http4s" %% "http4s-ember-client" % Versions.http4s
+  val http4sEmberServer = "org.http4s" %% "http4s-ember-server" % Versions.http4s
   val http4sClient = "org.http4s" %% "http4s-client" % Versions.http4s
   val http4sDsl = "org.http4s" %% "http4s-dsl" % Versions.http4s
   val http4sServer = "org.http4s" %% "http4s-server" % Versions.http4s
