@@ -42,7 +42,7 @@ class PureConfigModuleTest extends AnyFunSuite {
     assert(
       PureConfigModule.make[SyncIO, TestConfig](sourceWithTypeError).unsafeRunSync() === Left(
         NonEmptyList(
-          "Invalid configuration number @ : Expected type NUMBER. Found STRING instead.",
+          "Invalid configuration number @ String: 1: Expected type NUMBER. Found STRING instead.",
           List.empty
         )
       )
