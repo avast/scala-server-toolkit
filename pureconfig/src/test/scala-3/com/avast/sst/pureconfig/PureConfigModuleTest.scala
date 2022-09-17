@@ -34,7 +34,7 @@ class PureConfigModuleTest extends AnyFunSuite {
     assert(
       PureConfigModule.make[SyncIO, TestConfig](sourceWithMissingField).unsafeRunSync() === Left(
         NonEmptyList(
-          "Invalid configuration string @ String: 1: Key not found: 'string'.",
+          "Invalid configuration string @ : Key not found: 'string'.",
           List.empty
         )
       )
@@ -42,7 +42,7 @@ class PureConfigModuleTest extends AnyFunSuite {
     assert(
       PureConfigModule.make[SyncIO, TestConfig](sourceWithTypeError).unsafeRunSync() === Left(
         NonEmptyList(
-          "Invalid configuration number @ String: 1: Expected type NUMBER. Found STRING instead.",
+          "Invalid configuration number @ : Expected type NUMBER. Found STRING instead.",
           List.empty
         )
       )
