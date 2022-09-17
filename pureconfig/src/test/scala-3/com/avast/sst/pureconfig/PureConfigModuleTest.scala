@@ -12,6 +12,11 @@ class PureConfigModuleTest extends AnyFunSuite {
   private val source = ConfigSource.string("""|number = 123
                                               |string = "test"""".stripMargin)
 
+  private val sourceWithMissingField = ConfigSource.string("number = 123")
+
+  private val sourceWithTypeError = ConfigSource.string("""|number = wrong_type
+                                                           |string = "test"""".stripMargin)
+
   private case class TestConfig(number: Int, string: String)
 
   implicit private val configReader: ConfigReader[TestConfig] = ConfigReader.derived
@@ -21,8 +26,24 @@ class PureConfigModuleTest extends AnyFunSuite {
     assert(
       PureConfigModule.make[SyncIO, TestConfig](ConfigSource.empty).unsafeRunSync() === Left(
         NonEmptyList(
-          "Invalid configuration  @ empty config: Key not found: 'number'.",
-          List("Invalid configuration  @ empty config: Key not found: 'string'.")
+          "Invalid configuration  @ : Key not found: 'number'.",
+          List("Invalid configuration  @ : Key not found: 'string'.")
+        )
+      )
+    )
+    assert(
+      PureConfigModule.make[SyncIO, TestConfig](sourceWithMissingField).unsafeRunSync() === Left(
+        NonEmptyList(
+          "Invalid configuration  @ String: 1: Key not found: 'string'.",
+          List.empty
+        )
+      )
+    )
+    assert(
+      PureConfigModule.make[SyncIO, TestConfig](sourceWithTypeError).unsafeRunSync() === Left(
+        NonEmptyList(
+          "Invalid configuration number @ String: 1: Expected type NUMBER. Found STRING instead.",
+          List.empty
         )
       )
     )
@@ -32,6 +53,12 @@ class PureConfigModuleTest extends AnyFunSuite {
     assert(PureConfigModule.makeOrRaise[SyncIO, TestConfig](source).unsafeRunSync() === TestConfig(123, "test"))
     assertThrows[ConfigReaderException[TestConfig]] {
       PureConfigModule.makeOrRaise[SyncIO, TestConfig](ConfigSource.empty).unsafeRunSync()
+    }
+    assertThrows[ConfigReaderException[TestConfig]] {
+      PureConfigModule.makeOrRaise[SyncIO, TestConfig](sourceWithMissingField).unsafeRunSync()
+    }
+    assertThrows[ConfigReaderException[TestConfig]] {
+      PureConfigModule.makeOrRaise[SyncIO, TestConfig](sourceWithTypeError).unsafeRunSync()
     }
   }
 
