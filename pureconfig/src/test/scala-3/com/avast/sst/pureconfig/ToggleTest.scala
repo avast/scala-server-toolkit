@@ -7,8 +7,6 @@ import com.avast.sst.pureconfig.util.Toggle.TogglePureConfigInstances.*
 import com.typesafe.config.ConfigRenderOptions
 import org.scalatest.diagrams.Diagrams
 import org.scalatest.funsuite.AnyFunSuite
-import pureconfig.*
-import pureconfig.generic.semiauto.{deriveReader, deriveWriter}
 
 @SuppressWarnings(Array("all"))
 class ToggleTest extends AnyFunSuite with Diagrams {
