@@ -3,76 +3,11 @@ package com.avast.sst.pureconfig
 import cats.{Applicative, FlatMap, Functor, Monad, Monoid}
 import com.avast.sst.pureconfig.util.Toggle
 import com.avast.sst.pureconfig.util.Toggle.{Disabled, Enabled}
-import com.avast.sst.pureconfig.util.Toggle.TogglePureConfigInstances._
-import com.typesafe.config.ConfigRenderOptions
 import org.scalatest.diagrams.Diagrams
 import org.scalatest.funsuite.AnyFunSuite
-import pureconfig._
-import pureconfig.generic.semiauto.{deriveReader, deriveWriter}
 
 @SuppressWarnings(Array("all"))
 class ToggleTest extends AnyFunSuite with Diagrams {
-
-  test("case class is correctly parsed with toggle enabled") {
-    final case class Dummy(value: Int)
-    val configString =
-      """
-        |{
-        |  value = 42
-        |  enabled = true
-        |}
-      """.stripMargin
-    implicit val dummyConfigReader: ConfigReader[Dummy] = deriveReader
-    val config = ConfigSource.string(configString)
-    val result = config.load[Toggle[Dummy]].toOption.head
-    assert(result.toOption === Some(Dummy(42)))
-  }
-
-  test("case class is not parsed with toggle disabled") {
-    final case class Dummy(value: Int)
-    val configString =
-      """
-        |{
-        |  value = 42
-        |  enabled = false
-        |}
-      """.stripMargin
-    implicit val dummyConfigReader: ConfigReader[Dummy] = deriveReader
-    val config = ConfigSource.string(configString)
-    val result = config.load[Toggle[Dummy]].toOption.head
-    assert(result.toOption === None)
-  }
-
-  test("case class is correctly rendered with toggle enabled and read back") {
-    final case class Dummy(value: Int)
-    implicit val dummyConfigReader: ConfigReader[Dummy] = deriveReader
-    implicit val dummyConfigWriter: ConfigWriter[Dummy] = deriveWriter
-
-    val initialized = Enabled(Dummy(42))
-    val converted = ConfigWriter[Toggle[Dummy]].to(initialized).render(ConfigRenderOptions.concise())
-
-    assert(converted.contains("\"enabled\":true"))
-    assert(converted.contains("\"value\":42"))
-
-    val config = ConfigSource.string(converted)
-    val result = config.load[Toggle[Dummy]].toOption.head
-    assert(result.toOption === initialized.toOption)
-  }
-
-  test("case class is correctly rendered with toggle disabled and read back") {
-    final case class Dummy(value: Int)
-    implicit val dummyConfigReader: ConfigReader[Dummy] = deriveReader
-    implicit val dummyConfigWriter: ConfigWriter[Dummy] = deriveWriter
-
-    val initialized = Disabled
-    val converted = ConfigWriter[Toggle[Dummy]].to(initialized).render(ConfigRenderOptions.concise())
-
-    assert(converted.contains("\"enabled\":false"))
-
-    val config = ConfigSource.string(converted)
-    val result = config.load[Toggle[Dummy]].toOption.head
-    assert(result.toOption === initialized.toOption)
-  }
 
   test("has Functor instance and map method works correctly") {
     import com.avast.sst.pureconfig.util.Toggle.ToggleStdInstances._
