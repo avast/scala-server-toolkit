@@ -1,5 +1,6 @@
 package com.avast.sst.http4s.client
 
+import com.avast.sst.http4s.client.Http4sBlazeClientConfig.SocketOptions
 import org.http4s.blaze.client.ParserMode
 import org.http4s.client.defaults
 import org.http4s.headers.`User-Agent`
@@ -23,5 +24,16 @@ final case class Http4sBlazeClientConfig(
     maxChunkSize: Int = Int.MaxValue,
     chunkBufferMaxSize: Int = 1024 * 1024,
     parserMode: ParserMode = ParserMode.Strict,
-    bufferSize: Int = 8192
+    bufferSize: Int = 8192,
+    socketOptions: Option[SocketOptions] = None
 )
+
+object Http4sBlazeClientConfig {
+  final case class SocketOptions(
+      reuseAddress: Boolean = true,
+      sendBufferSize: Int = 256 * 1024,
+      receiveBufferSize: Int = 256 * 1024,
+      keepAlive: Boolean = false,
+      noDelay: Boolean = false
+  )
+}
