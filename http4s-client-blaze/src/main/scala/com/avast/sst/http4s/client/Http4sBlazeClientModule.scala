@@ -1,9 +1,12 @@
 package com.avast.sst.http4s.client
 
 import cats.effect.{ConcurrentEffect, Resource}
+import com.avast.sst.http4s.client.Http4sBlazeClientConfig.SocketOptions
+import org.http4s.blaze.channel.{ChannelOptions, OptionValue}
 import org.http4s.blaze.client.BlazeClientBuilder
 import org.http4s.client.Client
 
+import java.net.StandardSocketOptions
 import javax.net.ssl.SSLContext
 import scala.concurrent.ExecutionContext
 object Http4sBlazeClientModule {
@@ -35,7 +38,20 @@ object Http4sBlazeClientModule {
       .withParserMode(config.parserMode)
       .withBufferSize(config.bufferSize)
 
-    sslContext.map(builder.withSslContext).getOrElse(builder).resource
+    val builderWithMaybeSocketOptions = config.socketOptions.fold(builder)(s => builder.withChannelOptions(channelOptions(s)))
+    val builderWithMaybeTLS = sslContext.fold(builderWithMaybeSocketOptions)(builderWithMaybeSocketOptions.withSslContext)
+
+    builderWithMaybeTLS.resource
   }
 
+  def channelOptions(socketOptions: SocketOptions): ChannelOptions =
+    ChannelOptions(
+      Vector(
+        OptionValue[java.lang.Boolean](StandardSocketOptions.SO_REUSEADDR, socketOptions.reuseAddress),
+        OptionValue[java.lang.Integer](StandardSocketOptions.SO_SNDBUF, socketOptions.sendBufferSize),
+        OptionValue[java.lang.Integer](StandardSocketOptions.SO_RCVBUF, socketOptions.receiveBufferSize),
+        OptionValue[java.lang.Boolean](StandardSocketOptions.SO_KEEPALIVE, socketOptions.keepAlive),
+        OptionValue[java.lang.Boolean](StandardSocketOptions.TCP_NODELAY, socketOptions.noDelay)
+      )
+    )
 }
