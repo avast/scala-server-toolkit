@@ -1,6 +1,6 @@
 package com.avast.sst.pureconfig
 
-import cats.{Applicative, FlatMap, Functor, Monad, Monoid}
+import cats.{Applicative, Eq, FlatMap, Functor, Monad, Monoid}
 import com.avast.sst.pureconfig.util.Toggle
 import com.avast.sst.pureconfig.util.Toggle.{Disabled, Enabled}
 import com.avast.sst.pureconfig.util.Toggle.TogglePureConfigInstances.*
@@ -105,9 +105,9 @@ class ToggleTest extends AnyFunSuite with Diagrams {
     val result5 = toggle3.compare(Disabled)
 
     assert(result1 < 0)
-    assert(result2 == 0)
+    assert(Eq[Int].eqv(result2, 0))
     assert(result3 > 0)
     assert(result4 < 0)
-    assert(result5 == 0)
+    assert(Eq[Int].eqv(result5, 0))
   }
 }
