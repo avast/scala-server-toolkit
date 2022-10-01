@@ -8,7 +8,6 @@ import com.typesafe.config.ConfigRenderOptions
 import org.scalatest.diagrams.Diagrams
 import org.scalatest.funsuite.AnyFunSuite
 
-@SuppressWarnings(Array("all"))
 class ToggleTest extends AnyFunSuite with Diagrams {
 
   test("has Functor instance and map method works correctly") {

@@ -64,3 +64,46 @@ implicit val serverConfigurationReader: ConfigReader[ServerConfiguration] = Conf
 
 val maybeConfiguration = PureConfigModule.make[Task, ServerConfiguration]
 ```
+
+
+## Toggle
+Sometimes is useful to be able to disable some functionality via config. That usually means to add a new boolean field to particular configuration case class. You have to be aware about this new field when you work with the configuration and check the value of it to enable/disable particular functionality.
+
+`Toggle` is more safe approach for this pattern as it can be either `Enabled[T]` or `Disabled`.
+So it will force you to deal with the possibility of disabled functionality.
+It also simplifies the workflow and particular config case class as it does not require any changes on it.
+The boolean flag is build in the `Toggle` itself and the value is converted to `Enabled[T]` or `Disabled`.
+For more details please see the example below:
+
+
+```
+case class MyConfig(myService: Toggle[ServiceConfig])
+case class ServiceConfig(url: String, timeout: Duration)
+```
+
+```
+my-service {
+    enabled = false
+    url = "http://www.example.com/v1/some-endpoint"
+    timeout = 5s
+}
+```
+
+
+## WithConfig
+When you need to deal with legacy code, it sometimes happens that you need to load configuration as a standard typesafe's `Config` object and also as your custom object. Reading config with `WithConfig` case class ensures to load of both objects simultaneously. 
+
+Example:
+
+```
+case class MyConfig(myService: WithConfig[ServiceConfig])
+case class ServiceConfig(url: String, timeout: Duration)
+```
+
+```
+val serviceConfig: Config = myConfig.myService.config
+val urlFromConfig: String = serviceConfig.getString("url")
+
+val serviceConfigCustom: ServiceConfig = myConfig.myService.value
+val urlFromCustomObject: String = serviceConfigCustom.url
+```
