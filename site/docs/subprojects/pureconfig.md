@@ -91,7 +91,7 @@ my-service {
 
 
 ## WithConfig
-When you need to deal with legacy code, it sometimes happens that you need to load configuration as a standard typesafe's `Config` object and also as your custom object. Reading config with `WithConfig` case class ensures to load of both objects simultaneously. 
+Sometimes you need to load the configuration both as your custom configuration class and raw `Config` when you deal with legacy code. Using `WithConfig` case class allows you to load both objects simultaneously.
 
 Example:
 
