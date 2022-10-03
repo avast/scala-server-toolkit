@@ -32,9 +32,9 @@ object PureConfigModule {
   private def formatFailure(configReaderFailure: ConfigReaderFailure): String = {
     configReaderFailure match {
       case convertFailure: ConvertFailure =>
-        s"Invalid configuration ${convertFailure.path}: ${convertFailure.description}"
+        s"Invalid configuration ${convertFailure.path} @ ${convertFailure.origin.map(_.description).iterator.mkString}: ${convertFailure.description}"
       case configFailure =>
-        s"Invalid configuration : ${configFailure.description}"
+        s"Invalid configuration @ ${configFailure.origin.map(_.description).iterator.mkString}: ${configFailure.description}"
     }
   }
 
