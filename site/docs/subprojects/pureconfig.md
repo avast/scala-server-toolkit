@@ -71,7 +71,7 @@ Sometimes it is useful to be able to disable some functionality via config. That
 
 `Toggle` is a more safe approach for this pattern as it can be either `Enabled[T]` or `Disabled`.
 So it will force you to deal with the possibility of disabled functionality.
-It also simplifies the workflow and particular config case class as it does not require any changes on it.
+It also simplifies the workflow and particular config case class as it does not require any changes to it.
 The boolean flag is build in the `Toggle` itself and the value is converted to `Enabled[T]` or `Disabled`.
 For more details please see the example below:
 
