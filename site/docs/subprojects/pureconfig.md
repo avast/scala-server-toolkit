@@ -69,7 +69,7 @@ val maybeConfiguration = PureConfigModule.make[Task, ServerConfiguration]
 ## Toggle
 Sometimes it is useful to be able to disable some functionality via config. That usually means to add a new boolean field to particular configuration case class. You have to be aware of this new field when you work with the configuration and check the value of it to enable/disable particular functionality.
 
-`Toggle` is more safe approach for this pattern as it can be either `Enabled[T]` or `Disabled`.
+`Toggle` is a more safe approach for this pattern as it can be either `Enabled[T]` or `Disabled`.
 So it will force you to deal with the possibility of disabled functionality.
 It also simplifies the workflow and particular config case class as it does not require any changes on it.
 The boolean flag is build in the `Toggle` itself and the value is converted to `Enabled[T]` or `Disabled`.
