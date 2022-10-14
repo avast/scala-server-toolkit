@@ -40,8 +40,8 @@ object Dependencies {
   val sentry = "io.sentry" % "sentry" % "6.4.2"
   val slf4jApi = "org.slf4j" % "slf4j-api" % "2.0.1"
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.6.1"
-  val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.40.10"
-  val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.40.10"
+  val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.40.11"
+  val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.40.11"
   val zio = "dev.zio" %% "zio" % "1.0.16"
   val zioInteropCats = "dev.zio" %% "zio-interop-cats" % "2.5.1.0"
 
