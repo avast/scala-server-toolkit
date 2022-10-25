@@ -18,7 +18,7 @@ object DoobieHikariModule {
     *
     * @param boundedConnectExecutionContext
     *   [[scala.concurrent.ExecutionContext]] used for creating connections (is used for IO, should be bounded! - read
-   *    https://tpolecat.github.io/doobie/docs/14-Managing-Connections.html#about-threading)
+    *   https://tpolecat.github.io/doobie/docs/14-Managing-Connections.html#about-threading)
     */
   def make[F[_]: Async](
       config: DoobieHikariConfig,
