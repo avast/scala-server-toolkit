@@ -13,7 +13,7 @@ object BuildSettings {
 
   private def isScala3(scalaVersion: String): Boolean = CrossVersion.partialVersion(scalaVersion).exists(_._1 == 3)
 
-  private val scala212 = "2.12.17"
+  private val scala212 = "2.13.10"
   private val scala213 = "2.13.8"
   private val scala3 = "3.1.1"
 
