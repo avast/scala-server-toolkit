@@ -6,7 +6,7 @@ object Dependencies {
   val datastaxJavaDriverCore = "com.datastax.oss" % "java-driver-core" % Versions.datastaxJavaDriverCore
   val doobie = "org.tpolecat" %% "doobie-core" % Versions.doobie
   val doobieHikari = "org.tpolecat" %% "doobie-hikari" % Versions.doobie
-  val flywayCore = "org.flywaydb" % "flyway-core" % "9.8.1"
+  val flywayCore = "org.flywaydb" % "flyway-core" % "9.8.2"
   val fs2Kafka = "com.github.fd4s" %% "fs2-kafka" % "1.10.0"
   val grpcNettyShaded = "io.grpc" % "grpc-netty-shaded" % Versions.grpc
   val grpcProtobuf = "io.grpc" % "grpc-protobuf" % Versions.grpc
@@ -38,7 +38,7 @@ object Dependencies {
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.6.0"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.14"
   val sentry = "io.sentry" % "sentry" % "6.7.0"
-  val slf4jApi = "org.slf4j" % "slf4j-api" % "2.0.3"
+  val slf4jApi = "org.slf4j" % "slf4j-api" % "2.0.4"
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.6.1"
   val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.40.11"
   val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.40.11"
@@ -49,7 +49,7 @@ object Dependencies {
 
     val datastaxJavaDriverCore = "4.15.0"
     val doobie = "0.13.4"
-    val grpc = "1.50.2"
+    val grpc = "1.51.0"
     val http4s = "0.22.14"
     val micrometerCore = "1.10.1"
     val micrometerJmx = "1.10.1"
