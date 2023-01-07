@@ -36,7 +36,7 @@ object Dependencies {
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.9.0"
   val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.21"
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.6.0"
-  val scalaTest = "org.scalatest" %% "scalatest" % "3.2.14"
+  val scalaTest = "org.scalatest" %% "scalatest" % "3.2.15"
   val sentry = "io.sentry" % "sentry" % "6.11.0"
   val slf4jApi = "org.slf4j" % "slf4j-api" % "2.0.6"
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.6.1"
