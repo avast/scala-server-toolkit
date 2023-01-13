@@ -52,7 +52,7 @@ object Dependencies {
     val grpc = "1.52.0"
     val http4s = "0.22.14"
     val micrometerCore = "1.10.3"
-    val micrometerJmx = "1.10.2"
+    val micrometerJmx = "1.10.3"
     val micrometerStatsD = "1.10.3"
     val micrometerPrometheus = "1.10.3"
     val monix = "3.4.1"
