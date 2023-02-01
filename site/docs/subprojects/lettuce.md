@@ -3,7 +3,7 @@ layout: docs
 title: "Lettuce (Redis)"
 ---
 
-# FS2 Kafka
+# Lettuce (Redis)
 
 `libraryDependencies += "com.avast" %% "sst-lettuce" % "@VERSION@"`
 
