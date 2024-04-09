@@ -34,7 +34,7 @@ object Dependencies {
   val pureConfigCore = "com.github.pureconfig" %% "pureconfig-core" % Versions.pureConfig
   val pureConfigGeneric = "com.github.pureconfig" %% "pureconfig-generic" % Versions.pureConfig
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.9.0"
-  val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.21"
+  val scalafixScaluzzi = "com.github.vovapolu" %% "scaluzzi" % "0.1.23"
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.6.0"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.18"
   val sentry = "io.sentry" % "sentry" % "7.7.0"
