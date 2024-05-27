@@ -47,11 +47,11 @@ object BuildSettings {
       Dependencies.scalafixScaluzzi,
       Dependencies.scalafixOrganizeImports
     ),
-    scalacOptions ++= {
+    scalacOptions := {
       CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((3, _)) => Seq("-source:future", "-language:adhocExtensions")
-        case Some((2, _)) => Seq("-Xsource:3")
-        case _            => Seq.empty
+        case Some((3, _)) => scalacOptions.value ++ Seq("-source:future", "-language:adhocExtensions")
+        case Some((2, _)) => scalacOptions.value.filterNot(_ == "-Xfatal-warnings") ++ Seq("-Xsource:3")
+        case _            => scalacOptions.value
       }
     },
     Compile / doc / scalacOptions -= "-Xfatal-warnings",
