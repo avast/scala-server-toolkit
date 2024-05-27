@@ -6,9 +6,10 @@ import org.http4s.{Method, Status}
 import org.scalatest.funsuite.AnyFunSuite
 
 import java.util.concurrent.{Executors, TimeUnit}
-
+import scala.annotation.nowarn
 import scala.concurrent.ExecutionContext
 
+@nowarn("msg=unused value")
 class MicrometerHttp4sMetricsOpsModuleTest extends AnyFunSuite {
 
   test("http4s MetricsOps for Micrometer") {
