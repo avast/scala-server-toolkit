@@ -5,6 +5,8 @@ import io.grpc.ForwardingServerCallListener.SimpleForwardingServerCallListener
 import io.grpc.*
 import org.slf4j.Logger
 
+import scala.annotation.nowarn
+
 /** Adds basic logging around each gRPC call. */
 class LoggingServerInterceptor(logger: Logger) extends ServerInterceptor {
 
@@ -18,6 +20,7 @@ class LoggingServerInterceptor(logger: Logger) extends ServerInterceptor {
     new OnMessageServerCallListener(methodName, next.startCall(finalCall, headers))
   }
 
+  @nowarn("msg=a type was inferred to be `Object`")
   private class CloseServerCall[A, B](methodName: String, delegate: ServerCall[A, B]) extends SimpleForwardingServerCall[A, B](delegate) {
     override def close(status: Status, trailers: Metadata): Unit = {
       import io.grpc.Status

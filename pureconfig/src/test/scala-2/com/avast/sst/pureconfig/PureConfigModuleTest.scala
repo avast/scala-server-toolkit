@@ -4,9 +4,12 @@ import cats.data.NonEmptyList
 import cats.effect.SyncIO
 import org.scalatest.funsuite.AnyFunSuite
 import pureconfig.error.ConfigReaderException
-import pureconfig.generic.semiauto._
+import pureconfig.generic.semiauto.*
 import pureconfig.{ConfigReader, ConfigSource}
 
+import scala.annotation.nowarn
+
+@nowarn("msg=unused value")
 class PureConfigModuleTest extends AnyFunSuite {
 
   private val source = ConfigSource.string("""|number = 123

@@ -6,6 +6,9 @@ import com.avast.sst.pureconfig.util.Toggle.{Disabled, Enabled}
 import org.scalatest.diagrams.Diagrams
 import org.scalatest.funsuite.AnyFunSuite
 
+import scala.annotation.nowarn
+
+@nowarn("msg=unused value")
 class ToggleTest extends AnyFunSuite with Diagrams {
 
   test("has Functor instance and map method works correctly") {

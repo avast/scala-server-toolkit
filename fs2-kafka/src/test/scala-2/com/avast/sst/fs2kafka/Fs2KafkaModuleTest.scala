@@ -1,7 +1,7 @@
 package com.avast.sst.fs2kafka
 
-import cats.effect.{IO, Resource}
-import cats.syntax.flatMap._
+import cats.effect.{ContextShift, IO, Resource, Timer}
+import cats.syntax.flatMap.*
 import com.dimafeng.testcontainers.{ForAllTestContainer, KafkaContainer}
 import fs2.kafka.{AutoOffsetReset, ProducerRecord, ProducerRecords}
 import org.scalatest.funsuite.AsyncFunSuite
@@ -10,10 +10,10 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class Fs2KafkaModuleTest extends AsyncFunSuite with ForAllTestContainer {
 
-  override val container = KafkaContainer()
+  override val container: KafkaContainer = KafkaContainer()
 
-  implicit private val cs = IO.contextShift(global)
-  implicit private val timer = IO.timer(global)
+  implicit private val cs: ContextShift[IO] = IO.contextShift(global)
+  implicit private val timer: Timer[IO] = IO.timer(global)
 
   test("producer") {
     val io = for {

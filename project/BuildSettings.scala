@@ -14,7 +14,7 @@ object BuildSettings {
   private def isScala3(scalaVersion: String): Boolean = CrossVersion.partialVersion(scalaVersion).exists(_._1 == 3)
 
   private val scala212 = "2.12.19"
-  private val scala213 = "2.13.8"
+  private val scala213 = "2.13.13"
   private val scala3 = "3.1.1"
 
   lazy val common: Seq[Def.Setting[_]] = Seq(
@@ -47,11 +47,11 @@ object BuildSettings {
       Dependencies.scalafixScaluzzi,
       Dependencies.scalafixOrganizeImports
     ),
-    scalacOptions ++= {
+    scalacOptions := {
       CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((3, _)) => Seq("-source:future", "-language:adhocExtensions")
-        case Some((2, _)) => Seq("-Xsource:3")
-        case _            => Seq.empty
+        case Some((3, _)) => scalacOptions.value ++ Seq("-source:future", "-language:adhocExtensions")
+        case Some((2, _)) => scalacOptions.value.filterNot(_ == "-Xfatal-warnings") ++ Seq("-Xsource:3")
+        case _            => scalacOptions.value
       }
     },
     Compile / doc / scalacOptions -= "-Xfatal-warnings",

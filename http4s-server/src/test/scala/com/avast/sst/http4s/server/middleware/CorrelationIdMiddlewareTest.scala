@@ -10,8 +10,10 @@ import org.scalatest.funsuite.AsyncFunSuite
 import org.typelevel.ci.CIString
 
 import java.net.InetSocketAddress
+import scala.annotation.nowarn
 import scala.concurrent.ExecutionContext
 
+@nowarn("msg=unused value")
 @SuppressWarnings(Array("scalafix:Disable.get", "scalafix:Disable.toString", "scalafix:Disable.createUnresolved"))
 class CorrelationIdMiddlewareTest extends AsyncFunSuite with Http4sDsl[IO] {
 
