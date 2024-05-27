@@ -2,6 +2,9 @@ package com.avast.sst.fs2kafka
 
 import org.scalatest.funsuite.AnyFunSuite
 
+import scala.annotation.nowarn
+
+@nowarn("msg=unused value")
 class KafkaConfigTest extends AnyFunSuite {
 
   test("verify ConsumerConfig defaults") {
