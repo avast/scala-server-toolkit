@@ -3,7 +3,7 @@ package com.avast.sst.pureconfig
 import com.typesafe.config.Config
 import pureconfig.ConfigReader
 
-/** Used to retrieve both parsed configuration object and underlying [[Config]] instance. */
+/** Used to retrieve both parsed configuration object and underlying [[config]] instance. */
 final case class WithConfig[T](value: T, config: Config)
 
 object WithConfig {

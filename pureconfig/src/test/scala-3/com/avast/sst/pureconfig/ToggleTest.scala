@@ -3,11 +3,12 @@ package com.avast.sst.pureconfig
 import cats.{Applicative, Eq, FlatMap, Functor, Monad, Monoid}
 import com.avast.sst.pureconfig.util.Toggle
 import com.avast.sst.pureconfig.util.Toggle.{Disabled, Enabled}
-import com.avast.sst.pureconfig.util.Toggle.TogglePureConfigInstances.*
-import com.typesafe.config.ConfigRenderOptions
 import org.scalatest.diagrams.Diagrams
 import org.scalatest.funsuite.AnyFunSuite
 
+import scala.annotation.nowarn
+
+@nowarn("msg=unused value")
 class ToggleTest extends AnyFunSuite with Diagrams {
 
   test("has Functor instance and map method works correctly") {
