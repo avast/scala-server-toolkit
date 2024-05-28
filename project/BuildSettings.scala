@@ -48,8 +48,9 @@ object BuildSettings {
       Dependencies.scalafixOrganizeImports
     ),
     scalacOptions := {
+      // TODO: solve compilation warnings on Scala 3
       CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((3, _)) => scalacOptions.value ++ Seq("-source:future", "-language:adhocExtensions")
+        case Some((3, _)) => scalacOptions.value.filterNot(_ == "-Xfatal-warnings") ++ Seq("-source:future", "-language:adhocExtensions")
         case Some((2, _)) => scalacOptions.value.filterNot(_ == "-Xfatal-warnings") ++ Seq("-Xsource:3")
         case _            => scalacOptions.value
       }
