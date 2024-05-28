@@ -3,7 +3,7 @@ package com.avast.sst.micrometer.prometheus
 import cats.effect.{Blocker, ContextShift, Resource, Sync}
 import com.avast.sst.micrometer.PrefixMeterFilter
 import io.micrometer.core.instrument.config.{MeterFilter, NamingConvention}
-import io.micrometer.prometheus.{HistogramFlavor, PrometheusConfig, PrometheusMeterRegistry}
+import io.micrometer.prometheusmetrics.{PrometheusConfig, PrometheusMeterRegistry}
 
 import java.time.Duration
 
@@ -44,7 +44,6 @@ object MicrometerPrometheusModule {
     override val step: Duration = java.time.Duration.ofMillis(c.step.toMillis)
     override val prefix: String = c.prefix
     override val descriptions: Boolean = c.descriptions
-    override val histogramFlavor: HistogramFlavor = c.histogramFlavor
 
     // the method is @Nullable and we don't need to implement it here
     @SuppressWarnings(Array("scalafix:DisableSyntax.null"))
