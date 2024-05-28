@@ -7,6 +7,9 @@ import pureconfig.error.ConfigReaderException
 import pureconfig.{ConfigReader, ConfigSource}
 import pureconfig.generic.derivation.default.*
 
+import scala.annotation.nowarn
+
+@nowarn("msg=unused value")
 class PureConfigModuleTest extends AnyFunSuite {
 
   private val source = ConfigSource.string("""|number = 123

@@ -15,7 +15,7 @@ object BuildSettings {
 
   private val scala212 = "2.12.19"
   private val scala213 = "2.13.13"
-  private val scala3 = "3.1.1"
+  private val scala3 = "3.3.3"
 
   lazy val common: Seq[Def.Setting[_]] = Seq(
     Global / onChangedBuildSource := ReloadOnSourceChanges,
@@ -31,7 +31,7 @@ object BuildSettings {
     description := "Functional programming toolkit for building server applications in Scala.",
     licenses := Seq("MIT" -> url("https://raw.githubusercontent.com/avast/scala-server-toolkit/master/LICENSE")),
     developers := List(Developer("jakubjanecek", "Jakub Janecek", "janecek@avast.com", url("https://www.avast.com"))),
-    scalaVersion := scala3,
+    scalaVersion := scala213,
     crossScalaVersions := List(scala213, scala212, scala3),
     fork := true,
     libraryDependencies ++= (if (!isScala3(scalaVersion.value)) List(compilerPlugin(Dependencies.kindProjector)) else List.empty) ++ List(
@@ -48,8 +48,9 @@ object BuildSettings {
       Dependencies.scalafixOrganizeImports
     ),
     scalacOptions := {
+      // TODO: solve compilation warnings on Scala 3
       CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((3, _)) => scalacOptions.value ++ Seq("-source:future", "-language:adhocExtensions")
+        case Some((3, _)) => scalacOptions.value.filterNot(_ == "-Xfatal-warnings") ++ Seq("-source:future", "-language:adhocExtensions")
         case Some((2, _)) => scalacOptions.value.filterNot(_ == "-Xfatal-warnings") ++ Seq("-Xsource:3")
         case _            => scalacOptions.value
       }

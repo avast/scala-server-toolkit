@@ -6,7 +6,9 @@ import org.http4s.Response
 import org.scalatest.funsuite.AnyFunSuite
 
 import java.util.concurrent.TimeUnit
+import scala.annotation.nowarn
 
+@nowarn("msg=unused value")
 class RouteMetricsTest extends AnyFunSuite {
 
   test("Single route metrics") {

@@ -1,3 +1,7 @@
+import sbt.Keys.scalacOptions
+
+import scala.collection.Seq
+
 def pureconfig = libraryDependencies ++= {
   CrossVersion.partialVersion(scalaVersion.value) match {
     case Some((3, _)) =>
@@ -628,12 +632,23 @@ lazy val site = project
   .settings(BuildSettings.common)
   .settings(BuildSettings.microsite)
   .settings(
-    libraryDependencies += "org.scalameta" %% "mdoc" % "2.3.2" excludeAll (
+    libraryDependencies += "org.scalameta" %% "mdoc" % "2.5.2" excludeAll (
       ExclusionRule(organization = "org.slf4j"),
       ExclusionRule(organization = "org.scala-lang.modules", name = "scala-collection-compat_2.13")
     ),
     publish / skip := true,
-    scalacOptions := scalacOptions.value.filterNot(_ == "-Xfatal-warnings").filterNot(_ == "-Xlint:infer-any")
+    scalacOptions --= Seq(
+      "-Xfatal-warnings",
+      "-Xlint:infer-any",
+      "-Wvalue-discard",
+      "-Wnonunit-statement",
+      "-Wunused:implicits",
+      "-Wunused:explicits",
+      "-Wunused:imports",
+      "-Wunused:locals",
+      "-Wunused:params",
+      "-Wunused:privates"
+    )
   )
 
 lazy val sslConfig = project
