@@ -513,7 +513,12 @@ lazy val micrometerPrometheus = project
   .settings(BuildSettings.common)
   .settings(
     name := "sst-micrometer-prometheus",
-    libraryDependencies += Dependencies.micrometerPrometheus
+    libraryDependencies ++= Seq(
+      Dependencies.micrometerPrometheus,
+      Dependencies.monixEval % Test,
+      Dependencies.monixExecution % Test,
+      Dependencies.http4sPrometheus % Test
+    )
   )
 
 lazy val micrometerPrometheusPureConfig = project
