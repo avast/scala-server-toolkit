@@ -17,6 +17,7 @@ object Dependencies {
   val http4sEmberServer = "org.http4s" %% "http4s-ember-server" % Versions.http4s
   val http4sClient = "org.http4s" %% "http4s-client" % Versions.http4s
   val http4sDsl = "org.http4s" %% "http4s-dsl" % Versions.http4s
+  val http4sPrometheus = "org.http4s" %% "http4s-prometheus-metrics" % Versions.http4s
   val http4sServer = "org.http4s" %% "http4s-server" % Versions.http4s
   val jacksonDatabind = "com.fasterxml.jackson.core" % "jackson-databind" % "2.17.1"
   val jetbrainsAnnotations = "org.jetbrains" % "annotations" % "24.1.0"
@@ -30,6 +31,7 @@ object Dependencies {
   val micrometerPrometheus = "io.micrometer" % "micrometer-registry-prometheus" % Versions.micrometerPrometheus
   val monixCatnap = "io.monix" %% "monix-catnap" % Versions.monix
   val monixEval = "io.monix" %% "monix-eval" % Versions.monix
+  val monixExecution = "io.monix" %% "monix-execution" % Versions.monix
   val postgresql = "org.postgresql" % "postgresql" % "42.7.3"
   val pureConfigCore = "com.github.pureconfig" %% "pureconfig-core" % Versions.pureConfig
   val pureConfigGeneric = "com.github.pureconfig" %% "pureconfig-generic" % Versions.pureConfig
@@ -51,10 +53,10 @@ object Dependencies {
     val doobie = "0.13.4"
     val grpc = "1.64.0"
     val http4s = "0.22.15"
-    val micrometerCore = "1.13.1"
-    val micrometerJmx = "1.13.1"
-    val micrometerStatsD = "1.13.1"
-    val micrometerPrometheus = "1.13.1"
+    val micrometerCore = "1.12.7"
+    val micrometerJmx = "1.12.7"
+    val micrometerStatsD = "1.12.7"
+    val micrometerPrometheus = "1.12.7"
     val monix = "3.4.1"
     val pureConfig = "0.17.1"
 
