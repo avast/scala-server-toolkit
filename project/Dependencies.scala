@@ -40,7 +40,7 @@ object Dependencies {
   val scalafixOrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.6.0"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.19"
   val sentry = "io.sentry" % "sentry" % "7.13.0"
-  val slf4jApi = "org.slf4j" % "slf4j-api" % "2.0.13"
+  val slf4jApi = "org.slf4j" % "slf4j-api" % "2.0.16"
   val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.6.1"
   val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.41.4"
   val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.41.4"
