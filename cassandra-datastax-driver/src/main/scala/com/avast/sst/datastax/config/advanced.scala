@@ -490,16 +490,54 @@ object TraceConfig {
 
 /** Metrics configuration
   *
+  * @param factory
+  *   Metrics Factory configuration.
+  * @param idGenerator
+  *   This section configures how metric ids are generated. A metric id is a unique combination of a metric name and metric tags.
   * @param session
   *   The session-level metrics (all disabled by default).
   * @param node
   *   The node-level metrics (all disabled by default).
   */
-final case class MetricsConfig(session: Option[SessionConfig], node: Option[NodeConfig])
+final case class MetricsConfig(
+    factory: Option[MetricsFactoryConfig],
+    idGenerator: Option[IdGeneratorConfig],
+    session: Option[SessionConfig],
+    node: Option[NodeConfig]
+)
 
 object MetricsConfig {
-  val Default: MetricsConfig = MetricsConfig(None, None)
+  val Default: MetricsConfig = MetricsConfig(None, None, None, None)
 }
+
+/** Metrics Factory configuration.
+  *
+  * @param `class`
+  *   The class for the metrics factory.
+  *
+  * Note: specifying a metrics factory is not enough to enable metrics; for the driver to actually start collecting metrics, you also need
+  * to specify which metrics to collect. See the following options for more information:
+  *   - advanced.metrics.session.enabled
+  *   - advanced.metrics.node.enabled
+  */
+final case class MetricsFactoryConfig(`class`: String = "DefaultMetricsFactory")
+
+/** Metric ID generator configuration.
+  *
+  * The driver ships with two built-in implementations:
+  *   - DefaultMetricIdGenerator: generates identifiers composed solely of (unique) metric names; It is mostly suitable for use with metrics
+  *     libraries that do not support tags, like Dropwizard.
+  *   - TaggingMetricIdGenerator: generates identifiers composed of name and tags. It is mostly suitable for use with metrics libraries that
+  *     support tags, like Micrometer or MicroProfile Metrics.
+  *
+  * @param `class`
+  *   The class name of a component implementing `MetricIdGenerator`. If it is not qualified, the driver assumes that it resides in the
+  *   `package com.datastax.oss.driver.internal.core.metrics`.
+  * @param prefix
+  *   An optional prefix to prepend to each generated metric name. The prefix should not start nor end with a dot or any other path
+  *   separator; the following are two valid examples: "cassandra" or "myapp.prod.cassandra".
+  */
+final case class IdGeneratorConfig(`class`: String = "DefaultMetricIdGenerator", prefix: Option[String] = None)
 
 /** The session-level metrics (all disabled by default).
   *
@@ -508,18 +546,26 @@ object MetricsConfig {
   * @param cqlRequests
   *   Extra configuration (for the metrics that need it). Required if the 'cql-requests' metric is enabled
   * @param throttling
-  *   Configures request throttling metrics..
+  *   Configures request throttling metrics.
+  * @param continuousCqlRequests
+  *   Required: if the 'continuous-cql-requests' metric is enabled, and Dropwizard or Micrometer is used.
+  * @param graphRequests
+  *   Required: if the 'graph-requests' metric is enabled, and Dropwizard or Micrometer is used.
   */
 final case class SessionConfig(
-    enabled: List[Int] = List.empty,
+    enabled: List[String] = List.empty,
     cqlRequests: Option[CqlRequestsConfig],
-    throttling: Option[ThrottlingConfig]
+    throttling: Option[ThrottlingConfig],
+    continuousCqlRequests: Option[ContinuousCqlRequests],
+    graphRequests: Option[GraphRequests]
 )
 
 /** Extra metrics configuration
   *
   * @param highestLatency
-  *   The largest latency that we expect to record.
+  *   The largest latency that we expect to record.\
+  * @param lowestLatency
+  *   The lowest latency that we expect to record.
   * @param significantDigits
   *   The number of significant decimal digits to which internal structures will maintain value resolution and separation (for example, 3
   *   means that recordings up to 1 second will be recorded with a resolution of 1 millisecond or better). This must be between 0 and 5. If
@@ -527,7 +573,12 @@ final case class SessionConfig(
   * @param refreshInterval
   *   The interval at which percentile data is refreshed.
   */
-final case class CqlRequestsConfig(highestLatency: Duration = 3.seconds, significantDigits: Int = 3, refreshInterval: Duration = 5.minutes)
+final case class CqlRequestsConfig(
+    highestLatency: Duration = 3.seconds,
+    lowestLatency: Duration = 1.millisecond,
+    significantDigits: Int = 3,
+    refreshInterval: Duration = 5.minutes
+)
 
 /** How long requests are being throttled
   *
@@ -538,18 +589,59 @@ final case class CqlRequestsConfig(highestLatency: Duration = 3.seconds, signifi
 final case class ThrottlingConfig(delay: Option[DelayConfig])
 
 /** Throttling delay metric. */
-final case class DelayConfig(highestLatency: Duration = 3.seconds, significantDigits: Int = 3, refreshInterval: Duration = 5.minutes)
+final case class DelayConfig(
+    highestLatency: Duration = 3.seconds,
+    lowestLatency: Duration = 1.millisecond,
+    significantDigits: Int = 3,
+    refreshInterval: Duration = 5.minutes
+)
+
+final case class ContinuousCqlRequests(
+    highestLatency: Duration = 120.seconds,
+    lowestLatency: Duration = 10.millisecond,
+    significantDigits: Int = 3,
+    refreshInterval: Duration = 5.minutes
+)
+
+final case class GraphRequests(
+    highestLatency: Duration = 12.seconds,
+    lowestLatency: Duration = 1.millisecond,
+    significantDigits: Int = 3,
+    refreshInterval: Duration = 5.minutes
+)
 
 /** Node-level metric.
   *
   * @param enabled
   *   node-level metrics
-  * @param cqlRequests
+  * @param cqlMessages
   *   Required: if the 'cql-messages' metric is enabled
+  * @param graphMessages
+  *   Required: if the 'graph-messages' metric is enabled, and Dropwizard or Micrometer is used.
+  * @param expireAfter
+  *   The time after which the node level metrics will be evicted. The lowest allowed value is 5 minutes. If you try to set it lower, the
+  *   driver will log a warning and use 5 minutes.
   */
-final case class NodeConfig(enabled: List[Int], cqlRequests: Option[CqlMessagesConfig])
+final case class NodeConfig(
+    enabled: List[String],
+    cqlMessages: Option[CqlMessagesConfig],
+    graphMessages: Option[GraphMessagesConfig],
+    expireAfter: Duration = 1.hour
+)
 
-final case class CqlMessagesConfig(highestLatency: Duration = 3.seconds, significantDigits: Int = 3, refreshInterval: Duration = 5.minutes)
+final case class CqlMessagesConfig(
+    highestLatency: Duration = 3.seconds,
+    lowestLatency: Duration = 1.millisecond,
+    significantDigits: Int = 3,
+    refreshInterval: Duration = 5.minutes
+)
+
+final case class GraphMessagesConfig(
+    highestLatency: Duration = 3.seconds,
+    lowestLatency: Duration = 1.millisecond,
+    significantDigits: Int = 3,
+    refreshInterval: Duration = 5.minutes
+)
 
 /** Socket configuration.
   *
