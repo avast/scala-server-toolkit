@@ -3,8 +3,9 @@ package com.avast.sst.datastax
 import cats.effect.{Resource, Sync}
 import com.avast.sst.datastax.DatastaxHelper.*
 import com.avast.sst.datastax.config.CassandraDatastaxDriverConfig
-import com.datastax.oss.driver.api.core.CqlSession
+import com.datastax.oss.driver.api.core.{CqlSession, CqlSessionBuilder}
 import com.datastax.oss.driver.api.core.config.DefaultDriverOption.*
+import com.datastax.dse.driver.api.core.config.DseDriverOption.*
 import com.datastax.oss.driver.api.core.config.{DriverConfigLoader, ProgrammaticDriverConfigLoaderBuilder as DriverBuilder}
 
 import javax.net.ssl.SSLContext
@@ -12,7 +13,11 @@ import javax.net.ssl.SSLContext
 object CassandraDatastaxDriverModule {
 
   /** Makes [[com.datastax.oss.driver.api.core.CqlSession]] initialized with the given config. */
-  def make[F[_]: Sync](cfg: CassandraDatastaxDriverConfig, ssl: Option[SSLContext] = None): Resource[F, CqlSession] = {
+  def make[F[_]: Sync](
+      cfg: CassandraDatastaxDriverConfig,
+      ssl: Option[SSLContext] = None,
+      customSessionBuilderOptions: CqlSessionBuilder => CqlSessionBuilder = identity
+  ): Resource[F, CqlSession] = {
 
     val acquire = Sync[F].delay {
 
@@ -78,10 +83,26 @@ object CassandraDatastaxDriverModule {
         durationProperty(REQUEST_TRACE_INTERVAL)(cfg.advanced.request.trace.interval),
         stringProperty(REQUEST_TRACE_CONSISTENCY)(cfg.advanced.request.trace.consistency.toStringRepr),
         booleanProperty(REQUEST_LOG_WARNINGS)(cfg.advanced.request.logWarnings),
-        optional(intListProperty(METRICS_SESSION_ENABLED), cfg.advanced.metrics.session.map(_.enabled)),
+        optional(stringListProperty(METRICS_SESSION_ENABLED), cfg.advanced.metrics.session.map(_.enabled)),
+        optional(
+          stringProperty(METRICS_FACTORY_CLASS),
+          cfg.advanced.metrics.factory.map(_.`class`)
+        ),
+        optional(
+          stringProperty(METRICS_ID_GENERATOR_CLASS),
+          cfg.advanced.metrics.idGenerator.map(_.`class`)
+        ),
+        optional(
+          stringProperty(METRICS_ID_GENERATOR_PREFIX),
+          cfg.advanced.metrics.idGenerator.flatMap(_.prefix)
+        ),
         optional(
           durationProperty(METRICS_SESSION_CQL_REQUESTS_HIGHEST),
           cfg.advanced.metrics.session.flatMap(_.cqlRequests.map(_.highestLatency))
+        ),
+        optional(
+          durationProperty(METRICS_SESSION_CQL_REQUESTS_LOWEST),
+          cfg.advanced.metrics.session.flatMap(_.cqlRequests.map(_.lowestLatency))
         ),
         optional(
           durationProperty(METRICS_SESSION_CQL_REQUESTS_INTERVAL),
@@ -96,6 +117,10 @@ object CassandraDatastaxDriverModule {
           cfg.advanced.metrics.session.flatMap(_.throttling.flatMap(_.delay.map(_.highestLatency)))
         ),
         optional(
+          durationProperty(METRICS_SESSION_THROTTLING_LOWEST),
+          cfg.advanced.metrics.session.flatMap(_.throttling.flatMap(_.delay.map(_.lowestLatency)))
+        ),
+        optional(
           durationProperty(METRICS_SESSION_THROTTLING_INTERVAL),
           cfg.advanced.metrics.session.flatMap(_.throttling.flatMap(_.delay.map(_.refreshInterval)))
         ),
@@ -103,15 +128,71 @@ object CassandraDatastaxDriverModule {
           intProperty(METRICS_SESSION_THROTTLING_DIGITS),
           cfg.advanced.metrics.session.flatMap(_.throttling.flatMap(_.delay.map(_.significantDigits)))
         ),
-        optional(intListProperty(METRICS_NODE_ENABLED), cfg.advanced.metrics.node.map(_.enabled)),
+        optional(
+          durationProperty(CONTINUOUS_PAGING_METRICS_SESSION_CQL_REQUESTS_HIGHEST),
+          cfg.advanced.metrics.session.flatMap(_.continuousCqlRequests.map(_.highestLatency))
+        ),
+        optional(
+          durationProperty(CONTINUOUS_PAGING_METRICS_SESSION_CQL_REQUESTS_LOWEST),
+          cfg.advanced.metrics.session.flatMap(_.continuousCqlRequests.map(_.lowestLatency))
+        ),
+        optional(
+          intProperty(CONTINUOUS_PAGING_METRICS_SESSION_CQL_REQUESTS_DIGITS),
+          cfg.advanced.metrics.session.flatMap(_.continuousCqlRequests.map(_.significantDigits))
+        ),
+        optional(
+          durationProperty(CONTINUOUS_PAGING_METRICS_SESSION_CQL_REQUESTS_INTERVAL),
+          cfg.advanced.metrics.session.flatMap(_.continuousCqlRequests.map(_.refreshInterval))
+        ),
+        optional(
+          durationProperty(METRICS_SESSION_GRAPH_REQUESTS_HIGHEST),
+          cfg.advanced.metrics.session.flatMap(_.graphRequests.map(_.highestLatency))
+        ),
+        optional(
+          durationProperty(METRICS_SESSION_GRAPH_REQUESTS_LOWEST),
+          cfg.advanced.metrics.session.flatMap(_.graphRequests.map(_.lowestLatency))
+        ),
+        optional(
+          intProperty(METRICS_SESSION_GRAPH_REQUESTS_DIGITS),
+          cfg.advanced.metrics.session.flatMap(_.graphRequests.map(_.significantDigits))
+        ),
+        optional(
+          durationProperty(METRICS_SESSION_GRAPH_REQUESTS_INTERVAL),
+          cfg.advanced.metrics.session.flatMap(_.graphRequests.map(_.refreshInterval))
+        ),
+        optional(stringListProperty(METRICS_NODE_ENABLED), cfg.advanced.metrics.node.map(_.enabled)),
         optional(
           durationProperty(METRICS_NODE_CQL_MESSAGES_HIGHEST),
-          cfg.advanced.metrics.node.flatMap(_.cqlRequests.map(_.highestLatency))
+          cfg.advanced.metrics.node.flatMap(_.cqlMessages.map(_.highestLatency))
         ),
-        optional(intProperty(METRICS_NODE_CQL_MESSAGES_DIGITS), cfg.advanced.metrics.node.flatMap(_.cqlRequests.map(_.significantDigits))),
+        optional(
+          durationProperty(METRICS_NODE_CQL_MESSAGES_LOWEST),
+          cfg.advanced.metrics.node.flatMap(_.cqlMessages.map(_.lowestLatency))
+        ),
+        optional(intProperty(METRICS_NODE_CQL_MESSAGES_DIGITS), cfg.advanced.metrics.node.flatMap(_.cqlMessages.map(_.significantDigits))),
         optional(
           durationProperty(METRICS_NODE_CQL_MESSAGES_INTERVAL),
-          cfg.advanced.metrics.node.flatMap(_.cqlRequests.map(_.refreshInterval))
+          cfg.advanced.metrics.node.flatMap(_.cqlMessages.map(_.refreshInterval))
+        ),
+        optional(
+          durationProperty(METRICS_NODE_GRAPH_MESSAGES_HIGHEST),
+          cfg.advanced.metrics.node.flatMap(_.graphMessages.map(_.highestLatency))
+        ),
+        optional(
+          durationProperty(METRICS_NODE_GRAPH_MESSAGES_LOWEST),
+          cfg.advanced.metrics.node.flatMap(_.graphMessages.map(_.lowestLatency))
+        ),
+        optional(
+          intProperty(METRICS_NODE_GRAPH_MESSAGES_DIGITS),
+          cfg.advanced.metrics.node.flatMap(_.graphMessages.map(_.significantDigits))
+        ),
+        optional(
+          durationProperty(METRICS_NODE_GRAPH_MESSAGES_INTERVAL),
+          cfg.advanced.metrics.node.flatMap(_.graphMessages.map(_.refreshInterval))
+        ),
+        optional(
+          durationProperty(METRICS_NODE_EXPIRE_AFTER),
+          cfg.advanced.metrics.node.map(_.expireAfter)
         ),
         durationProperty(HEARTBEAT_INTERVAL)(cfg.advanced.heartbeat.interval),
         durationProperty(HEARTBEAT_TIMEOUT)(cfg.advanced.heartbeat.timeout),
@@ -172,8 +253,8 @@ object CassandraDatastaxDriverModule {
         .build()
 
       ssl match {
-        case Some(ssl) => CqlSession.builder().withConfigLoader(loader).withSslContext(ssl).build()
-        case None      => CqlSession.builder().withConfigLoader(loader).build()
+        case Some(ssl) => customSessionBuilderOptions(CqlSession.builder().withConfigLoader(loader).withSslContext(ssl)).build()
+        case None      => customSessionBuilderOptions(CqlSession.builder().withConfigLoader(loader)).build()
       }
     }
 

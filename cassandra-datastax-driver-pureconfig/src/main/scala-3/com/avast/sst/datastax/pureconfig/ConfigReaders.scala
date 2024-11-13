@@ -49,9 +49,14 @@ trait ConfigReaders {
   implicit val cassandraDatastaxDriverProtocolConfigReader: ConfigReader[ProtocolConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverMetricsConfigReader: ConfigReader[MetricsConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverSessionConfigReader: ConfigReader[SessionConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverMetricsFactoryConfigReader: ConfigReader[MetricsFactoryConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverIdGeneratorConfigReader: ConfigReader[IdGeneratorConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverContinuousRequestsConfigReader: ConfigReader[ContinuousCqlRequests] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverGraphRequestsConfigReader: ConfigReader[GraphRequests] = ConfigReader.derived
   implicit val cassandraDatastaxDriverCqlRequestsConfigReader: ConfigReader[CqlRequestsConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverThrottlingConfigReader: ConfigReader[ThrottlingConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverDelayConfigReader: ConfigReader[DelayConfig] = ConfigReader.derived
+  implicit val cassandraDatastaxDriverGraphMessagesConfigReader: ConfigReader[GraphMessagesConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverNodeConfigReader: ConfigReader[NodeConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverCqlMessagesConfigReader: ConfigReader[CqlMessagesConfig] = ConfigReader.derived
   implicit val cassandraDatastaxDriverSocketConfigReader: ConfigReader[SocketConfig] = ConfigReader.derived
