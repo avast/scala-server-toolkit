@@ -23,7 +23,7 @@ object Dependencies {
   val jetbrainsAnnotations = "org.jetbrains" % "annotations" % "26.0.2"
   val jsr305 = "com.google.code.findbugs" % "jsr305" % "3.0.2"
   val kindProjector = "org.typelevel" % "kind-projector" % "0.13.3" cross CrossVersion.full
-  val lettuce = "io.lettuce" % "lettuce-core" % "6.5.5.RELEASE"
+  val lettuce = "io.lettuce" % "lettuce-core" % "6.6.0.RELEASE"
   val logbackClassic = "ch.qos.logback" % "logback-classic" % "1.5.18"
   val micrometerCore = "io.micrometer" % "micrometer-core" % Versions.micrometerCore
   val micrometerJmx = "io.micrometer" % "micrometer-registry-jmx" % Versions.micrometerJmx
