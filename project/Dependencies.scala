@@ -32,7 +32,7 @@ object Dependencies {
   val monixCatnap = "io.monix" %% "monix-catnap" % Versions.monix
   val monixEval = "io.monix" %% "monix-eval" % Versions.monix
   val monixExecution = "io.monix" %% "monix-execution" % Versions.monix
-  val postgresql = "org.postgresql" % "postgresql" % "42.7.5"
+  val postgresql = "org.postgresql" % "postgresql" % "42.7.8"
   val pureConfigCore = "com.github.pureconfig" %% "pureconfig-core" % Versions.pureConfig
   val pureConfigGeneric = "com.github.pureconfig" %% "pureconfig-generic" % Versions.pureConfig
   val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.13.0"
