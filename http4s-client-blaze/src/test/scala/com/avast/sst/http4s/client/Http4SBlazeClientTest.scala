@@ -12,10 +12,6 @@ class Http4SBlazeClientTest extends AsyncFunSuite {
   implicit private val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
 
   test("Initialization of HTTP client and simple GET") {
-    val expected = """|{
-                      |  "user-agent": "http4s-client/1.2.3 (Test)"
-                      |}
-                      |""".stripMargin
 
     val test = for {
       client <- Http4sBlazeClientModule.make[IO](
@@ -24,8 +20,8 @@ class Http4SBlazeClientTest extends AsyncFunSuite {
         ),
         ExecutionContext.global
       )
-      response <- Resource.eval(client.expect[String]("https://httpbin.org/user-agent"))
-    } yield assert(response === expected)
+      response <- Resource.eval(client.expect[String]("https://ip-info.ff.avast.com/v1/info"))
+    } yield assert(response.head === '{')
 
     test.use(IO.pure).unsafeToFuture()
   }

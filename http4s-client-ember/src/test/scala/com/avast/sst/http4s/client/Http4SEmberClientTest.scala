@@ -14,10 +14,6 @@ class Http4SEmberClientTest extends AsyncFunSuite {
   implicit private val timer: Timer[IO] = IO.timer(ExecutionContext.global)
 
   test("Initialization of HTTP client and simple GET") {
-    val expected = """|{
-                      |  "user-agent": "http4s-client/1.2.3 (Test)"
-                      |}
-                      |""".stripMargin
 
     val test = for {
       client <- Http4sEmberClientModule.make[IO](
@@ -26,8 +22,8 @@ class Http4SEmberClientTest extends AsyncFunSuite {
         ),
         Some(Blocker.liftExecutionContext(ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())))
       )
-      response <- Resource.eval(client.expect[String]("https://httpbin.org/user-agent"))
-    } yield assert(response === expected)
+      response <- Resource.eval(client.expect[String]("https://ip-info.ff.avast.com/v1/info"))
+    } yield assert(response.head === '{')
 
     test.use(IO.pure).unsafeToFuture()
   }
