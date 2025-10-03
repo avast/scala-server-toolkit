@@ -20,7 +20,7 @@ trait ConfigReaders {
     case "DEFAULT"         => DisconnectedBehavior.DEFAULT.asRight
     case "ACCEPT_COMMANDS" => DisconnectedBehavior.ACCEPT_COMMANDS.asRight
     case "REJECT_COMMANDS" => DisconnectedBehavior.REJECT_COMMANDS.asRight
-    case unknown =>
+    case unknown           =>
       CannotConvert(
         unknown,
         "DisconnectedBehavior",
