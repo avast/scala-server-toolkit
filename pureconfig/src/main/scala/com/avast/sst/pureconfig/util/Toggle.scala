@@ -90,7 +90,7 @@ object Toggle {
     override def empty: Toggle[A] = Disabled
     override def combine(x: Toggle[A], y: Toggle[A]): Toggle[A] =
       x match {
-        case Disabled => y
+        case Disabled   => y
         case Enabled(a) =>
           y match {
             case Disabled   => x
@@ -102,7 +102,7 @@ object Toggle {
   class ToggleOrder[A](implicit A: Order[A]) extends Order[Toggle[A]] {
     override def compare(x: Toggle[A], y: Toggle[A]): Int =
       x match {
-        case Disabled => if (y.isEmpty) 0 else -1
+        case Disabled   => if (y.isEmpty) 0 else -1
         case Enabled(a) =>
           y match {
             case Disabled   => 1
