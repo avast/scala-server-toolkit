@@ -20,7 +20,7 @@ class PureConfigModuleTest extends AnyFunSuite {
   private val sourceWithTypeError = ConfigSource.string("""|number = wrong_type
                                                            |string = "test"""".stripMargin)
 
-  private case class TestConfig(number: Int, string: String)
+  final private case class TestConfig(number: Int, string: String)
 
   implicit private val configReader: ConfigReader[TestConfig] = deriveReader[TestConfig]
 

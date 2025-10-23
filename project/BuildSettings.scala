@@ -13,8 +13,8 @@ object BuildSettings {
 
   private def isScala3(scalaVersion: String): Boolean = CrossVersion.partialVersion(scalaVersion).exists(_._1 == 3)
 
-  private val scala212 = "2.12.19"
-  private val scala213 = "2.13.13"
+  private val scala212 = "2.12.20"
+  private val scala213 = "2.13.17"
   private val scala3 = "3.3.7"
 
   lazy val common: Seq[Def.Setting[_]] = Seq(
