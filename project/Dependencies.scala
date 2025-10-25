@@ -41,7 +41,7 @@ object Dependencies {
   val scalaTest = "org.scalatest" %% "scalatest" % "3.2.19"
   val sentry = "io.sentry" % "sentry" % "8.24.0"
   val slf4jApi = "org.slf4j" % "slf4j-api" % "2.0.17"
-  val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.7.0"
+  val sslConfig = "com.typesafe" %% "ssl-config-core" % "0.7.1"
   val testContainersScalaScalaTest = "com.dimafeng" %% "testcontainers-scala-scalatest" % "0.43.0"
   val testContainersScalaKafka = "com.dimafeng" %% "testcontainers-scala-kafka" % "0.43.0"
   val zio = "dev.zio" %% "zio" % "1.0.18"
