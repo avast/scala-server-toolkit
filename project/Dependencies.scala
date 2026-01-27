@@ -24,7 +24,7 @@ object Dependencies {
   val jsr305 = "com.google.code.findbugs" % "jsr305" % "3.0.2"
   val kindProjector = "org.typelevel" % "kind-projector" % "0.13.4" cross CrossVersion.full
   val lettuce = "io.lettuce" % "lettuce-core" % "7.2.1.RELEASE"
-  val logbackClassic = "ch.qos.logback" % "logback-classic" % "1.5.25"
+  val logbackClassic = "ch.qos.logback" % "logback-classic" % "1.5.26"
   val micrometerCore = "io.micrometer" % "micrometer-core" % Versions.micrometerCore
   val micrometerJmx = "io.micrometer" % "micrometer-registry-jmx" % Versions.micrometerJmx
   val micrometerStatsD = "io.micrometer" % "micrometer-registry-statsd" % Versions.micrometerStatsD
