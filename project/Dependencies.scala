@@ -19,7 +19,7 @@ object Dependencies {
   val http4sDsl = "org.http4s" %% "http4s-dsl" % Versions.http4s
   val http4sPrometheus = "org.http4s" %% "http4s-prometheus-metrics" % Versions.http4s
   val http4sServer = "org.http4s" %% "http4s-server" % Versions.http4s
-  val jacksonDatabind = "com.fasterxml.jackson.core" % "jackson-databind" % "2.20.1"
+  val jacksonDatabind = "com.fasterxml.jackson.core" % "jackson-databind" % "2.20.2"
   val jetbrainsAnnotations = "org.jetbrains" % "annotations" % "26.0.2-1"
   val jsr305 = "com.google.code.findbugs" % "jsr305" % "3.0.2"
   val kindProjector = "org.typelevel" % "kind-projector" % "0.13.4" cross CrossVersion.full
