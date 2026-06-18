@@ -1,3 +1,5 @@
+# This project is no longer maintained.
+
 # Scala Server Toolkit
 
 ![Build Status](https://github.com/avast/scala-server-toolkit/workflows/Build/badge.svg)
